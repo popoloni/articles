@@ -537,11 +537,19 @@ def write_float_map(path: Path, floats: List[FloatBlock]) -> None:
             ])
 
 
+BOOK_BANNER = (
+    "> **From the book.** This article presents a condensed version of the "
+    "theses developed in *Non-Deterministic Spec-Driven Development: "
+    "Enterprise Edition* &mdash; available on Amazon.com and all local stores."
+)
+
+
 def build_markdown(title: str, subtitle: Optional[str],
                    abstract_md: str, body_md: str) -> str:
     parts: List[str] = [f"# {title}"]
     if subtitle:
         parts.append(f"### {subtitle}")
+    parts.append(BOOK_BANNER)
     if abstract_md.strip():
         parts.append("**Abstract**\n\n" + abstract_md.strip())
         parts.append("---")
