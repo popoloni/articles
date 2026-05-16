@@ -2,6 +2,8 @@
 
 ### Architectures, Methodologies, and Frameworks in AI-Assisted Engineering
 
+> **From the book.** This article presents a condensed version of the theses developed in *Non-Deterministic Spec-Driven Development: Enterprise Edition* &mdash; available on Amazon.com and all local stores.
+
 **Abstract**
 
 The proliferation of Large Language Models has driven the marginal cost of code generation toward zero, but the initial euphoria surrounding conversational AI coding assistants has been tempered by harsh empirical evidence. A December 2025 analysis by CodeRabbit of 470 open-source GitHub pull requests found that code co-authored by generative AI contained roughly 1.7 times more "major" issues than human-written code, with 75% more misconfigurations and 2.74× more security vulnerabilities. The prompt-and-pray workflow popularized as *vibe coding* by Andrej Karpathy in February 2025 ships working prototypes in hours yet collapses into unmaintainable sprawl within months—a phenomenon driven less by model weakness than by a structural limitation of transformer architectures known as *context rot*.
