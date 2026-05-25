@@ -1,6 +1,6 @@
 # The Economics of Generative AI: From Subsidy Crisis to Agentic Workflow Sustainability
 
-> **From the book.** This article presents a condensed version of the theses developed in *Non-Deterministic Spec-Driven Development: Enterprise Edition* &mdash; available on Amazon.com and all local stores.
+> **From the book.** This article is written by Enrico Papalini, the author of *Non-Deterministic Spec-Driven Development: Enterprise Edition* &mdash; available on Amazon.com and all local stores.
 
 **Abstract**
 
