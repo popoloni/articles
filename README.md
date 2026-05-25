@@ -4,11 +4,7 @@ Long-form technical articles published on [Medium](https://medium.com/), with th
 LaTeX source converted to Markdown and JPEG assets so the images render natively
 inside Medium posts.
 
-## Published
 
-| Date | Title | Link |
-|------|-------|------|
-| 2026-05-16 | The Evolution of Spec-Driven Development: Architectures, Methodologies, and Frameworks in AI-Assisted Engineering | [`Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/`](Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/medium.md) |
 
 ## Repository layout
 
