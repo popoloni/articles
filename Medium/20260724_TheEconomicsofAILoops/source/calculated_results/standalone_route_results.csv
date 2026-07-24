@@ -1,0 +1,5 @@
+route,model_or_infrastructure_usd,tools_environment_usd,automated_verification_usd,human_review_usd,expected_rework_and_risk_usd,candidate_cost_usd,acceptance_probability,cost_per_accepted_usd
+Local Qwen3.6-27B,0.8460016478342749,4.0,6.0,27.0,15.0,52.84600164783427,0.55,96.08363935969867
+Gemini 3.6 Flash,1.4700000000000002,4.0,6.0,25.200000000000003,12.0,48.67,0.65,74.87692307692308
+Claude Sonnet 5,1.96,4.0,6.0,22.5,10.0,44.46,0.72,61.75
+Claude Opus 4.8,4.9,4.0,6.0,19.8,8.0,42.7,0.8,53.375

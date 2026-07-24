@@ -1,0 +1,6 @@
+policy,expected_cost_usd
+Human only,720.0
+"One local attempt, then human",184.7
+"Two local attempts, then human",123.8375
+Local-local-Opus cascade,62.53175
+Cascade + blind fourth retry,65.25425000000001
