@@ -1,0 +1,8 @@
+provider,model,input_tokens,output_tokens,session_model_cost_usd
+Google,Gemini 3.5 Flash-Lite,800000.0,36000.0,0.32999999999999996
+Google,Gemini 3.6 Flash,800000.0,36000.0,1.4700000000000002
+Anthropic,Claude Sonnet 5,800000.0,36000.0,1.96
+OpenAI,GPT-5.6 Terra,800000.0,36000.0,2.54
+Anthropic,Claude Opus 4.8,800000.0,36000.0,4.9
+OpenAI,GPT-5.6 Sol,800000.0,36000.0,5.08
+Anthropic,Claude Fable 5,800000.0,36000.0,9.8

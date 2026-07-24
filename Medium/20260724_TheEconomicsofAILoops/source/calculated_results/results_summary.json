@@ -1,0 +1,202 @@
+{
+  "context": [
+    {
+      "policy": "Full history replay",
+      "turns": 40,
+      "input_tokens": 3060000.0,
+      "output_tokens": 36000.0,
+      "model_cost_usd": 6.48
+    },
+    {
+      "policy": "Compaction",
+      "turns": 40,
+      "input_tokens": 960000.0,
+      "output_tokens": 36000.0,
+      "model_cost_usd": 2.28
+    },
+    {
+      "policy": "Fresh context + external state",
+      "turns": 40,
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "model_cost_usd": 1.96
+    }
+  ],
+  "model_session_costs": [
+    {
+      "provider": "Google",
+      "model": "Gemini 3.5 Flash-Lite",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 0.32999999999999996
+    },
+    {
+      "provider": "Google",
+      "model": "Gemini 3.6 Flash",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 1.4700000000000002
+    },
+    {
+      "provider": "Anthropic",
+      "model": "Claude Sonnet 5",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 1.96
+    },
+    {
+      "provider": "OpenAI",
+      "model": "GPT-5.6 Terra",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 2.54
+    },
+    {
+      "provider": "Anthropic",
+      "model": "Claude Opus 4.8",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 4.9
+    },
+    {
+      "provider": "OpenAI",
+      "model": "GPT-5.6 Sol",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 5.08
+    },
+    {
+      "provider": "Anthropic",
+      "model": "Claude Fable 5",
+      "input_tokens": 800000.0,
+      "output_tokens": 36000.0,
+      "session_model_cost_usd": 9.8
+    }
+  ],
+  "standalone_routes": [
+    {
+      "route": "Local Qwen3.6-27B",
+      "model_or_infrastructure_usd": 0.8460016478342749,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_usd": 27.0,
+      "expected_rework_and_risk_usd": 15.0,
+      "candidate_cost_usd": 52.84600164783427,
+      "acceptance_probability": 0.55,
+      "cost_per_accepted_usd": 96.08363935969867
+    },
+    {
+      "route": "Gemini 3.6 Flash",
+      "model_or_infrastructure_usd": 1.4700000000000002,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_usd": 25.200000000000003,
+      "expected_rework_and_risk_usd": 12.0,
+      "candidate_cost_usd": 48.67,
+      "acceptance_probability": 0.65,
+      "cost_per_accepted_usd": 74.87692307692308
+    },
+    {
+      "route": "Claude Sonnet 5",
+      "model_or_infrastructure_usd": 1.96,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_usd": 22.5,
+      "expected_rework_and_risk_usd": 10.0,
+      "candidate_cost_usd": 44.46,
+      "acceptance_probability": 0.72,
+      "cost_per_accepted_usd": 61.75
+    },
+    {
+      "route": "Claude Opus 4.8",
+      "model_or_infrastructure_usd": 4.9,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_usd": 19.8,
+      "expected_rework_and_risk_usd": 8.0,
+      "candidate_cost_usd": 42.7,
+      "acceptance_probability": 0.8,
+      "cost_per_accepted_usd": 53.375
+    }
+  ],
+  "retry_policies": [
+    {
+      "policy": "Human only",
+      "expected_cost_usd": 720.0
+    },
+    {
+      "policy": "One local attempt, then human",
+      "expected_cost_usd": 184.7
+    },
+    {
+      "policy": "Two local attempts, then human",
+      "expected_cost_usd": 123.8375
+    },
+    {
+      "policy": "Local-local-Opus cascade",
+      "expected_cost_usd": 62.53175
+    },
+    {
+      "policy": "Cascade + blind fourth retry",
+      "expected_cost_usd": 65.25425000000001
+    }
+  ],
+  "break_even": [
+    {
+      "cloud_route": "Gemini 3.6 Flash",
+      "break_even_tasks_per_month": 67.97488169996674,
+      "cloud_model_cost_per_accepted_usd": 2.261538461538462
+    },
+    {
+      "cloud_route": "Claude Sonnet 5",
+      "break_even_tasks_per_month": 56.459463436784105,
+      "cloud_model_cost_per_accepted_usd": 2.7222222222222223
+    },
+    {
+      "cloud_route": "Claude Opus 4.8",
+      "break_even_tasks_per_month": 25.078589063702143,
+      "cloud_model_cost_per_accepted_usd": 6.125
+    }
+  ],
+  "capacity": [
+    {
+      "stage": "Specification",
+      "before": 85,
+      "after": 85
+    },
+    {
+      "stage": "Generation",
+      "before": 110,
+      "after": 110
+    },
+    {
+      "stage": "Verification",
+      "before": 52,
+      "after": 82
+    },
+    {
+      "stage": "Integration",
+      "before": 70,
+      "after": 70
+    },
+    {
+      "stage": "Release",
+      "before": 64,
+      "after": 64
+    },
+    {
+      "stage": "Operations",
+      "before": 75,
+      "after": 75
+    }
+  ],
+  "verification_leverage": 4.0,
+  "monte_carlo": {
+    "samples": 100000,
+    "mean_usd": 64.0147990395749,
+    "median_usd": 62.962607371821036,
+    "p10_usd": 53.96110496097519,
+    "p90_usd": 75.4126651109177,
+    "p95_usd": 79.7549285084211
+  }
+}

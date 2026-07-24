@@ -1,0 +1,111 @@
+{
+  "snapshot_date": "2026-07-24",
+  "task_cohort": {
+    "tasks_per_month": 100,
+    "human_hours_per_task": 8.0,
+    "human_hourly_cost_usd": 90.0,
+    "human_escalation_after_machine_usd": 350.0
+  },
+  "context": {
+    "static_tokens": 18000,
+    "new_history_tokens_per_turn": 3000,
+    "output_tokens_per_turn": 900,
+    "turns": 40,
+    "compacted_retained_tokens": 6000,
+    "fresh_external_state_tokens": 2000
+  },
+  "local_runtime": {
+    "hardware_purchase_usd": 2500.0,
+    "residual_value_usd": 0.0,
+    "economic_life_months": 36,
+    "maintenance_monthly_usd": 15.0,
+    "electricity_usd_per_kwh": 0.25,
+    "measured_energy_kwh": 0.0245,
+    "measured_duration_hours": 2.95,
+    "inference_hours_per_candidate": 0.75,
+    "measured_peak_watts": 54.04,
+    "measured_accepted_output_tokens": 186646,
+    "measured_accounted_token_events": 421025723
+  },
+  "standalone_routes": {
+    "Local Qwen3.6-27B": {
+      "acceptance_probability": 0.55,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_hours": 0.30,
+      "expected_rework_and_risk_usd": 15.0
+    },
+    "Gemini 3.6 Flash": {
+      "acceptance_probability": 0.65,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_hours": 0.28,
+      "expected_rework_and_risk_usd": 12.0
+    },
+    "Claude Sonnet 5": {
+      "acceptance_probability": 0.72,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_hours": 0.25,
+      "expected_rework_and_risk_usd": 10.0
+    },
+    "Claude Opus 4.8": {
+      "acceptance_probability": 0.80,
+      "tools_environment_usd": 4.0,
+      "automated_verification_usd": 6.0,
+      "human_review_hours": 0.22,
+      "expected_rework_and_risk_usd": 8.0
+    }
+  },
+  "cascade": {
+    "local_first": {
+      "automatic_attempt_cost_usd": 6.85,
+      "conditional_success_probability": 0.55,
+      "success_review_and_residual_risk_usd": 37.0
+    },
+    "local_verifier_guided_retry": {
+      "automatic_attempt_cost_usd": 7.85,
+      "conditional_success_probability": 0.45,
+      "success_review_and_residual_risk_usd": 32.0
+    },
+    "opus_escalation": {
+      "automatic_attempt_cost_usd": 13.90,
+      "conditional_success_probability": 0.80,
+      "success_review_and_residual_risk_usd": 23.0
+    },
+    "blind_fourth_retry": {
+      "automatic_attempt_cost_usd": 120.0,
+      "conditional_success_probability": 0.20,
+      "success_review_and_residual_risk_usd": 25.0
+    }
+  },
+  "pilot_counts_for_uncertainty": {
+    "local_first": {"successes": 55, "trials": 100},
+    "local_retry": {"successes": 18, "trials": 40},
+    "opus_escalation": {"successes": 24, "trials": 30}
+  },
+  "capacity": {
+    "before": {
+      "Specification": 85,
+      "Generation": 110,
+      "Verification": 52,
+      "Integration": 70,
+      "Release": 64,
+      "Operations": 75
+    },
+    "after_verifier_investment": {
+      "Specification": 85,
+      "Generation": 110,
+      "Verification": 82,
+      "Integration": 70,
+      "Release": 64,
+      "Operations": 75
+    }
+  },
+  "verification_investment": {
+    "quarterly_cost_usd": 20000,
+    "quarterly_rework_reduction_usd": 28000,
+    "quarterly_expected_failure_reduction_usd": 52000
+  },
+  "important_note": "Acceptance probabilities, review time, rework/risk allowances, and pilot counts are transparent scenario assumptions for the regulated-maintenance case. They are not public benchmark scores. Prices and local telemetry are sourced observations."
+}

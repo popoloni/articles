@@ -1,0 +1,8 @@
+provider,model,route_class,input_usd_per_mtok,cached_input_usd_per_mtok,output_usd_per_mtok,pricing_mode,effective_date,source_url,notes
+Google,Gemini 3.5 Flash-Lite,efficient cloud,0.30,0.03,2.50,standard,2026-07-24,https://ai.google.dev/gemini-api/docs/pricing,GA model optimized for high-volume agentic tasks
+Google,Gemini 3.6 Flash,balanced cloud,1.50,0.15,7.50,standard,2026-07-24,https://ai.google.dev/gemini-api/docs/pricing,Current Gemini 3.6 Flash paid-tier price
+Anthropic,Claude Sonnet 5,advanced cloud,2.00,0.20,10.00,standard promotional,2026-07-24,https://platform.claude.com/docs/en/about-claude/pricing,Introductory price through 2026-08-31; standard price becomes 3/15
+OpenAI,GPT-5.6 Terra,advanced cloud,2.50,0.25,15.00,standard short context,2026-07-24,https://developers.openai.com/api/docs/pricing,Long-context price is higher
+Anthropic,Claude Opus 4.8,frontier cloud,5.00,0.50,25.00,standard,2026-07-24,https://platform.claude.com/docs/en/about-claude/pricing,Regular API pricing
+OpenAI,GPT-5.6 Sol,frontier cloud,5.00,0.50,30.00,standard short context,2026-07-24,https://developers.openai.com/api/docs/pricing,Long-context price is higher
+Anthropic,Claude Fable 5,premium frontier,10.00,1.00,50.00,standard,2026-07-24,https://platform.claude.com/docs/en/about-claude/pricing,Premium model
