@@ -826,35 +826,6 @@ python -m pip freeze > python-lock.txt
 > cache-intensive Mac serving; MLX-LM and MLX Swift LM provide the native path when you need to own
 > the inference loop or application boundary.
 
-appendix
-
-# Companion files
-
-The bundle contains:
-
-- **`benchmark_mac_backends.py`**: Dependency-free concurrent streaming benchmark for Ollama native and OpenAI-compatible APIs.
-- **`mac_probe.sh`**: Captures hardware, memory pressure, swap, Metal/display information, and installed engine versions.
-- **`profiles/ollama_mac.sh`**: Applies a conservative persistent macOS Ollama profile with `launchctl`.
-- **`profiles/llamacpp_server.sh`**: Parameterized Metal server profile.
-- **`profiles/omlx_server.sh`**: Parameterized oMLX memory/cache/concurrency profile.
-- **`profiles/mlxlm_server.sh`**: Basic MLX-LM localhost server profile.
-- **`prompts.example.jsonl`**: Mixed short, long-prefix, coding, and structured-output prompts.
-
-# Version-capture template
-
-```bash
-mkdir -p run-metadata
-(date; sw_vers; uname -a) > run-metadata/system.txt
-./mac_probe.sh > run-metadata/probe.txt
-
-ollama --version > run-metadata/ollama.txt 2>&1 || true
-llama-server --version > run-metadata/llama.txt 2>&1 || true
-omlx --version > run-metadata/omlx.txt 2>&1 || true
-python -m pip freeze > run-metadata/python-freeze.txt 2>&1 || true
-
-shasum -a 256 "$MODEL_FILE" > run-metadata/model.sha256
-cp "$0" run-metadata/launch-command.sh
-```
 
 # References
 
