@@ -266,7 +266,7 @@ Creative systems still need exactness.
 
 One of my favourite images from the complete guide is the dated chronology, because it makes the whole experiment tangible. It turns an abstract claim about “ten days” into a visible execution trace.
 
-![The 15-25 August execution chronology from the companion guide.](../images/article_timeline_15_25_aug.png)
+![The 15-25 August execution chronology from the companion guide.](../images/article_timeline_15_25_aug.jpg)
 
 *The chronology from 15 to 25 August. Once the project state was externalized, each stage could start as soon as its dependencies were stable.*
 
@@ -352,7 +352,7 @@ A reproducibility claim deserves evidence.
 
 The guide also works better as a free companion than as a compressed appendix inside the article. Readers who want the story can stop here. Readers who want to reproduce the method can inspect the complete process.
 
-> **[Download the complete 72-page PDF guide](PUBLIC_PDF_URL)**
+> **[Download the complete 72-page PDF guide](../guide/Building_Successful_Book_Series_with_AI.pdf)**
 
 The link should point to a stable public file. I would use a direct, ungated download from a personal site, GitHub release, or public cloud folder.
 
