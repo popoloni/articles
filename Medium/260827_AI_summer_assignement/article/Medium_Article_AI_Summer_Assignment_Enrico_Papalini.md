@@ -20,7 +20,7 @@ The elapsed time was ten days.
 
 That number attracts attention. The process behind it is more useful.
 
-![The first six English covers of *The Nine Oaths* saga.](sandbox:/mnt/data/article_covers_cycle_1_2.jpg)
+![The first six English covers of *The Nine Oaths* saga.](../images/article_covers_cycle_1_2.jpg)
 
 *Cycle I and Cycle II of* The Nine Oaths. *The visual identity also became part of the publication workflow: final interiors, page counts, KDP covers, and metadata all had to converge.*
 
@@ -266,7 +266,7 @@ Creative systems still need exactness.
 
 One of my favourite images from the complete guide is the dated chronology, because it makes the whole experiment tangible. It turns an abstract claim about “ten days” into a visible execution trace.
 
-![The 15-25 August execution chronology from the companion guide.](sandbox:/mnt/data/article_timeline_15_25_aug.png)
+![The 15-25 August execution chronology from the companion guide.](../images/article_timeline_15_25_aug.png)
 
 *The chronology from 15 to 25 August. Once the project state was externalized, each stage could start as soon as its dependencies were stable.*
 
@@ -364,7 +364,7 @@ For readers who are curious about the actual books, the saga is already live on 
 
 And since every long project deserves a final image, here is the cover of Book VII, *The Last Oath*.
 
-![Cover of *The Last Oath*, Book VII of *The Nine Oaths*.](sandbox:/mnt/data/article_cover_the_last_oath.jpg)
+![Cover of *The Last Oath*, Book VII of *The Nine Oaths*.](../images/article_cover_the_last_oath.jpg)
 
 *Book VII closes the publication arc and makes the summer assignment feel satisfyingly concrete: the books exist, the editions exist, and the workflow now has a real published endpoint.*
 
