@@ -1,0 +1,2304 @@
+\documentclass[11pt,oneside,openany]{book}
+\usepackage[a4paper,top=24mm,bottom=25mm,inner=27mm,outer=24mm,headheight=23pt]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif}
+\setsansfont{Noto Sans}
+\setmonofont{DejaVu Sans Mono}[Scale=0.82]
+\usepackage{microtype}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage{xcolor}
+\definecolor{guideNavy}{HTML}{18324A}
+\definecolor{guideGold}{HTML}{B78B42}
+\definecolor{guideTeal}{HTML}{2F6F6D}
+\definecolor{guideRust}{HTML}{9B5B48}
+\definecolor{guideCream}{HTML}{F7F3EB}
+\definecolor{guideInk}{HTML}{26323A}
+\definecolor{guideGray}{HTML}{66717A}
+\color{guideInk}
+\usepackage{graphicx}
+\usepackage{booktabs,longtable,array,tabularx,calc}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=5mm,itemsep=2pt,topsep=4pt,label=\textcolor{guideGold}{\small\textbullet}}
+\setlist[enumerate]{leftmargin=7mm,itemsep=2pt,topsep=4pt,label=\textcolor{guideNavy}{\bfseries\arabic*.}}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,shadows.blur,shapes.geometric}
+\tikzset{
+  flowbox/.style={draw=guideNavy!78, rounded corners=3pt, fill=guideCream,
+    minimum height=10.5mm, text width=19mm, inner xsep=0.9mm, inner ysep=1.8mm,
+    align=center, font=\sffamily\footnotesize},
+  flowarrow/.style={-{Stealth[length=1.9mm,width=1.55mm]}, line width=0.8pt,
+    draw=guideGold, shorten <=1.4pt, shorten >=1.4pt}
+}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{caption}
+\captionsetup{font=small,labelfont={sf,bf,color=guideNavy},textfont={it,color=guideGray},skip=5pt}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=guideNavy,urlcolor=guideTeal,citecolor=guideRust,pdfauthor={OpenAI-assisted editorial workflow},pdftitle={Building a Successful Book Series with AI}}
+\usepackage{bookmark}
+\newcommand{\passthrough}[1]{#1}
+\usepackage{setspace}
+\setstretch{1.04}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4.5pt}
+\emergencystretch=2em
+
+% Chapter and section style
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\color{guideNavy}}
+  {\filleft\fontsize{44}{46}\selectfont\bfseries\thechapter}
+  {-2pt}
+  {\titlerule[1.3pt]\vspace{5pt}\fontsize{21}{24}\selectfont\bfseries\raggedright}
+\titlespacing*{\chapter}{0pt}{-12pt}{20pt}
+\titleformat{\section}{\Large\sffamily\bfseries\color{guideTeal}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{18pt}{6pt}
+\titleformat{\subsection}{\large\sffamily\bfseries\color{guideRust}}{}{0pt}{}
+
+% Part page
+\titleformat{\part}[display]
+  {\centering\sffamily\bfseries\color{guideNavy}}
+  {\color{guideGold}\Large PART \thepart}
+  {10pt}
+  {\Huge}
+\titlespacing*{\part}{0pt}{25mm}{12mm}
+
+% Header/footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{guideGray} Building a Successful Book Series with AI}
+\fancyhead[R]{}
+\fancyfoot[C]{\sffamily\small\color{guideGray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{guideGold}\leaders\hrule height \headrulewidth\hfill}}
+
+% Boxes and code
+\newtcolorbox{insightbox}[1][]{enhanced,breakable,colback=guideCream,colframe=guideGold,boxrule=0.7pt,arc=2.5mm,left=4mm,right=4mm,top=3mm,bottom=3mm,#1}
+\lstset{basicstyle=\ttfamily\footnotesize,backgroundcolor=\color{guideCream},frame=single,rulecolor=\color{guideNavy!30},frameround=tttt,breaklines=true,columns=fullflexible,xleftmargin=2mm,xrightmargin=2mm,aboveskip=7pt,belowskip=7pt,showstringspaces=false}
+\renewenvironment{quote}{\begin{insightbox}\itshape}{\end{insightbox}}
+
+% Tables
+\renewcommand{\arraystretch}{1.18}
+\setlength{\tabcolsep}{5pt}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\begin{document}
+\frontmatter
+\begin{titlepage}
+  \pagecolor{guideCream}
+  \centering
+  \vspace*{24mm}
+  {\sffamily\bfseries\fontsize{30}{34}\selectfont\color{guideNavy} Building a Successful\par Book Series with AI\par}
+  \vspace{7mm}
+  {\sffamily\Large\color{guideTeal} A Generalizable Workflow Anchored in the Ten-Day\par \textit{Nine Oaths} Case Study\par}
+  \vfill
+  \begin{tikzpicture}
+    \draw[guideGold, line width=1.1pt] (-5,0)--(5,0);
+    \node[font=\sffamily\small, text=guideGray, align=center] at (0,-0.7) {Concept \textbullet{} Canon \textbullet{} Drafting \textbullet{} Review \textbullet{} Translation \textbullet{} Production \textbullet{} KDP};
+  \end{tikzpicture}
+  \vfill
+  {\sffamily\small\color{guideGray} Case-study workflow documented from the project artifacts\par}
+  \vspace{10mm}
+\end{titlepage}
+\nopagecolor
+\tableofcontents
+\clearpage
+\mainmatter
+\chapter*{Executive Summary}\addcontentsline{toc}{chapter}{Executive Summary}\markboth{Executive Summary}{Executive Summary}\label{executive-summary}
+
+A long AI-assisted book series becomes manageable when the project is treated as a \textbf{controlled publishing workflow}, not as one enormous prompt.
+
+The \emph{Nine Oaths} case study is unusually useful because the complete path, from the initial historical reference and series architecture to seven novels, bilingual editions, KDP print files, covers, metadata and EPUBs, was executed in approximately \textbf{ten elapsed days} and left a detailed artifact trail.
+
+The transferable method is built on six ideas:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Externalize the project state.} Keep canon, chapters, logs, checkpoints and production masters in persistent files, while treating conversational memory as temporary working context.
+\item
+  \textbf{Separate semantic work from exact work.} Let the LLM reason about story, voice, continuity and ambiguity; use scripts and tools for counts, ordering, hashes, PDF structure and geometry.
+\item
+  \textbf{Work in controlled units.} Draft, review, translate and approve chapters individually before assembling the book.
+\item
+  \textbf{Use independent review.} A principal LLM can act as writer while a different LLM reviews the output against the same stored evidence.
+\item
+  \textbf{Treat translation as another editorial audit.} A close comparison between source and target can uncover duplicated scenes, chronology defects, custody errors and other problems missed during drafting.
+\item
+  \textbf{Promote state deliberately.} A completed chapter, book or translation becomes authoritative only after its checks pass and the relevant canon is updated.
+\end{enumerate}
+
+The workflow can be summarized as:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Historical / creative input};
+\node[flowbox] (n1) at (2.75,0) {Series canon};
+\node[flowbox] (n2) at (5.50,0) {Book units};
+\node[flowbox] (n3) at (8.25,0) {Draft + review};
+\node[flowbox] (n4) at (11.00,0) {Book master};
+\node[flowbox] (n5) at (11.00,-2.20) {Canon update};
+\node[flowbox] (n6) at (8.25,-2.20) {Translation + QA};
+\node[flowbox] (n7) at (5.50,-2.20) {Bilingual masters};
+\node[flowbox] (n8) at (2.75,-2.20) {Production};
+\node[flowbox] (n9) at (0,-2.20) {Publication};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.east) -- (n4.west);
+\draw[flowarrow] (n4.south) -- (n5.north);
+\draw[flowarrow] (n5.west) -- (n6.east);
+\draw[flowarrow] (n6.west) -- (n7.east);
+\draw[flowarrow] (n7.west) -- (n8.east);
+\draw[flowarrow] (n8.west) -- (n9.east);
+\end{tikzpicture}
+\caption{The end-to-end publishing workflow, with every stage producing a controlled state.}
+\end{figure}
+
+The case study used Italian as the source language and English as the target language. The same method applies to other language pairs.
+
+\part{The Operating Model}
+
+\chapter{Think in layers, not in prompts}\label{think-in-layers-not-in-prompts}
+
+A robust AI publishing project has several distinct layers.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Layer
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Responsibility
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Human author/editor} & creative direction, acceptance/rejection of changes, canon decisions, publication approval \\
+\textbf{Principal LLM} & drafting, revision, comparison, diagnosis, planning and orchestration \\
+\textbf{Independent reviewer LLM} & challenges the writer's output against canon and the requested editorial objective \\
+\textbf{Retrieval/tools} & locate prior files, inspect PDFs/images, fetch external evidence where needed \\
+\textbf{Development environment} & run Python/scripts and deterministic validation/build operations \\
+\textbf{Persistent Library} & retain canon, masters, logs, checkpoints, ZIPs, scripts and production assets \\
+\end{longtable}
+
+Each layer has a clear responsibility:
+
+\begin{quote}
+\textbf{The model reasons. Tools execute. Library persists. The author decides.}
+\end{quote}
+
+For a long series, this architecture matters more than any single prompt.
+
+\section{\texorpdfstring{\emph{The Nine Oaths} example}{The Nine Oaths example}}\label{the-nine-oaths-example}
+
+GPT-5.6 Sol was used as the principal reasoning/orchestration layer inside ChatGPT. The project also made extensive use of persistent Library files and a development environment for deterministic work.
+
+That combination made it possible to move repeatedly through a short cycle:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Retrieve state};
+\node[flowbox] (n1) at (2.80,0) {Reason};
+\node[flowbox] (n2) at (5.60,0) {Produce one change};
+\node[flowbox] (n3) at (8.40,0) {Validate};
+\node[flowbox] (n4) at (11.20,0) {Save artifact};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.east) -- (n4.west);
+\end{tikzpicture}
+\caption{The short iteration cycle enabled by persistent artifacts and tools.}
+\end{figure}
+
+so the current series state remains available without rebuilding it from chat history each time.
+
+\chapter{Use Library as external project memory}
+
+A seven-book saga produces far more state than should live in one active prompt.
+
+Persistent storage lets the project retain:
+
+\begin{itemize}
+\tightlist
+\item
+  canonical TOCs and character bibles;
+\item
+  individual chapter files;
+\item
+  revision notes;
+\item
+  concatenated masters;
+\item
+  translation source locks;
+\item
+  decision logs;
+\item
+  correction registers;
+\item
+  progress trackers;
+\item
+  QA reports;
+\item
+  scripts and manifests;
+\item
+  PDFs, images, covers and EPUBs.
+\end{itemize}
+
+Its practical advantage is \textbf{targeted retrieval}.
+
+Most tasks need only a small slice of the seven-novel corpus at any one time. A chapter-level task may require only:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideTeal} Current unit\par\vspace{1mm}\normalfont\rmfamily The chapter or artifact being changed.};
+\node[card, fill=guideNavy!8, draw=guideNavy!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideNavy} Canon excerpt\par\vspace{1mm}\normalfont\rmfamily Only the rules and facts relevant to the current decision.};
+\node[card, fill=guideGold!8, draw=guideGold!65] (c2) at (0.0,-2.6) {\sffamily\bfseries\color{guideGold} Previous state\par\vspace{1mm}\normalfont\rmfamily The immediately preceding narrative or production state.};
+\node[card, fill=guideRust!8, draw=guideRust!65] (c3) at (7.8,-2.6) {\sffamily\bfseries\color{guideRust} Voice and history\par\vspace{1mm}\normalfont\rmfamily Character voice rules and any relevant correction record.};
+\end{tikzpicture}
+\caption{Task-specific retrieval keeps the active context compact while the full project remains available.}
+\end{figure}
+
+That reduces context noise while preserving access to the complete project archive.
+
+\section{Working rule}\label{working-rule}
+
+\begin{quote}
+\textbf{Give the model reliable access to the project state through persistent artifacts and targeted retrieval.}
+\end{quote}
+
+Library preserves the project history, including drafts, superseded masters and final files. Canonical authority therefore comes from naming, source locks, canon packages, manifests and documented precedence.
+
+\chapter{Use the development environment for exactness}
+
+Many publishing checks have objective answers.
+
+Examples include:
+
+\begin{itemize}
+\tightlist
+\item
+  Are there exactly 20 narrative units?
+\item
+  Are chapters concatenated in the correct order?
+\item
+  Does a ZIP contain every required file?
+\item
+  Do extracted source units reproduce the master?
+\item
+  What is the SHA-256 of the source?
+\item
+  Are two long paragraphs byte-for-byte identical?
+\item
+  Does the PDF contain embedded attachments?
+\item
+  What is the page size?
+\item
+  What spine width follows from a final page count?
+\end{itemize}
+
+These should not be left to prose reasoning alone.
+
+A useful division of labour is:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideTeal} LLM judgment\par\vspace{1mm}\normalfont\rmfamily Meaning, continuity, voice, ambiguity, editorial diagnosis.};
+\node[card, fill=guideGold!8, draw=guideGold!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideGold} Deterministic execution\par\vspace{1mm}\normalfont\rmfamily Counts, ordering, hashes, duplicate strings, PDF structure, geometry and package integrity.};
+\end{tikzpicture}
+\caption{Semantic judgment and deterministic verification complement each other.}
+\end{figure}
+
+\section{\texorpdfstring{\emph{The Nine Oaths} example}{The Nine Oaths example}}\label{the-nine-oaths-example-1}
+
+The project preserved scripts and deterministic artifacts such as:
+
+\begin{lstlisting}
+kdp_cover_builder_parametric.py
+build_series_6x9_pagecount.py
+typesetting methodologies
+SHA-256 manifests
+PDF QA reports
+KDP preflight reports
+\end{lstlisting}
+
+This made production reproducible and reduced the amount of manual checking required during the ten-day sprint.
+
+\part{Build the Series Before You Draft It}
+
+\chapter{Start with a small canon backbone}\label{start-with-a-small-canon-backbone}
+
+Begin with a small set of management files and expand it only when the project requires more control.
+
+Start with the smallest persistent structure capable of controlling the work.
+
+For \emph{The Nine Oaths}, the practical backbone became:
+
+\begin{lstlisting}
+toc.md
+toc_ita.md
+characters.md
+characters_ita.md
+historical/reference sources
+\end{lstlisting}
+
+Later canonical versions became:
+
+\begin{lstlisting}
+toc_canon_saga_final.md
+toc_ita_canon_saga_final.md
+characters_canon_saga_final.md
+characters_ita_canon_saga_final.md
+\end{lstlisting}
+
+The TOC became the structural blueprint for the series. It eventually carried:
+
+\begin{itemize}
+\tightlist
+\item
+  the multi-book and cycle architecture;
+\item
+  the promise of each volume;
+\item
+  historical and continuity assumptions;
+\item
+  speculative rules;
+\item
+  chronology and ages;
+\item
+  book functions;
+\item
+  chapter summaries and key scenes;
+\item
+  thematic progression;
+\item
+  character presence;
+\item
+  relationship planning;
+\item
+  set pieces;
+\item
+  locked narrative states;
+\item
+  later overlays replacing obsolete assumptions.
+\end{itemize}
+
+The character bible carried:
+
+\begin{itemize}
+\tightlist
+\item
+  the ensemble's dramatic question;
+\item
+  recurring characters and roles;
+\item
+  relationships;
+\item
+  long arcs;
+\item
+  knowledge and secrets;
+\item
+  voice/gesture/focalization fingerprints;
+\item
+  deaths, survivals and institutional states.
+\end{itemize}
+
+\section{Keep the canon lean}\label{keep-the-canon-lean}
+
+\begin{quote}
+\textbf{Add auxiliary artifacts only when a concrete continuity, editorial or production problem requires them.}
+\end{quote}
+
+This keeps governance lean and useful.
+
+\chapter{Use historical sources as a matrix, not a code key}
+
+A foundational historical source can play several roles, and each should have a clearly defined authority.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideGold!8, draw=guideGold!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideGold} Historical source\par\vspace{1mm}\normalfont\rmfamily Facts, places, institutions, political pressures and narrative forms worth studying.};
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideTeal} Fictional canon\par\vspace{1mm}\normalfont\rmfamily Defines what actually happens in the novels and owns invented characters and institutions.};
+\node[card, fill=guideRust!8, draw=guideRust!65] (c2) at (0.0,-2.6) {\sffamily\bfseries\color{guideRust} Translation / style\par\vspace{1mm}\normalfont\rmfamily Recovers restraint and structural cadence while keeping modern target-language prose.};
+\end{tikzpicture}
+\caption{Separate historical authority, fictional authority and stylistic influence.}
+\end{figure}
+
+\section{\texorpdfstring{\emph{The Nine Oaths}: the role of \emph{The Orkneyinga Saga}}{The Nine Oaths: the role of The Orkneyinga Saga}}\label{the-nine-oaths-the-role-of-the-orkneyinga-saga}
+
+The first major reference artifact was the 1873 edition of \emph{The Orkneyinga Saga}, translated by Jón A. Hjaltalin and Gilbert Goudie and edited by Joseph Anderson.
+
+Its role was broader than inspiration.
+
+It provided a historical frame involving:
+
+\begin{itemize}
+\tightlist
+\item
+  Orkney and Caithness;
+\item
+  the earldom and its political relationships;
+\item
+  Thing/assembly traditions;
+\item
+  Birsay, Egilsay and Kirkwall;
+\item
+  Magnus, Hákon, Lífólf and Rögnvaldr;
+\item
+  ecclesiastical and genealogical history;
+\item
+  monuments, places and northern routes.
+\end{itemize}
+
+It also provided a \textbf{narrative grammar}: people are known through deeds, kinship, reputation, remembered speech and consequences. Skaldic song and oral transmission are part of the historical material itself.
+
+That model resonates throughout the fictional saga:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Act};
+\node[flowbox] (n1) at (2.80,0) {Reputation};
+\node[flowbox] (n2) at (5.60,0) {Retelling};
+\node[flowbox] (n3) at (8.40,0) {Memory};
+\node[flowbox] (n4) at (11.20,0) {Political consequence};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.east) -- (n4.west);
+\end{tikzpicture}
+\caption{A saga-like chain from deed to public consequence.}
+\end{figure}
+
+The textual history of the \emph{Orkneyinga Saga} became equally important. The source survives through copies, excerpts, incorporation into other texts and later compilations. A topographical detail may be strong while a chronology is uncertain; a genealogy may preserve memory while also serving political claims.
+
+That made the historical source a real-world analogue for one of the fictional series' central problems: \textbf{how do we know where a story comes from, and how much authority should we give it?}
+
+\section{Preserve the boundary between history and fiction}\label{preserve-the-boundary-between-history-and-fiction}
+
+The final canon explicitly prevents one-to-one identification:
+
+\begin{itemize}
+\tightlist
+\item
+  Leif remains a fictional character whose parallels with Magnus are structural and thematic;
+\item
+  Sigurd remains distinct from Hákon, despite deliberate historical echoes;
+\item
+  the fictional dynasty occupies its own alternate historical office sequence;
+\item
+  the House of Tides, Custodians, Nine Marks, Echoes and core fictional cast remain inventions.
+\end{itemize}
+
+A useful transformation model is:
+
+\begin{lstlisting}
+real place + invented event
+real institution + invented procedure
+historical pressure + invented choice
+historical pattern + new dramatic causation
+\end{lstlisting}
+
+\section{The source's role changes over time}\label{the-sources-role-changes-over-time}
+
+During conception, \emph{The Orkneyinga Saga} was a historical/narrative anchor.
+
+During drafting, the fictional canon became authoritative for the novels.
+
+During the final historiographical appendix, the 1873 edition was cited explicitly, especially its Preface, Introduction, Magnus/Hákon material, chronological tables and apparatus, while modern archaeological and historical sources supplemented it.
+
+During English translation, it was placed \textbf{below the finished narrative and canon in the authority hierarchy}. It remained useful for structure and restraint, but not as a model for nineteenth-century English grammar.
+
+That is the generalizable lesson:
+
+\begin{quote}
+\textbf{A foundational source can shape the world without owning the fiction.}
+
+\end{quote}
+
+\chapter{Design escalation across the series, not only within each book}
+
+A long series needs a question that develops as the characters develop.
+
+In \emph{The Nine Oaths}, the thematic progression moved approximately through:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {What happened?};
+\node[flowbox] (n1) at (2.80,0) {Who hid the answer?};
+\node[flowbox] (n2) at (5.60,0) {Why are secrets created?};
+\node[flowbox] (n3) at (8.40,0) {Are sources independent?};
+\node[flowbox] (n4) at (8.40,-2.20) {Can truth be irresponsible?};
+\node[flowbox] (n5) at (5.60,-2.20) {Who owns the dead?};
+\node[flowbox] (n6) at (2.80,-2.20) {Who owns history?};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.south) -- (n4.north);
+\draw[flowarrow] (n4.west) -- (n5.east);
+\draw[flowarrow] (n5.west) -- (n6.east);
+\end{tikzpicture}
+\caption{The question ladder deepens the same central problem across seven books.}
+\end{figure}
+
+The stakes deepen because each book asks a harder version of the same underlying question.
+
+A later book can become more political, philosophical or institutional because it is asking a more difficult form of the original question.
+
+\section{Reusable architecture prompt}\label{reusable-architecture-prompt}
+
+\begin{lstlisting}
+Design the complete structural TOC for a multi-book series.
+
+For the whole series include:
+- cycles or major phases;
+- the core promise of each book;
+- historical/continuity assumptions;
+- binding speculative rules;
+- relative chronology and protagonist ages;
+- the thematic question that changes from book to book;
+- relationship evolution;
+- character presence by book;
+- major set pieces;
+- structural drafting rules.
+
+For each book include:
+- its function in the series;
+- prologue/chapters/epilogue as appropriate;
+- a summary for every unit;
+- key scenes;
+- what closes in this book;
+- what must remain unresolved;
+- the end-state handed to the next volume.
+
+When completed narrative later contradicts development planning,
+promote the realized narrative state into canon.
+\end{lstlisting}
+
+\chapter{Design characters as competing answers to the same problem}\label{design-characters-as-competing-answers-to-the-same-problem}
+
+A character bible becomes more powerful when each important character embodies a different response to the series' central question.
+
+In \emph{The Nine Oaths}, different characters understand truth as:
+
+\begin{itemize}
+\tightlist
+\item
+  what actually happened;
+\item
+  what a responsible leader can act upon;
+\item
+  information whose consequences can be understood;
+\item
+  what survives in memory;
+\item
+  what people can be persuaded to believe;
+\item
+  what survives verification;
+\item
+  what can be defended before one's conscience;
+\item
+  what preserves order.
+\end{itemize}
+
+That creates durable conflict while preserving moral complexity.
+
+\section{Track long-term voice as well as plot}\label{track-long-term-voice-as-well-as-plot}
+
+The later character canon added a stylistic fingerprint for recurring characters:
+
+\begin{itemize}
+\tightlist
+\item
+  voice;
+\item
+  dialogue rhythm;
+\item
+  body/gesture;
+\item
+  humour;
+\item
+  focalization;
+\item
+  traits to avoid;
+\item
+  how the voice changes with age and power.
+\end{itemize}
+
+A long series needs more than a generic shift toward older, more serious dialogue. Individual voices should mature without converging.
+
+\section{Reusable character-bible prompt}\label{reusable-character-bible-prompt}
+
+\begin{lstlisting}
+Build the canonical character bible for the series.
+
+For the ensemble:
+- define the central dramatic question;
+- explain how each major character answers it differently;
+- map the emotional architecture of the core group;
+- map the key relationships across books.
+
+For each recurring character record:
+- narrative function;
+- starting age/status;
+- external impression;
+- primary wound;
+- wants and fears;
+- long-term thematic axis;
+- secrets/asymmetric knowledge where relevant;
+- evolution by book;
+- key relationships;
+- stylistic fingerprint:
+ voice, dialogue rhythm, body/gesture, humour,
+ focalization, traits to avoid, age/power evolution.
+
+After each completed book, replace obsolete planning
+with the realized character state.
+\end{lstlisting}
+
+\part{Draft, Review, Promote}
+
+\chapter{Work in separate narrative units}\label{work-in-separate-narrative-units}
+
+For each novel, keep the narrative units independently addressable.
+
+The \emph{Nine Oaths} pattern was broadly:
+
+\begin{lstlisting}
+00_prologue
+01_chapter_1
+...
+18_chapter_18
+19_epilogue
+
+98_complete_novel
+97_revision_notes
+99_index / manifest
+\end{lstlisting}
+
+The filenames changed by volume while the operational principle remained stable.
+
+\section{Operational advantage}\label{operational-advantage}
+
+A reliable sequence is:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Revise units};
+\node[flowbox] (n1) at (3.10,0) {Validate units};
+\node[flowbox] (n2) at (6.20,0) {Concatenate approved units};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\end{tikzpicture}
+\caption{Unit-first revision prevents a large master from becoming the only editable object.}
+\end{figure}
+
+and avoids repeated rewrites of one large manuscript.
+
+Book I's Structural Balance report and Book II's Final Editorial report both record this unit-first approach.
+
+\chapter{Use targeted revision passes, not a universal ladder}
+
+Different books have different problems.
+
+The seven case-study books followed different sequences:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Book
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Case-study revision/build sequence before translation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{I} & draft \ensuremath{\rightarrow} second draft \ensuremath{\rightarrow} Clean Second Draft \ensuremath{\rightarrow} Clean Second Draft v2 \ensuremath{\rightarrow} prose revision \ensuremath{\rightarrow} Balance Pass \ensuremath{\rightarrow} mount cleanup \ensuremath{\rightarrow} pageflow \\
+\textbf{II} & draft \ensuremath{\rightarrow} second draft \ensuremath{\rightarrow} clean/balance \ensuremath{\rightarrow} Final Editorial \ensuremath{\rightarrow} mount cleanup \ensuremath{\rightarrow} pageflow \\
+\textbf{III} & draft \ensuremath{\rightarrow} second draft \ensuremath{\rightarrow} refined/expanded \ensuremath{\rightarrow} Final Polish \ensuremath{\rightarrow} pageflow \\
+\textbf{IV} & lean draft \ensuremath{\rightarrow} second draft \ensuremath{\rightarrow} refined/expanded \ensuremath{\rightarrow} Final Editorial \ensuremath{\rightarrow} Final Polish v2 \ensuremath{\rightarrow} typesetting master \\
+\textbf{V} & lean draft \ensuremath{\rightarrow} pageflow \ensuremath{\rightarrow} Final Polish v1 \ensuremath{\rightarrow} Final Polish v2 \ensuremath{\rightarrow} typesetting master \\
+\textbf{VI} & lean draft \ensuremath{\rightarrow} pageflow v1 \ensuremath{\rightarrow} pageflow v2 \ensuremath{\rightarrow} typesetting master \\
+\textbf{VII} & lean draft \ensuremath{\rightarrow} pageflow \ensuremath{\rightarrow} Final Polish v1 \ensuremath{\rightarrow} v2 \ensuremath{\rightarrow} v3 + historiographical appendix \ensuremath{\rightarrow} typesetting package \\
+\end{longtable}
+
+Choose each pass for the problem it needs to solve.
+
+\section{Example: Book I Balance Pass}\label{example-book-i-balance-pass}
+
+The Book I pass reduced the manuscript by about 3.5\%. Its focus was structural balance, with cuts made only where they removed friction or redundancy. It targeted:
+
+\begin{itemize}
+\tightlist
+\item
+  redundant/overlapping scenes;
+\item
+  protagonist agency;
+\item
+  Echo-rule integrity;
+\item
+  chapter seams;
+\item
+  epilogue progression;
+\item
+  concatenation residue;
+\item
+  exact duplicate blocks.
+\end{itemize}
+
+\section{Example: Book II Final Editorial}\label{example-book-ii-final-editorial}
+
+Book II reduced more because alternative variants of the same scenes remained in the manuscript. The pass also targeted:
+
+\begin{itemize}
+\tightlist
+\item
+  voice differentiation;
+\item
+  physical tension;
+\item
+  stricter Echo handling;
+\item
+  didactic/metanarrative residue;
+\item
+  duplicate Echo-test, succession-offer and departure variants.
+\end{itemize}
+
+\section{Revision rule}\label{revision-rule}
+
+\begin{quote}
+\textbf{Name the problem. Run the pass that solves it. Stop reopening dimensions that are already closed.}
+
+\end{quote}
+
+\chapter{Separate writer and reviewer roles}
+
+Independent review makes a fast workflow safer by separating generation from evaluation.
+
+The case study used:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideTeal} Writer LLM\par\vspace{1mm}\normalfont\rmfamily Generates and revises the current artifact.};
+\node[card, fill=guideGold!8, draw=guideGold!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideGold} Reviewer LLM\par\vspace{1mm}\normalfont\rmfamily Challenges the output against the same evidence.};
+\node[card, fill=guideRust!8, draw=guideRust!65] (c2) at (0.0,-2.6) {\sffamily\bfseries\color{guideRust} Human author\par\vspace{1mm}\normalfont\rmfamily Accepts changes, closes questions and decides canon.};
+\end{tikzpicture}
+\caption{Writer, reviewer and author have different responsibilities.}
+\end{figure}
+
+Both models should work from the same stored evidence:
+
+\begin{lstlisting}
+canonical TOC
+character bible
+current unit
+preceding state
+relevant decision/correction history
+\end{lstlisting}
+
+The reviewer should identify concrete defects and minimum repairs while leaving alternative plot design to the author.
+
+\section{Reusable reviewer prompt}\label{reusable-reviewer-prompt}
+
+\begin{lstlisting}
+Act as the independent reviewer of the writer model's current output.
+
+Use the current canonical TOC, character bible,
+preceding/following state and the requested revision objective.
+
+Check for:
+- duplicated or overlapping scenes;
+- chronology;
+- character presence;
+- object custody;
+- knowledge/certainty drift;
+- required character agency;
+- voice;
+- continuity;
+- production or outline residue.
+
+Distinguish an objective defect from intentional ambiguity.
+Recommend the minimum effective change.
+Keep the existing plot unless the evidence identifies a concrete defect that requires structural change.
+\end{lstlisting}
+
+\chapter{Promote completed narrative into canon}\label{promote-completed-narrative-into-canon}
+
+An outline records intent; a completed, approved book records the realized story.
+
+The project repeatedly created updated canon packages after major milestones:
+
+\begin{lstlisting}
+canon after Book I
+canon after Book II
+Cycle I canon lock
+canon after Book IV
+Book V canon update
+Book VI canon update
+final Book VII saga canon
+\end{lstlisting}
+
+The updates replaced development-state descriptions with realized narrative and repaired future plans that would otherwise repeat or contradict completed events.
+
+\section{What to update}\label{what-to-update}
+
+After a book is locked, synchronize:
+
+\begin{itemize}
+\tightlist
+\item
+  chapter titles/order;
+\item
+  character end-states;
+\item
+  relationships;
+\item
+  knowledge asymmetries;
+\item
+  deaths/survivals/offices;
+\item
+  institutional state;
+\item
+  continuing objects/secrets;
+\item
+  future scenes that now duplicate a completed discovery.
+\end{itemize}
+
+If working bilingually, keep the language-pair canon structurally aligned.
+
+\section{Source-lock rule}\label{source-lock-rule}
+
+\begin{quote}
+\textbf{Planning may guide the book; the completed book must govern future planning.}
+\end{quote}
+
+\part{Freeze the Source Before Translation}
+
+\chapter{Translation should begin from a stable source}\label{translation-should-begin-from-a-stable-source}
+
+The \emph{Nine Oaths} translation began only after the Italian saga had already received substantial editorial and production work.
+
+By then the project had:
+
+\begin{itemize}
+\tightlist
+\item
+  source-language narrative masters;
+\item
+  pageflow/typesetting packages;
+\item
+  final saga canon;
+\item
+  spoiler-free appendices;
+\item
+  the Book VII historiographical appendix;
+\item
+  reader PDFs and other production assets.
+\end{itemize}
+
+Translation should begin from a stable narrative source:
+
+\begin{quote}
+\textbf{Translate from a locked source, not from a manuscript that is still changing.}
+\end{quote}
+
+A translation project needs a clearly identified source master or source unit.
+
+\chapter{Separate narrative revision from typesetting}
+
+The case-study \passthrough{\lstinline!typesetting\_compact!} methodology took already edited narrative files and applied editorial formatting without rewriting the story.
+
+The source input pattern remained:
+
+\begin{lstlisting}
+N_00_...md Prologue
+N_01_...md
+...
+N_18_...md Chapters 1-18
+N_19_...md Epilogue
+\end{lstlisting}
+
+The production toolchain used XeLaTeX, defined fonts, Python/PyMuPDF and Poppler utilities for QA.
+
+The workflow keeps two concerns separate:
+
+\begin{lstlisting}
+narrative correctness
+!=
+production formatting
+\end{lstlisting}
+
+Typesetting should preserve approved prose. Any genuine text defect discovered during production returns to editorial control before rebuilding.
+
+\part{Translation as a Second Editorial Audit}
+
+\chapter{Build a translation control pack}\label{build-a-translation-control-pack}
+
+The first English translation package contained a compact set of governing artifacts:
+
+\begin{lstlisting}
+01_english_narrative_bible.md
+02_canonical_glossary.md
+03_character_voice_register.md
+04_translation_qa_checklist.md
+05_translation_decision_log.md
+06_progress_tracker.md
+per-unit QA reports
+book_01/ translated units
+README.md
+\end{lstlisting}
+
+This is a useful pattern for any long literary translation.
+
+\section{Define authority before translating}\label{define-authority-before-translating}
+
+The case-study precedence order was:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  final Italian narrative master for scene facts and wording intent;
+\item
+  final English canon for established English names/terms;
+\item
+  final Italian canon for continuity clarification;
+\item
+  character canon;
+\item
+  translation package for English editorial consistency;
+\item
+  Anderson's \emph{Orkneyinga Saga} for structure/restraint only.
+\end{enumerate}
+
+Each project may use a different hierarchy. The governing sources should still be ranked before translation begins:
+
+\begin{quote}
+\textbf{Decide which source wins before two sources disagree.}
+
+\end{quote}
+
+\chapter{Define the literary target explicitly}
+
+The English target was defined precisely as contemporary British historical prose with a saga undertow:
+
+\begin{itemize}
+\tightlist
+\item
+  lucid;
+\item
+  concrete;
+\item
+  restrained;
+\item
+  readable;
+\item
+  no Victorian archaism;
+\item
+  no generic fantasy diction;
+\item
+  no unnecessary neologisms;
+\item
+  no Italian syntactic calques.
+\end{itemize}
+
+The chapter QA then operationalized that target across six dimensions:
+
+\begin{itemize}
+\tightlist
+\item
+  source fidelity;
+\item
+  canon/continuity;
+\item
+  natural English;
+\item
+  style;
+\item
+  character voice;
+\item
+  mechanics.
+\end{itemize}
+
+A defined target gives the translator and reviewer something concrete to test.
+
+\chapter{Translate and approve one unit at a time}
+
+The Library contains sequential checkpoint ZIPs for individual translation units, including explicit \passthrough{\lstinline!IN\_PROGRESS!} and later \passthrough{\lstinline!FINAL!} states.
+
+The core loop is:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Locked source};
+\node[flowbox] (n1) at (2.80,0) {Translation};
+\node[flowbox] (n2) at (5.60,0) {Naturalisation};
+\node[flowbox] (n3) at (8.40,0) {Voice pass};
+\node[flowbox] (n4) at (8.40,-2.20) {Fidelity + continuity};
+\node[flowbox] (n5) at (5.60,-2.20) {Monolingual read};
+\node[flowbox] (n6) at (2.80,-2.20) {QA};
+\node[flowbox] (n7) at (0,-2.20) {Final};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.south) -- (n4.north);
+\draw[flowarrow] (n4.west) -- (n5.east);
+\draw[flowarrow] (n5.west) -- (n6.east);
+\draw[flowarrow] (n6.west) -- (n7.east);
+\end{tikzpicture}
+\caption{The unit-level literary translation loop.}
+\end{figure}
+
+Later chapters should inherit terminology and voice only from approved earlier work.
+
+\chapter{Let the protocol mature, but keep the control principles}
+
+The translation protocol matured over successive books.
+
+\section{Book I}\label{book-i}
+
+A seven-state workflow established the English voice:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Source locked};
+\node[flowbox] (n1) at (2.80,0) {Draft EN};
+\node[flowbox] (n2) at (5.60,0) {Naturalisation};
+\node[flowbox] (n3) at (8.40,0) {Saga voice};
+\node[flowbox] (n4) at (8.40,-2.20) {Fidelity QA};
+\node[flowbox] (n5) at (5.60,-2.20) {Monolingual read};
+\node[flowbox] (n6) at (2.80,-2.20) {Final};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.south) -- (n4.north);
+\draw[flowarrow] (n4.west) -- (n5.east);
+\draw[flowarrow] (n5.west) -- (n6.east);
+\end{tikzpicture}
+\caption{Book I established the target-language voice through a seven-state workflow.}
+\end{figure}
+
+\section{Book II}\label{book-ii}
+
+The process made \textbf{source reconstruction before translation} explicit. The translator first looked for:
+
+\begin{itemize}
+\tightlist
+\item
+  duplicated drafts;
+\item
+  displaced chronology;
+\item
+  inconsistent custody;
+\item
+  unsupported certainty;
+\item
+  boundary seams.
+\end{itemize}
+
+\section{Books III-VII}\label{books-iii-vii}
+
+The recurring work was standardized into five gates:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  narrative translation;
+\item
+  naturalisation;
+\item
+  saga voice;
+\item
+  continuity and fidelity;
+\item
+  monolingual read.
+\end{enumerate}
+
+Later volumes added increasingly formal source locks, hashes and reconstruction checks.
+
+\section{Translation rule}\label{translation-rule}
+
+Gate names can evolve while the underlying controls remain stable:
+
+\begin{itemize}
+\tightlist
+\item
+  locked source;
+\item
+  complete unit coverage;
+\item
+  natural target-language prose;
+\item
+  controlled voice;
+\item
+  source/target comparison;
+\item
+  explicit continuity review;
+\item
+  monolingual read;
+\item
+  documented decisions;
+\item
+  approval state.
+\end{itemize}
+
+\chapter{Use translation to reread the source critically}
+
+Translation proved especially valuable as a second close reading of the source.
+
+Close translation forces the editor to account for every:
+
+\begin{itemize}
+\tightlist
+\item
+  sentence;
+\item
+  scene transition;
+\item
+  object;
+\item
+  chronology marker;
+\item
+  participant;
+\item
+  revelation;
+\item
+  certainty level.
+\end{itemize}
+
+That revealed source-language problems that survived earlier revision.
+
+\section{\texorpdfstring{Recorded examples from \emph{The Nine Oaths}}{Recorded examples from The Nine Oaths}}\label{recorded-examples-from-the-nine-oaths}
+
+The correction registers found problems such as:
+
+\begin{itemize}
+\tightlist
+\item
+  a sealed packet opened twice;
+\item
+  an object moving between bag and pocket without an action;
+\item
+  inconsistent ages;
+\item
+  an absolute order later weakened;
+\item
+  duplicated disclosures;
+\item
+  interrupted scenes resumed after later events;
+\item
+  repeated departures;
+\item
+  duplicated fire sequences;
+\item
+  repeated public readings;
+\item
+  an ``empty'' chest that still had contents;
+\item
+  a character acting while absent;
+\item
+  a character appearing before introduction;
+\item
+  a stool becoming a bench;
+\item
+  certainty appearing one chapter too early;
+\item
+  duplicated rescue/death/funeral sequences;
+\item
+  shipments narrated out of order.
+\end{itemize}
+
+These examples are \textbf{source defects discovered during translation}.
+
+\section{Canon-promotion rule}\label{canon-promotion-rule}
+
+\begin{quote}
+\textbf{A good literary translation is also a forensic reread of the source.}
+
+\end{quote}
+
+\chapter{Keep source correction separate from translation}
+
+When translation exposes a source problem, record it against the locked source and repair it later through controlled writeback.
+
+Use a correction register.
+
+The project evolved through several naming conventions:
+
+\begin{lstlisting}
+Book II: MC-001 ... MC-008
+Book III: MC3-001 ... MC3-011
+Book IV: IV-IT-001 ... IV-IT-010
+Book V: IM-05-001 ... IM-05-008
+Book VI: IM-06-001 ... IM-06-009
+Book VII: IM-07-001 ... IM-07-018
+\end{lstlisting}
+
+Books II-VII contain \textbf{64 numbered confirmed source corrections}, in addition to Book I's corrections recorded through its own decision/correction process.
+
+\section{Allow reviewed tensions to remain unchanged}\label{allow-reviewed-tensions-to-remain-unchanged}
+
+The registers also contain reviewed items that required no correction.
+
+The register separates four outcomes:
+
+\begin{lstlisting}
+confirmed source defect
+intentional ambiguity
+apparent tension but coherent
+target-language issue only
+\end{lstlisting}
+
+\section{Reusable correction-register prompt}\label{reusable-correction-register-prompt}
+
+\begin{lstlisting}
+For this suspected source problem, determine whether a correction
+is actually required.
+
+If confirmed, record:
+- correction ID;
+- chapter/location;
+- source problem;
+- why it conflicts with narrative/canon;
+- target-language resolution adopted;
+- proposed source repair;
+- downstream continuity effect if relevant;
+- application status.
+
+If the tension is intentional/coherent, record it as reviewed
+without forcing a change.
+
+Keep the immutable source lock unchanged.
+\end{lstlisting}
+
+\chapter{Apply source corrections in a controlled writeback}\label{apply-source-corrections-in-a-controlled-writeback}
+
+The actual pattern was:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Immutable source};
+\node[flowbox] (n1) at (2.80,0) {Translation + QA};
+\node[flowbox] (n2) at (5.60,0) {Decision log};
+\node[flowbox] (n3) at (8.40,0) {Correction register};
+\node[flowbox] (n4) at (8.40,-2.20) {Final target units};
+\node[flowbox] (n5) at (5.60,-2.20) {Controlled writeback};
+\node[flowbox] (n6) at (2.80,-2.20) {Corrected source master};
+\node[flowbox] (n7) at (0,-2.20) {Validation};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.south) -- (n4.north);
+\draw[flowarrow] (n4.west) -- (n5.east);
+\draw[flowarrow] (n5.west) -- (n6.east);
+\draw[flowarrow] (n6.west) -- (n7.east);
+\end{tikzpicture}
+\caption{Source repairs are accumulated first, then applied through controlled writeback.}
+\end{figure}
+
+The original source lock stays unchanged.
+
+\section{What the build validates}\label{what-the-build-validates}
+
+Depending on the volume, the final reports checked:
+
+\begin{itemize}
+\tightlist
+\item
+  narrative-unit count;
+\item
+  appendix count;
+\item
+  separate units per language;
+\item
+  correction statuses;
+\item
+  removal of obsolete discrepancy strings;
+\item
+  chapter order;
+\item
+  titles;
+\item
+  scene dividers;
+\item
+  dialogue marks;
+\item
+  canonical names;
+\item
+  endings;
+\item
+  source/corrected hashes;
+\item
+  ZIP integrity.
+\end{itemize}
+
+The process leaves a traceable editorial history alongside a corrected source edition.
+
+\chapter{Treat per-unit QA as evidence}
+
+The definitive bilingual volume packages contain per-unit QA reports, giving concrete evidence for each translated unit.
+
+Typical reports record:
+
+\begin{itemize}
+\tightlist
+\item
+  unit/source;
+\item
+  coverage;
+\item
+  translation/naturalisation/voice/fidelity/monolingual result;
+\item
+  high-risk continuity checks;
+\item
+  mechanical checks;
+\item
+  correction IDs where relevant;
+\item
+  final status.
+\end{itemize}
+
+These reports make the workflow auditable and easy to resume in a later session.
+
+\chapter{Update canon after translation only when the translation changes canon}
+
+After all seven books were translated, the project created a post-translation bilingual canon package.
+
+Its update scope included:
+
+\begin{itemize}
+\tightlist
+\item
+  per-volume decision logs;
+\item
+  source discrepancy registers;
+\item
+  final coordinated masters;
+\item
+  final writeback reports.
+\end{itemize}
+
+It promoted only changes affecting:
+
+\begin{itemize}
+\tightlist
+\item
+  fact;
+\item
+  chronology;
+\item
+  knowledge;
+\item
+  voice;
+\item
+  terminology;
+\item
+  institutional meaning;
+\item
+  final character/institutional state.
+\end{itemize}
+
+Sentence-level translation polish remained in the translation history.
+
+\section{Release rule}\label{release-rule}
+
+\begin{quote}
+\textbf{Promote only decisions that change series canon.}
+\end{quote}
+
+\part{Production and Publication}
+
+\chapter{Keep reader editions separate from editorial evidence}\label{keep-reader-editions-separate-from-editorial-evidence}
+
+The final English reader-PDF package contained seven PDFs plus QA records.
+
+Reader files excluded internal Translation/Draft records.
+
+Keep project evidence and reader-facing content in separate deliverables:
+
+\begin{lstlisting}
+definitive project package:
+editorial history + logs + QA + sources + masters
+
+reader edition:
+reader-facing material only
+\end{lstlisting}
+
+Keep internal process material inside the production package.
+
+\chapter{Use explicit reader-PDF QA}
+
+The English PDF checks included:
+
+\begin{itemize}
+\tightlist
+\item
+  A5 page geometry;
+\item
+  page counts;
+\item
+  TOC structure;
+\item
+  appendix opening;
+\item
+  publisher/front matter;
+\item
+  zero replacement characters;
+\item
+  no star-only pages;
+\item
+  normalized scene separators;
+\item
+  fonts embedded/subset;
+\item
+  PDF structural check;
+\item
+  author metadata;
+\item
+  no internal Translation/Draft blocks;
+\item
+  SHA-256.
+\end{itemize}
+
+The final English reader page counts were:
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule\noalign{}
+Book & Pages \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\emph{The House of Tides} & 290 \\
+\emph{The Last Roman} & 310 \\
+\emph{The Ninth Oath} & 263 \\
+\emph{The Map Beyond the Sea} & 188 \\
+\emph{Crowns of the Cold Sea} & 244 \\
+\emph{The Martyr of the Islands} & 260 \\
+\emph{The Last Oath} & 386 \\
+\end{longtable}
+
+These page counts later became inputs to print-cover production.
+
+\chapter{Package metadata separately}
+
+The Amazon metadata package contained:
+
+\begin{lstlisting}
+one metadata sheet per novel
+series synopsis
+KDP upload matrix
+SHA-256 manifest
+\end{lstlisting}
+
+Commercial copy and KDP settings therefore remain separate from the narrative masters.
+
+In the case study, the series was positioned primarily as \textbf{adult historical fantasy with crossover appeal}, while Books I-III could also use coming-of-age/YA historical-fantasy as a secondary discovery route.
+
+Category labels should still be confirmed in the live KDP interface because marketplace/format taxonomies can change.
+
+\chapter{Treat KDP print production as a technical build}
+
+The final print phase was distinct from the earlier A5 reader PDFs.
+
+Volumes IV-VII even required a specific KDP rebuild after preflight found invisible structural issues:
+
+\begin{itemize}
+\tightlist
+\item
+  C2PA \passthrough{\lstinline!Content Credentials!};
+\item
+  embedded attachment structures;
+\item
+  complete OpenType/CFF font objects.
+\end{itemize}
+
+The rebuilt PDFs were checked for:
+
+\begin{itemize}
+\tightlist
+\item
+  6\ensuremath{\times}9 trim;
+\item
+  expected page boxes;
+\item
+  PDF version;
+\item
+  no attachments;
+\item
+  no C2PA;
+\item
+  no \passthrough{\lstinline!/EmbeddedFiles!};
+\item
+  no problematic OpenType/CFF objects;
+\item
+  no unembedded fonts;
+\item
+  no unwanted XMP/interactive structures;
+\item
+  full Ghostscript renderability;
+\item
+  visual page checks.
+\end{itemize}
+
+\section{Lesson}\label{lesson}
+
+\begin{quote}
+\textbf{A visually correct print PDF still needs structural preflight.}
+
+\end{quote}
+
+\chapter{Build covers only after the final page count}
+
+The final 6\ensuremath{\times}9 paperback cover package made the dependency explicit:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Final page count};
+\node[flowbox] (n1) at (3.00,0) {Spine width};
+\node[flowbox] (n2) at (6.00,0) {Full-wrap dimensions};
+\node[flowbox] (n3) at (9.00,0) {PDF / PNG cover};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\end{tikzpicture}
+\caption{Print-cover geometry depends on the final interior.}
+\end{figure}
+
+For the cream-paper paperback build used in the case study:
+
+\begin{lstlisting}
+spine width = page count x 0.0025 in
+full width = 12 + spine width + 0.25 in
+full height = 9.25 in
+bleed = 0.125 in
+\end{lstlisting}
+
+Registered spines ranged from 0.4700 in for the 188-page Book IV to 0.9650 in for the 386-page Book VII.
+
+The package also retained:
+
+\begin{itemize}
+\tightlist
+\item
+  source fronts;
+\item
+  source backs;
+\item
+  generated spines;
+\item
+  full-cover PDFs;
+\item
+  full-cover PNGs;
+\item
+  ISBN/page-count register;
+\item
+  builder scripts.
+\end{itemize}
+
+\section{Cross-artifact consistency}\label{cross-artifact-consistency}
+
+Before upload, verify:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Canon title};
+\node[flowbox] (n1) at (2.80,0) {Metadata};
+\node[flowbox] (n2) at (5.60,0) {Interior};
+\node[flowbox] (n3) at (8.40,0) {Cover};
+\node[flowbox] (n4) at (11.20,0) {KDP listing};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.east) -- (n3.west);
+\draw[flowarrow] (n3.east) -- (n4.west);
+\end{tikzpicture}
+\caption{A final cross-artifact title check prevents release inconsistencies.}
+\end{figure}
+
+The case study itself exposed one title discrepancy between different Book VI production artifacts, illustrating why this check matters.
+
+\chapter{Build ebook deliverables from the current masters}
+
+The final KDP ebook package contained exactly seven EPUBs, one per book.
+
+Generate the ebook from the current approved narrative/publication master, regardless of the EPUB toolchain:
+
+\begin{quote}
+\textbf{Build the ebook from the current master.}
+\end{quote}
+
+\part{The Ten-Day *Nine Oaths* Case Study}
+
+\chapter{The actual dated sequence}\label{the-actual-dated-sequence}
+
+The artifact trail shows the following execution pattern.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[date/.style={font=\sffamily\bfseries\small, text=guideNavy, anchor=east}, event/.style={draw=guideNavy!40, rounded corners=3pt, fill=guideCream, text width=105mm, align=left, inner sep=2.6mm, font=\small}]
+\node[date] at (-0.5,0.0) {15 Aug};
+\fill[guideGold] (0,0.0) circle (2pt);
+\node[event, anchor=west] at (0.4,0.0) {Historical reference, first character bible and TOC.};
+\draw[guideGold, thick] (0,-0.08) -- (0,-1.17);
+\node[date] at (-0.5,-1.25) {16 Aug};
+\fill[guideGold] (0,-1.25) circle (2pt);
+\node[event, anchor=west] at (0.4,-1.25) {Book I drafting, intensive revision and first canon alignment.};
+\draw[guideGold, thick] (0,-1.33) -- (0,-2.42);
+\node[date] at (-0.5,-2.5) {17 Aug};
+\fill[guideGold] (0,-2.5) circle (2pt);
+\node[event, anchor=west] at (0.4,-2.5) {Books II-III drafting/revision and canon updates.};
+\draw[guideGold, thick] (0,-2.58) -- (0,-3.67);
+\node[date] at (-0.5,-3.75) {18 Aug};
+\fill[guideGold] (0,-3.75) circle (2pt);
+\node[event, anchor=west] at (0.4,-3.75) {Cycle I pageflow, Book IV and Book V development.};
+\draw[guideGold, thick] (0,-3.83) -- (0,-4.92);
+\node[date] at (-0.5,-5.0) {19 Aug};
+\fill[guideGold] (0,-5.0) circle (2pt);
+\node[event, anchor=west] at (0.4,-5.0) {Books VI-VII, final polish and typesetting work.};
+\draw[guideGold, thick] (0,-5.08) -- (0,-6.17);
+\node[date] at (-0.5,-6.25) {20 Aug};
+\fill[guideGold] (0,-6.25) circle (2pt);
+\node[event, anchor=west] at (0.4,-6.25) {Final Italian canon, appendices, seven Italian A5 PDFs and production assets.};
+\draw[guideGold, thick] (0,-6.33) -- (0,-7.42);
+\node[date] at (-0.5,-7.5) {21 Aug};
+\fill[guideGold] (0,-7.5) circle (2pt);
+\node[event, anchor=west] at (0.4,-7.5) {Translation infrastructure plus Books I-II English packages.};
+\draw[guideGold, thick] (0,-7.58) -- (0,-8.67);
+\node[date] at (-0.5,-8.75) {22 Aug};
+\fill[guideGold] (0,-8.75) circle (2pt);
+\node[event, anchor=west] at (0.4,-8.75) {Book III translation.};
+\draw[guideGold, thick] (0,-8.83) -- (0,-9.92);
+\node[date] at (-0.5,-10.0) {23 Aug};
+\fill[guideGold] (0,-10.0) circle (2pt);
+\node[event, anchor=west] at (0.4,-10.0) {Books IV-V translation.};
+\draw[guideGold, thick] (0,-10.08) -- (0,-11.17);
+\node[date] at (-0.5,-11.25) {24 Aug};
+\fill[guideGold] (0,-11.25) circle (2pt);
+\node[event, anchor=west] at (0.4,-11.25) {Books VI-VII translation, final English PDFs and post-translation canon.};
+\draw[guideGold, thick] (0,-11.33) -- (0,-12.42);
+\node[date] at (-0.5,-12.5) {25 Aug};
+\fill[guideGold] (0,-12.5) circle (2pt);
+\node[event, anchor=west] at (0.4,-12.5) {Amazon metadata, KDP covers, print rebuilds and EPUBs.};
+\end{tikzpicture}
+\caption{The ten-day case-study timeline.}
+\end{figure}
+
+The publication cycle was completed on KDP within this execution window.
+
+\section{What compressed the schedule}\label{what-compressed-the-schedule}
+
+The pace came from overlapping compatible work and avoiding repeated state reconstruction:
+
+\begin{itemize}
+\tightlist
+\item
+  persistent artifacts;
+\item
+  separate narrative units;
+\item
+  writer/reviewer LLM split;
+\item
+  targeted revision passes;
+\item
+  canon promotion after books;
+\item
+  reusable translation bible/glossary/voice register;
+\item
+  chapter-level translation checkpoints;
+\item
+  per-unit QA;
+\item
+  source correction registers;
+\item
+  deterministic build scripts and hashes;
+\item
+  production starting as soon as its dependencies were fixed.
+\end{itemize}
+
+The ten-day schedule demonstrates how sharply elapsed time can fall when project state is explicit and only genuine dependencies remain serial.
+
+\chapter{What the case study teaches about failure modes}
+
+The recurring failures fit into a compact set of patterns.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Failure mode
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Example from the project
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Control
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{duplicate draft variants} & repeated rescues, departures, fires, funerals, confrontations & unit-level sequential review + duplicate scan \\
+\textbf{displaced chronology} & supper/burial/exile/travel blocks appearing in wrong order & write event order explicitly during QA \\
+\textbf{character presence errors} & character acts while absent or appears before introduction & track current scene participants \\
+\textbf{object custody errors} & token/message/chest/sword moves without transfer & track owner, location, state, last transfer \\
+\textbf{knowledge drift} & character asserts information before receiving it & check information route, not only canon truth \\
+\textbf{certainty drift} & hypothesis becomes fact too early & preserve epistemic status \\
+\textbf{production residue} & internal Translation/Draft blocks in reader master & scan reader outputs for service vocabulary \\
+\textbf{invisible PDF defects} & attachments/C2PA/font-object problems & structural preflight + render test \\
+\end{longtable}
+
+The controls generalize well beyond the individual errors that exposed them.
+
+\part{A Reusable Playbook}
+
+\chapter{The general state machine}\label{the-general-state-machine}
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[
+  flowstep/.style={draw=guideNavy!60, rounded corners=3pt, fill=guideCream,
+    text width=56mm, minimum height=9mm, align=center, font=\sffamily\small,
+    inner xsep=2mm, inner ysep=1.5mm},
+  statearrow/.style={-{Stealth[length=2.1mm,width=1.7mm]}, line width=0.85pt,
+    draw=guideGold, shorten <=1.5pt, shorten >=1.5pt}
+]
+\node[font=\sffamily\bfseries, text=guideNavy] at (0,0.78) {AUTHORING LOOP};
+\node[font=\sffamily\bfseries, text=guideNavy] at (7.15,0.78) {TRANSLATION + RELEASE LOOP};
+
+\node[flowstep] (a1) at (0,0) {Historical / creative inputs};
+\node[flowstep] (a2) at (0,-1.35) {Canonical TOC + character bible};
+\node[flowstep] (a3) at (0,-2.70) {Book outline + unit contract};
+\node[flowstep] (a4) at (0,-4.05) {Writer draft};
+\node[flowstep] (a5) at (0,-5.40) {Independent review};
+\node[flowstep] (a6) at (0,-6.75) {Targeted revision + unit approval};
+\node[flowstep] (a7) at (0,-8.10) {Book assembly + validation};
+\node[flowstep] (a8) at (0,-9.45) {Book lock + canon promotion};
+\foreach \x/\y in {a1/a2,a2/a3,a3/a4,a4/a5,a5/a6,a6/a7,a7/a8}
+  \draw[statearrow] (\x.south) -- (\y.north);
+
+% The second column continues from the bottom handoff and rises toward release.
+\node[flowstep] (b1) at (7.15,-9.45) {Translation source lock};
+\node[flowstep] (b2) at (7.15,-8.10) {Unit translation + target-language QA};
+\node[flowstep] (b3) at (7.15,-6.75) {Source defect register};
+\node[flowstep] (b4) at (7.15,-5.40) {Controlled source writeback};
+\node[flowstep] (b5) at (7.15,-4.05) {Bilingual volume package};
+\node[flowstep] (b6) at (7.15,-2.70) {Post-translation canon};
+\node[flowstep] (b7) at (7.15,-1.35) {Reader edition + metadata + print + EPUB};
+\node[flowstep] (b8) at (7.15,0) {Release preflight + publication};
+\draw[statearrow] (a8.east) -- (b1.west);
+\foreach \x/\y in {b1/b2,b2/b3,b3/b4,b4/b5,b5/b6,b6/b7,b7/b8}
+  \draw[statearrow] (\x.north) -- (\y.south);
+\end{tikzpicture}
+\caption{The reusable state machine. The flow descends through authoring, crosses at the bottom, then rises through translation and release.}
+\end{figure}
+
+Projects can use different filenames and pass names while preserving the same dependency structure.
+
+\chapter{The minimum project artifact set}
+
+A lean generalization is:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideNavy!8, draw=guideNavy!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideNavy} Canon\par\vspace{1mm}\normalfont\rmfamily Structural TOC, character bible and historical/reference sources.};
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideTeal} Per book\par\vspace{1mm}\normalfont\rmfamily Individual narrative units, concatenated master and completion/revision record.};
+\node[card, fill=guideGold!8, draw=guideGold!65] (c2) at (0.0,-2.6) {\sffamily\bfseries\color{guideGold} Translation\par\vspace{1mm}\normalfont\rmfamily Source lock, style bible, glossary, voice register, logs, QA and bilingual masters.};
+\node[card, fill=guideRust!8, draw=guideRust!65] (c3) at (7.8,-2.6) {\sffamily\bfseries\color{guideRust} Production\par\vspace{1mm}\normalfont\rmfamily Reader master, PDF/EPUB, metadata, cover builds, validation and manifests.};
+\end{tikzpicture}
+\caption{A lean artifact set that can grow with project complexity.}
+\end{figure}
+
+Add a file when it removes a recurring source of ambiguity or supports a repeatable check.
+
+\chapter{Reusable prompt set}
+
+\section{A. Revise separate units before concatenation}\label{a.-revise-separate-units-before-concatenation}
+
+\begin{lstlisting}
+Work on the narrative units separately.
+
+Apply only the stated revision objective.
+Keep fixed plot elements closed unless the current pass explicitly reopens them.
+
+Check:
+- redundant/overlapping scenes;
+- alternative variants of the same event;
+- repeated explanation;
+- required character agency;
+- chronology and chapter-boundary seams;
+- metanarrative/production residue.
+
+Validate the units first.
+Concatenate only approved units in narrative order.
+\end{lstlisting}
+
+\section{B. Independent reviewer}\label{b.-independent-reviewer}
+
+\begin{lstlisting}
+Review the writer model's current output against:
+- canonical TOC;
+- character bible;
+- preceding/following state;
+- requested revision objective.
+
+Check:
+- duplicated scenes;
+- chronology;
+- presence;
+- object custody;
+- knowledge/certainty;
+- required agency;
+- voice;
+- continuity;
+- production residue.
+
+Distinguish objective defects from intentional ambiguity.
+Recommend the minimum repair.
+Keep the existing plot unless the evidence identifies a concrete defect that requires structural change.
+\end{lstlisting}
+
+\section{C. Five-gate literary translation}\label{c.-five-gate-literary-translation}
+
+\begin{lstlisting}
+Process this locked narrative unit through:
+
+1. NARRATIVE TRANSLATION
+Preserve all scenes, facts, actions, speakers and ambiguity.
+
+2. NATURALISATION
+Remove source-language syntax, calques and unnatural dialogue.
+
+3. VOICE PASS
+Restore the target literary voice without invented archaism.
+
+4. CONTINUITY & FIDELITY
+Compare source and target sentence by sentence.
+Check names, facts, chronology, clues, objects, wounds,
+promises and character knowledge.
+
+5. MONOLINGUAL READ
+Read the target-language unit alone and revise anything
+that still sounds translated.
+
+If the source contains a confirmed discrepancy,
+log it separately and keep the source lock unchanged.
+\end{lstlisting}
+
+\section{D. Source correction register}\label{d.-source-correction-register}
+
+\begin{lstlisting}
+Determine whether this apparent source problem requires correction.
+
+If confirmed, record:
+- ID;
+- chapter/location;
+- source problem;
+- evidence/continuity conflict;
+- target-language resolution;
+- proposed source repair;
+- downstream effect;
+- status.
+
+If intentional or coherent, record it as reviewed/not corrected.
+
+Keep the immutable source lock unchanged.
+\end{lstlisting}
+
+\section{E. End-of-volume source writeback}\label{e.-end-of-volume-source-writeback}
+
+\begin{lstlisting}
+Apply only approved entries from the correction register
+to coordinated corrected source-language units.
+
+Rebuild the corrected source master/publication master.
+Keep original source locks unchanged.
+
+Validate:
+- unit count;
+- appendix count;
+- correction statuses;
+- obsolete discrepancy strings;
+- chapter order/titles;
+- scene dividers;
+- dialogue marks;
+- canonical names;
+- endings;
+- hashes/package integrity where used.
+
+Produce a final build/writeback report.
+\end{lstlisting}
+
+\section{F. Post-translation canon update}\label{f.-post-translation-canon-update}
+
+\begin{lstlisting}
+Update the structural canon and character bible after translation.
+
+Promote only decisions that affect:
+- fact;
+- chronology;
+- knowledge;
+- voice;
+- terminology;
+- institutional meaning;
+- final character state.
+
+Keep sentence-level translation polish in the translation history.
+Preserve the pre-update canon.
+\end{lstlisting}
+
+\chapter{Compact checklist}\label{compact-checklist}
+
+\section{Foundation}\label{foundation}
+
+\begin{lstlisting}
+[ ] Foundational sources identified.
+[ ] Source authority vs fictional canon clearly separated.
+[ ] Canonical TOC controls series architecture.
+[ ] Character bible controls arcs, relationships and voice.
+[ ] Persistent storage holds authoritative/reusable artifacts.
+\end{lstlisting}
+
+\section{Drafting and revision}\label{drafting-and-revision}
+
+\begin{lstlisting}
+[ ] Narrative units remain separately addressable.
+[ ] Current revision pass has a limited objective.
+[ ] Independent reviewer checks the writer's output.
+[ ] Duplicate variants and chronology are audited.
+[ ] Units are validated before concatenation.
+[ ] Locked book state is promoted into canon.
+\end{lstlisting}
+
+\section{Translation}\label{translation}
+
+\begin{lstlisting}
+[ ] Source master/unit is locked.
+[ ] Authority hierarchy is explicit.
+[ ] Narrative/style bible, glossary and voice register are active.
+[ ] Every unit passes translation/naturalisation/voice/fidelity/monolingual checks.
+[ ] Source integrity is reviewed during source/target comparison.
+[ ] Confirmed source defects are logged, not silently patched.
+[ ] Intentional tensions can remain reviewed/not corrected.
+[ ] Original source lock remains unchanged.
+[ ] End-of-volume writeback creates corrected coordinated masters.
+[ ] Per-unit and volume-level QA is preserved.
+\end{lstlisting}
+
+\section{Production}\label{production}
+
+\begin{lstlisting}
+[ ] Reader editions contain no internal production residue.
+[ ] PDF/EPUB derives from current masters.
+[ ] Page size, fonts, separators, TOC and metadata are checked.
+[ ] Final page count precedes print-cover generation.
+[ ] PDF structure is preflighted, not only visually inspected.
+[ ] Canon, metadata, interior, cover and listing titles match.
+[ ] Final release uses current production artifacts.
+\end{lstlisting}
+
+\part{Conclusion: From AI Assistance to a Controlled Publishing System}
+
+\chapter{\texorpdfstring{What the \emph{Nine Oaths} experience demonstrates}{What the Nine Oaths experience demonstrates}}\label{what-the-nine-oaths-experience-demonstrates}
+
+The strongest result of the case study is the conversion of a creative conversation into a controlled publishing system.
+
+AI contributed at every stage, from architecture and drafting to revision, translation, continuity checking, typesetting, cover production and KDP preparation. The work remained coherent because each stage produced an artifact that the next stage could inspect.
+
+The pattern looks like this:
+
+\begin{lstlisting}
+idea
+-> explicit structure
+-> written unit
+-> reviewed unit
+-> approved master
+-> updated canon
+-> locked translation source
+-> translated and checked unit
+-> corrected bilingual master
+-> production master
+-> validated release file
+\end{lstlisting}
+
+Every arrow represents a state change that can be inspected.
+
+That property matters more than raw generation speed. A long creative project becomes fragile when important decisions survive only in conversation history. It becomes much easier to manage when the decisions are written into the canon, the current master, a decision log, a correction register or a build report.
+
+The \emph{Nine Oaths} workflow therefore points toward a broader model of AI-assisted authorship: the model works inside an editorial system with explicit state, independent review and reproducible production.
+
+\chapter{Why the ten-day cycle was possible}\label{why-the-ten-day-cycle-was-possible}
+
+The ten-day timeline came from compression of waiting and rework.
+
+Several operations that traditionally happen far apart could happen in rapid succession because the next stage already had structured inputs.
+
+A reviewer could inspect a chapter as soon as the writer produced it. A canon update could follow a locked book immediately. Translation could start from stable source masters without reconstructing editorial history. Production scripts could work from known page counts and validated files. Library retrieval made previous decisions available without reopening old conversations.
+
+The schedule benefited from four forms of compression.
+
+\section{State compression}\label{state-compression}
+
+Canon, masters, logs and checkpoints captured the current project state in files. Each new session could recover the relevant state quickly.
+
+\section{Review compression}\label{review-compression}
+
+The writer and reviewer roles were separated. Review happened continuously, close to the moment of generation, while the evidence was easy to retrieve.
+
+\section{Production compression}\label{production-compression}
+
+Deterministic scripts handled repetitive exact work. Concatenation, hashes, package inspection, PDF checks, dimensions and cover geometry could be verified quickly and consistently.
+
+\section{Decision compression}\label{decision-compression}
+
+The author retained control over irreversible choices. Once a decision was accepted and promoted into canon, later stages used it as settled input. This reduced repeated debate over already closed questions.
+
+The ten-day figure shows what this architecture can make possible. Other projects can use the same controls at a slower pace, with larger editorial teams, longer research periods or more extensive external review.
+
+\chapter{The human role becomes more important as automation increases}\label{the-human-role-becomes-more-important-as-automation-increases}
+
+A tool-rich workflow expands the number of operations AI can perform. It also increases the importance of clear human authority.
+
+The author or editor remains responsible for decisions such as:
+
+\begin{itemize}
+\tightlist
+\item
+  what the series is ultimately about;
+\item
+  which historical parallels serve the fiction;
+\item
+  which character interpretation becomes canonical;
+\item
+  which reviewer criticism deserves action;
+\item
+  which ambiguity should remain unresolved;
+\item
+  when a book is ready to close;
+\item
+  when a source correction changes the master;
+\item
+  how the work should be positioned and published;
+\item
+  when further revision would weaken the book.
+\end{itemize}
+
+These decisions involve taste, intention and responsibility. They benefit from evidence, but evidence alone cannot make them.
+
+The most productive division of labour assigns different kinds of work to the actor best suited to them:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideRust!8, draw=guideRust!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideRust} Author\par\vspace{1mm}\normalfont\rmfamily Meaning, taste, acceptance, canon and stopping decisions.};
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideTeal} Writer LLM\par\vspace{1mm}\normalfont\rmfamily Generation, restructuring, rewriting and comparison.};
+\node[card, fill=guideGold!8, draw=guideGold!65] (c2) at (0.0,-2.6) {\sffamily\bfseries\color{guideGold} Reviewer LLM\par\vspace{1mm}\normalfont\rmfamily Challenge, continuity review and defect discovery.};
+\node[card, fill=guideNavy!8, draw=guideNavy!65] (c3) at (7.8,-2.6) {\sffamily\bfseries\color{guideNavy} Tools + Library\par\vspace{1mm}\normalfont\rmfamily Exact validation, persistence, provenance and recoverability.};
+\end{tikzpicture}
+\caption{A practical division of responsibility in an AI-assisted publishing workflow.}
+\end{figure}
+
+This arrangement gives automation a large operational role while keeping creative ownership clear.
+
+\chapter{Copy the control principles, not the surface details}\label{copy-the-control-principles-not-the-surface-details}
+
+Another series may use three books in place of seven, a single language in place of two, contemporary romance in place of historical fantasy, Word documents in place of Markdown, or a traditional publisher in place of KDP.
+
+The useful parts of the method survive those changes.
+
+A general project can preserve these controls:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  maintain an external canon;
+\item
+  keep long manuscripts divisible into reviewable units;
+\item
+  give each revision pass a specific objective;
+\item
+  separate generation from independent review;
+\item
+  promote approved narrative changes into the canon;
+\item
+  lock the source before translation or major downstream transformation;
+\item
+  use close rereading to discover source defects;
+\item
+  record corrections before coordinated writeback;
+\item
+  use deterministic checks for exact questions;
+\item
+  keep reader files separate from editorial evidence;
+\item
+  preserve current production masters in persistent storage;
+\item
+  define a clear release gate.
+\end{enumerate}
+
+The \emph{Nine Oaths} filenames, chapter counts, revision labels and package names belong to one implementation. The controls behind them form the reusable method.
+
+This distinction also keeps the workflow lightweight. A small project may need only a TOC, a character file, chapter masters and a final QA checklist. A large series may eventually need source locks, decision logs, correction registers, manifests and separate production packages. The project can add governance as complexity grows.
+
+\chapter{Translation deserves a central place in the editorial plan}\label{translation-deserves-a-central-place-in-the-editorial-plan}
+
+The case study gives translation a role that deserves emphasis beyond bilingual publishing.
+
+Translation forced a second close reading of every chapter. That process exposed duplicate scenes, displaced chronology, object-custody problems, knowledge leaks and contradictory variants that had survived earlier drafting and revision.
+
+The general lesson applies even when publication in another language comes later. A disciplined transformation of the manuscript can act as a powerful audit because it forces the editor to account for every sentence and transition.
+
+For bilingual projects, the most valuable pattern is:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\node[flowbox] (n0) at (0,0) {Locked source};
+\node[flowbox] (n1) at (3.00,0) {Translation};
+\node[flowbox] (n2) at (6.00,0) {Source / target comparison};
+\node[flowbox] (n3) at (6.00,-2.20) {Defect register};
+\node[flowbox] (n4) at (3.00,-2.20) {Controlled writeback};
+\node[flowbox] (n5) at (0,-2.20) {Corrected source edition};
+\draw[flowarrow] (n0.east) -- (n1.west);
+\draw[flowarrow] (n1.east) -- (n2.west);
+\draw[flowarrow] (n2.south) -- (n3.north);
+\draw[flowarrow] (n3.west) -- (n4.east);
+\draw[flowarrow] (n4.west) -- (n5.east);
+\end{tikzpicture}
+\caption{Translation can improve the source while preserving provenance.}
+\end{figure}
+
+This allows the target edition to improve the source edition while preserving provenance.
+
+The \emph{Nine Oaths} correction registers make the value measurable. Books II-VII accumulated 64 numbered confirmed source corrections, with additional Book I repairs recorded through its own decision and correction process. The translation stage produced a cleaner English edition and a cleaner coordinated Italian corpus.
+
+\chapter{Persistent artifacts turn long AI projects into recoverable projects}\label{persistent-artifacts-turn-long-ai-projects-into-recoverable-projects}
+
+Long projects rarely proceed inside one uninterrupted context. Conversations change, models change, sessions end and production work moves between tools.
+
+Persistent artifacts provide continuity across those boundaries.
+
+A recoverable project can be restarted from a small set of files:
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[card/.style={draw=guideNavy!55, rounded corners=4pt, fill=guideCream, align=left, text width=68mm, inner sep=3.5mm, font=\small}]
+\node[card, fill=guideNavy!8, draw=guideNavy!65] (c0) at (0.0,-0.0) {\sffamily\bfseries\color{guideNavy} Current canon\par\vspace{1mm}\normalfont\rmfamily Structural and character authority.};
+\node[card, fill=guideTeal!8, draw=guideTeal!65] (c1) at (7.8,-0.0) {\sffamily\bfseries\color{guideTeal} Narrative master\par\vspace{1mm}\normalfont\rmfamily The current approved text.};
+\node[card, fill=guideGold!8, draw=guideGold!65] (c2) at (0.0,-2.6) {\sffamily\bfseries\color{guideGold} Editorial history\par\vspace{1mm}\normalfont\rmfamily Decision log and correction register.};
+\node[card, fill=guideRust!8, draw=guideRust!65] (c3) at (7.8,-2.6) {\sffamily\bfseries\color{guideRust} Operational state\par\vspace{1mm}\normalfont\rmfamily Progress record and latest validated package.};
+\end{tikzpicture}
+\caption{The minimum state needed to resume a long project in a later session.}
+\end{figure}
+
+This changes the practical meaning of AI memory.
+
+The system gains reliability from the ability to retrieve authoritative records, while avoiding from expecting one model invocation to retain the entire history of the project.
+
+That is especially important in collaborative or multi-model workflows. A new reviewer can inspect the same source files as the writer. A later production session can recover exact page counts and current titles. A future edition can preserve a clear distinction between the locked source and corrected coordinated masters.
+
+Persistence gives the project institutional memory.
+
+\chapter{Quality comes from gates, not from the amount of AI involvement}\label{quality-comes-from-gates-not-from-the-amount-of-ai-involvement}
+
+The project used AI intensively. The quality controls came from the points where outputs had to earn promotion.
+
+A chapter reached \passthrough{\lstinline!FINAL!} after its required review stages. A book became authoritative after unit validation and assembly. Translation units passed fidelity and monolingual checks. Source corrections entered coordinated masters through controlled writeback. Reader PDFs passed mechanical QA. KDP files received structural preflight.
+
+This creates a useful definition of quality for AI-assisted publishing:
+
+\begin{quote}
+\textbf{An output is ready when the evidence required by its gate has been produced and accepted.}
+\end{quote}
+
+That definition scales well because it avoids two weak proxies.
+
+Large amounts of human labour do not guarantee consistency. Large amounts of AI generation do not guarantee speed or quality. A clear gate tells the team what has actually been checked.
+
+The gate can remain simple. A chapter may need only narrative review and continuity review. A KDP PDF needs a different set of evidence. Match the level of control to the risk carried by the artifact being promoted.
+
+\chapter{A practical adoption path}\label{a-practical-adoption-path}
+
+A writer who wants to adopt this method can begin with a small version.
+
+For the first book, create:
+
+\begin{lstlisting}
+series_toc
+character_bible
+chapter_units
+current_master
+review_notes
+\end{lstlisting}
+
+Use the LLM to draft one unit. Give the same unit and canon to an independent reviewer. Apply accepted changes. Assemble only approved units.
+
+At the end of the book, update the canon with what actually happened.
+
+For the second book, add only the controls that the first book proved necessary. That may include a decision log, a stronger continuity record or a more formal versioning convention.
+
+If translation enters the workflow, add:
+
+\begin{lstlisting}
+source_lock
+translation_bible
+glossary
+voice_register
+correction_register
+per_unit_QA
+\end{lstlisting}
+
+If self-publishing enters the workflow, add deterministic production checks, page-count records, metadata files, cover builders and release preflight.
+
+This gradual approach preserves the main advantage of the system: structure grows in response to real complexity.
+
+\chapter{Final perspective}\label{final-perspective}
+
+The \emph{Nine Oaths} experience shows a form of authorship in which AI becomes part of the publishing infrastructure.
+
+The model helps imagine and write. A second model challenges the work. Library preserves the evolving record. Retrieval keeps active context focused. Code handles exact transformations. Production tools turn validated text into release files. The author sets direction and decides which state becomes authoritative.
+
+The result is a workflow with both speed and memory.
+
+Historical research can remain traceable. Character arcs can survive seven volumes. Translation can improve the source. A new conversation can recover the current state. Production defects can be diagnosed through scripts and structural checks, giving visual inspection a complementary role. Final files can be linked back to the decisions that produced them.
+
+The ten-day timeline makes the workflow striking, but the deeper achievement is reproducibility. The series can be inspected, rebuilt, corrected and continued because its state exists outside the conversation.
+
+A compact formulation captures the whole method:
+
+\begin{quote}
+\textbf{Externalize the state. Work in units. Review independently. Promote deliberately. Verify exactness with tools. Preserve provenance.}
+\end{quote}
+
+And the division of responsibility remains equally clear:
+
+\begin{quote}
+\textbf{Let the model reason, let tools verify, let persistent artifacts carry state, and let the author decide what becomes canon.}
+\end{quote}
+
+\end{document}
