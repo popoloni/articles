@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: new, fresh decision is usable
+ok 1 - new, fresh decision is usable
+  ---
+  duration_ms: 2.869073
+  type: 'test'
+  ...
+# Subtest: TTL starts at observation, not receipt
+ok 2 - TTL starts at observation, not receipt
+  ---
+  duration_ms: 0.229813
+  type: 'test'
+  ...
+# Subtest: late result is rejected
+ok 3 - late result is rejected
+  ---
+  duration_ms: 0.10347
+  type: 'test'
+  ...
+# Subtest: wrong round cannot move paddle
+ok 4 - wrong round cannot move paddle
+  ---
+  duration_ms: 0.101762
+  type: 'test'
+  ...
+# Subtest: duplicate sequence rejected
+ok 5 - duplicate sequence rejected
+  ---
+  duration_ms: 0.099277
+  type: 'test'
+  ...
+# Subtest: future timestamp rejected
+ok 6 - future timestamp rejected
+  ---
+  duration_ms: 0.084875
+  type: 'test'
+  ...
+# Subtest: unknown action rejected
+ok 7 - unknown action rejected
+  ---
+  duration_ms: 0.078886
+  type: 'test'
+  ...
+# Subtest: percentiles use nearest rank
+ok 8 - percentiles use nearest rank
+  ---
+  duration_ms: 0.120958
+  type: 'test'
+  ...
+# Subtest: simulation deterministic for equal seeds and actions
+ok 9 - simulation deterministic for equal seeds and actions
+  ---
+  duration_ms: 6.27792
+  type: 'test'
+  ...
+# Subtest: paddle is clamped and reset invalidates old epochs
+ok 10 - paddle is clamped and reset invalidates old epochs
+  ---
+  duration_ms: 0.636495
+  type: 'test'
+  ...
+# Subtest: physics advances without a model result
+ok 11 - physics advances without a model result
+  ---
+  duration_ms: 0.257193
+  type: 'test'
+  ...
+# Subtest: large physics timestep is rejected
+ok 12 - large physics timestep is rejected
+  ---
+  duration_ms: 0.316546
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 106.708278

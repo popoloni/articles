@@ -1,0 +1,18 @@
+[
+  {
+    "file": "essay-standalone.html",
+    "load_method": "page.set_content",
+    "viewport": 1440,
+    "loaded_images": 7,
+    "external_asset_requests": 0,
+    "horizontal_overflow": false
+  },
+  {
+    "file": "essay-standalone.html",
+    "load_method": "page.set_content",
+    "viewport": 390,
+    "loaded_images": 7,
+    "external_asset_requests": 0,
+    "horizontal_overflow": false
+  }
+]

@@ -1,0 +1,304 @@
+[
+  {
+    "id": "R01",
+    "title": "Sebastian Raschka — Language Models for Text Classification: From Bag-of-Words to Jev",
+    "url": "https://magazine.sebastianraschka.com/p/classifier-history-and-jev",
+    "note": "User supplied the full article; historical explanation and the author's own experiments."
+  },
+  {
+    "id": "R02",
+    "title": "TypeSafe — Introduction",
+    "url": "https://docs.typesafe.ai/introduction"
+  },
+  {
+    "id": "R03",
+    "title": "TypeSafe — Current models",
+    "url": "https://docs.typesafe.ai/models"
+  },
+  {
+    "id": "R04",
+    "title": "TypeSafe — Choice",
+    "url": "https://docs.typesafe.ai/primitives/choice"
+  },
+  {
+    "id": "R05",
+    "title": "TypeSafe — Noul",
+    "url": "https://docs.typesafe.ai/primitives/noul"
+  },
+  {
+    "id": "R06",
+    "title": "TypeSafe — Score",
+    "url": "https://docs.typesafe.ai/primitives/score"
+  },
+  {
+    "id": "R07",
+    "title": "scikit-learn — Text feature extraction",
+    "url": "https://scikit-learn.org/stable/modules/feature_extraction.html"
+  },
+  {
+    "id": "R08",
+    "title": "Howard and Ruder — Universal Language Model Fine-tuning for Text Classification (2018)",
+    "url": "https://aclanthology.org/P18-1031/"
+  },
+  {
+    "id": "R09",
+    "title": "Devlin et al. — BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "url": "https://aclanthology.org/N19-1423/"
+  },
+  {
+    "id": "R10",
+    "title": "Yin, Hay and Roth — Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach (2019)",
+    "url": "https://aclanthology.org/D19-1404/"
+  },
+  {
+    "id": "R11",
+    "title": "Warner et al. — ModernBERT (2024)",
+    "url": "https://arxiv.org/abs/2412.13663"
+  },
+  {
+    "id": "R12",
+    "title": "TypeSafe — Introducing System One Models and Jev",
+    "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev"
+  },
+  {
+    "id": "R13",
+    "title": "Guo et al. — On Calibration of Modern Neural Networks (2017)",
+    "url": "https://proceedings.mlr.press/v70/guo17a.html"
+  },
+  {
+    "id": "R14",
+    "title": "Beyond Binary Rewards: Training LMs to Reason About Their Uncertainty (2025)",
+    "url": "https://arxiv.org/abs/2507.16806"
+  },
+  {
+    "id": "R15",
+    "title": "TypeSafe — Confidence",
+    "url": "https://docs.typesafe.ai/confidence"
+  },
+  {
+    "id": "R16",
+    "title": "TypeSafe — Jev 1.13 jaggedness and known failure modes",
+    "url": "https://docs.typesafe.ai/model-jaggedness/jev-1.13"
+  },
+  {
+    "id": "R17",
+    "title": "OpenAI — DevDay 2026 recap",
+    "url": "https://openai.com/index/devday-2026-recap/"
+  },
+  {
+    "id": "R18",
+    "title": "Manjunath Janardhan — I Built an Open Rival to TypeSafe's Jev. Here's Where It Wins and Where It Doesn't",
+    "url": "https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929",
+    "note": "User supplied the full article. Performance figures are the author's measurements, not independent replications."
+  },
+  {
+    "id": "R19",
+    "title": "OpenDecider repository and documentation",
+    "url": "https://github.com/manjunathshiva/opendecider"
+  },
+  {
+    "id": "R20",
+    "title": "OpenDecider — Full comparison and benchmark limitations",
+    "url": "https://raw.githubusercontent.com/manjunathshiva/opendecider/main/COMPARISON.md"
+  },
+  {
+    "id": "R21",
+    "title": "OpenDecider — Installation and platform measurements",
+    "url": "https://raw.githubusercontent.com/manjunathshiva/opendecider/main/README.md"
+  },
+  {
+    "id": "R22",
+    "title": "OpenDecider-small MLX 8-bit model card",
+    "url": "https://huggingface.co/manjunathshiva/opendecider-small-mlx-8bit"
+  },
+  {
+    "id": "R23",
+    "title": "Laya — Official repository",
+    "url": "https://github.com/NandhaKishorM/laya"
+  },
+  {
+    "id": "R24",
+    "title": "laya-mlx — Independent Apple Silicon port",
+    "url": "https://raw.githubusercontent.com/mizorewww/laya-mlx/main/README.md"
+  },
+  {
+    "id": "R25",
+    "title": "GLiClass — Official repository",
+    "url": "https://github.com/Knowledgator/GLiClass"
+  },
+  {
+    "id": "R26",
+    "title": "Contrastive Language Models — Official repository",
+    "url": "https://github.com/Contrastive-LM/CLM"
+  },
+  {
+    "id": "R27",
+    "title": "SetFit — Official documentation",
+    "url": "https://huggingface.co/docs/setfit/index"
+  },
+  {
+    "id": "R28",
+    "title": "OpenDecider — PyPI package, release and HTTP/Python semantics",
+    "url": "https://pypi.org/project/opendecider/"
+  },
+  {
+    "id": "R29",
+    "title": "OpenDecider — Native typed-answer implementation",
+    "url": "https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/questions.py"
+  },
+  {
+    "id": "R30",
+    "title": "OpenDecider — HTTP server and score wire adaptation",
+    "url": "https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/serve.py"
+  },
+  {
+    "id": "R31",
+    "title": "OpenDecider — Model loader and truncation metadata",
+    "url": "https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/__init__.py"
+  },
+  {
+    "id": "R32",
+    "title": "OpenDecider — Command-line interface",
+    "url": "https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/cli.py"
+  },
+  {
+    "id": "R33",
+    "title": "scikit-learn — Probability calibration",
+    "url": "https://scikit-learn.org/stable/modules/calibration.html"
+  },
+  {
+    "id": "R34",
+    "title": "Beyond Calibration: Do a Typed-Decision Model's Probabilities Obey the Probability Axioms? (September 2026 preprint)",
+    "url": "https://arxiv.org/abs/2609.33209"
+  },
+  {
+    "id": "R35",
+    "title": "Evaluating System One Models for Agent Security Decisions: Reliability, Calibration, and Selective Automation (September 2026 preprint)",
+    "url": "https://arxiv.org/abs/2609.33401"
+  },
+  {
+    "id": "R36",
+    "title": "Laya-MLX English checkpoint — Model card and local inference example",
+    "url": "https://huggingface.co/aac6fef/laya-mlx"
+  },
+  {
+    "id": "R37",
+    "title": "Ollama — v0.35.0 release; native System One support",
+    "url": "https://github.com/ollama/ollama/releases/tag/v0.35.0",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R38",
+    "title": "Ollama — Jev-style decision models and the Pac-Man demonstration",
+    "url": "https://ollama.com/blog/ollama-now-supports-jev-style-decision-models",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R39",
+    "title": "Ollama — Nimble model and API guide",
+    "url": "https://ollama.com/library/nimble",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R40",
+    "title": "Ollama — Tev1 model, context limits and evaluation",
+    "url": "https://ollama.com/library/tev1",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R41",
+    "title": "Ollama — Nimble tags, quantizations and package sizes",
+    "url": "https://ollama.com/library/nimble/tags",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R42",
+    "title": "Ollama — Tev1 tags and package sizes",
+    "url": "https://ollama.com/library/tev1/tags",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R43",
+    "title": "Ollama Python — v0.6.3 adds System One",
+    "url": "https://github.com/ollama/ollama-python/releases/tag/v0.6.3",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R44",
+    "title": "Ollama Python — synchronous and asynchronous System One client implementation",
+    "url": "https://raw.githubusercontent.com/ollama/ollama-python/v0.6.3/ollama/_client.py",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R45",
+    "title": "Ollama 0.35.0 — candidate scoring and entropy-based confidence",
+    "url": "https://raw.githubusercontent.com/ollama/ollama/v0.35.0/decision/systemone.go",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R46",
+    "title": "oMLX — published serving capabilities",
+    "url": "https://github.com/jundot/omlx",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R47",
+    "title": "oMLX — current server routes reviewed for System One support",
+    "url": "https://raw.githubusercontent.com/jundot/omlx/main/omlx/server.py",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R48",
+    "title": "oMLX — chat and structured-output schemas",
+    "url": "https://raw.githubusercontent.com/jundot/omlx/main/omlx/api/openai_models.py",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R49",
+    "title": "oMLX — version of the reviewed code",
+    "url": "https://raw.githubusercontent.com/jundot/omlx/main/omlx/_version.py",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R50",
+    "title": "Bespoke Labs — Nimble, official model preparation and MLX runner",
+    "url": "https://raw.githubusercontent.com/bespokelabsai/nimble/main/README.md",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R51",
+    "title": "Bespoke Labs — parallel scoring and prefix reuse",
+    "url": "https://raw.githubusercontent.com/bespokelabsai/nimble/main/docs/PARALLEL_SCORING.md",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R52",
+    "title": "Together AI — Tev1 training and implementation",
+    "url": "https://raw.githubusercontent.com/togethercomputer/tev1/main/README.md",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R53",
+    "title": "Together AI — Tev1 4B experimental model card and weight-license notice",
+    "url": "https://huggingface.co/togethercomputer/Tev1-4B-experimental",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R54",
+    "title": "Ollama — FAQ: updates, local-only mode, binding and memory residency",
+    "url": "https://docs.ollama.com/faq",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R55",
+    "title": "Gymnasium — Environment step semantics",
+    "url": "https://gymnasium.farama.org/api/env/",
+    "accessed": "2026-09-30"
+  },
+  {
+    "id": "R56",
+    "title": "mlx-serve — separate project with a Laya decision endpoint",
+    "url": "https://raw.githubusercontent.com/ddalcu/mlx-serve/main/docs/api.md",
+    "accessed": "2026-09-30"
+  }
+]

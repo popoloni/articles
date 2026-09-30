@@ -1,0 +1,86 @@
+[
+  {
+    "number": 1,
+    "file": "figures/01-question-types.png",
+    "caption": "Choice compares mutually exclusive options; Noul estimates a yes probability; Score returns an expected rubric level. The numbers are illustrative, not measured model outputs. Provider-specific response semantics are explained in the text.",
+    "alt": "Three System One question types: Choice, Noul and Score.",
+    "insert_before": "## How we arrived here: from fixed labels to runtime questions",
+    "dimensions": [
+      2700,
+      1575
+    ],
+    "sha256": "9d95928c1de3830a04495232b72a0f8ca8c7d109a29cb58423c757fd9b09daf0"
+  },
+  {
+    "number": 2,
+    "file": "figures/02-evolution.png",
+    "caption": "The progression is a schematic of reuse: representations, pretrained language knowledge, candidate descriptions, and finally typed questions supplied at runtime. It is not a claim that older classifiers have become obsolete.",
+    "alt": "The evolution from fixed-label classifiers to reusable, runtime-defined decisions.",
+    "insert_before": "## What we know about Jev\u2014and what remains undisclosed",
+    "dimensions": [
+      2700,
+      1575
+    ],
+    "sha256": "99ef6af653864703960661e143f76b5bdcc09a8afd03fbe868fd6bd21063c668"
+  },
+  {
+    "number": 3,
+    "file": "figures/03-probabilities.png",
+    "caption": "Evaluate the selected answer, the probability estimates, the subset chosen for automation, and consistency across related questions. The calibration curve is illustrative. Distribution concentration is not itself a measured probability of correctness.",
+    "alt": "Accuracy, calibration, selective performance and logical coherence are different checks.",
+    "insert_before": "### A compatibility trap worth checking before deployment",
+    "dimensions": [
+      2700,
+      1575
+    ],
+    "sha256": "d411fc84a8158bec4de5743a045ad34fa8b900862e0b197133457a5d989af0d4"
+  },
+  {
+    "number": 4,
+    "file": "figures/04-alternatives.png",
+    "caption": "Nimble/Tev1, OpenDecider, Laya, GLiClass, CLM and specialist encoders address related but different problems. Check the exact checkpoint, license, serving path and evaluation setting rather than assuming equal capability from an API name.",
+    "alt": "Open decision-model alternatives organized by their different roles.",
+    "insert_before": "## What the benchmarks establish\u2014and what they do not",
+    "dimensions": [
+      2700,
+      1575
+    ],
+    "sha256": "aed6c7cf581b8b0ecdee2e1c780def28da02a67192ec33ad453f56aa2e41e00b"
+  },
+  {
+    "number": 5,
+    "file": "figures/05-local-deployment.png",
+    "caption": "Native System One scoring, finite-choice text generation, and model-specific MLX inference are distinct capabilities. The support snapshot and hardware starting recommendations are those discussed in the article, not new performance measurements.",
+    "alt": "Four local deployment routes: Ollama, a Python decision service, oMLX chat and a dedicated MLX scorer.",
+    "insert_before": "## The simplest installation: Ollama's local decision API",
+    "dimensions": [
+      2700,
+      1575
+    ],
+    "sha256": "72e16fb4f1e1e8fd9fcaa7bce9ec23e2f0dc700c1ec8edfb6fc1a06b2655abf2"
+  },
+  {
+    "number": 6,
+    "file": "figures/06-realtime-loop.png",
+    "caption": "The simulation does not wait for inference. Keep one request in flight, use the newest state, and discard stale or out-of-round replies. In this illustrative timeline, a reply at 150 ms has only 100 ms left in a 250 ms observation-age budget.",
+    "alt": "An asynchronous game controller rejects actions based on observation age while physics continues.",
+    "insert_before": "### Run the companion Paddle Lab",
+    "dimensions": [
+      2700,
+      1680
+    ],
+    "sha256": "2a8546fea9b9dac34c67f80dd03c9ca5f51f6c192ca4ee750b4834b1f6c97782"
+  },
+  {
+    "number": 7,
+    "file": "figures/07-agent-architecture.png",
+    "caption": "The decision model recommends a route or escalation; the coding model proposes a change. Permissions, tests and review remain separate responsibilities, with updated evidence returning to a bounded loop.",
+    "alt": "A small decision service beside a larger coding model, with independent permissions and verification.",
+    "insert_before": "Shadow-mode discussion in the agent-component section",
+    "dimensions": [
+      2700,
+      1575
+    ],
+    "sha256": "331321cc57d497b0c45641fe84d44efef6ba001e92fa9dc8b5b681b77afd4759"
+  }
+]

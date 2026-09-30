@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Jev and the Return of the Classifier — Illustrated Edition</title><style>
+:root{color-scheme:light;--ink:#1b2838;--muted:#586574;--accent:#116978;}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:Georgia,"Times New Roman",serif;font-size:20px;line-height:1.68;}
+main{max-width:850px;margin:54px auto 110px;padding:0 30px;}
+h1,h2,h3,h4,nav,figcaption{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+h1{font-size:clamp(36px,4.5vw,54px);line-height:1.12;letter-spacing:-.035em;margin-bottom:22px;}
+h2{font-size:30px;line-height:1.25;margin:2.2em 0 .7em;letter-spacing:-.02em;}
+h1+h2{font-size:24px;font-weight:450;color:var(--muted);margin-top:0;line-height:1.45;}
+h3{font-size:23px;line-height:1.4;margin:1.9em 0 .7em;}p{margin:1.1em 0;}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px;overflow-wrap:anywhere;}
+code{font-size:.8em;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#f2f5f7;border-radius:3px;padding:.13em .3em;}
+pre{border:1px solid #dce4e9;border-radius:7px;padding:20px;background:#f5f8fa;overflow-x:auto;font-size:16px;line-height:1.55;}
+pre code{padding:0;background:none;font-size:inherit;white-space:pre;}
+blockquote{border-left:3px solid #63a9b1;padding-left:23px;margin-left:0;color:#36475a;}
+figure{width:min(1230px,calc(100vw - 64px));max-width:none;margin:43px 0 50px;position:relative;left:50%;transform:translateX(-50%);}
+figure img{display:block;width:100%;height:auto;background:#fff;}
+figcaption{max-width:820px;margin:15px auto 0;padding:0 18px;color:var(--muted);font-size:15px;line-height:1.55;text-align:left;}
+figcaption em{font-style:normal;}table{display:block;width:100%;overflow:auto;border-collapse:collapse;font-family:system-ui,sans-serif;font-size:15px;line-height:1.5;margin:28px 0;}
+th,td{text-align:left;border-bottom:1px solid #dae3e9;padding:12px 14px;vertical-align:top;}th{background:#eaf2f5;}
+hr{border:0;border-top:1px solid #dce4e9;margin:42px 0;}li{margin:.35em 0;}
+nav{font-size:14px;padding:14px 18px;background:#f1f7f8;border-radius:7px;margin:32px 0;}nav summary{font-weight:650;cursor:pointer;}nav a{display:block;margin:7px 0;}
+@media(max-width:650px){body{font-size:18px}main{margin-top:30px;padding:0 21px;}h2{font-size:27px;}h3{font-size:22px;}figure{width:calc(100vw - 24px);}figcaption{font-size:14px;padding:0 10px;}pre{padding:14px;font-size:13px;}h1+h2{font-size:21px;}}
+@media print{main{max-width:none;margin:0;padding:0;}body{font-size:11pt}figure{width:100%;left:0;transform:none;break-inside:avoid;}nav{display:none;}h2,h3{break-after:avoid;}pre{white-space:pre-wrap;font-size:8pt;}}
+</style></head><body><main><h1>Jev and the Return of the Classifier</h1>
+<h2 id="from-text-classification-to-local-coding-agents-and-real-time-games-with-ollama-mlx-and-open-weight-decision-models">From text classification to local coding agents and real-time games—with Ollama, MLX and open-weight decision models</h2>
+<p><em>Enrico Papalini · Evidence checked on 30 September 2026</em></p><nav><details><summary>Contents</summary><a href="#what-jev-actually-is">What Jev actually is</a><a href="#how-we-arrived-here-from-fixed-labels-to-runtime-questions">How we arrived here: from fixed labels to runtime questions</a><a href="#what-we-know-about-jev-and-what-remains-undisclosed">What we know about Jev—and what remains undisclosed</a><a href="#probabilities-are-the-product-and-the-main-integration-risk">Probabilities are the product—and the main integration risk</a><a href="#the-open-weight-alternatives-related-not-interchangeable">The open-weight alternatives: related, not interchangeable</a><a href="#what-the-benchmarks-establish-and-what-they-do-not">What the benchmarks establish—and what they do not</a><a href="#what-fits-on-a-mac">What fits on a Mac?</a><a href="#ollama-omlx-and-mlx-are-three-different-compatibility-questions">Ollama, oMLX and MLX are three different compatibility questions</a><a href="#the-simplest-installation-ollama-s-local-decision-api">The simplest installation: Ollama's local decision API</a><a href="#a-python-first-route-opendecider-and-laya">A Python-first route: OpenDecider and Laya</a><a href="#can-these-models-play-a-retro-game-in-real-time">Can these models play a retro game in real time?</a><a href="#from-a-working-demo-to-a-useful-agent-component">From a working demo to a useful agent component</a><a href="#the-real-opportunity">The real opportunity</a><a href="#sources-and-further-reading">Sources and further reading</a></details></nav>
+<p>A coding agent does not spend its entire life writing code. Much of its work consists of smaller decisions: which skill to invoke, whether a retrieved file is relevant, whether a request needs clarification, whether another repair attempt is worthwhile. We often ask the same large language model to make these decisions and generate the eventual patch.</p>
+<p>That is convenient. It is not necessarily a sensible allocation of intelligence, latency or memory.</p>
+<p>In my previous article, the question was how to fit a larger model onto a smaller Mac. Here, I want to ask the complementary question: <strong>which parts of an agentic workflow should not need that large model in the first place?</strong></p>
+<p>Jev makes this question interesting again. Not because classification is new, but because a useful, reusable decision service could change the economics of the machinery surrounding a generative model. Sebastian Raschka's historical survey and Manjunath Janardhan's account of building OpenDecider provide two valuable starting points: one explains the intellectual lineage; the other exposes the practical difficulty of reproducing the result. <a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a><a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a></p>
+<p>There is now a particularly accessible local route. <strong>Ollama 0.35 adds a native System One API for Nimble and Tev1</strong>, so running a decision model no longer necessarily means assembling a Python inference service. That changes the installation story—not the need to evaluate the model. This expanded edition also distinguishes oMLX compatibility from MLX compatibility and ends with a real-time paddle-game experiment. <a href="https://github.com/ollama/ollama/releases/tag/v0.35.0" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[37]</a></p>
+<h2 id="what-jev-actually-is">What Jev actually is</h2>
+<p>Jev is TypeSafe AI's proprietary model for answering <strong>typed questions about a supplied state</strong>. The state might be a support ticket, a document, a structured record or an agent's recent activity. The questions and possible answers are supplied at request time. Instead of composing an explanation, the service returns decisions and probability distributions. TypeSafe calls this a <em>System One</em> model—a product category, not evidence that the system reproduces human cognition. <a href="https://docs.typesafe.ai/introduction" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[2]</a></p>
+<p>At this article's cutoff, the documented version is <code>jev-1.13.0</code>. It accepts text and structured textual input, not native images or audio. The listed price is $0.042 per million input tokens, with output tokens free. These are current vendor terms, not a permanent cost guarantee. Jev's weights are not publicly released for local deployment; running an open alternative is not the same as downloading Jev. <a href="https://docs.typesafe.ai/models" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[3]</a><a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a></p>
+<p>The interface has three principal forms.</p>
+<p><strong>Choice</strong> answers a mutually exclusive question: which team should handle this ticket, or which predefined workflow should run next? It returns probabilities across the supplied alternatives. The candidate set matters: a confident choice among inadequate options is still an inadequate decision. Include a meaningful “other” or “insufficient information” option when the task requires one. <a href="https://docs.typesafe.ai/primitives/choice" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[4]</a></p>
+<p><strong>Noul</strong> asks a yes-or-no question and returns the estimated probability of “yes.” Several independent Noul questions can implement multi-label classification: a document can be both technical and urgent. Their probabilities do not have to sum to one across questions. <a href="https://docs.typesafe.ai/primitives/noul" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[5]</a></p>
+<p><strong>Score</strong> evaluates ordered, descriptive levels. Importantly, Jev's <code>score</code> is a probability-weighted position on that scale, not necessarily the most likely level. With probabilities 0.2, 0.5 and 0.3 over levels 0, 1 and 2, the expected score is 1.1. That is an illustrative calculation, not a measured Jev response. A fractional score does not establish precise measurement of an underlying physical quantity. <a href="https://docs.typesafe.ai/primitives/score" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[6]</a></p>
+<p>The useful abstraction is therefore not “a small chatbot.” It is <strong>a configurable decision function whose answer space is defined before inference</strong>.</p>
+<figure><img alt="Three System One question types: Choice, Noul and Score." decoding="async" src="figures/01-question-types.png"/><figcaption><em>Figure 1. Choice compares mutually exclusive options; Noul estimates a yes probability; Score returns an expected rubric level. The numbers are illustrative, not measured model outputs. Provider-specific response semantics are explained in the text.</em></figcaption></figure>
+<h2 id="how-we-arrived-here-from-fixed-labels-to-runtime-questions">How we arrived here: from fixed labels to runtime questions</h2>
+<p>The history is less a succession of obsolete algorithms than an expansion of what can be reused.</p>
+<h3 id="first-reuse-the-representation">First, reuse the representation</h3>
+<p>Bag-of-words systems convert documents into sparse vectors of word counts or TF-IDF values. Naive Bayes, logistic regression and linear support-vector machines then learn associations between those features and labels. They can be effective, inexpensive baselines. Their basic representation discards word order; adding n-grams restores some local structure at the cost of more features. <a href="https://scikit-learn.org/stable/modules/feature_extraction.html" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[7]</a></p>
+<p>Word embeddings made representations denser and more expressive. Recurrent networks processed sequences through an evolving hidden state; convolutional networks learned useful local patterns over adjacent tokens. These approaches improved the treatment of structure, but a classifier trained for sentiment still did not automatically become a classifier for customer intent. <a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a></p>
+<h3 id="then-reuse-a-pretrained-language-model">Then, reuse a pretrained language model</h3>
+<p>ULMFiT, published in 2018, helped establish the value of pretraining a language model and adapting it to downstream classification. BERT brought bidirectional transformer representations that could be fine-tuned with a classification head. ModernBERT, introduced in 2024, subsequently updated the encoder approach rather than declaring it obsolete. For stable, high-volume tasks, these remain relevant building blocks. <a href="https://aclanthology.org/P18-1031/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[8]</a><a href="https://aclanthology.org/N19-1423/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[9]</a><a href="https://arxiv.org/abs/2412.13663" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[11]</a></p>
+<p>This reduced the amount of task-specific training required. It did not eliminate the distinction between a pretrained representation and a trained decision rule. Loading a generic encoder with a newly initialized classification head does not create a competent universal classifier.</p>
+<h3 id="finally-make-the-labels-part-of-the-input">Finally, make the labels part of the input</h3>
+<p>Zero-shot classification reframed the problem again. In an entailment-based approach, a candidate label becomes a textual hypothesis evaluated against the document. The set of labels can therefore change without resizing a task-specific output layer. This predates Jev by years. <a href="https://aclanthology.org/D19-1404/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[10]</a></p>
+<p>Instruction-following language models made the interface even more flexible: describe a task, supply examples and ask for a label. But using an autoregressive model introduces machinery that a finite decision may not require. A classifier can compute scores without generating an explanation or repeatedly decoding tokens. Constrained generation can improve output formatting; it does not make the underlying computation or probability interpretation identical to a dedicated decision model. <a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a></p>
+<p><strong>Jev's contribution should be judged at the product-and-generalization level:</strong> how many unfamiliar decisions it handles usefully, how reliable its probabilities are, and how little integration work it requires. Neither dynamic labels nor classification heads were invented by its launch.</p>
+<figure><img alt="The evolution from fixed-label classifiers to reusable, runtime-defined decisions." decoding="async" src="figures/02-evolution.png"/><figcaption><em>Figure 2. The progression is a schematic of reuse: representations, pretrained language knowledge, candidate descriptions, and finally typed questions supplied at runtime. It is not a claim that older classifiers have become obsolete.</em></figcaption></figure>
+<h2 id="what-we-know-about-jev-and-what-remains-undisclosed">What we know about Jev—and what remains undisclosed</h2>
+<p>TypeSafe describes a specialized architecture, a parallel sampler and a training approach named <strong>Reinforcement Learning for Calibrated Decisions</strong>, or RLCD. The public material does not provide enough detail to reconstruct the architecture, training corpus or complete optimization procedure. Raschka's suggestion of a small encoder-like architecture is an educated hypothesis, not a disclosed specification. <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[12]</a><a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a></p>
+<p>A plausible open implementation is easier to explain than to make broadly capable. A shared scorer receives the state, a question and a candidate description, producing one scalar per candidate. A softmax converts those scores into a distribution. The same scorer can evaluate two candidates or twenty without changing its parameters; more candidates can still mean more computation. However, the training distribution determines whether unfamiliar labels, domains and instructions are interpreted sensibly. A compatible API cannot supply that generalization by itself. <a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a></p>
+<p>Calibration also has a history independent of Jev. The 2025 <strong>Reinforcement Learning with Calibration Rewards</strong> research, RLCR, adds an incentive for accurate confidence reporting to a correctness reward. This is related motivation, not evidence that RLCR and TypeSafe's proprietary RLCD are the same algorithm. Post-hoc methods such as temperature scaling offer another route: adjust probability sharpness using held-out data while leaving the predicted argmax class unchanged. <a href="https://arxiv.org/abs/2507.16806" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[14]</a><a href="https://proceedings.mlr.press/v70/guo17a.html" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[13]</a></p>
+<p>This is the distinction that quick clones often obscure: <strong>reproducing the request format is interface engineering; reproducing broad competence is a training and evaluation problem</strong>.</p>
+<p>The surrounding market is already changing. OpenAI announced a Decisions API at DevDay on 29 September 2026, with finite, user-defined answers and text or image context. It was announced in limited preview, not as a universally available or open-weight replacement. The broader trend is the separation of bounded decisions from unrestricted generation. <a href="https://openai.com/index/devday-2026-recap/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[17]</a></p>
+<h2 id="probabilities-are-the-product-and-the-main-integration-risk">Probabilities are the product—and the main integration risk</h2>
+<p>A label tells an application what the model prefers. A useful probability can help determine whether that preference should be acted on.</p>
+<p>But four different properties are routinely mixed together.</p>
+<p><strong>Accuracy</strong> asks how often the selected answer is correct. <strong>Calibration</strong> asks whether predicted probabilities agree with observed frequencies. <strong>Selective performance</strong> asks how well the system behaves on the subset it chooses to automate. <strong>Logical coherence</strong> asks whether related answers satisfy constraints such as a proposition and its complement summing to one. These are not interchangeable objectives. <a href="https://scikit-learn.org/stable/modules/calibration.html" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[33]</a><a href="https://arxiv.org/abs/2609.33209" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[34]</a></p>
+<p>An approximately calibrated 90% prediction means that, across an appropriate collection of comparable predictions, roughly 90% should be correct. It does not certify a particular decision. Nor does good overall calibration ensure good performance on an unusual programming language, an unfamiliar repository or an adversarial document.</p>
+<p>TypeSafe itself documents difficulties involving arithmetic, counting, long distracting inputs and adversarial content. It also warns that separately asked questions can produce inconsistent probabilities. My engineering conclusion is straightforward: let a learned model interpret ambiguous language; let deterministic code enforce arithmetic, authorization and logical invariants. <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[16]</a></p>
+<figure><img alt="Accuracy, calibration, selective performance and logical coherence are different checks." decoding="async" src="figures/03-probabilities.png"/><figcaption><em>Figure 3. Evaluate the selected answer, the probability estimates, the subset chosen for automation, and consistency across related questions. The calibration curve is illustrative. Distribution concentration is not itself a measured probability of correctness.</em></figcaption></figure>
+<h3 id="a-compatibility-trap-worth-checking-before-deployment">A compatibility trap worth checking before deployment</h3>
+<p>There are important differences even among similarly named response fields.</p>
+<p>TypeSafe describes <code>confidence</code> as a summary of the distribution's concentration, not simply the probability of the winning option. OpenDecider's native implementation uses the largest option probability for its Choice confidence. Copying a threshold of 0.9 from one service to the other does not preserve its meaning or its error rate. <a href="https://docs.typesafe.ai/confidence" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[15]</a><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/questions.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[29]</a></p>
+<p>There is also a distinction <strong>within OpenDecider</strong>. In its Python library, a Score answer's <code>score</code> is the most likely level and <code>expected</code> is the weighted mean. Its current HTTP adapter deliberately translates this: on the wire, <code>score</code> is the expectation and <code>level</code> is the most likely level, matching Jev's Score convention. This translation is present in the server code; it is not an unresolved incompatibility. <a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/questions.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[29]</a><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/serve.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[30]</a></p>
+<p>My recommendation is to define an application-owned contract: retain the complete distribution, distinguish <code>top_probability</code>, <code>most_likely_level</code> and <code>expected_level</code>, and version the thresholds. Do not let a convenient field name become an undocumented safety policy.</p>
+<p>Ollama makes this distinction inspectable in code. For Choice and Score, it computes <code>confidence = 1 - H(p) / log(K)</code>, clamped between zero and one, where <code>H(p)</code> is entropy and <code>K</code> is the number of alternatives. Uniform probabilities give zero; concentration on one option approaches one. It is <strong>not</strong> the winning probability or an empirically measured probability of correctness. Its Score output is the expected zero-based level. <a href="https://raw.githubusercontent.com/ollama/ollama/v0.35.0/decision/systemone.go" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[45]</a></p>
+<h2 id="the-open-weight-alternatives-related-not-interchangeable">The open-weight alternatives: related, not interchangeable</h2>
+<h3 id="nimble-and-tev1-decision-checkpoints-with-an-ollama-deployment-path">Nimble and Tev1: decision checkpoints with an Ollama deployment path</h3>
+<p><strong>Nimble</strong>, from Bespoke Labs, adapts Qwen3.5-9B for scoring finite alternatives. Its official implementation assigns candidate codes and reads their token scores rather than generating an explanatory answer. The project publishes the model and a native MLX scoring implementation; this is distinct from the packaged Ollama deployment. <a href="https://raw.githubusercontent.com/bespokelabsai/nimble/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[50]</a></p>
+<p><strong>Tev1</strong>, from Together AI, offers experimental 4B and 0.8B variants derived from Qwen3.5. The training recipe combines labeled tasks with programmatic rules and routing examples. Its documented limitations include incompletely evaluated calibration, multilingual behavior and adversarial robustness. The smallest model is an attractive footprint experiment, not a guarantee of reliable game control. <a href="https://raw.githubusercontent.com/togethercomputer/tev1/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[52]</a><a href="https://ollama.com/library/tev1" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[40]</a></p>
+<p>A release detail matters before redistribution: Tev1's code and documentation have a permissive license, but the experimental weight card says the fine-tuned weight license is still being finalized. Do not infer the weight terms from the code license or the base model's license. <a href="https://huggingface.co/togethercomputer/Tev1-4B-experimental" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[53]</a></p>
+<h3 id="opendecider-a-practical-starting-point-for-a-local-decision-service">OpenDecider: a practical starting point for a local decision service</h3>
+<p>OpenDecider offers a family rather than a single architecture. Its approximately <strong>400M-parameter nano</strong> model uses an Ettin encoder. Candidate markers allow it to score options in a shared pass. The <strong>4B small</strong> model adapts a Qwen backbone and reads candidate token probabilities rather than generating a prose answer. The ordinary small-candidate path is therefore not an autoregressive conversation; larger candidate sets can require different scoring machinery. <a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a><a href="https://github.com/manjunathshiva/opendecider" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[19]</a></p>
+<p>The project also publishes 30B and 80B MoE variants. That is an update to the supplied article, which described the 80B as forthcoming. Their documented inference path is NVIDIA-oriented; their existence is not a verified native-Mac deployment. The 4B has explicit MLX 8-bit and 4-bit builds. The project publishes code and checkpoints under Apache-2.0, but a release license should not be confused with an independent audit of every upstream data right. <a href="https://github.com/manjunathshiva/opendecider" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[19]</a><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[21]</a></p>
+<p>Training uses distillation from stronger teachers, with probability distributions rather than only hard labels. Some <code>-td</code> variants receive additional adaptation to the typed-decisions training split. Those suffixes matter when interpreting results: a domain-adapted checkpoint and a zero-shot checkpoint answer different evaluation questions. <a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a></p>
+<p>For a Mac-based experiment, I would start with nano, then compare the 4B MLX model on the decisions that actually matter to the application.</p>
+<h3 id="laya-compact-typed-decisions-with-an-independent-mlx-route">Laya: compact typed decisions, with an independent MLX route</h3>
+<p>Laya provides non-autoregressive typed decisions using encoder backbones, including English and multilingual variants. Its official repository publishes the implementation and models; the separate <strong>laya-mlx</strong> project ports inference to Apple Silicon. That port is community work, not evidence that every new capability of the parent project is automatically supported. <a href="https://github.com/NandhaKishorM/laya" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[23]</a><a href="https://raw.githubusercontent.com/mizorewww/laya-mlx/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[24]</a></p>
+<p>The port's documented English checkpoint is approximately 421M parameters; its multilingual checkpoint is approximately 322M. Its published M3 Max measurements are attractive—roughly 13.4 ms and 7.4 ms respectively for its test workload—but exclude model loading and are not Mac mini measurements. Input budgets are also modest for these ported checkpoints: inspect the exact model's limits before supplying a long agent trace. <a href="https://raw.githubusercontent.com/mizorewww/laya-mlx/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[24]</a></p>
+<p>Laya is worth testing when a compact decision model and multilingual coverage are priorities. Its practical value depends on the target distribution, not merely its fastest demonstration.</p>
+<h3 id="gliclass-arbitrary-label-classification-without-pretending-to-be-everything">GLiClass: arbitrary-label classification without pretending to be everything</h3>
+<p>GLiClass is a dedicated zero-shot classification framework that evaluates text against supplied labels. It is related to the GLiNER ecosystem, but <strong>GLiNER's entity extraction and GLiClass's document classification are different tasks</strong>. GLiClass is a useful open alternative when the actual requirement is label assignment rather than the full Jev-style bundle of typed decisions and calibration claims. <a href="https://github.com/Knowledgator/GLiClass" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[25]</a></p>
+<p>Its conventional Python inference route also makes it a reasonable CPU-first baseline. A fast label score should still be evaluated before being interpreted as an automation probability.</p>
+<h3 id="contrastive-language-models-especially-interesting-for-ranking-actions">Contrastive Language Models: especially interesting for ranking actions</h3>
+<p>The CLM project takes a different route: it learns representations for states and candidate actions that can be scored against one another. Separately reusable representations make candidate ranking and caching central to the design. That can be useful when an agent already has several possible actions or candidate outputs and needs to select among them. <a href="https://github.com/Contrastive-LM/CLM" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[26]</a></p>
+<p>The published reference setup uses an 8B backbone, an additional head and a vLLM-based serving path. The small size of the extra head is not the total model footprint. I did not verify a turnkey native-MLX deployment, so I would treat CLM as a more involved Mac porting exercise rather than the first installation to recommend. <a href="https://github.com/Contrastive-LM/CLM" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[26]</a></p>
+<h3 id="modernbert-and-setfit-specialists-still-have-a-place">ModernBERT and SetFit: specialists still have a place</h3>
+<p>A fine-tuned ModernBERT model or a SetFit classifier may be the appropriate answer when the same narrow decision repeats at high volume and representative labels are available. SetFit is designed for efficient few-shot classification using sentence representations. These are not universal Jev replacements out of the box; they are tools for building a specialist whose boundaries are easier to define. <a href="https://arxiv.org/abs/2412.13663" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[11]</a><a href="https://huggingface.co/docs/setfit/index" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[27]</a></p>
+<p>The choice is not simply proprietary versus open. It is also <strong>general decision service versus deliberately specialized component</strong>.</p>
+<figure><img alt="Open decision-model alternatives organized by their different roles." decoding="async" src="figures/04-alternatives.png"/><figcaption><em>Figure 4. Nimble/Tev1, OpenDecider, Laya, GLiClass, CLM and specialist encoders address related but different problems. Check the exact checkpoint, license, serving path and evaluation setting rather than assuming equal capability from an API name.</em></figcaption></figure>
+<h2 id="what-the-benchmarks-establish-and-what-they-do-not">What the benchmarks establish—and what they do not</h2>
+<p>Raschka reports <strong>96.47% IMDb test accuracy</strong> for Jev's Choice interface. His later experiments report 92.33% for Laya and 82.90% for a CLM configuration. These are informative observations on sentiment classification, with his explicit caveat that Jev's training exposure is unknown. They do not establish a universal ranking for repository triage, security screening or agent control. <a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[1]</a></p>
+<p>Janardhan's OpenDecider evaluation asks a different question. On 200 pooled general-decision examples, it reports <strong>76.5% for OpenDecider-medium-td versus 73.0% for Jev</strong>. On Laya's application battery, however, the reported result reverses: <strong>77.4% for Jev versus 72.5% for the OpenDecider 30B</strong>. The same account acknowledges substantial remaining gaps in phishing and jailbreak detection. These are creator-run measurements, not replications performed for this essay. <a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a></p>
+<p>The 3.5-point difference on 200 items corresponds to only <strong>seven additional correct answers</strong>. As an illustrative uncertainty check, the usual binomial approximation around 75% accuracy on 200 independent examples gives a 95% margin of roughly six percentage points for a single accuracy estimate. That is not a significance test for the paired difference: the actual pattern of disagreements is needed. A small benchmark supports investigation, not a sweeping “beats Jev” conclusion.</p>
+<p>The typed-decisions benchmark introduces another complication. As Janardhan explains, its reference labels were derived from a teacher model, and some competitors were fine-tuned on its training split while Jev was evaluated zero-shot. High agreement can therefore reflect successful adaptation to the teacher and dataset—not independently established correctness on unfamiliar work. The teacher's reported repeat-agreement rate is a warning about the target, not a mathematical ceiling that no valid learner can exceed. <a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a></p>
+<p>Similarly, “we did not train on these evaluation datasets” generally describes the project's downstream training procedure. It does not prove that a large pretrained backbone never encountered related material. Hardware must also remain visible: a multi-GPU local result, a warm Mac inference call and a network API request are not controlled latency equivalents. <a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/COMPARISON.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[20]</a></p>
+<p>For a coding workflow, I would evaluate file relevance, skill selection, clarification decisions and escalation independently. A model that is useful on three of them should not inherit authority over the fourth.</p>
+<p>Ollama adds another comparison: its published table reports mean accuracy across 13 human-labeled public datasets, comprising 3,880 decisions, of <strong>75.7% for Nimble, 73.3% for Tev1 4B and 63.5% for Tev1 0.8B</strong>, against <strong>76.0% for Jev 1.13</strong>. Nimble and Tev1 were run through Ollama; Jev's result comes from Bespoke's API evaluation. This is a classification benchmark, not a retro-game benchmark, and it does not establish that every quantized tag retains the same scores. <a href="https://ollama.com/library/nimble" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[39]</a></p>
+<h2 id="what-fits-on-a-mac">What fits on a Mac?</h2>
+<p>The encouraging difference from giant-model deployment is that a useful first experiment does not require a high-memory Studio.</p>
+<p>OpenDecider's documentation reports <strong>about 28 ms per question for nano on a 16 GB M4 Mac mini</strong>, with approximately 2.0 GiB of reported memory use. Its unquantized 4B path is reported at about 280 ms and 8.9 GiB. These are project measurements for the stated setup, not guaranteed timings for arbitrary inputs or concurrent coding workloads. <a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[21]</a></p>
+<p>The <strong>4B MLX 8-bit model card</strong> reports approximately 4.5 GB of inference memory on the author's M4 Max setup. The 4-bit variant offers a smaller footprint, but the calibration and accuracy of that exact quantization need their own evaluation. The project's unreleased 30B 4-bit MLX experiment is a useful warning: making a model fit did not preserve enough advantage to justify publishing that build. <a href="https://huggingface.co/manjunathshiva/opendecider-small-mlx-8bit" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[22]</a><a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[18]</a></p>
+<p>My proposed starting points are therefore simple. On a <strong>16 GB mini</strong>, try nano first, alongside—not instead of—the memory needed by the editor, tests and coding model. On a <strong>24–32 GB mini</strong>, compare nano with the 4B MLX 8-bit build. On a <strong>larger Studio</strong>, use the extra memory to maintain a comfortable coding environment before assuming that a much larger decision model is necessary.</p>
+<p>For an <strong>M6 mini</strong>, use the same validation sequence rather than extrapolating a token-rate or millisecond claim from an M4 Max or M3 Max. I have not run physical-Mac benchmarks for this essay.</p>
+<p>A decision model also does not automatically inherit the caching machinery discussed in the previous article. A bidirectional encoder's score depends jointly on its inputs; arbitrary document representations cannot simply be reused as though they were a decoder's prefix KV cache. Where a project explicitly supports independently reusable representations, as CLM does, that is a specific architectural feature. <a href="https://aclanthology.org/N19-1423/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[9]</a><a href="https://github.com/Contrastive-LM/CLM" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[26]</a></p>
+<p>My preferred design is a <strong>small decision service beside the coding server</strong>, not a demand that one inference engine host every architecture and reproduce every decision head.</p>
+<p>For the new Ollama route, the published downloads are <strong>812 MB for <code>tev1:0.8b</code></strong>, <strong>4.5 GB for <code>tev1:4b</code></strong>, and <strong>9.5 GB for the default <code>nimble</code></strong>. A separate <strong><code>nimble:9b-q4_K_M</code></strong> tag is approximately <strong>5.6 GB</strong>; the default Nimble corresponds to its Q8 tag. These are package sizes, not peak process-memory measurements. Test quantization effects on the decision distribution as well as the selected label. <a href="https://ollama.com/library/nimble/tags" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[41]</a><a href="https://ollama.com/library/tev1/tags" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[42]</a></p>
+<p>My starting choice for a 16 GB mini would be Tev1 0.8B to verify the pipeline, then a measured comparison with 4B. On a 24–32 GB mini, Nimble is a reasonable next experiment provided the editor and coding model still have room. A larger Studio makes simultaneous residency easier, but does not remove competition for memory bandwidth and compute. No timing here is an M6 mini benchmark.</p>
+<h2 id="ollama-omlx-and-mlx-are-three-different-compatibility-questions">Ollama, oMLX and MLX are three different compatibility questions</h2>
+<p><strong>Ollama's support is native.</strong> The 0.35.0 release introduces <code>/v1/systemone</code>, with typed Choice, Noul and Score answers. This runs the supported open checkpoints locally; it does not make TypeSafe's proprietary Jev weights available. <a href="https://github.com/ollama/ollama/releases/tag/v0.35.0" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[37]</a></p>
+<p><strong>For oMLX, I could not verify an equivalent native integration in the reviewed public code</strong>, whose version is <code>0.7.0rc1</code>. The published server routes do not expose <code>/v1/systemone</code>, and I found no validated Nimble/Tev1 decision adapter. Support for their Qwen backbone, or for embeddings and reranking, is not the same as preserving their decision-scoring contract. This is a version-specific finding, not a claim that an adapter cannot be built. <a href="https://github.com/jundot/omlx" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[46]</a><a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/server.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[47]</a><a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/_version.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[49]</a></p>
+<p>What oMLX does expose is structured generation. Its chat schema supports a constrained choice such as <code>structured_outputs: {"choice": ["up", "down", "stay"]}</code>. A compatible instruction model can therefore return a finite action, but this remains a <strong>generative baseline</strong>, not native System One scoring with a verified candidate distribution. In the companion demo, that backend deliberately returns no invented probabilities. <a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/api/openai_models.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[48]</a></p>
+<p><strong>Nimble can also run directly on MLX without oMLX.</strong> Follow Bespoke's model-preparation procedure, then instantiate <code>ParallelScorer</code> with the saved model configuration. Calling <code>ParallelScorer()</code> without arguments loads a different, 4B baseline—not Nimble. The documented MLX runner needs merged weights rather than an adapter folder and does not support quantized weights. Unquantized 9B weights alone require about 18 GB, before working memory and preparation overhead. <a href="https://raw.githubusercontent.com/bespokelabsai/nimble/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[50]</a></p>
+<p>That runner can reuse shared prefix computation across fields within a request. Do not transfer this implementation detail to every System One server: Ollama compiles a scoring row for each question, and one HTTP request containing many questions is not proof of one shared forward pass. <a href="https://raw.githubusercontent.com/bespokelabsai/nimble/main/docs/PARALLEL_SCORING.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[51]</a><a href="https://raw.githubusercontent.com/ollama/ollama/v0.35.0/decision/systemone.go" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[45]</a></p>
+<p>There is also a separate project named <strong>mlx-serve</strong>, not oMLX, documenting Laya support through <code>/v1/decisions</code>. That is another native-MLX option to investigate, with its own schema and checkpoint requirements; changing an endpoint name alone is not a compatibility test. <a href="https://raw.githubusercontent.com/ddalcu/mlx-serve/main/docs/api.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[56]</a></p>
+<p>The resulting distinction is:</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>What the application receives</th>
+<th>What it does not establish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ollama 0.35+ with Nimble/Tev1</td>
+<td>Native typed decisions and candidate probabilities</td>
+<td>Jev's proprietary model or universal calibration</td>
+</tr>
+<tr>
+<td>oMLX ordinary chat with finite choices</td>
+<td>A generated action from a supported instruction model</td>
+<td>A native System One scorer</td>
+</tr>
+<tr>
+<td>Nimble's dedicated MLX runner</td>
+<td>Model-specific candidate scores</td>
+<td>Drop-in oMLX compatibility</td>
+</tr>
+<tr>
+<td>OpenDecider/Laya service beside oMLX</td>
+<td>Decisions through the service's own supported interface</td>
+<td>Shared hardware isolation or identical wire semantics</td>
+</tr>
+</tbody>
+</table>
+<p>For this article's coding architecture, I would initially keep the division simple: <strong>Ollama handles the small decision model; oMLX handles the larger coding model.</strong> Alternatively, OpenDecider or laya-mlx can supply the decision component. Measure them together: two servers sharing a Mac are not two isolated GPUs.</p>
+<figure><img alt="Four local deployment routes: Ollama, a Python decision service, oMLX chat and a dedicated MLX scorer." decoding="async" src="figures/05-local-deployment.png"/><figcaption><em>Figure 5. Native System One scoring, finite-choice text generation, and model-specific MLX inference are distinct capabilities. The support snapshot and hardware starting recommendations are those discussed in the article, not new performance measurements.</em></figcaption></figure>
+<h2 id="the-simplest-installation-ollama-s-local-decision-api">The simplest installation: Ollama's local decision API</h2>
+<h3 id="update-the-running-server-then-download-one-model">Update the running server, then download one model</h3>
+<p>Update the native macOS app to Ollama 0.35 or later and restart it. Check the running service as well as the command-line executable; a newer CLI talking to an older background process is not a successful server upgrade. On macOS, the app's update menu provides the restart path. <a href="https://github.com/ollama/ollama/releases/tag/v0.35.0" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[37]</a><a href="https://docs.ollama.com/faq" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[54]</a></p>
+<pre><code class="language-bash">ollama --version
+curl --fail -sS http://127.0.0.1:11434/api/version
+ollama pull tev1:0.8b
+</code></pre>
+<p>Start with a small checkpoint. The later comparisons are <code>ollama pull tev1:4b</code> and <code>ollama pull nimble</code>; there is no need to download or keep all three resident for the first test. The precise package sizes and tags are recorded above. <a href="https://ollama.com/library/nimble/tags" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[41]</a><a href="https://ollama.com/library/tev1/tags" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[42]</a></p>
+<h3 id="use-system-one-not-the-generic-chat-example">Use System One, not the generic chat example</h3>
+<p>The generic model-library tabs may show <code>ollama run</code> or <code>/api/chat</code>. For this job, use <strong><code>/v1/systemone</code></strong>. Below is an original coding-triage request, with all three question types and a bounded residency period:</p>
+<pre><code class="language-bash">curl --fail-with-body --max-time 120 -sS \
+  http://127.0.0.1:11434/v1/systemone \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model": "tev1:0.8b",
+    "keep_alive": "10m",
+    "state": {
+      "request": "Fix parse_records when given an empty list.",
+      "evidence": "A supplied unit test fails with IndexError.",
+      "constraint": "Do not change the public function signature."
+    },
+    "questions": {
+      "route": {
+        "type": "choice",
+        "instructions": "Which workflow best matches this request?",
+        "criteria": {
+          "debugging": "Repair an existing code failure",
+          "documentation": "Change explanatory text only",
+          "clarification": "Ask for essential missing information"
+        }
+      },
+      "has_reproduction": {
+        "type": "noul",
+        "instructions": "Is a concrete failing input identified?"
+      },
+      "change_scope": {
+        "type": "score",
+        "instructions": "How broad is the requested change?",
+        "criteria": ["One isolated behavior", "Several components", "Public architecture"]
+      }
+    }
+  }'
+</code></pre>
+<p>The schema follows Ollama's documented model API. The values returned by your installation—not an invented sample distribution—are the output to inspect. <code>keep_alive</code> keeps the model loaded between requests; it is not a guarantee of prefix-cache reuse, and it does not start background inference. <a href="https://ollama.com/library/nimble" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[39]</a><a href="https://docs.ollama.com/faq" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[54]</a></p>
+<p>For a real-time controller, I would begin with <strong>one action question</strong>, not the three-question diagnostic request above. Keep Tev1's effective prompt budget in mind: its documentation specifies around <strong>2,000 tokens</strong>, despite the library header advertising a much larger base context. State, instructions and candidate descriptions consume that budget together. Stay within the trained 2–24-candidate range. <a href="https://ollama.com/library/tev1" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[40]</a></p>
+<h3 id="the-native-python-client-already-supports-it">The native Python client already supports it</h3>
+<p>There is a documentation race worth avoiding. Some model-library text still says the Ollama Python client is unsupported, but <strong><code>ollama-python</code> 0.6.3 added System One</strong>, including synchronous and asynchronous clients. Install the package version explicitly in an isolated environment. <a href="https://github.com/ollama/ollama-python/releases/tag/v0.6.3" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[43]</a><a href="https://raw.githubusercontent.com/ollama/ollama-python/v0.6.3/ollama/_client.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[44]</a></p>
+<pre><code class="language-bash">python3 -m venv .venv-ollama
+source .venv-ollama/bin/activate
+python -m pip install 'ollama==0.6.3'
+</code></pre>
+<pre><code class="language-python">from ollama import Client
+
+client = Client(host="http://127.0.0.1:11434", timeout=120)
+response = client.systemone(
+    model="tev1:0.8b",
+    state="The installation guide contains a spelling mistake.",
+    questions={
+        "route": {
+            "type": "choice",
+            "instructions": "Which workflow should handle this?",
+            "criteria": {
+                "code": "Change program behavior",
+                "docs": "Edit documentation",
+                "clarify": "Request missing evidence"
+            }
+        }
+    },
+    keep_alive="10m",
+)
+print(response.model_dump())
+</code></pre>
+<p>This is a single response, not a token stream. An asynchronous client lets an application do other work while waiting; it does not make the model's decision instantaneous. TypeSafe's SDK remains an alternative when pointed at the local endpoint. A placeholder API key required by that SDK does not enable authentication on an otherwise unauthenticated Ollama loopback server. <a href="https://raw.githubusercontent.com/ollama/ollama-python/v0.6.3/ollama/_client.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[44]</a><a href="https://ollama.com/blog/ollama-now-supports-jev-style-decision-models" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[38]</a></p>
+<h3 id="keep-residency-and-privacy-explicit">Keep residency and privacy explicit</h3>
+<p>Use <code>ollama ps</code> to inspect loaded models and <code>ollama stop MODEL</code> to release one. For a deliberately local-only app configuration, Ollama documents <code>OLLAMA_NO_CLOUD=1</code>; on macOS, set app environment variables with <code>launchctl setenv</code>, restart and verify the configuration. Initial model downloads still need a network connection. Keep the default loopback binding rather than exposing an unauthenticated inference service to a network. <a href="https://docs.ollama.com/faq" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[54]</a></p>
+<p>I would not reserve nearly all physical RAM independently in both Ollama and oMLX. Start the decision service alone, warm it, measure it, then repeat with the coding server actively generating. The second measurement is the one that represents an agentic workload.</p>
+<h2 id="a-python-first-route-opendecider-and-laya">A Python-first route: OpenDecider and Laya</h2>
+<h3 id="1-start-with-an-isolated-environment">1. Start with an isolated environment</h3>
+<p>For the following example, use a native Apple Silicon Python installation; Python 3.11 or 3.12 is a conservative starting point. Check that <code>uname -m</code> reports <code>arm64</code>, then create an environment:</p>
+<pre><code class="language-bash">mkdir -p "$HOME/local-decider"
+cd "$HOME/local-decider"
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install 'opendecider[mlx,serve]==0.2.0'
+</code></pre>
+<p>The package and optional MLX/server dependencies are published. Version 0.2.0 is the pinned release for this guide; the code below is based on its documented interfaces. Installing the package and first loading a checkpoint require network access. <a href="https://pypi.org/project/opendecider/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[28]</a></p>
+<h3 id="2-ask-a-real-bounded-coding-question">2. Ask a real, bounded coding question</h3>
+<p>Save this as <code>triage.py</code>. It recommends a route; it does not execute tools or modify the repository.</p>
+<pre><code class="language-python">import json
+from opendecider import load
+
+model = load("manjunathshiva/opendecider-nano")
+
+state = {
+    "request": "Fix the empty-input failure in parse_records.",
+    "evidence": "The supplied test fails with IndexError on an empty list.",
+    "constraint": "Do not change the public function signature."
+}
+
+questions = {
+    "route": {
+        "type": "choice",
+        "instructions": "Which workflow best matches the request?",
+        "criteria": {
+            "debugging": "Diagnose and repair an existing failure",
+            "documentation": "Change explanatory text without code changes",
+            "clarification": "Request essential missing information"
+        }
+    },
+    "has_reproduction": {
+        "type": "noul",
+        "instructions": "Does the state identify a concrete failing input?"
+    }
+}
+
+result = model.system_one(state, questions)
+answers = result["answers"]
+
+if result.get("warnings") or any(
+    answer.get("truncated", False) for answer in answers.values()
+):
+    raise RuntimeError("Input warning: inspect before relying on this result.")
+
+print(json.dumps(answers, indent=2))
+</code></pre>
+<p>Run <code>python triage.py</code>. The expected workflow for this hand-written example is debugging, but no probability values are supplied here as alleged measured output. Inspect what your installation actually returns. The loader supports local execution and exposes input-truncation warnings; checking those warnings is part of the test. <a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/__init__.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[31]</a></p>
+<h3 id="3-compare-the-apple-native-4b-path">3. Compare the Apple-native 4B path</h3>
+<p>Change only the model identifier:</p>
+<pre><code class="language-python">model = load("manjunathshiva/opendecider-small-mlx-8bit")
+</code></pre>
+<p>This selects a model-specific MLX implementation. It is not equivalent to taking an ordinary Qwen checkpoint, prompting it to return JSON and assuming the resulting numbers reproduce OpenDecider. The published MLX checkpoint includes the adapted model used by this inference path. <a href="https://huggingface.co/manjunathshiva/opendecider-small-mlx-8bit" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[22]</a></p>
+<p>Keep the same held-out examples when comparing nano, 8-bit and 4-bit variants. Measure end-to-end decision latency after warm-up, and separately record cold load time and peak memory while the coding model is also resident.</p>
+<h3 id="4-expose-a-private-local-endpoint">4. Expose a private local endpoint</h3>
+<p>For an agent harness, a small HTTP service is often easier to integrate than embedding inference in the agent process. The current OpenDecider server implements <code>/v1/systemone</code>, bearer authentication and bounded request admission. Explicitly bind to loopback rather than accepting its all-interface default. <a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/serve.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[30]</a></p>
+<p>In the activated environment:</p>
+<pre><code class="language-bash">umask 077
+mkdir -p "$HOME/.config/local-decider"
+KEY_FILE="$HOME/.config/local-decider/api.key"
+if [ ! -s "$KEY_FILE" ]; then
+  python -c 'import secrets; print(secrets.token_hex(32))' &gt; "$KEY_FILE"
+fi
+export OPENDECIDER_API_KEY="$(cat "$KEY_FILE")"
+
+opendecider serve \
+  --model manjunathshiva/opendecider-nano \
+  --host 127.0.0.1 --port 8011 \
+  --max-in-flight 4 --request-timeout-s 30
+</code></pre>
+<p>The CLI flags are documented; the concurrency and timeout values are proposed starting settings, not optimal values established by a load test. Port 8011 keeps the service separate from a coding server commonly configured on another port. <a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/cli.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[32]</a></p>
+<p>From another terminal, send a request:</p>
+<pre><code class="language-bash">export OPENDECIDER_API_KEY="$(cat "$HOME/.config/local-decider/api.key")"
+curl --fail-with-body --max-time 40 -sS \
+  http://127.0.0.1:8011/v1/systemone \
+  -H "Authorization: Bearer $OPENDECIDER_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "state": "A supplied unit test fails when parse_records receives [].",
+    "questions": {
+      "has_reproduction": {
+        "type": "noul",
+        "instructions": "Does the report identify a concrete failing input?"
+      }
+    }
+  }'
+</code></pre>
+<p>Treat authentication failure, input truncation, timeout and an uncertain model answer as different conditions. None should silently become approval to run a tool. Keep credentials outside the repository and avoid logging sensitive source text unnecessarily.</p>
+<h3 id="5-test-a-second-implementation-rather-than-trusting-one-family">5. Test a second implementation rather than trusting one family</h3>
+<p>For Laya's independent MLX port, create a separate environment and install <code>laya-mlx</code>. Its documented interface is:</p>
+<pre><code class="language-python">import laya_mlx as laya
+
+agent = laya.load("aac6fef/laya-mlx")
+result = agent.predict(
+    "The task is to correct a typo in the installation guide.",
+    {
+        "route": {
+            "type": "choice",
+            "instructions": "Which workflow fits this task?",
+            "criteria": ["debugging", "documentation", "clarification"]
+        }
+    }
+)
+print(result["answers"]["route"])
+</code></pre>
+<p>Use a short input first and check the selected checkpoint's context budget. Installation instructions, checkpoint names and this API shape are documented by the port. The example's output is deliberately not fabricated. <a href="https://huggingface.co/aac6fef/laya-mlx" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[36]</a></p>
+<h3 id="6-make-local-execution-reproducible">6. Make local execution reproducible</h3>
+<p>Record the package version, checkpoint revision, backend, quantization, question schema and input limits. OpenDecider's loader accepts a model revision, so a moving repository need not silently change the evaluated system. After downloading every required asset and performing a successful warm-up, test again with Hugging Face offline mode enabled and network access disabled. An incomplete cache may still need a tokenizer, configuration or base-model dependency. <a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/__init__.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[31]</a></p>
+<p>The important test is not simply “the weights are on disk.” It is “this exact workflow runs without an external inference service.”</p>
+<h2 id="can-these-models-play-a-retro-game-in-real-time">Can these models play a retro game in real time?</h2>
+<p><strong>There is already a relevant public demonstration:</strong> Ollama reports that Nimble 9B averaged <strong>91 ms per decision</strong> in its Pac-Man example on a <strong>MacBook Pro M5 Max</strong>, replayed at real-time speed. That is vendor-reported evidence for one game configuration. It is not a Mac mini measurement, does not provide a p95 latency, and does not establish that the model issues 60 decisions per second. <a href="https://ollama.com/blog/ollama-now-supports-jev-style-decision-models" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[38]</a></p>
+<p>The arithmetic is useful: a 91 ms serial decision takes roughly the time of five to six frames on a 60 Hz display. With no other overhead, its reciprocal is about eleven decisions per second. That is enough to make some game designs interesting, but the display clock and the decision clock must be different clocks.</p>
+<h3 id="a-game-can-advance-in-steps-without-being-real-time">A game can advance in steps without being real-time</h3>
+<p>In a typical step-based environment, <code>env.step(action)</code> advances the simulation when the program calls it. An application can wait two seconds for an action, advance one step, and still eventually complete a game. Gymnasium's API documents this explicit step interface. A successful episode under that arrangement does not demonstrate control of a world that keeps moving during inference. <a href="https://gymnasium.farama.org/api/env/" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[55]</a></p>
+<p>For wall-clock play, the physics loop must continue while the request is pending. The useful question becomes: <strong>is the returned action still relevant to the current state?</strong> A model can be quick and accurate on an old screenshot yet be too late to save the paddle.</p>
+<h3 id="begin-with-symbolic-state-not-a-screenshot">Begin with symbolic state, not a screenshot</h3>
+<p>For a first experiment, I would instrument a game I control and supply positions, velocities, map cells and legal actions as compact JSON. That isolates the decision model from visual recognition. Nimble's released decision interface is text-only, even though its underlying model family has other capabilities. Tev1's packaged interface also uses textual or structured-text state. A screenshot is not automatically a valid input to this endpoint. <a href="https://raw.githubusercontent.com/bespokelabsai/nimble/main/README.md" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[50]</a><a href="https://ollama.com/library/tev1" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[40]</a></p>
+<p>A screenshot-only setup needs a separate perception stage: capture the image, identify sprites and obstacles, track movement, then construct the state. Its errors and latency belong in the end-to-end result. Reading emulator memory can be useful for research, but report it as privileged state access rather than comparing it silently with a pixel-only agent.</p>
+<h3 id="keep-the-action-space-small-and-meaningful">Keep the action space small—and meaningful</h3>
+<p>For a maze game, a decision at a junction can select a direction or a nearby goal. For Tetris, a decision can select among legal piece placements rather than repeatedly guessing which key to press. A deterministic controller then executes the chosen placement. When the legal set exceeds the API's candidate limit, any shortlisting policy becomes part of the algorithm and the benchmark. It can improve or restrict the model's apparent performance.</p>
+<p>For Pong-like reflex control, I would include a simple non-model tracking baseline. A larger language model is not automatically an improvement over geometry or a small policy trained specifically for the game. Use a general decision model when interpreting goals, rules or variable tasks adds value—not merely because a paddle can be described in JSON.</p>
+<p>A distribution over <code>up</code>, <code>down</code> and <code>stay</code> also is <strong>not a distribution over winning</strong>. It represents relative candidate scores under the model and prompt. Calibration for sentiment or ticket routing does not establish calibration for future game reward.</p>
+<h3 id="a-controller-needs-a-freshness-policy-not-just-a-fast-endpoint">A controller needs a freshness policy, not just a fast endpoint</h3>
+<p>My proposed architecture separates three responsibilities. The game renders and updates physics independently. A decision worker reads a fresh snapshot and permits at most one inference request in flight. An action gate checks the reply's sequence number, round identifier, allowed action and age before applying it.</p>
+<p>The deadline starts at <strong>observation time</strong>. For example, when a 250 ms freshness budget receives a reply after 150 ms, the action has 100 ms of permitted lifetime left—not a fresh 250 ms lease. This prevents network or inference delay from extending an obsolete instruction.</p>
+<p>Do not build a FIFO queue of old frames. When the worker becomes available, take the newest observation. Drop replies from a previous round or a paused run. Release held keys on expiration or failure. For the companion paddle game, the explicit fallback is <code>stay</code>; a different game may need a different safe fallback. Neutral action is not automatically the best game-playing action, but it makes failures observable instead of hiding them behind another controller.</p>
+<p>A 10 Hz decision target allows approximately 100 ms per interval; 5 Hz allows 200 ms. These are planning budgets, not promised model latencies. Check the tail of the measured latency distribution, perception cost and actuation delay. A browser that renders at 60 FPS while applying one-second-old decisions has not solved the problem.</p>
+<figure><img alt="An asynchronous game controller rejects actions based on observation age while physics continues." decoding="async" src="figures/06-realtime-loop.png"/><figcaption><em>Figure 6. The simulation does not wait for inference. Keep one request in flight, use the newest state, and discard stale or out-of-round replies. In this illustrative timeline, a reply at 150 ms has only 100 ms left in a 250 ms observation-age budget.</em></figcaption></figure>
+<h3 id="run-the-companion-paddle-lab">Run the companion Paddle Lab</h3>
+<p>The accompanying package contains an original browser paddle game and a <strong>Python-standard-library local bridge</strong>. It requires no ROMs, emulator, game account, paid API or third-party browser assets. The model controls only the in-page paddle. It cannot operate your keyboard globally or execute shell commands.</p>
+<p>From the extracted package folder, with Ollama already running and <code>tev1:0.8b</code> downloaded, first warm the model using the supplied one-question request:</p>
+<pre><code class="language-bash">curl --fail-with-body --max-time 120 -sS \
+  http://127.0.0.1:11434/v1/systemone \
+  -H 'Content-Type: application/json' \
+  --data-binary @examples_ollama/paddle_request.json
+
+python3 realtime/server.py --backend ollama --model tev1:0.8b
+</code></pre>
+<p>Open <code>http://127.0.0.1:8765</code>, click <strong>Warm up model</strong>, then <strong>Start / pause</strong>. The default proposal is a maximum of five decisions per second and a 500 ms observation-age limit. These settings intentionally make a slow demonstration approachable; they are not the settings of Ollama's Pac-Man example. The HTTP failure timeout is longer than the freshness budget: while a request is pending, the game continues and an expired action becomes neutral.</p>
+<p>Compare models by restarting the bridge with <code>--model tev1:4b</code>, <code>--model nimble</code>, or a specific quantized tag after downloading it. A tighter experiment is:</p>
+<pre><code class="language-bash">python3 realtime/server.py --backend ollama --model tev1:0.8b \
+  --hz 10 --max-age-ms 250
+</code></pre>
+<p>This may discard more decisions. That is a result to record, not a reason to silently pause physics. On service errors, the demo disables new inference requests and falls back to <code>stay</code> until explicitly warmed again. It never sends a failed local request to a cloud model.</p>
+<p>The app displays returns and misses, accepted and discarded replies, p50/p95 HTTP latency and independent render/decision rates. Its JSON export includes the seed, exact observations, decisions, errors, neutral-fallback time and any simulation time dropped because the browser itself stalled. Warm-up is excluded. Fill in the machine, RAM, runtime version and checkpoint digest before publishing results.</p>
+<p>For a transparent comparison without any model, run:</p>
+<pre><code class="language-bash">python3 realtime/server.py --backend heuristic
+</code></pre>
+<p>This baseline simply tracks the ball's current vertical position; it has no hidden trajectory solver. Manual control is also available. Keep the same seeds and run lengths, then compare repeated runs rather than one attractive rally.</p>
+<h3 id="use-omlx-as-an-explicit-generative-comparison">Use oMLX as an explicit generative comparison</h3>
+<p>The same lab can call a normal instruction model already running in oMLX:</p>
+<pre><code class="language-bash"># Set this only when your local oMLX server requires a key.
+export LOCAL_DECIDER_API_KEY="YOUR_LOCAL_SERVER_KEY"
+python3 realtime/server.py \
+  --backend omlx-chat --model local-small \
+  --endpoint http://127.0.0.1:8000/v1/chat/completions
+</code></pre>
+<p>Replace <code>local-small</code> with a real loaded model ID. The bridge requests only <code>up</code>, <code>down</code> or <code>stay</code>, validates the complete response and rejects prose or truncation. <code>--constrain-output</code> additionally requests oMLX's supported structured-choice schema when that capability is installed. This deliberately compares <strong>generation against scoring</strong>; it does not claim that oMLX is running Nimble's specialized scorer. <a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/api/openai_models.py" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[48]</a></p>
+<p>An existing OpenDecider HTTP service can be tested through the bridge's <code>--backend systemone</code> option, an explicit <code>/v1/systemone</code> endpoint and the matching loaded model ID. Its authentication key stays in the bridge process, not in browser JavaScript. Native Laya/MLX implementations with a different wire schema need an adapter; similar model names do not make the schemas identical.</p>
+<h2 id="from-a-working-demo-to-a-useful-agent-component">From a working demo to a useful agent component</h2>
+<p>My proposed integration keeps responsibilities separate. The decision service recommends a skill or flags missing information. The generative model proposes a patch. The harness enforces permissions and a finite retry budget. Tests, static checks and review determine whether the change is acceptable.</p>
+<figure><img alt="A small decision service beside a larger coding model, with independent permissions and verification." decoding="async" src="figures/07-agent-architecture.png"/><figcaption><em>Figure 7. The decision model recommends a route or escalation; the coding model proposes a change. Permissions, tests and review remain separate responsibilities, with updated evidence returning to a bounded loop.</em></figcaption></figure>
+<p>I would begin in <strong>shadow mode</strong>: record recommendations without changing agent behavior. Build evaluation cases from real repositories, including ambiguous requests, multilingual text, long logs, missing evidence and malicious instructions embedded in retrieved content. Human-checked decisions should remain separate from the data used to fit thresholds.</p>
+<p>Measure accuracy per task, probability quality and the error rate among the decisions selected for automation. A lower calibration error is not by itself a better operating policy; an uninformative predictor can look well calibrated while being useless for selecting work. Reliability diagrams, proper scoring rules and coverage-versus-error measurements answer complementary questions. <a href="https://scikit-learn.org/stable/modules/calibration.html" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[33]</a></p>
+<p>Treat security decisions particularly cautiously. A recent preprint on System One security evaluation reports that aggregate performance and confidence thresholds can conceal failures on particular attack families. It is early evidence, not a universal verdict, but it reinforces a sound design rule: a probabilistic classifier should not replace the operating system's permission boundary. <a href="https://arxiv.org/abs/2609.33401" style="font-size:.8em;margin:0 .08em;white-space:nowrap;">[35]</a></p>
+<p>Finally, changing the model, quantization, candidate descriptions or input distribution should trigger re-evaluation. A routing policy belongs to a particular system configuration, not to a product name.</p>
+<h2 id="the-real-opportunity">The real opportunity</h2>
+<p>Jev does not make classifiers new. It makes a long-standing engineering question more urgent: <strong>how much generality can we obtain without paying for unrestricted generation?</strong></p>
+<p>The open ecosystem already offers useful answers. Ollama makes Nimble and Tev1 available through a native typed endpoint. OpenDecider provides an accessible local service and explicit Mac paths. Laya offers compact typed models and a community MLX implementation. GLiClass addresses flexible classification; CLM explores reusable state-action scoring; specialist encoders remain reasonable where the task is stable. None needs to be a universal Jev replacement to be useful.</p>
+<p>A game makes the integration lesson visible: a valid action can still be too late, and a confident action can still be wrong. The same applies when a coding agent is acting on a repository that has changed since its last observation.</p>
+<p>For local coding, the most interesting architecture may therefore be neither one enormous model nor a collection of tiny models pretending to do everything. It may be a capable coding model surrounded by smaller decision components, each evaluated for a specific responsibility.</p>
+<p><strong>The goal is not to make every decision with the largest model. It is to give each decision the smallest reliable mechanism—and to keep verification outside the model's confidence.</strong></p>
+<hr/>
+<p><em>Method note: Evidence checked on 30 September 2026. This expanded edition preserves the historical essay and adds the Ollama/oMLX assessment and an original real-time lab. The companion implementation passed protocol, validation and simulation tests; its browser behavior was checked with synthetic responses, including delayed replies. No real decision checkpoint or physical-Mac game benchmark was run for this essay. Published model measurements remain attributed to their authors. The lab is a reproducible experiment, not a claim that every listed model plays it well.</em></p>
+<h2 id="sources-and-further-reading">Sources and further reading</h2>
+<ol>
+<li><a href="https://magazine.sebastianraschka.com/p/classifier-history-and-jev">Sebastian Raschka — Language Models for Text Classification: From Bag-of-Words to Jev</a></li>
+<li><a href="https://docs.typesafe.ai/introduction">TypeSafe — Introduction</a></li>
+<li><a href="https://docs.typesafe.ai/models">TypeSafe — Current models</a></li>
+<li><a href="https://docs.typesafe.ai/primitives/choice">TypeSafe — Choice</a></li>
+<li><a href="https://docs.typesafe.ai/primitives/noul">TypeSafe — Noul</a></li>
+<li><a href="https://docs.typesafe.ai/primitives/score">TypeSafe — Score</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/feature_extraction.html">scikit-learn — Text feature extraction</a></li>
+<li><a href="https://aclanthology.org/P18-1031/">Howard and Ruder — Universal Language Model Fine-tuning for Text Classification (2018)</a></li>
+<li><a href="https://aclanthology.org/N19-1423/">Devlin et al. — BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+<li><a href="https://aclanthology.org/D19-1404/">Yin, Hay and Roth — Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach (2019)</a></li>
+<li><a href="https://arxiv.org/abs/2412.13663">Warner et al. — ModernBERT (2024)</a></li>
+<li><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">TypeSafe — Introducing System One Models and Jev</a></li>
+<li><a href="https://proceedings.mlr.press/v70/guo17a.html">Guo et al. — On Calibration of Modern Neural Networks (2017)</a></li>
+<li><a href="https://arxiv.org/abs/2507.16806">Beyond Binary Rewards: Training LMs to Reason About Their Uncertainty (2025)</a></li>
+<li><a href="https://docs.typesafe.ai/confidence">TypeSafe — Confidence</a></li>
+<li><a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13">TypeSafe — Jev 1.13 jaggedness and known failure modes</a></li>
+<li><a href="https://openai.com/index/devday-2026-recap/">OpenAI — DevDay 2026 recap</a></li>
+<li><a href="https://medium.com/@manjunath.shiva/i-built-an-open-rival-to-typesafes-jev-here-s-where-it-wins-and-where-it-doesn-t-dfdf018f5929">Manjunath Janardhan — I Built an Open Rival to TypeSafe's Jev. Here's Where It Wins and Where It Doesn't</a></li>
+<li><a href="https://github.com/manjunathshiva/opendecider">OpenDecider repository and documentation</a></li>
+<li><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/COMPARISON.md">OpenDecider — Full comparison and benchmark limitations</a></li>
+<li><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/README.md">OpenDecider — Installation and platform measurements</a></li>
+<li><a href="https://huggingface.co/manjunathshiva/opendecider-small-mlx-8bit">OpenDecider-small MLX 8-bit model card</a></li>
+<li><a href="https://github.com/NandhaKishorM/laya">Laya — Official repository</a></li>
+<li><a href="https://raw.githubusercontent.com/mizorewww/laya-mlx/main/README.md">laya-mlx — Independent Apple Silicon port</a></li>
+<li><a href="https://github.com/Knowledgator/GLiClass">GLiClass — Official repository</a></li>
+<li><a href="https://github.com/Contrastive-LM/CLM">Contrastive Language Models — Official repository</a></li>
+<li><a href="https://huggingface.co/docs/setfit/index">SetFit — Official documentation</a></li>
+<li><a href="https://pypi.org/project/opendecider/">OpenDecider — PyPI package, release and HTTP/Python semantics</a></li>
+<li><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/questions.py">OpenDecider — Native typed-answer implementation</a></li>
+<li><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/serve.py">OpenDecider — HTTP server and score wire adaptation</a></li>
+<li><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/__init__.py">OpenDecider — Model loader and truncation metadata</a></li>
+<li><a href="https://raw.githubusercontent.com/manjunathshiva/opendecider/main/opendecider/cli.py">OpenDecider — Command-line interface</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/calibration.html">scikit-learn — Probability calibration</a></li>
+<li><a href="https://arxiv.org/abs/2609.33209">Beyond Calibration: Do a Typed-Decision Model's Probabilities Obey the Probability Axioms? (September 2026 preprint)</a></li>
+<li><a href="https://arxiv.org/abs/2609.33401">Evaluating System One Models for Agent Security Decisions: Reliability, Calibration, and Selective Automation (September 2026 preprint)</a></li>
+<li><a href="https://huggingface.co/aac6fef/laya-mlx">Laya-MLX English checkpoint — Model card and local inference example</a></li>
+<li><a href="https://github.com/ollama/ollama/releases/tag/v0.35.0">Ollama — v0.35.0 release; native System One support</a></li>
+<li><a href="https://ollama.com/blog/ollama-now-supports-jev-style-decision-models">Ollama — Jev-style decision models and the Pac-Man demonstration</a></li>
+<li><a href="https://ollama.com/library/nimble">Ollama — Nimble model and API guide</a></li>
+<li><a href="https://ollama.com/library/tev1">Ollama — Tev1 model, context limits and evaluation</a></li>
+<li><a href="https://ollama.com/library/nimble/tags">Ollama — Nimble tags, quantizations and package sizes</a></li>
+<li><a href="https://ollama.com/library/tev1/tags">Ollama — Tev1 tags and package sizes</a></li>
+<li><a href="https://github.com/ollama/ollama-python/releases/tag/v0.6.3">Ollama Python — v0.6.3 adds System One</a></li>
+<li><a href="https://raw.githubusercontent.com/ollama/ollama-python/v0.6.3/ollama/_client.py">Ollama Python — synchronous and asynchronous System One client implementation</a></li>
+<li><a href="https://raw.githubusercontent.com/ollama/ollama/v0.35.0/decision/systemone.go">Ollama 0.35.0 — candidate scoring and entropy-based confidence</a></li>
+<li><a href="https://github.com/jundot/omlx">oMLX — published serving capabilities</a></li>
+<li><a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/server.py">oMLX — current server routes reviewed for System One support</a></li>
+<li><a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/api/openai_models.py">oMLX — chat and structured-output schemas</a></li>
+<li><a href="https://raw.githubusercontent.com/jundot/omlx/main/omlx/_version.py">oMLX — version of the reviewed code</a></li>
+<li><a href="https://raw.githubusercontent.com/bespokelabsai/nimble/main/README.md">Bespoke Labs — Nimble, official model preparation and MLX runner</a></li>
+<li><a href="https://raw.githubusercontent.com/bespokelabsai/nimble/main/docs/PARALLEL_SCORING.md">Bespoke Labs — parallel scoring and prefix reuse</a></li>
+<li><a href="https://raw.githubusercontent.com/togethercomputer/tev1/main/README.md">Together AI — Tev1 training and implementation</a></li>
+<li><a href="https://huggingface.co/togethercomputer/Tev1-4B-experimental">Together AI — Tev1 4B experimental model card and weight-license notice</a></li>
+<li><a href="https://docs.ollama.com/faq">Ollama — FAQ: updates, local-only mode, binding and memory residency</a></li>
+<li><a href="https://gymnasium.farama.org/api/env/">Gymnasium — Environment step semantics</a></li>
+<li><a href="https://raw.githubusercontent.com/ddalcu/mlx-serve/main/docs/api.md">mlx-serve — separate project with a Laya decision endpoint</a></li>
+</ol>
+</main></body></html>

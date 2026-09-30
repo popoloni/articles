@@ -1,0 +1,27 @@
+{
+  "model": "tev1:0.8b",
+  "keep_alive": "10m",
+  "state": {
+    "width": 900,
+    "height": 500,
+    "ball_x": 640,
+    "ball_y": 180,
+    "ball_vx": -240,
+    "ball_vy": 110,
+    "paddle_x": 30,
+    "paddle_y": 250,
+    "paddle_height": 108,
+    "paddle_speed": 340
+  },
+  "questions": {
+    "move": {
+      "type": "choice",
+      "instructions": "Control the left paddle in a ball-and-paddle game. Select the immediate vertical movement most likely to intercept the ball when it reaches the paddle. Coordinates are pixels; x increases right and y increases down. ball_vx and ball_vy are pixels per second. The ball reflects from the top, bottom and right walls. paddle_y is its centre. Do not assume future observations.",
+      "criteria": {
+        "up": "Move the paddle upward, decreasing its y coordinate",
+        "down": "Move the paddle downward, increasing its y coordinate",
+        "stay": "Keep the paddle at its present vertical position"
+      }
+    }
+  }
+}

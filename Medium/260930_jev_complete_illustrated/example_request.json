@@ -1,0 +1,31 @@
+{
+  "state": {
+    "request": "Fix the empty-input failure in parse_records.",
+    "evidence": "The supplied test fails with IndexError on an empty list.",
+    "constraint": "Do not change the public function signature."
+  },
+  "questions": {
+    "route": {
+      "type": "choice",
+      "instructions": "Which workflow best matches the request?",
+      "criteria": {
+        "debugging": "Diagnose and repair an existing failure",
+        "documentation": "Change explanatory text without code changes",
+        "clarification": "Request essential missing information"
+      }
+    },
+    "has_reproduction": {
+      "type": "noul",
+      "instructions": "Does the state identify a concrete failing input?"
+    },
+    "specificity": {
+      "type": "score",
+      "instructions": "How specific is the supplied reproduction information?",
+      "criteria": [
+        "No failing behavior or input is identified",
+        "A failing behavior is described but no concrete input is identified",
+        "A concrete failing input and observed failure are identified"
+      ]
+    }
+  }
+}

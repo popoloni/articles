@@ -1,0 +1,26 @@
+test_config_and_static (test_server.BridgeTests.test_config_and_static) ... ok
+test_cross_origin_rejected (test_server.BridgeTests.test_cross_origin_rejected) ... ok
+test_echoed_timestamp_and_sequence (test_server.BridgeTests.test_echoed_timestamp_and_sequence) ... ok
+test_queue_is_not_allowed (test_server.BridgeTests.test_queue_is_not_allowed) ... ok
+test_chat_has_no_probabilities (test_server.ValidationTests.test_chat_has_no_probabilities) ... ok
+test_chat_rejects_prose_and_truncation (test_server.ValidationTests.test_chat_rejects_prose_and_truncation) ... ok
+test_chat_rejects_tools (test_server.ValidationTests.test_chat_rejects_tools) ... ok
+test_confidence_not_top_probability (test_server.ValidationTests.test_confidence_not_top_probability) ... ok
+test_good_packet (test_server.ValidationTests.test_good_packet) ... ok
+test_heuristic_honest_baseline (test_server.ValidationTests.test_heuristic_honest_baseline) ... ok
+test_invalid_distributions (test_server.ValidationTests.test_invalid_distributions) ... ok
+test_invalid_packets (test_server.ValidationTests.test_invalid_packets) ... ok
+test_missing_answers (test_server.ValidationTests.test_missing_answers) ... ok
+test_no_external_endpoint (test_server.ValidationTests.test_no_external_endpoint) ... ok
+test_nonfinite_state (test_server.ValidationTests.test_nonfinite_state) ... ok
+test_unknown_action (test_server.ValidationTests.test_unknown_action) ... ok
+test_unknown_state_fields_not_forwarded (test_server.ValidationTests.test_unknown_state_fields_not_forwarded) ... ok
+test_warnings_and_truncation (test_server.ValidationTests.test_warnings_and_truncation) ... ok
+test_chat_wire_contract (test_server.WireTests.test_chat_wire_contract) ... ok
+test_ollama_wire_contract (test_server.WireTests.test_ollama_wire_contract) ... ok
+test_sidecar_does_not_receive_ollama_keepalive (test_server.WireTests.test_sidecar_does_not_receive_ollama_keepalive) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 2.020s
+
+OK

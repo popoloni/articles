@@ -1,0 +1,33 @@
+{
+  "model": "tev1:0.8b",
+  "keep_alive": "10m",
+  "state": {
+    "request": "Fix parse_records when given an empty list.",
+    "evidence": "A supplied unit test fails with IndexError.",
+    "constraint": "Do not change the public function signature."
+  },
+  "questions": {
+    "route": {
+      "type": "choice",
+      "instructions": "Which workflow best matches this request?",
+      "criteria": {
+        "debugging": "Repair an existing code failure",
+        "documentation": "Change explanatory text only",
+        "clarification": "Ask for essential missing information"
+      }
+    },
+    "has_reproduction": {
+      "type": "noul",
+      "instructions": "Is a concrete failing input identified?"
+    },
+    "change_scope": {
+      "type": "score",
+      "instructions": "How broad is the requested change?",
+      "criteria": [
+        "One isolated behavior",
+        "Several components",
+        "Public architecture"
+      ]
+    }
+  }
+}
