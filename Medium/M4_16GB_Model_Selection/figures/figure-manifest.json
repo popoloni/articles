@@ -1,0 +1,15 @@
+{
+  "figures": [
+    "01-contract-outcomes",
+    "02-json_contract-latency",
+    "03-literal_recall-latency",
+    "04-gguf-decode",
+    "05-prefix-prefill",
+    "06-reasoning-workload",
+    "07-cli-decode",
+    "08-cli-memory"
+  ],
+  "renderer": "matplotlib",
+  "individual_axes": true,
+  "palette": "matplotlib defaults"
+}
