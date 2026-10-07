@@ -1,0 +1,595 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Which Local LLM Should You Run on a 16 GB Mac mini?</title><style>
+:root { color-scheme: light; --ink:#223540; --quiet:#566771; --line:#dae3e7; --accent:#156777; }
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:white;color:var(--ink);font:18px/1.77 Georgia,'Times New Roman',serif}
+main{max-width:1040px;margin:44px auto 88px;padding:0 32px}header.kicker{font:600 12px/1.7 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:30px}
+h1,h2,h3,h4,summary{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}h1{font-size:44px;line-height:1.13;letter-spacing:-1.4px;max-width:900px;margin:0 0 24px}h2{font-size:30px;line-height:1.3;margin-top:2.4em;border-top:1px solid var(--line);padding-top:24px}h1+h2{font:400 23px/1.5 Georgia,serif;color:var(--quiet);border:0;margin:0 0 28px;padding:0}h3{font-size:23px;line-height:1.38;margin-top:1.9em}h4{font-size:20px;line-height:1.4}p{margin:1.05em 0}a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}blockquote{margin:26px 0;padding:0 20px;border-left:3px solid var(--line)}
+code{font:.84em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f1f5f6;padding:.12em .25em;border-radius:3px;overflow-wrap:anywhere}pre{position:relative;max-width:100%;overflow:auto;background:#f4f7f8;border:1px solid var(--line);border-left:4px solid var(--accent);padding:36px 20px 20px;line-height:1.6;border-radius:4px;font-size:14px}pre code{white-space:pre;overflow-wrap:normal;background:transparent;padding:0;border-radius:0;font-size:1em}.copy{position:absolute;right:8px;top:7px;border:1px solid #cad8dd;background:white;color:#234c59;border-radius:3px;font:12px/1.5 system-ui,sans-serif;padding:3px 10px;cursor:pointer}
+.table-wrap{overflow-x:auto;margin:28px 0}table{border-collapse:collapse;width:100%;font:14px/1.6 system-ui,sans-serif}th{background:#edf4f6;color:#1d4654;text-align:left;padding:12px;vertical-align:top}td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}td code{font-size:.9em}img{display:block;width:100%;height:auto;max-width:100%}.figure{margin:38px 0 8px}.caption{font:14px/1.6 system-ui,sans-serif;color:var(--quiet);margin:10px 0 32px}.figure a{display:block}.figure-caption-label{font-weight:600}
+details.toc{font:14px/1.7 system-ui,sans-serif;border:1px solid var(--line);padding:15px 18px;background:#f7fafb;border-radius:4px;margin:25px 0 33px}details.toc summary{font-weight:650;cursor:pointer}details.toc a{display:block;padding:3px 0}hr{border:0;border-top:1px solid var(--line);margin:38px 0}li{margin:8px 0}.support-nav{font:13px/1.7 system-ui,sans-serif;color:var(--quiet);margin-bottom:22px}section.figure-gallery{margin-top:35px}footer{font:12px/1.7 system-ui,sans-serif;margin-top:48px;border-top:1px solid var(--line);padding-top:18px;color:var(--quiet)}
+@media(max-width:650px){body{font-size:16px;line-height:1.75}main{padding:0 18px;margin:25px auto 55px}h1{font-size:33px;letter-spacing:-.8px}h1+h2{font-size:20px}h2{font-size:26px}h3{font-size:21px}pre{font-size:12px;padding:34px 12px 15px}table{font-size:12px}td,th{padding:9px 10px}.caption{font-size:12px}.figure{margin-top:26px}}
+@media print{main{max-width:none;margin:0;padding:0}body{font-size:11pt}.copy,.toc{display:none}h1{font-size:26pt}h2{font-size:19pt;break-after:avoid}h3{font-size:15pt;break-after:avoid}pre{white-space:pre-wrap;overflow:visible}pre code{white-space:pre-wrap;word-break:break-word}.figure{break-inside:avoid}table{font-size:9pt}}
+</style></head><body><main><header class="kicker">LOCAL MODELS / M4 MAC MINI / 16 GB / MEASURED EXPERIMENT</header><h1 id="which-local-llm-should-you-run-on-a-16-gb-mac-mini">Which Local LLM Should You Run on a 16 GB Mac mini?</h1>
+<h2 id="bonsai-quantized-qwen3-6-and-qwen3-8-the-models-the-servers-the-installation-stepsand-what-ten-tested-configurations-actually-taught-us">Bonsai, quantized Qwen3.6 and Qwen3.8: the models, the servers, the installation steps—and what ten tested configurations actually taught us</h2>
+<p><em>Enrico Papalini · 6 October 2026</em></p><details class="toc"><summary>In this article</summary><a href="#1-the-constraint-is-the-working-set-not-the-download">1. The constraint is the working set, not the download</a><a href="#2-the-modelsand-what-quantized-actually-means">2. The models—and what “quantized” actually means</a><a href="#3-the-server-is-part-of-the-model-you-are-evaluating">3. The server is part of the model you are evaluating</a><a href="#4-what-was-actually-measured">4. What was actually measured</a><a href="#5-reproduce-the-laboratory-from-a-clean-mac">5. Reproduce the laboratory from a clean Mac</a><a href="#6-make-the-winner-earn-a-coding-workload">6. Make the winner earn a coding workload</a><a href="#7-the-selection-keep-one-default-not-every-interesting-model">7. The selection: keep one default, not every interesting model</a></details>
+<p>The first surprise was that a 27-billion-parameter model could answer on a small Mac. The more useful surprise came later: two models described as “two-bit” could behave completely differently. One returned the requested data. Another spent almost a minute generating unusable text.</p>
+<p>That is where a local-AI experiment stops being a screenshot and starts becoming engineering.</p>
+<p>I wanted a model that could eventually support coding and agentic work on a <strong>base M4 Mac mini with 16 GB of unified memory</strong>. Not an M4 Pro. Not a Studio whose memory happens to fit the model several times over. The machine also has to remain a computer: there must be room for an editor, test processes and the operating system.</p>
+<p>This article brings the experiment together: what the models are, why their compressed representations differ, which servers can execute them, how to install and run every text-model branch, and what the saved results support. It covers the measured language-model laboratory, not a ranking of the image, speech and translation workflows from the earlier workstation guide.</p>
+<p><strong>My practical choice, at this stage, is packed ternary Bonsai through MLX-LM when 16 GB headroom is the priority. My preferred Qwen alternative is Qwen3.8 IQ2_S through llama.cpp/Metal.</strong> Those are deployment choices for the next stage, not claims that either has won a repository-coding benchmark. The reasoning—and the qualifications—matter as much as the names. <a href="analysis/evidence.html#e1-scope">Results and measurement scope</a></p>
+<h2 id="1-the-constraint-is-the-working-set-not-the-download">1. The constraint is the working set, not the download</h2>
+<p>Apple specifies <strong>120 GB/s memory bandwidth</strong> for the base M4 and <strong>16 GB unified memory</strong> in this configuration. Unified memory avoids treating CPU RAM and GPU memory as two wholly separate pools, but it does not give the model a private 16 GB graphics card. <a href="https://support.apple.com/en-us/121555">Apple specifications</a></p>
+<p>My budgeting model is simple:</p>
+<pre><code class="language-text">Working memory ≈ resident weights + active context + temporary workspace
+                 + retained caches + macOS + development tools
+</code></pre>
+<p>This is an accounting model, not permission to add overlapping Activity Monitor counters. A file-backed allocation, a Metal allocation and a process-memory figure may describe overlapping parts of the same physical memory.</p>
+<p>For idealized weight payload alone, a 27B model at four bits is about <strong>13.5 decimal GB</strong>, before scales, metadata, differently represented tensors and runtime state. That arithmetic explains the appeal of lower precision. It does not tell us whether the resulting model will follow an instruction.</p>
+<p>Three distinctions govern the experiment. <strong>Installed is not resident:</strong> several downloaded checkpoints can share an SSD while only one runs. <strong>A listening server is not a functioning generator:</strong> an HTTP endpoint can remain alive after its generation worker dies. <strong>A generated answer is not a passed task:</strong> it may be truncated, incorrectly formatted or simply wrong. All three distinctions appeared during this laboratory. <a href="analysis/evidence.html#e8-gaps">Recorded setup incidents and gaps</a></p>
+<p>The operating policy is therefore one heavy model, one active request and short prompts first. A nominal 4K context is an initial setting, not a claim that the supplied logs exercised 4,096 input tokens. Their test prompts were much shorter.</p>
+<h2 id="2-the-modelsand-what-quantized-actually-means">2. The models—and what “quantized” actually means</h2>
+<p>A quantization name is part of a model's identity. It is not a universal quality grade and it is not a promise that every server can load the file.</p>
+<h3 id="bonsai-binary-and-ternary-are-separate-checkpoints">Bonsai: binary and ternary are separate checkpoints</h3>
+<p>The binary reference is <strong>Bonsai 27B <code>Q1_0</code></strong>, distributed as <code>Bonsai-27B-Q1_0.gguf</code>. The chosen file is about <strong>3.8 GB</strong>. The laboratory uses the PrismML-distributed llama.cpp runtime; it does not let a generic installer silently select a different Bonsai generation. This is a particular compressed model, not a switch that converts every downloaded model to one bit. <a href="sources/GUIDA_Mac_Mini_M4_16GB.html">Original standalone procedure</a> · <a href="https://raw.githubusercontent.com/PrismML-Eng/Bonsai-demo/74fab33d81d81a535525bd98c7a676b22d4dca46/Bonsai1_README.md">Bonsai 1 runtime guide</a></p>
+<p>The more interesting memory experiment is <strong><code>inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw</code></strong>. Ternary weights use three values, conventionally represented as scaled versions of −1, 0 and +1. This checkpoint repacks already-ternary weights more densely and executes them with custom Metal kernels. “Lossless” describes that repacking; it does <strong>not</strong> mean the original full-precision model became ternary without any change in capability. The published package is approximately <strong>5.89 GB</strong>, and the custom Python/Metal implementation travels with it. <a href="https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw">Packed ternary model card</a></p>
+<p>This explains an otherwise confusing comparison: a ternary model can have a two-bit storage variant and a denser packed variant without those becoming two unrelated quantizations. The representation and the kernels matter. A generic application that declines checkpoint-supplied code may not run this pack at all.</p>
+<h3 id="qwen3-6-a-mixture-of-experts-with-two-ways-to-reduce-residency">Qwen3.6: a mixture of experts, with two ways to reduce residency</h3>
+<p>The Qwen3.6 branch is <strong>35B-A3B</strong>, a mixture-of-experts model. A subset of its experts participates in each token's routed computation. That reduces active computation, but the full model still has to be stored somewhere. “A3B” does not turn the checkpoint into a 3B download. <a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">Qwen3.6 model card</a></p>
+<p>The <strong>resident asymmetric</strong> conversion is <code>manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64</code>, about <strong>12.6 GB</strong>. It uses three-bit attention, ternary expert up/gate projections and four-bit expert down projections. Allocating different precision to different projections is the method, not an inconsistency in the label. It needs the TurboQuant-aware loader. <a href="https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64">Asymmetric checkpoint</a></p>
+<p>The <strong>streaming</strong> experiment uses a different conversion: <code>manjunathshiva/Qwen3.6-35B-A3B-tq3-g32</code>. Its selected download was approximately <strong>16.945 GB</strong> in the supplied run. The whole checkpoint lives on storage, while the runtime uses a <strong>4 GB expert-cache budget</strong>. That budget is not total model RAM. Shared components, active state and other allocations remain. <a href="analysis/checkpoint-provenance.csv">Checkpoint provenance</a> · <a href="https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3-g32">Streaming checkpoint</a></p>
+<p><strong>Expert streaming is not expert pruning.</strong> The laboratory retains the native router's choice with <code>--max-active-experts 0</code>. Omitting that explicit setting would leave the reviewed wrapper's reduced-expert default in effect. A speedup achieved by changing which experts participate is a different experiment from caching the experts selected by the original router. <a href="https://raw.githubusercontent.com/manjunathshiva/turboquant-mlx/v0.28.0/serve.py">TurboQuant 0.28.0 wrapper</a></p>
+<h3 id="qwen3-8-the-format-matters-more-than-the-bit-count-shorthand">Qwen3.8: the format matters more than the bit-count shorthand</h3>
+<p>Here Qwen3.8 means the <strong>dense 27B model</strong>, not “Qwen3, 8B” and not a much larger MoE sibling. There are no routed experts to stream in this dense-model recipe. The selected trials are text-only: no vision projector and no speculative draft are required. <a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen3.8 model card</a></p>
+<p>The principal choices were:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Checkpoint or representation</th>
+<th style="text-align:right">Approximate published/selected payload</th>
+<th>Intended runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bonsai 27B binary <code>Q1_0</code></td>
+<td style="text-align:right">3.8 GB</td>
+<td>Prism llama.cpp / Metal</td>
+</tr>
+<tr>
+<td>Bonsai 27B packed ternary, 1.75 bpw</td>
+<td style="text-align:right">5.89 GB</td>
+<td>MLX-LM with checkpoint code</td>
+</tr>
+<tr>
+<td>Qwen3.6 35B-A3B asymmetric</td>
+<td style="text-align:right">12.6 GB</td>
+<td>TurboQuant resident loader</td>
+</tr>
+<tr>
+<td>Qwen3.6 35B-A3B <code>tq3-g32</code></td>
+<td style="text-align:right">16.945 GB selected in the run</td>
+<td>TurboQuant expert streaming</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B GGUF <code>UD-IQ2_S</code></td>
+<td style="text-align:right">8.37 GB</td>
+<td>llama.cpp; optional Ollama import</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B GGUF <code>UD-Q2_K_XL</code></td>
+<td style="text-align:right">9.83 GB</td>
+<td>llama.cpp</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B GGUF <code>UD-IQ3_XXS</code></td>
+<td style="text-align:right">10.935 GB selected in the run</td>
+<td>llama.cpp</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B ordinary 2-bit MLX TextOnly</td>
+<td style="text-align:right">8.43 GB</td>
+<td>MLX-LM; optional oMLX</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B ordinary 3-bit MLX TextOnly</td>
+<td style="text-align:right">11.8 GB</td>
+<td>MLX-LM; optional oMLX</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B TurboQuant <code>tq3-mini-g64</code></td>
+<td style="text-align:right">12.40 GB</td>
+<td>Separate VLM diagnostic runtime</td>
+</tr>
+</tbody>
+</table></div>
+<p>These are <strong>file/package sizes, not peak-memory measurements</strong>. GGUF importance-aware and mixed-precision formats, ordinary affine MLX quantization, TurboQuant codebooks and packed ternary storage are different representations. The suffix <code>IQ2_S</code> does not mean “the same thing as any MLX model labelled 2-bit.” <a href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">GGUF artifacts</a> · <a href="https://huggingface.co/lukaskremla/Qwen3.8-27B-2bit-MLX-TextOnly">MLX 2-bit</a> · <a href="https://huggingface.co/lukaskremla/Qwen3.8-27B-3bit-MLX-TextOnly">MLX 3-bit</a> · <a href="https://huggingface.co/manjunathshiva/Qwen3.8-27B-tq3-mini-g64">Diagnostic checkpoint</a></p>
+<p>Two other optimizations act on different objects. <strong>KV-cache quantization</strong> compresses eligible attention state; it does not compress weights. <strong>Prefix reuse</strong> avoids recomputing an unchanged beginning of a request; it does not provide unlimited active context. Smaller prefill chunks can reduce temporary allocation peaks, but may cost time. The correct memory budget cannot be obtained by multiplying these techniques' advertised savings.</p>
+<h2 id="3-the-server-is-part-of-the-model-you-are-evaluating">3. The server is part of the model you are evaluating</h2>
+<p>I used four serving approaches, plus an Ollama import and a CLI-only diagnostic. They are not interchangeable front ends around a guaranteed identical computation.</p>
+<p><strong>llama.cpp/Metal</strong> executes the GGUF branches. The three Qwen3.8 runs identify build <strong><code>b11429-d81235049</code></strong>; binary Bonsai identifies Prism build <strong><code>b10743-adfffbe41</code></strong>. The choice of binary, its kernels and its chat-template handling belong in the result. <a href="analysis/evidence.html#e5-timings">Recorded runtime evidence</a></p>
+<p><strong>MLX-LM</strong> serves ordinary MLX checkpoints and the custom packed Bonsai loader. The successful standalone records identify <strong>MLX-LM 0.31.3 and MLX 0.32.0</strong>. Its development server exposes the local API, but its command-line options differ from its generation command. In particular, the pinned server's <code>--max-tokens</code> is an output default, not a hard input-context ceiling. <a href="analysis/profile-summary.csv">Runtime fingerprints</a> · <a href="https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.31.3/mlx_lm/server.py">Pinned server implementation</a></p>
+<p><strong>TurboQuant-MLX</strong> wraps MLX-LM with its own weight loader, KV handling and optional expert streaming. The working text-server combination in the logs is <strong>TurboQuant 0.28.0, MLX-LM 0.31.3 and MLX 0.32.3</strong>. An earlier installation died because a newer server passed <code>trust_remote_code</code> to a wrapper that did not accept it. The HTTP listener still came up. This is why model discovery alone is not readiness. <a href="analysis/evidence.html#e8-gaps">Loader incident and recovered environment</a></p>
+<p><strong>oMLX</strong> adds model management, scheduling and tiered prefix caching around MLX inference. The original installation procedure referenced <strong>0.7.0</strong>, but the uploaded oMLX results do not contain an exact server version, complete settings export or checkpoint digest. Those missing fields prevent a clean causal comparison with standalone MLX-LM. oMLX's support for a TurboQuant <strong>KV cache</strong> also does not establish support for arbitrary TurboQuant <strong>weight checkpoints</strong>. <a href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0/README.md">oMLX installation documentation</a> · <a href="analysis/evidence.html#e7-omlx">oMLX evidence limits</a></p>
+<p><strong>Ollama</strong> is a convenient local model manager and API server. It can import a supported GGUF through a Modelfile. The conversation established import and residency under <strong>0.35.1</strong>, followed by an output-limit problem, but the uploaded archive lacks the native-Ollama response files. There is therefore no Ollama speed row in this comparison. Its absence is missing evidence, not a zero score. <a href="https://docs.ollama.com/import">Ollama import</a> · <a href="analysis/evidence.html#e8-gaps">Missing native records</a></p>
+<h2 id="4-what-was-actually-measured">4. What was actually measured</h2>
+<p>The archive contains <strong>64 files, 66 smoke-test responses, one separate readiness response and three nonempty standalone-generation logs</strong>. The smoke tests cover ten model/runtime configurations and eleven six-request suites: packed ternary Bonsai has two suites. The reported machine is the base M4 mini with 16 GB; runtime fingerprints identify macOS 26.5.1 and Apple-GPU paths, but the archive does not independently inventory physical RAM. <a href="analysis/evidence.html#e1-scope">Archive audit</a></p>
+<p>Every smoke request asks one of two fixed questions. The first requires exactly three JSON fields, including a numeric amount. The second asks for the current approved code, <code>harbor-mint-47</code>, from a short synthetic passage. Each suite repeats both questions three times with requested temperature <strong>0.7</strong>, a <strong>512-token output ceiling</strong> and non-streaming responses.</p>
+<p>A pass means a completed response satisfied that exact contract. Markdown fences are not removed to improve a score after the fact. Truncated output fails. Repetition creates more observations, not more distinct problems. There are <strong>no tool-format cases, repository edits, executed tests, long-context trials or multimodal benchmarks</strong> in this upload. <a href="analysis/evidence.html#e3-method">Method and complete response ledger</a></p>
+<p>Recomputing the verdicts from the saved answers reproduces all recorded results: <strong>53 passed, 13 failed</strong>, with five truncations. That is an audit of this small workload, not an estimate of general model accuracy.</p>
+<p class="figure"><img alt="Recorded passes, completed contract failures and output-budget truncations across ten model/runtime configurations." src="figures/01-contract-outcomes.png"/></p>
+<p class="caption"><em>Figure 1. Counts of recorded outcomes, not a broad benchmark accuracy score. Packed ternary Bonsai has twice as many observations because two suites were saved.</em></p>
+<h3 id="the-comparison-that-matters-first-correct-answers-and-elapsed-time">The comparison that matters first: correct answers and elapsed time</h3>
+<p>The table includes failed attempts in its latency medians. Each task has three observations per configuration, except packed ternary Bonsai, which has six. <a href="analysis/profile-summary.csv">Recomputed profile summary</a></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Model / runtime</th>
+<th style="text-align:right">Checks passed</th>
+<th style="text-align:right">JSON median</th>
+<th style="text-align:right">Recall median</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bonsai binary · llama.cpp</td>
+<td style="text-align:right">5/6</td>
+<td style="text-align:right">3.11 s</td>
+<td style="text-align:right">0.70 s</td>
+</tr>
+<tr>
+<td>Bonsai packed ternary · MLX-LM</td>
+<td style="text-align:right">12/12</td>
+<td style="text-align:right">3.48 s</td>
+<td style="text-align:right">1.67 s</td>
+</tr>
+<tr>
+<td>Qwen3.6 streamed · TurboQuant</td>
+<td style="text-align:right">6/6</td>
+<td style="text-align:right">5.82 s</td>
+<td style="text-align:right">2.51 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 IQ2_S · llama.cpp</td>
+<td style="text-align:right">6/6</td>
+<td style="text-align:right">3.67 s</td>
+<td style="text-align:right">1.20 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 Q2_K_XL · llama.cpp</td>
+<td style="text-align:right">6/6</td>
+<td style="text-align:right">4.34 s</td>
+<td style="text-align:right">1.35 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 IQ3_XXS · llama.cpp</td>
+<td style="text-align:right">6/6</td>
+<td style="text-align:right">4.26 s</td>
+<td style="text-align:right">1.27 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 2-bit · MLX-LM</td>
+<td style="text-align:right">0/6</td>
+<td style="text-align:right">54.19 s</td>
+<td style="text-align:right">1.80 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 3-bit · MLX-LM</td>
+<td style="text-align:right">6/6</td>
+<td style="text-align:right">6.70 s</td>
+<td style="text-align:right">2.51 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 2-bit · oMLX</td>
+<td style="text-align:right">0/6</td>
+<td style="text-align:right">16.15 s</td>
+<td style="text-align:right">8.78 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 3-bit · oMLX</td>
+<td style="text-align:right">6/6</td>
+<td style="text-align:right">21.28 s</td>
+<td style="text-align:right">9.30 s</td>
+</tr>
+</tbody>
+</table></div>
+<p>The strongest warning is <strong>the tested ordinary 2-bit Qwen3.8 MLX path</strong>. Its three JSON requests filled the entire output allowance with repetitive or malformed text. Its three recall requests answered <code>288</code>. The 2-bit oMLX alias also failed all six checks. That is enough to keep these configurations out of an unattended workflow, but not enough to assign the cause to quantization alone: tokenizer, template, conversion and numerical behavior were not independently isolated. The GGUF IQ2_S path passed all six checks. <a href="analysis/evidence.html#e4-failures">Failure excerpts</a></p>
+<p>Binary Bonsai's failure is narrower. It returned the correct record inside a Markdown code fence. The data were right; the strict output contract was not. A deliberately designed parser or constrained-generation experiment might handle that differently. Neither earns a retrospective pass here.</p>
+<p class="figure"><img alt="Individual JSON-response wall times and medians, including unsuccessful answers." src="figures/02-json_contract-latency.png"/></p>
+<p class="caption"><em>Figure 2. The horizontal axis is logarithmic. The 54-second MLX 2-bit outputs were not slow successes; they exhausted the token budget without satisfying the task.</em></p>
+<p class="figure"><img alt="Individual literal-recall response times, with failures retained." src="figures/03-literal_recall-latency.png"/></p>
+<p class="caption"><em>Figure 3. A quick wrong code is still a wrong code. Latency must be interpreted beside the task outcome.</em></p>
+<p>The failures consumed <strong>319.18 of 565.42 recorded request-seconds—56.5% of the total</strong>—despite being only 13 of 66 requests. This is not a projected daily cost saving, but it illustrates a useful principle: a compressed model that cannot finish a small task can waste more time than a slower model that stops with the right answer. <a href="analysis/audit.json">Audit totals</a></p>
+<h3 id="decode-speed-is-not-the-same-as-response-latency">Decode speed is not the same as response latency</h3>
+<p>The llama.cpp responses contain native timing fields. For the JSON task, median decoder rates were <strong>14.95 tokens/s for binary Bonsai</strong>, <strong>8.06 for Qwen3.8 IQ2_S</strong>, <strong>7.74 for Q2_K_XL</strong>, and <strong>7.95 for IQ3_XXS</strong>. These short replies are not sustained-throughput tests. IQ2_S also produced a more compact JSON serialization—26 tokens rather than 31—so not all of its latency advantage came from decoder speed. <a href="analysis/evidence.html#e5-timings">Native timing evidence</a></p>
+<p class="figure"><img alt="Native llama.cpp decoder rates for short JSON responses." src="figures/04-gguf-decode.png"/></p>
+<p class="caption"><em>Figure 4. The Qwen profiles share a recorded server build; Bonsai uses the Prism build. Native token-count conventions are preserved rather than recomputed into an artificial common metric.</em></p>
+<p>The streaming Qwen3.6 API records provide complete answers and wall times, but no equivalent native decoder counter. Dividing completion tokens by the whole request time would mix prompt processing, possible loading and generation. I leave that rate unreported rather than inventing one.</p>
+<h3 id="caching-helpsbut-does-not-equalize-the-workloads">Caching helps—but does not equalize the workloads</h3>
+<p>Repeated GGUF JSON requests reused <strong>68 of 72 prompt tokens</strong>. For IQ2_S, prompt-evaluation time fell from about <strong>1.98 seconds</strong> on the first occurrence to a median <strong>0.44 seconds</strong> on later repeats. That is direct evidence of prefix reuse, not an inference from a faster stopwatch reading. It does not establish SSD persistence or survival across a server restart. <a href="analysis/evidence.html#e6-cache">Cache observations</a></p>
+<p class="figure"><img alt="First-occurrence and repeated-prefix prompt-evaluation time." src="figures/05-prefix-prefill.png"/></p>
+<p class="caption"><em>Figure 5. One first occurrence and two later repeats per configuration. This is not a cold-versus-warm machine benchmark.</em></p>
+<p>The standalone MLX servers were configured with one retained prompt-cache entry and alternated two tasks. Their responses report zero prefix hits in these suites. That does not prove that MLX cannot cache; nor does a cache hit prove that a model answered correctly.</p>
+<p>oMLX's passing 3-bit configuration took <strong>21.28 seconds for JSON</strong> and <strong>9.30 seconds for recall</strong>, but it performed visibly different work. All six responses included <code>reasoning_content</code>. Median completion counts rose from <strong>39 to 168 tokens</strong> for JSON and <strong>8 to 74</strong> for recall, compared with standalone MLX-LM. The effective prompt counts differed too. “oMLX is several times slower” would be an unjustified engine-level conclusion from these unmatched workloads. <a href="analysis/evidence.html#e7-omlx">oMLX response analysis</a></p>
+<p class="figure"><img alt="Completion-token counts for the passing standalone and oMLX three-bit workloads." src="figures/06-reasoning-workload.png"/></p>
+<p class="caption"><em>Figure 6. Same user questions, different generated workloads. Whole-completion counts are shown because there is no trustworthy independent reasoning-token breakdown.</em></p>
+<h3 id="the-memory-evidence-is-usefuland-incomplete">The memory evidence is useful—and incomplete</h3>
+<p>Packed ternary Bonsai's standalone generation produced a coherent five-sentence explanation at <strong>16.208 tokens/s</strong>, with <strong><code>Peak memory: 6.232 GB</code></strong> printed by the runtime. The ordinary 2-bit MLX run printed <strong>11.001 tokens/s and 8.737 GB</strong>, but its answer was malformed meta-commentary. The TurboQuant Qwen3.8 diagnostic produced a coherent answer at <strong>2.670 tokens/s</strong>, with saved exit status zero and <strong>12.798 GB</strong> in the same capitalized peak field. <a href="analysis/evidence.html#e9-cli">Original CLI excerpts</a></p>
+<p class="figure"><img alt="Three separate CLI-generation speed observations." src="figures/07-cli-decode.png"/></p>
+<p class="caption"><em>Figure 7. These CLI runs are separate from the HTTP smoke tests. A displayed speed does not rescue an unsatisfactory answer.</em></p>
+<p class="figure"><img alt="The three available runtime-reported peak-memory observations." src="figures/08-cli-memory.png"/></p>
+<p class="caption"><em>Figure 8. Values retain the runtime's printed labels. They are not whole-system RAM consumption, and they do not measure simultaneous compiler or browser workloads.</em></p>
+<p>The diagnostic also prints a second value, <strong>11.92 GB</strong>. Decimal/binary units plausibly explain the numerical relationship, but both original labels say GB, so the audit preserves both rather than claiming a verified conversion. No usable memory-pressure or swap time series exists in the archive. In particular, the configured 4 GB expert cache is not evidence that the complete streaming model used 4 GB.</p>
+<p>These limitations are why my recommendation is practical rather than statistical. Packed ternary Bonsai combines successful short contracts with the strongest low-footprint CLI evidence in this dataset. That does not establish it as the most capable programmer, or prove a whole-system memory advantage over every unmeasured alternative.</p>
+<h2 id="5-reproduce-the-laboratory-from-a-clean-mac">5. Reproduce the laboratory from a clean Mac</h2>
+<p>The following is the complete text-model procedure. All commands refer to the code bundled with this article; no previous revision or separate setup chapter is required. The scripts keep downloads, installed environments and output records outside the manuscript itself where appropriate.</p>
+<p><strong>Existing laboratory users should keep working environments and completed snapshots.</strong> Do not recreate them merely to read this edition. The launch and compatibility clients are the working implementations from the tested package; this publication adds a revision-aware planning front end and clearer test commands.</p>
+<h3 id="prepare-macos-python-and-the-package">Prepare macOS, Python and the package</h3>
+<p>Complete macOS setup, install a stable system update appropriate to the runtimes, and use a native Apple Silicon Terminal. Back up important work. Keep Activity Monitor's Memory view open. Do not begin by disabling swap or altering system-wide GPU limits.</p>
+<p>Install Apple's command-line tools and wait for the installation dialog to finish:</p>
+<pre><code class="language-bash">xcode-select --install
+</code></pre>
+<p>Install Homebrew through its official installer, first saving it for inspection:</p>
+<pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -fsSLo "$HOME/Downloads/install-homebrew.sh" https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+less "$HOME/Downloads/install-homebrew.sh"
+/bin/bash "$HOME/Downloads/install-homebrew.sh"
+</code></pre>
+<p>Press <code>q</code> to leave <code>less</code>. Then initialize Homebrew in this shell and install the foundation. Follow Homebrew's printed instructions for making <code>shellenv</code> persistent; do not append duplicate lines on every run. <a href="https://docs.brew.sh/Installation">Homebrew installation</a></p>
+<pre><code class="language-bash">eval "$(/opt/homebrew/bin/brew shellenv)"
+brew install python@3.11 git
+uname -m
+xcode-select -p
+</code></pre>
+<p><code>uname -m</code> should report <code>arm64</code>. Extract the companion ZIP and move its <strong><code>M4_16GB_Model_Selection</code></strong> folder into <code>~/LocalAI</code>. Then:</p>
+<pre><code class="language-bash">cd "$HOME/LocalAI/M4_16GB_Model_Selection" &amp;&amp;
+source scripts/lab_env.sh &amp;&amp;
+mkdir -p "$LAB/models" "$LAB/plans" "$LAB/logs" outputs .venvs &amp;&amp;
+"$PY" -m venv "$LAB/venv-tools" &amp;&amp;
+"$LAB/venv-tools/bin/python" -m pip install -r config/requirements-lab-tools.txt &amp;&amp;
+"$LAB/venv-tools/bin/python" -m pip check &amp;&amp;
+"$PY" -m venv .venvs/core
+</code></pre>
+<p><code>PACKAGE</code> is the publication directory; <code>LAB</code> is <code>~/LocalAI/qwen-bonsai-lab</code>. Source <code>scripts/lab_env.sh</code> from the publication root in <strong>each new terminal</strong>. It also enables pasted comments for the current zsh session without editing <code>.zshrc</code>. The text API helpers use the standard library; the planning environment adds Hugging Face Hub.</p>
+<p>Record the machine and disk space:</p>
+<pre><code class="language-bash">system_profiler SPHardwareDataType SPSoftwareDataType &gt; "$LAB/logs/machine.txt"
+sysctl -n hw.memsize
+sysctl vm.swapusage
+df -h "$LAB"
+"$LAB/venv-tools/bin/python" -m pip freeze &gt; "$LAB/logs/tools-current.freeze.txt"
+</code></pre>
+<p>Plan one branch at a time. Installing all representations consumes far more storage than their active RAM requirements, particularly when importing a second copy into Ollama. The planner checks selected file sizes and free-space reserve before downloading; it does not certify memory fit.</p>
+<h3 id="how-downloads-and-tests-work">How downloads and tests work</h3>
+<p><code>tools/plan_measured.py</code> selects the exact checkpoint revision recorded in the archived launch metadata. It delegates to the existing downloader's <strong>plan</strong> step, which does not load weights. Inspect the resulting plan before invoking <strong>download</strong>. Where the archive has no revision—resident Qwen3.6 and the CLI diagnostic—the script requires <code>--allow-unrecorded</code> and explicitly labels the download a new experiment. <a href="config/measured-checkpoints.json">Recorded revisions</a></p>
+<p>Eight recorded model profiles have pinned revisions. Do not overwrite an existing snapshot with another revision to make a command succeed; the downloader refuses that. Existing users with complete matching downloads can skip planning/downloading entirely.</p>
+<p>For every HTTP branch, <strong>Terminal A runs one server; Terminal B tests that exact server while A remains running</strong>. The new convenience command is:</p>
+<pre><code class="language-text">bash scripts/test_model.sh BASE_URL EXACT_MODEL_ID RUN_LABEL
+</code></pre>
+<p>It records discovery, requests a short <code>READY</code> answer, and only after that succeeds runs the original JSON/recall contracts three times. It saves a new timestamp-independent unique log directory per invocation. Six <code>PASS</code> checks mean those two contracts passed three times—not that a coding agent is certified. No generated code or tool call is executed. The added readiness gate is operational; it is not retrospectively counted among the 66 archived smoke records.</p>
+<h3 id="a-packed-ternary-bonsai-my-first-choice-for-the-16-gb-constraint">A. Packed ternary Bonsai: my first choice for the 16 GB constraint</h3>
+<p>For a <strong>new</strong> ternary environment:</p>
+<pre><code class="language-bash">"$PY" -m venv "$LAB/venv-ternary" &amp;&amp;
+"$LAB/venv-ternary/bin/python" -m pip install -r "$PACKAGE/config/requirements-lab-mlx.txt" &amp;&amp;
+"$LAB/venv-ternary/bin/python" -m pip check
+</code></pre>
+<p>This preserves the recorded <strong>MLX 0.32.0 / MLX-LM 0.31.3</strong> top-level combination. It is not a lock of every transitive package. Keep the environment isolated from TurboQuant and from source-built forks.</p>
+<p>Plan and inspect:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" bonsai-ternary --lab "$LAB"
+cat "$LAB/plans/bonsai-ternary.json"
+</code></pre>
+<p>After reviewing it:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/bonsai-ternary.json"
+less "$LAB/models/bonsai-ternary/ternel_packed_model.py"
+less "$LAB/models/bonsai-ternary/ternel_manifest.json"
+</code></pre>
+<p><strong>This checkpoint contains executable Python and Metal.</strong> Review the downloaded revision and proceed only when you trust it. The pinned loader can execute checkpoint code without a separate trust dialog; the launcher's acknowledgment is not a security audit. <a href="https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw">Checkpoint-code documentation</a></p>
+<p>In Terminal A, after that review:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" bonsai-ternary --lab "$LAB" --accept-checkpoint-code --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" bonsai-ternary --lab "$LAB" --accept-checkpoint-code 2&gt;&amp;1 | tee "$LAB/logs/ternary-server-new.log"
+</code></pre>
+<p>After the server starts without a worker failure, Terminal B uses:</p>
+<pre><code class="language-bash">cd "$HOME/LocalAI/M4_16GB_Model_Selection" &amp;&amp;
+source scripts/lab_env.sh &amp;&amp;
+bash scripts/test_model.sh http://127.0.0.1:8081/v1 "$LAB/models/bonsai-ternary" bonsai-ternary
+</code></pre>
+<p>The public model ID is the <strong>absolute local path</strong>, not <code>bonsai-binary</code> or an assumed <code>default_model</code>. Stop Terminal A with Ctrl+C only after inspecting the results. The launch uses one prompt/decode request, a small prefill step and one retained prompt-cache entry. Keep prompts short; those settings are not a hard input-length quota.</p>
+<h3 id="b-binary-bonsai-the-smallest-reference-with-a-strict-format-caveat">B. Binary Bonsai: the smallest reference, with a strict-format caveat</h3>
+<p>Plan and download its separate checkpoint:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" bonsai-binary --lab "$LAB"
+cat "$LAB/plans/bonsai-binary.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/bonsai-binary.json"
+</code></pre>
+<p>For a fresh runtime checkout, use the recorded Prism demo revision:</p>
+<pre><code class="language-bash">git clone --no-checkout https://github.com/PrismML-Eng/Bonsai-demo.git "$LAB/Bonsai-demo" &amp;&amp;
+git -C "$LAB/Bonsai-demo" checkout --detach 74fab33d81d81a535525bd98c7a676b22d4dca46
+less "$LAB/Bonsai-demo/scripts/download_binaries.sh"
+less "$LAB/Bonsai-demo/scripts/common.sh"
+</code></pre>
+<p>The downloader removes quarantine attributes within its downloaded runtime directory and applies ad-hoc signing. Inspect that behavior before running it; do not disable Gatekeeper globally. Use the binary downloader, <strong>not</strong> the broader <code>setup.sh</code> that can select another Bonsai family. <a href="https://raw.githubusercontent.com/PrismML-Eng/Bonsai-demo/74fab33d81d81a535525bd98c7a676b22d4dca46/Bonsai1_README.md">Prism runtime procedure</a></p>
+<pre><code class="language-bash">bash "$LAB/Bonsai-demo/scripts/download_binaries.sh"
+"$LAB/Bonsai-demo/bin/mac/llama-server" --version
+cat "$LAB/Bonsai-demo/bin/mac/.llama_release"
+</code></pre>
+<p>Preserve a working existing checkout instead of cloning over it. Compare the installed runtime with the recorded Prism build before claiming an exact reproduction. Terminal A:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" bonsai-binary --lab "$LAB" --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" bonsai-binary --lab "$LAB" 2&gt;&amp;1 | tee "$LAB/logs/binary-server-new.log"
+</code></pre>
+<p>Terminal B, after sourcing the environment:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8082/v1 bonsai-binary bonsai-binary
+</code></pre>
+<p>The measured result is 5/6 because of one fenced JSON response. Test any constrained-output or parsing modification separately rather than silently changing the original success criterion.</p>
+<h3 id="c-qwen3-8-gguf-the-clearest-qwen-comparison">C. Qwen3.8 GGUF: the clearest Qwen comparison</h3>
+<p>Install llama.cpp and record the resolved version:</p>
+<pre><code class="language-bash">brew install llama.cpp
+llama-server --version &gt; "$LAB/logs/llama-server-current-version.txt" 2&gt;&amp;1
+llama-server --help &gt; "$LAB/logs/llama-server-current-help.txt"
+</code></pre>
+<p>Homebrew is a moving installation channel. The archived measurement used <strong>0.6.0, build 11429, commit <code>d81235049</code></strong>. A different installed version is a new comparison, even with identical weights. A passing flag preflight also does not prove that every checkpoint architecture works. <a href="analysis/evidence.html#e5-timings">Recorded version</a></p>
+<p>For IQ2_S:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen38-iq2s --lab "$LAB"
+cat "$LAB/plans/qwen38-iq2s.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen38-iq2s.json"
+</code></pre>
+<p>Then Terminal A:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-iq2s --lab "$LAB" --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-iq2s --lab "$LAB" 2&gt;&amp;1 | tee "$LAB/logs/qwen38-iq2s-server-new.log"
+</code></pre>
+<p>Terminal B:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8083/v1 qwen38-iq2s qwen38-iq2s
+</code></pre>
+<p>The launcher preserves the tested 4K context, small 128-token prompt-processing batches, one request slot, Flash Attention and non-thinking template arguments. It prints the actual command. Inspect the GPU-layer placement rather than assuming that a response necessarily used the intended Metal path.</p>
+<p>For <strong>Q2_K_XL</strong>, stop IQ2_S, then plan, inspect and download its own files:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen38-q2xl --lab "$LAB"
+cat "$LAB/plans/qwen38-q2xl.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen38-q2xl.json"
+</code></pre>
+<p>Its launch in Terminal A and test in Terminal B are:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-q2xl --lab "$LAB" --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-q2xl --lab "$LAB" 2&gt;&amp;1 | tee "$LAB/logs/qwen38-q2xl-server-new.log"
+</code></pre>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8083/v1 qwen38-q2xl qwen38-q2xl
+</code></pre>
+<p>For <strong>IQ3_XXS</strong>, separately plan, inspect and download:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen38-iq3xxs --lab "$LAB"
+cat "$LAB/plans/qwen38-iq3xxs.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen38-iq3xxs.json"
+</code></pre>
+<p>This tighter branch needs its acknowledgment on <strong>both</strong> preflight and launch:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-iq3xxs --lab "$LAB" --accept-tight-memory --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-iq3xxs --lab "$LAB" --accept-tight-memory 2&gt;&amp;1 | tee "$LAB/logs/qwen38-iq3xxs-server-new.log"
+</code></pre>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8083/v1 qwen38-iq3xxs qwen38-iq3xxs
+</code></pre>
+<p>That flag acknowledges the experiment; it does not alter macOS limits. A <code>--dry-run</code> merely prints the command and returns before that acknowledgment gate. All three profiles share port 8083, but their aliases and log names differ. Run them sequentially. All three eventually passed the archived short contracts; the earlier IQ3 launch refusal was a recovered setup incident, not an out-of-memory measurement.</p>
+<h3 id="d-qwen3-6-streaming-keep-the-working-loader-combination">D. Qwen3.6 streaming: keep the working loader combination</h3>
+<p>For a new dedicated text-runtime environment:</p>
+<pre><code class="language-bash">"$PY" -m venv "$LAB/venv-tq" &amp;&amp;
+"$LAB/venv-tq/bin/python" -m pip install -r "$PACKAGE/config/requirements-lab-tq.txt" &amp;&amp;
+"$LAB/venv-tq/bin/python" -m pip check &amp;&amp;
+"$LAB/venv-tq/bin/python" -I "$PACKAGE/tools/check_tq_loader_contract.py"
+</code></pre>
+<p>The requirements retain <strong>TurboQuant 0.28.0 / MLX-LM 0.31.3</strong>. The checker reads the installed loader-call interface without loading a model. Keep a known-working environment unchanged. If the checker detects the old <code>trust_remote_code</code> keyword mismatch, do not add a trust flag: that does not repair a Python signature.</p>
+<p>The narrowly targeted recovery, only for that incompatible text environment after saving its <code>pip freeze</code>, is:</p>
+<pre><code class="language-bash">"$LAB/venv-tq/bin/python" -m pip freeze --all &gt; "$LAB/logs/tq-before-conditional-repair.txt"
+"$LAB/venv-tq/bin/python" -m pip install --index-url https://pypi.org/simple --only-binary=:all: --no-deps --force-reinstall --require-hashes -r "$PACKAGE/config/requirements-mlx-lm-wheel.txt" &amp;&amp;
+"$LAB/venv-tq/bin/python" -m pip check &amp;&amp;
+"$LAB/venv-tq/bin/python" -I "$PACKAGE/tools/check_tq_loader_contract.py"
+</code></pre>
+<p>Do not run this repair in the separate VLM environment or when the text combination is already working. It restores the released wheel, not a guessed editable checkout. Stop if package checks fail. <a href="analysis/evidence.html#e8-gaps">Recorded mismatch and successful fingerprints</a></p>
+<p>For streaming, plan/download the recorded <code>qwen36-stream</code> revision:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen36-stream --lab "$LAB"
+cat "$LAB/plans/qwen36-stream.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen36-stream.json"
+</code></pre>
+<p>Terminal A:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen36-stream --lab "$LAB" --expert-cache-gb 4 --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen36-stream --lab "$LAB" --expert-cache-gb 4 2&gt;&amp;1 | tee "$LAB/logs/qwen36-stream-server-new.log"
+</code></pre>
+<p>Check for the <strong>streaming loader</strong>, <code>cache_budget=4.0 GB</code>, <code>max_active_experts=0</code>, eight-bit KV and the correct checkpoint path. Some loading messages appear at the first request. A printed configuration line alone is not proof that loading succeeded. Terminal B:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8080/v1 "$LAB/models/qwen36-stream" qwen36-stream
+</code></pre>
+<p>No extra wired-cap increase is part of this streaming recipe. Its measured six passes justify a harder-task trial, not the claim that it outperforms resident Qwen3.6: the successful resident run's performance data are missing.</p>
+<h3 id="e-resident-asymmetric-qwen3-6-optional-tighter-not-numerically-ranked">E. Resident asymmetric Qwen3.6: optional, tighter, not numerically ranked</h3>
+<p>This uses the same <strong>text</strong> environment, but a different checkpoint. Stop streaming first. Since the archive lacks its successful launch revision, use an existing tracked snapshot or explicitly plan a new experiment:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen36-asym --lab "$LAB" --allow-unrecorded
+cat "$LAB/plans/qwen36-asym.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen36-asym.json"
+"$LAB/venv-tq/bin/turboquant-plan" --model "$LAB/models/qwen36-asym" --ram-gb 16 --context 8192 --kv-bits 8
+</code></pre>
+<p>The planner estimates an 8K scenario; it is not a memory-fit test. Check the loader contract and launcher preflight before any system adjustment:</p>
+<pre><code class="language-bash">"$LAB/venv-tq/bin/python" -I "$PACKAGE/tools/check_tq_loader_contract.py" &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen36-asym --lab "$LAB" --accept-tight-memory --preflight-only
+</code></pre>
+<p>The source recipe includes an <strong>optional, temporary wired-cap exception</strong> for the tight resident configuration. It is not the recommended first installation or a mechanism that adds RAM. Save work, stop other heavy workloads and keep the initial value for this session. A previous session's snapshot may not be the current baseline. The helper only reads/saves; it cannot reconstruct an original limit after it has already been changed. <a href="sources/GUIDA_Mac_Mini_M4_16GB.html">Source procedure</a></p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/wired_memory.sh" save "$LAB"
+</code></pre>
+<p>Only after inspecting the saved/current values and deliberately accepting reduced system headroom:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/wired_memory.sh" saved-value "$LAB" &gt;/dev/null &amp;&amp;
+sudo sysctl -w iogpu.wired_limit_mb=13824
+</code></pre>
+<p>Do not put that command in a startup file, disable swap, or guess another key when this one is unavailable. Readers unwilling to make this exception should retain the roomier models or streaming branch. Start the resident server in A:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen36-asym --lab "$LAB" --accept-tight-memory 2&gt;&amp;1 | tee "$LAB/logs/qwen36-resident-server-new.log"
+</code></pre>
+<p>Test in B:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8080/v1 "$LAB/models/qwen36-asym" qwen36-asym
+</code></pre>
+<p>After stopping the server—or after a launch failure—restore the valid saved cap <strong>if you changed it</strong>:</p>
+<pre><code class="language-bash">ORIGINAL_WIRED_LIMIT="$(bash "$PACKAGE/scripts/wired_memory.sh" saved-value "$LAB")" &amp;&amp;
+sudo sysctl -w "iogpu.wired_limit_mb=$ORIGINAL_WIRED_LIMIT" &amp;&amp;
+sysctl -n iogpu.wired_limit_mb
+</code></pre>
+<p>The user reported this branch working. Without its successful response records and whole-system measurements, it does not receive a fabricated place in the numerical ranking.</p>
+<h3 id="f-ordinary-qwen3-8-mlx-keep-the-passing-and-failing-paths-distinct">F. Ordinary Qwen3.8 MLX: keep the passing and failing paths distinct</h3>
+<p>Create a separate ordinary-MLX environment, not the custom Bonsai or TurboQuant environment:</p>
+<pre><code class="language-bash">"$PY" -m venv "$LAB/venv-mlx" &amp;&amp;
+"$LAB/venv-mlx/bin/python" -m pip install -r "$PACKAGE/config/requirements-lab-mlx.txt" &amp;&amp;
+"$LAB/venv-mlx/bin/python" -m pip check
+</code></pre>
+<p>The <strong>3-bit path passed</strong> the archived contracts. Plan/download its recorded revision:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen38-mlx3 --lab "$LAB"
+cat "$LAB/plans/qwen38-mlx3.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen38-mlx3.json"
+cat "$LAB/models/qwen38-mlx3/config.json"
+</code></pre>
+<p>Inspect the configuration. The ordinary-MLX launcher refuses unexpected custom <code>model_file</code> or <code>auto_map</code> declarations rather than treating them as ordinary quantized weights. Terminal A:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-mlx3 --lab "$LAB" --accept-tight-memory --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-mlx3 --lab "$LAB" --accept-tight-memory 2&gt;&amp;1 | tee "$LAB/logs/qwen38-mlx3-server-new.log"
+</code></pre>
+<p>Terminal B:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8084/v1 "$LAB/models/qwen38-mlx3" qwen38-mlx3
+</code></pre>
+<p>To reproduce or diagnose the <strong>failed 2-bit configuration</strong>, stop the 3-bit server and prepare its separate checkpoint:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen38-mlx2 --lab "$LAB"
+cat "$LAB/plans/qwen38-mlx2.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen38-mlx2.json"
+</code></pre>
+<p>Launch it without the tight-memory acknowledgment:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-mlx2 --lab "$LAB" --preflight-only &amp;&amp;
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/launch_lab.py" qwen38-mlx2 --lab "$LAB" 2&gt;&amp;1 | tee "$LAB/logs/qwen38-mlx2-server-new.log"
+</code></pre>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8084/v1 "$LAB/models/qwen38-mlx2" qwen38-mlx2
+</code></pre>
+<p>This is a diagnostic route, not my recommendation. If the readiness question fails, stop there and retain the output; there is no obligation to regenerate six failures. The recorded historical verdicts remain unchanged.</p>
+<h3 id="g-omlx-an-optional-managed-server-comparison">G. oMLX: an optional managed-server comparison</h3>
+<p>Install the official oMLX macOS application for the chosen release. <strong>0.7.0 is the documented starting recipe, not a verified version attribution for the archived oMLX timings.</strong> Record the actual version and export model settings before testing. Stop any app-managed server before starting a foreground process. <a href="https://github.com/jundot/omlx/releases/tag/v0.7.0">oMLX release</a></p>
+<p>Expose only ordinary MLX models to this experiment. For a fresh directory, create a link to one downloaded checkpoint; do not point the scanner at every custom weight format:</p>
+<pre><code class="language-bash">mkdir -p "$LAB/omlx-models"
+ln -s "$LAB/models/qwen38-mlx3" "$LAB/omlx-models/qwen38-mlx3"
+</code></pre>
+<p>If that name already exists, inspect it rather than overwriting it. If the installed scanner does not follow the link, select the real directory in its interface. Store an API secret outside the source tree:</p>
+<pre><code class="language-bash">umask 077
+mkdir -p "$HOME/.config/local-llm"
+KEY_FILE="$HOME/.config/local-llm/omlx.key"
+if [ ! -s "$KEY_FILE" ]; then openssl rand -hex 32 &gt; "$KEY_FILE"; fi
+export OMLX_API_KEY="$(cat "$KEY_FILE")"
+export PATH="$HOME/.omlx/bin:$PATH"
+omlx serve --help
+</code></pre>
+<p>In Terminal A, begin with the documented conservative policy:</p>
+<pre><code class="language-bash">omlx serve --host 127.0.0.1 --port 8000 \
+  --model-dir "$LAB/omlx-models" --memory-guard safe \
+  --hot-cache-max-size 1GB \
+  --paged-ssd-cache-dir "$LAB/omlx-prefix-cache" \
+  --paged-ssd-cache-max-size 10GB --max-concurrent-requests 1
+</code></pre>
+<p><strong>The safe guard may refuse the 3-bit checkpoint on 16 GB.</strong> The logs do not include the guard that admitted the historical run, so this cannot be described as an exact reproduction of that memory policy. Do not disable safeguards just to obtain a graph. A refusal means this conservative recipe does not admit the model; use the passing standalone path or preserve and separately document an already-working configuration. The missing oMLX settings are a real reproducibility limit. <a href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0/README.md">Configuration controls</a> · <a href="analysis/evidence.html#e8-gaps">Measurement gaps</a></p>
+<p>If the model is admitted, give it the alias <code>qwen38-mlx3</code>, set a 4K context and one request, and disable speculative decoding and expert offload for this dense model. For a new non-thinking comparison, set <code>enable_thinking=false</code> and <code>preserve_thinking=false</code> through the supported template settings, then inspect actual responses. That changes the historical reasoning workload and must be labelled a new run.</p>
+<p>In Terminal B, load the same key and test:</p>
+<pre><code class="language-bash">export LOCAL_AI_API_KEY="$(cat "$HOME/.config/local-llm/omlx.key")"
+bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8000/v1 qwen38-mlx3 qwen38-omlx3
+</code></pre>
+<p>To investigate the failed two-bit alias, stop/unload the 3-bit model, expose the downloaded <code>qwen38-mlx2</code> directory instead and assign that exact alias. Its explicit test is:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/test_model.sh" http://127.0.0.1:8000/v1 qwen38-mlx2 qwen38-omlx2
+</code></pre>
+<p>Do not combine their records into one “oMLX score.” The original single oMLX log contained both models, which is why the analysis groups by model ID and endpoint rather than filename alone.</p>
+<h3 id="h-ollama-import-the-same-iq2-s-file-then-prove-generation">H. Ollama: import the same IQ2_S file, then prove generation</h3>
+<p>Stop llama.cpp and all other heavy model servers. Install the native Ollama application; <strong>0.35.1</strong> is the version recorded during the troubleshooting. This is a fixed experiment reference, not a claim that it will always be the preferred release. Start the app once to establish the CLI, then quit its server before the foreground launch.</p>
+<pre><code class="language-bash">export PATH="/Applications/Ollama.app/Contents/Resources:$PATH"
+ollama --version
+.venvs/core/bin/python scripts/set_local_only.py
+bash scripts/start_ollama.sh
+</code></pre>
+<p>The script starts one local-only server on <strong>11434</strong>. Leave it running in Terminal A. In Terminal B, create the import definition:</p>
+<pre><code class="language-bash">cat &gt; "$LAB/Qwen38-IQ2S.Modelfile" &lt;&lt;EOF
+FROM $LAB/models/qwen38-iq2s/Qwen3.8-27B-UD-IQ2_S.gguf
+PARAMETER num_ctx 4096
+PARAMETER num_predict 1024
+PARAMETER temperature 0.7
+PARAMETER top_p 0.8
+PARAMETER top_k 20
+PARAMETER min_p 0
+PARAMETER repeat_penalty 1.0
+EOF
+ollama create qwen38-local-iq2s -f "$LAB/Qwen38-IQ2S.Modelfile"
+ollama show qwen38-local-iq2s:latest --template
+ollama list
+</code></pre>
+<p>Check the imported template and advertised capabilities, but do not confuse them with verified performance. The helper's model lookup is exact: use <strong><code>qwen38-local-iq2s:latest</code></strong> when that is the installed name. <code>ollama ps</code> shows residency, not merely downloads. Loading can happen on the first request; a manual <code>ollama run</code> warm-up is not required. <a href="https://docs.ollama.com/import">Ollama import</a> · <a href="https://docs.ollama.com/api/chat">Chat API</a></p>
+<p>Use the new evidence-preserving probe for one short answer:</p>
+<pre><code class="language-bash">.venvs/core/bin/python tools/ollama_probe.py \
+  --model qwen38-local-iq2s:latest \
+  --prompt "Reply with READY and nothing else." --output-tokens 64
+</code></pre>
+<p>After a complete answer, try the longer fixture:</p>
+<pre><code class="language-bash">.venvs/core/bin/python tools/ollama_probe.py \
+  --model qwen38-local-iq2s:latest \
+  --input fixtures/chat-task.txt --ctx 4096 --output-tokens 1024
+</code></pre>
+<p>The earlier <strong>512-token</strong> allowance truncated this fixture. Increasing it to 1,024 is a proposed diagnostic, not a recorded success. The probe saves the raw request, response, final content and completion fields <strong>before</strong> deciding whether the response completed. Keep the 4K context fixed. If it loops or reaches the limit again, inspect the partial output rather than doubling limits indefinitely. <code>keep_alive: 0</code> unloads after the response; disappearing from the resident list afterward is expected. <a href="https://docs.ollama.com/api/chat">Ollama response fields</a></p>
+<p>The Ollama run uses temperature zero in this diagnostic, whereas the measured HTTP smoke suites requested 0.7. Do not add its timings to the table as though it were the same test. No native-Ollama generation performance is claimed until its saved records are available.</p>
+<h3 id="i-qwen3-8-turboquant-mini-reproduce-only-as-a-diagnostic">I. Qwen3.8 TurboQuant “mini”: reproduce only as a diagnostic</h3>
+<p>This is a <strong>CLI-only branch</strong>, not another API listener. It produced one satisfactory short answer, but at 2.670 tokens/s with a large reported runtime peak. It is not my default for 16 GB coding.</p>
+<p>Use a separate VLM environment. The source procedure pinned TurboQuant's 0.28.0 VLM extra; the recorded diagnostic environment also listed MLX-VLM 0.7.6, MLX-LM 0.32.0 and MLX 0.32.3. Do <strong>not</strong> copy its newer MLX-LM dependency into the fixed TurboQuant text server. The bundled <code>config/recorded-vlm.freeze.txt</code> preserves the resolved evidence; it is not represented as a portable cross-machine lock. <a href="analysis/evidence.html#e8-gaps">Environment distinction</a></p>
+<pre><code class="language-bash">"$PY" -m venv "$LAB/venv-tq-vlm" &amp;&amp;
+"$LAB/venv-tq-vlm/bin/python" -m pip install -r "$PACKAGE/config/requirements-lab-tq-vlm.txt" &amp;&amp;
+"$LAB/venv-tq-vlm/bin/python" -m pip check
+"$LAB/venv-tq-vlm/bin/python" -m turboquant_mlx.generate_vlm --help
+"$LAB/venv-tq-vlm/bin/python" -m pip freeze &gt; "$LAB/logs/vlm-current.freeze.txt"
+</code></pre>
+<p>Use an existing complete tracked snapshot, or explicitly prepare a new diagnostic:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/plan_measured.py" qwen38-tq-diagnostic --lab "$LAB" --allow-unrecorded
+cat "$LAB/plans/qwen38-tq-diagnostic.json"
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/checkpoint_fetch.py" download --plan "$LAB/plans/qwen38-tq-diagnostic.json"
+</code></pre>
+<p>The archive does not contain this checkpoint's exact revision, so a fresh download is a new diagnostic.</p>
+<p>The historical source recipe proposed a temporary <strong>14 GiB wired ceiling</strong>, but the supplied successful local run does not document its actual sysctl history. Following that source recipe is therefore not proof of reproducing its memory state. Most readers should skip the cap experiment. Deliberate investigators must first save and verify the original value using the resident procedure above, then may apply:</p>
+<pre><code class="language-bash">bash "$PACKAGE/scripts/wired_memory.sh" saved-value "$LAB" &gt;/dev/null &amp;&amp;
+sudo sysctl -w iogpu.wired_limit_mb=14336
+</code></pre>
+<p>Run once, preserving pipeline failure status:</p>
+<pre><code class="language-bash">(
+  set -o pipefail
+  "$LAB/venv-tq-vlm/bin/python" -m turboquant_mlx.generate_vlm \
+    --model "$LAB/models/qwen38-tq-diagnostic" \
+    --prompt 'Explain the difference between retry and rollback in five sentences.' \
+    --max-tokens 512 --prefill-step-size 256 \
+    2&gt;&amp;1 | tee "$LAB/logs/qwen38-tq-diagnostic-new.log"
+  GENERATION_STATUS=$?
+  printf '%s\n' "$GENERATION_STATUS" &gt; "$LAB/logs/qwen38-tq-diagnostic-new.exit-code.txt"
+  exit "$GENERATION_STATUS"
+)
+</code></pre>
+<p>Restore the saved wired limit immediately after the process exits, including on failure, if you changed it. Inspect the final answer and status; a nonempty log or exit zero alone is insufficient. There is <strong>no</strong> <code>test_model.sh</code> endpoint for this command. No automatic retry should turn a killed cold load into an apparently successful warm benchmark.</p>
+<h2 id="6-make-the-winner-earn-a-coding-workload">6. Make the winner earn a coding workload</h2>
+<p>The original aim remains coding and agentic work. The recorded tests establish a necessary first step, not the destination. Before allowing a model to change files, use new JSON records, changed labels, ambiguous inputs, distractors and cases that should trigger a request for clarification. A model that has passed two fixed questions has not demonstrated general tool selection.</p>
+<p>For the selected Bonsai deployment, an optional <strong>tool-format-only</strong> test is available:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PACKAGE/tools/compat_lab.py" \
+  --base-url http://127.0.0.1:8081/v1 --timeout 300 smoke \
+  --model "$LAB/models/bonsai-ternary" --repeats 3 --with-tools \
+  --out "$LAB/logs/bonsai-ternary-tool-format-new.jsonl"
+</code></pre>
+<p>This asks for a <code>lookup_order</code> call and validates its structure; <strong>it never executes it</strong>. The historical archive contains no result for this extension. A passing JSON test does not authorize a tool, and a tool-shaped answer does not authorize deployment.</p>
+<p>The bundled coding fixture supplies a deliberately faulty <code>clamp</code> function, a task and external tests. Copy it to a disposable directory, request a proposal and inspect it before applying anything:</p>
+<pre><code class="language-bash">cd "$PACKAGE"
+mkdir -p outputs/coding-lab
+cp fixtures/coding/* outputs/coding-lab/
+"$LAB/venv-tools/bin/python" "$PACKAGE/tools/compat_lab.py" \
+  --base-url http://127.0.0.1:8081/v1 --timeout 300 chat \
+  --model "$LAB/models/bonsai-ternary" --input fixtures/coding/prompt.txt \
+  --output-tokens 900 --out outputs/coding-proposal.md
+</code></pre>
+<p>After reviewing and manually applying the intended change, run the tests outside the model:</p>
+<pre><code class="language-bash">cd "$PACKAGE/outputs/coding-lab"
+"$PY" -m unittest -v
+</code></pre>
+<p>Do not let it rewrite the acceptance tests. Permit one additional repair with the actual failure output, then stop. For a fair comparison, repeat from a fresh disposable copy under IQ2_S and use its port <strong>8083</strong> and alias <strong><code>qwen38-iq2s</code></strong>. Count completed, accepted tasks and total elapsed time. Preserve diffs, test output and failures.</p>
+<p>When an agent harness is introduced, keep its tools narrowly scoped, secrets outside the worktree and a finite retry budget. A green test is evidence; it is not a substitute for review or an operating-system sandbox. This follows the supplied <strong>standalone-before-Kowalski</strong> principle without claiming that this package has integrated or validated Kowalski. <a href="sources/GUIDA_Mac_Mini_M4_16GB.html">Original acceptance framing</a></p>
+<p>To verify offline use, finish downloads and warm required assets, stop the application, disconnect Wi-Fi and Ethernet, restart and repeat the selected tests. The supplied launchers set offline flags where appropriate. This demonstrates disconnected operation of that workflow; it is not an audit of all network behavior after reconnection.</p>
+<h2 id="7-the-selection-keep-one-default-not-every-interesting-model">7. The selection: keep one default, not every interesting model</h2>
+<p>There is no honest way to turn two repeated short tasks into a definitive ranking of coding intelligence. There is, however, enough evidence to make a useful deployment decision.</p>
+<p><strong>For my 16 GB default, I would keep packed ternary Bonsai on MLX-LM.</strong> It passed all <strong>12 recorded checks</strong>, returned the JSON task in a median <strong>3.48 seconds</strong>, and supplied a separate coherent CLI sample at <strong>16.208 tokens/s</strong> with <strong>6.232 GB</strong> reported peak memory. That combination gives it the strongest case here when preserving room for the rest of the Mac is the priority. Its trade-off is the custom loader: the code must be trusted, the working environment should be preserved, and a generic GUI cannot be assumed compatible. This is a chosen operating point, not proof of broad superiority. <a href="analysis/profile-summary.csv">Bonsai observations</a> · <a href="analysis/evidence.html#e9-cli">CLI evidence</a></p>
+<p><strong>For the Qwen comparison, I would keep Qwen3.8 IQ2_S on llama.cpp.</strong> It passed <strong>6/6</strong>, used a smaller artifact than the other tested Qwen GGUF choices, and returned recall in a median <strong>1.20 seconds</strong>. Q2_K_XL and IQ3_XXS also passed, but this dataset demonstrates no additional task-quality benefit from their extra storage. A harder coding suite could reverse that decision; the present one does not justify spending more memory automatically. Its whole-system peak remains unmeasured. <a href="analysis/profile-summary.csv">Qwen GGUF observations</a></p>
+<p>Binary Bonsai remains a useful smallest-footprint reference, but its strict-format miss prevents treating it as already interchangeable with the selected structured-output path. Streaming Qwen3.6 and standalone 3-bit Qwen3.8 MLX are worthwhile next-stage candidates; neither has demonstrated enough added task value here to displace the default. Resident Qwen3.6 needs its successful performance records before comparison. The 2-bit ordinary-MLX configurations need diagnosis, not another agent integration. oMLX's 3-bit run needs matched thinking/template settings before the server is judged. Native Ollama still needs complete recorded responses. The TurboQuant mini diagnostic proves one generation, not an attractive daily operating point.</p>
+<p>I would store the two selected checkpoints on disk but <strong>run only one at a time</strong>. Before declaring the default comfortable, I would test it with the actual editor and compiler open, record memory pressure and swap, and expand context gradually. No chart in this article substitutes for those absent measurements.</p>
+<p><strong>The best model on a 16 GB Mac is not the largest one that starts. It is the smallest dependable configuration that finishes the work you actually need—and leaves enough computer behind to verify it.</strong></p>
+<hr/>
+<h3 id="reproducibility-and-publication-notes">Reproducibility and publication notes</h3>
+<p>All numerical comparisons derive from the supplied <strong>5–6 October 2026 <code>logs.zip</code></strong>, reprocessed in Python. The article includes all eight original performance plots and the normalized data, provenance and analysis scripts. No new model inference was run while preparing this consolidated edition. Recorded measurements, user-reported functionality, proposed procedures and missing evidence are distinguished throughout.</p>
+<p>The <strong>single companion package</strong> contains this Markdown article, a self-contained HTML reading edition with embedded images, the PNG/SVG originals, runnable code and fixtures. It does not bundle model weights, private keys or the original raw log archive. Normalized response records replace local home-directory names with <code>$HOME</code>; inspect new data before publishing it. The article's local evidence links work after extraction. When publishing on Medium, insert the supplied PNG files at the existing image positions; Markdown text alone does not upload image assets.</p>
+<p>To regenerate the numerical tables and figures from the original archive, use a separate analysis environment—not a model environment:</p>
+<pre><code class="language-bash">python3 -m venv .venvs/analysis
+.venvs/analysis/bin/python -m pip install -r analysis/requirements.txt
+.venvs/analysis/bin/python analysis/analyze_logs.py /path/to/logs.zip --out analysis
+.venvs/analysis/bin/python analysis/plot_results.py --data analysis --out figures
+</code></pre>
+<p>Replace <code>/path/to/logs.zip</code> with the real path. Changed data require editorial review of the conclusions; rerunning plotting code does not make an old recommendation true of a new experiment.</p>
+<footer>Prepared from the supplied October 2026 laboratory records. No new model inference was run for this publication.</footer></main><script>
+document.querySelectorAll('pre').forEach(pre=>{const code=pre.querySelector('code');if(!code)return;const b=document.createElement('button');b.className='copy';b.textContent='Copy command';b.onclick=async()=>{try{await navigator.clipboard.writeText(code.textContent);b.textContent='Copied';}catch(e){const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);b.textContent='Selected: copy text';}setTimeout(()=>b.textContent='Copy command',2200);};pre.appendChild(b);});
+</script></body></html>
