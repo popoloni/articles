@@ -1,0 +1,7 @@
+Fix this Python function. Preserve the name and signature. It must clip a numeric value into the inclusive range [lower, upper]. Raise ValueError if lower > upper. No imports, external dependencies or test changes. Return the replacement function and a short explanation.
+
+Current faulty implementation:
+def clamp(value, lower, upper):
+    return max(upper, min(lower, value))
+
+Examples: clamp(4, 1, 7) == 4; clamp(-4, 1, 7) == 1; clamp(10, 1, 7) == 7. Reversed bounds raise ValueError.

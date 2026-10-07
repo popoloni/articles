@@ -1,0 +1,1 @@
+Leena approved a pilot budget of EUR 2,400, not EUR 3,000. Please keep the code identifier retry_budget unchanged. Do not publish the onboarding page before approval. Friday was suggested, but no production launch date has been approved. We should keep the tone friendly without turning these conditions into promises.

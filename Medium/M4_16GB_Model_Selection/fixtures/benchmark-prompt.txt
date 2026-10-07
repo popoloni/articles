@@ -1,0 +1,1 @@
+Explain the difference between a downloaded model's file size, its resident weight memory, its attention state, and temporary workspace. Use four short paragraphs and then one practical example of a sequential transcription-to-summary workflow on a small computer. Stay under 180 words and do not invent benchmark numbers.
