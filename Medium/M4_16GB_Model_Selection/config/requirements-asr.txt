@@ -1,0 +1,2 @@
+# macOS Apple Silicon. Version available at the 2026-10-05 cutoff.
+parakeet-mlx==0.5.3

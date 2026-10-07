@@ -1,0 +1,4 @@
+mlx==0.32.0
+mlx-lm==0.31.3
+transformers!=5.13.*
+# Top-level pins from supplied standalone guide; not an end-to-end Mac lock.

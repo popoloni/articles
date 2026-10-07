@@ -1,0 +1,96 @@
+[
+  {
+    "view": "desktop",
+    "images": [
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      }
+    ],
+    "page_overflow": false,
+    "javascript_errors": []
+  },
+  {
+    "view": "mobile",
+    "images": [
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      },
+      {
+        "loaded": true,
+        "width": 2304,
+        "embedded": true
+      }
+    ],
+    "page_overflow": false,
+    "javascript_errors": []
+  }
+]

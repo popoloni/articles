@@ -1,0 +1,43 @@
+[
+  {
+    "profile": "bonsai-ternary",
+    "source_file": "logs/ternary-generate.log",
+    "prompt_tokens": 24,
+    "prompt_tps": 6.726,
+    "prompt_source_line": 4,
+    "generation_tokens": 133,
+    "generation_tps": 16.208,
+    "generation_source_line": 5,
+    "peak_memory_printed_gb": 6.232,
+    "memory_source_line": 6,
+    "qualitative_review": "Coherent five-sentence answer; no separate exit-status file."
+  },
+  {
+    "profile": "qwen38-mlx2",
+    "source_file": "logs/qwen38-mlx2-generate.log",
+    "prompt_tokens": 24,
+    "prompt_tps": 9.508,
+    "prompt_source_line": 5,
+    "generation_tokens": 135,
+    "generation_tps": 11.001,
+    "generation_source_line": 6,
+    "peak_memory_printed_gb": 8.737,
+    "memory_source_line": 7,
+    "qualitative_review": "Meta-commentary and malformed trailing text; not a satisfactory final answer."
+  },
+  {
+    "profile": "qwen38-tq-diagnostic",
+    "source_file": "logs/qwen38-tq-diagnostic.log",
+    "prompt_tokens": 24,
+    "prompt_tps": 11.585,
+    "prompt_source_line": 21,
+    "generation_tokens": 133,
+    "generation_tps": 2.67,
+    "generation_source_line": 22,
+    "peak_memory_printed_gb": 12.798,
+    "memory_source_line": 23,
+    "second_peak_memory_printed_gb": 11.92,
+    "second_memory_source_line": 24,
+    "qualitative_review": "Coherent five-sentence answer; paired exit-code file is 0. Not a coding/agent test."
+  }
+]

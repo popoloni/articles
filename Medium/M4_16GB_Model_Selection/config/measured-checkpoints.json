@@ -1,0 +1,42 @@
+{
+  "qwen38-mlx3": {
+    "repository": "lukaskremla/Qwen3.8-27B-3bit-MLX-TextOnly",
+    "revision": "dc755c911a7716a1db15cd8df8bab46a9dcfffdc",
+    "evidence": "logs/qwen38-mlx3-launch.json"
+  },
+  "qwen36-stream": {
+    "repository": "manjunathshiva/Qwen3.6-35B-A3B-tq3-g32",
+    "revision": "22d188ad7951b2b107fd84a332992e432dfc57a6",
+    "evidence": "logs/qwen36-stream-launch.json"
+  },
+  "qwen38-iq2s": {
+    "repository": "unsloth/Qwen3.8-27B-GGUF",
+    "revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+    "evidence": "logs/qwen38-iq2s-launch.json"
+  },
+  "qwen38-iq3xxs": {
+    "repository": "unsloth/Qwen3.8-27B-GGUF",
+    "revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+    "evidence": "logs/qwen38-iq3xxs-launch.json"
+  },
+  "qwen38-mlx2": {
+    "repository": "lukaskremla/Qwen3.8-27B-2bit-MLX-TextOnly",
+    "revision": "49217e7be1f217014b94bf391486b3b71de09d7c",
+    "evidence": "logs/qwen38-mlx2-launch.json"
+  },
+  "bonsai-ternary": {
+    "repository": "inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw",
+    "revision": "2aec25cc51a1ddfef6e3c61e07ccb17399e1d43d",
+    "evidence": "logs/bonsai-ternary-launch.json"
+  },
+  "qwen38-q2xl": {
+    "repository": "unsloth/Qwen3.8-27B-GGUF",
+    "revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+    "evidence": "logs/qwen38-q2xl-launch.json"
+  },
+  "bonsai-binary": {
+    "repository": "prism-ml/Bonsai-27B-gguf",
+    "revision": "f10afb355f104535e3e3e98cf7ab7795c72bd292",
+    "evidence": "logs/bonsai-binary-launch.json"
+  }
+}

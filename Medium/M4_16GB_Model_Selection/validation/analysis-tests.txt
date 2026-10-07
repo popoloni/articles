@@ -1,0 +1,33 @@
+test_safe_file (test_analysis.ArchiveSafety.test_safe_file) ... ok
+test_traversal (test_analysis.ArchiveSafety.test_traversal) ... ok
+test_aliases_not_filename_define_omlx_groups (test_analysis.Contracts.test_aliases_not_filename_define_omlx_groups) ... ok
+test_extra_key_fails (test_analysis.Contracts.test_extra_key_fails) ... ok
+test_fence_does_not_become_pass (test_analysis.Contracts.test_fence_does_not_become_pass) ... ok
+test_good_recall (test_analysis.Contracts.test_good_recall) ... ok
+test_nonfinite_json (test_analysis.Contracts.test_nonfinite_json) ... ok
+test_numeric_string_fails (test_analysis.Contracts.test_numeric_string_fails) ... ok
+test_redaction (test_analysis.Contracts.test_redaction) ... ok
+test_truncation_fails_even_with_good_text (test_analysis.Contracts.test_truncation_fails_even_with_good_text) ... ok
+test_valid_json (test_analysis.Contracts.test_valid_json) ... ok
+test_wrong_recall (test_analysis.Contracts.test_wrong_recall) ... ok
+test_cli_dual_units_kept (test_analysis.Dataset.test_cli_dual_units_kept) ... ok
+test_counts (test_analysis.Dataset.test_counts) ... ok
+test_failed_rows_not_censored (test_analysis.Dataset.test_failed_rows_not_censored) ... ok
+test_groups (test_analysis.Dataset.test_groups) ... ok
+test_no_duplicate_responses (test_analysis.Dataset.test_no_duplicate_responses) ... ok
+test_no_home_name_in_public_records (test_analysis.Dataset.test_no_home_name_in_public_records) ... ok
+test_no_invented_mlx_api_decode (test_analysis.Dataset.test_no_invented_mlx_api_decode) ... ok
+test_omlx_reasoning (test_analysis.Dataset.test_omlx_reasoning) ... ok
+test_outcomes_match_independent_check (test_analysis.Dataset.test_outcomes_match_independent_check) ... ok
+test_provenance_lines (test_analysis.Dataset.test_provenance_lines) ... ok
+test_summaries_recalculate (test_analysis.Dataset.test_summaries_recalculate) ... ok
+test_tasks_and_settings (test_analysis.Dataset.test_tasks_and_settings) ... ok
+test_ternary_second_suite_not_deleted (test_analysis.Dataset.test_ternary_second_suite_not_deleted) ... ok
+test_totals (test_analysis.Dataset.test_totals) ... ok
+test_all_eight_figures_linked (test_analysis.Publication.test_all_eight_figures_linked) ... ok
+test_no_inference_implementation_changes (test_analysis.Publication.test_no_inference_implementation_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.004s
+
+OK

@@ -1,0 +1,9 @@
+{
+  "failed_request_share": 0.19696969696969696,
+  "failed_wall_time_share": 0.5645131842063327,
+  "failed_completion_token_share": 0.6433672365288898,
+  "omlx3_vs_standalone_mlx3_json_median_latency_ratio": 3.1748357408829007,
+  "omlx3_vs_standalone_mlx3_recall_median_latency_ratio": 3.7004511672028997,
+  "diagnostic_peak_12_798_decimal_GB_in_GiB_arithmetic_only": 11.919066309928894,
+  "caveat": "Ratios are descriptive across unmatched configurations; unit arithmetic is not a verified logging-site equivalence."
+}

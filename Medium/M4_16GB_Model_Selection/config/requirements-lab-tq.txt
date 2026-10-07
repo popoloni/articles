@@ -1,0 +1,6 @@
+# Dedicated L5/L6 text environment, not L10's separate VLM environment.
+# These pins target the reported Python loader-interface mismatch.
+# Not a complete dependency lock or a physical-Mac inference certification.
+turboquant-mlx-full==0.28.0
+mlx-lm==0.31.3
+transformers!=5.13.*

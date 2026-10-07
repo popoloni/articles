@@ -1,0 +1,11 @@
+[
+  {
+    "source_file": "logs/qwen36-stream-ready-r4.txt.request.jsonl",
+    "source_line": 1,
+    "utc": "2026-10-05T23:22:45.684342+00:00",
+    "model": "$HOME/LocalAI/qwen-bonsai-lab/models/qwen36-stream",
+    "wall_seconds": 6.69292145899999,
+    "finish_reason": "stop",
+    "text": "READY"
+  }
+]
