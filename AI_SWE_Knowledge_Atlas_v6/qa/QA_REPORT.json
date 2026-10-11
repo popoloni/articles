@@ -1,0 +1,346 @@
+{
+  "status": "PASS",
+  "browser": "System Chromium headless",
+  "browser_version": "144.0.7559.96",
+  "execution": "Offline about:blank document populated with the exact HTML file; file: navigation is blocked by the test environment administrator. No HTTP(S) requests required.",
+  "startup_seconds": 0.702,
+  "tests": [
+    {
+      "test": "Default original W193 IDs only",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Full graph payload counts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Default readable edges",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Default layout has no node overlaps",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Startup offline with no external requests",
+      "passed": true,
+      "details": {
+        "seconds": 0.702
+      }
+    },
+    {
+      "test": "Add O50",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Add P123",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "All-source layout has no node overlaps",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Printed W193 O16 P14 subset",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Strict P108 subset",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "P-only subset",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "No selected groups gives empty state",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Primary and secondary stream filter",
+      "passed": true,
+      "details": {
+        "sources": 32
+      }
+    },
+    {
+      "test": "Multi-group union is deduplicated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Chapter grouping retains all sources including unmapped",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Editorial chapter group exact membership",
+      "passed": true,
+      "details": {
+        "sources": 74
+      }
+    },
+    {
+      "test": "Actual v6 chapter citations exact membership",
+      "passed": true,
+      "details": {
+        "sources": 12
+      }
+    },
+    {
+      "test": "Actual view retains uncited group",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Actual chapter hub enabled",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Disable all edges preserves 193 nodes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "All direct W-W links",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Individual inferred-similarity switch",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Relationship-name search shows exact matching row",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "All 881 nodes and 5860 edges reachable",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Every original edge type has a control",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Each of 218 relationship types isolated with exact count",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Full-graph autolayout finite positions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Full-graph autolayout has no node overlaps",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Stable ID search",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Node inspector correct title and raw attributes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Dragging changes coordinates and pins node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Auto-layout respects manually pinned coordinates",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Neighborhood focus preserves selected node",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Saved view stores graph hash and pin",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Filtered JSON export has original edges",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Full JSON export includes all nodes/edges",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Every exported node attribute preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Every exported edge attribute and endpoint preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "SVG is valid standalone XML",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Saved view restores exact positions and pins",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Wrong-graph view rejected without mutation",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Help exposes provenance fingerprint",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Escape closes modal",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "No page JavaScript errors",
+      "passed": true,
+      "details": []
+    },
+    {
+      "test": "No external network dependencies requested",
+      "passed": true,
+      "details": [
+        "blob:null/9fb7b007-bfc4-4420-91b3-c293742341a4",
+        "blob:null/504ce825-c364-4bd6-8fd2-452d9f63e13c",
+        "blob:null/cee61a94-22ea-4e13-813b-d75d0c6cbbd2",
+        "blob:null/693b8cda-152f-4b2a-807e-35114057ffc5",
+        "blob:null/e2462b03-4c02-4d47-b210-84545e304583",
+        "blob:null/defd3f26-c062-4cf5-858d-cc3098df7517",
+        "blob:null/7882de49-87fc-4a4f-a1bd-bd03ca972225",
+        "blob:null/a715e9f2-80fe-4f88-980d-fb8b2dc41f31",
+        "blob:null/19feab19-486b-40b9-8f42-d31a7883f5e1",
+        "blob:null/5fbfbe3b-9217-40a2-8635-28224f37f87c",
+        "blob:null/835e852d-794d-46dd-9f2c-e5677d50fb65",
+        "blob:null/19678be0-c72f-494d-8527-1c1a41ccbd00",
+        "blob:null/aecf253c-5f0c-4ea8-9b43-1d0ddbef194d",
+        "blob:null/706237de-d60f-4828-a401-4b629104d599",
+        "blob:null/682e8291-aa69-44d6-8842-4946ec289259",
+        "blob:null/45046f9a-3389-4587-a60f-c9dcae706c6d",
+        "blob:null/545282d1-927b-4ea5-a6d0-b7f154160bca",
+        "blob:null/fe06aaa4-395c-4835-978c-13a9777386bd",
+        "blob:null/d61bfe2d-7fe3-4fde-8a8b-faddc5055a51",
+        "blob:null/ba6ab8f5-29a3-4921-b71b-5e71d2535d52",
+        "blob:null/7bac35a7-fc6a-4569-8d87-119d1ded0712",
+        "blob:null/3b8c99c6-fcb7-4a74-a86e-be86df1884ac",
+        "blob:null/40ccb9db-510f-4bcb-8d1e-9be1b5c0b5bf",
+        "blob:null/c6b33064-d9a4-47ee-a80e-6c9ae66f52c7",
+        "blob:null/96fc52b6-5c02-40c7-b007-2ac68bafa134",
+        "blob:null/c1192d25-fb68-41b7-bfcd-7d052e7cc87c",
+        "blob:null/7f3c0bbc-4a28-42ac-8324-069c55e513cb",
+        "blob:null/d00643a8-49fb-490e-8a10-053c285da02b",
+        "blob:null/639e85ec-a8c8-4dff-b65e-2dc69ad01110",
+        "blob:null/b6f0a7c4-8a65-4c4b-8e7a-8a784d880194",
+        "blob:null/b44e3eac-2698-43be-b15b-710071b0d38f",
+        "blob:null/d07b7bef-4bcd-4dbf-b19d-2d674f9d9576",
+        "blob:null/9cf04be2-00f4-48e1-8d2c-24556c562063"
+      ]
+    },
+    {
+      "test": "Mobile initial W193",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Mobile no horizontal document overflow",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Mobile scope drawer opens",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Mobile collection switch",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Mobile zoom control",
+      "passed": true,
+      "details": null
+    },
+    {
+      "test": "Mobile no script errors",
+      "passed": true,
+      "details": []
+    }
+  ],
+  "tests_passed": 51,
+  "javascript_errors": [],
+  "network_requests": [
+    "blob:null/9fb7b007-bfc4-4420-91b3-c293742341a4",
+    "blob:null/504ce825-c364-4bd6-8fd2-452d9f63e13c",
+    "blob:null/cee61a94-22ea-4e13-813b-d75d0c6cbbd2",
+    "blob:null/693b8cda-152f-4b2a-807e-35114057ffc5",
+    "blob:null/e2462b03-4c02-4d47-b210-84545e304583",
+    "blob:null/defd3f26-c062-4cf5-858d-cc3098df7517",
+    "blob:null/7882de49-87fc-4a4f-a1bd-bd03ca972225",
+    "blob:null/a715e9f2-80fe-4f88-980d-fb8b2dc41f31",
+    "blob:null/19feab19-486b-40b9-8f42-d31a7883f5e1",
+    "blob:null/5fbfbe3b-9217-40a2-8635-28224f37f87c",
+    "blob:null/835e852d-794d-46dd-9f2c-e5677d50fb65",
+    "blob:null/19678be0-c72f-494d-8527-1c1a41ccbd00",
+    "blob:null/aecf253c-5f0c-4ea8-9b43-1d0ddbef194d",
+    "blob:null/706237de-d60f-4828-a401-4b629104d599",
+    "blob:null/682e8291-aa69-44d6-8842-4946ec289259",
+    "blob:null/45046f9a-3389-4587-a60f-c9dcae706c6d",
+    "blob:null/545282d1-927b-4ea5-a6d0-b7f154160bca",
+    "blob:null/fe06aaa4-395c-4835-978c-13a9777386bd",
+    "blob:null/d61bfe2d-7fe3-4fde-8a8b-faddc5055a51",
+    "blob:null/ba6ab8f5-29a3-4921-b71b-5e71d2535d52",
+    "blob:null/7bac35a7-fc6a-4569-8d87-119d1ded0712",
+    "blob:null/3b8c99c6-fcb7-4a74-a86e-be86df1884ac",
+    "blob:null/40ccb9db-510f-4bcb-8d1e-9be1b5c0b5bf",
+    "blob:null/c6b33064-d9a4-47ee-a80e-6c9ae66f52c7",
+    "blob:null/96fc52b6-5c02-40c7-b007-2ac68bafa134",
+    "blob:null/c1192d25-fb68-41b7-bfcd-7d052e7cc87c",
+    "blob:null/7f3c0bbc-4a28-42ac-8324-069c55e513cb",
+    "blob:null/d00643a8-49fb-490e-8a10-053c285da02b",
+    "blob:null/639e85ec-a8c8-4dff-b65e-2dc69ad01110",
+    "blob:null/b6f0a7c4-8a65-4c4b-8e7a-8a784d880194",
+    "blob:null/b44e3eac-2698-43be-b15b-710071b0d38f",
+    "blob:null/d07b7bef-4bcd-4dbf-b19d-2d674f9d9576",
+    "blob:null/9cf04be2-00f4-48e1-8d2c-24556c562063"
+  ],
+  "html_sha256": "5426d4d0b36e078452eed4306b9104974c44f92cee2540cae7abe9961bcd21b6",
+  "graph_sha256": "2a68d3a04fbe9a5e940fb2ae9f05b98f63de05ac653c86cf1efe38403a85232a",
+  "mobile_is_emulation": true
+}
