@@ -1,0 +1,2 @@
+# Published PyPI wheel. Use with --no-deps --only-binary=:all: --require-hashes.
+mlx-lm==0.31.3 --hash=sha256:758cfddf1180053b7613db76fad3d246a331a2a905808e1164a275621fc983b8

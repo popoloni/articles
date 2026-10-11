@@ -1,0 +1,2 @@
+# Used only by local PDF extraction. Original companion tools otherwise use stdlib.
+pypdf==6.19.0

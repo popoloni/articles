@@ -1,0 +1,421 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Qwen e Bonsai sul Mac mini M4 con 16 GB</title><style>
+:root { color-scheme: light; --ink:#223540; --quiet:#566771; --line:#dae3e7; --accent:#156777; }
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:white;color:var(--ink);font:18px/1.77 Georgia,'Times New Roman',serif}
+main{max-width:1040px;margin:44px auto 88px;padding:0 32px}header.kicker{font:600 12px/1.7 system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:30px}
+h1,h2,h3,h4,summary{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}h1{font-size:44px;line-height:1.13;letter-spacing:-1.4px;max-width:900px;margin:0 0 24px}h2{font-size:30px;line-height:1.3;margin-top:2.4em;border-top:1px solid var(--line);padding-top:24px}h1+h2{font:400 23px/1.5 Georgia,serif;color:var(--quiet);border:0;margin:0 0 28px;padding:0}h3{font-size:23px;line-height:1.38;margin-top:1.9em}h4{font-size:20px;line-height:1.4}p{margin:1.05em 0}a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}blockquote{margin:26px 0;padding:0 20px;border-left:3px solid var(--line)}
+code{font:.84em ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f1f5f6;padding:.12em .25em;border-radius:3px;overflow-wrap:anywhere}pre{position:relative;max-width:100%;overflow:auto;background:#f4f7f8;border:1px solid var(--line);border-left:4px solid var(--accent);padding:36px 20px 20px;line-height:1.6;border-radius:4px;font-size:14px}pre code{white-space:pre;overflow-wrap:normal;background:transparent;padding:0;border-radius:0;font-size:1em}.copy{position:absolute;right:8px;top:7px;border:1px solid #cad8dd;background:white;color:#234c59;border-radius:3px;font:12px/1.5 system-ui,sans-serif;padding:3px 10px;cursor:pointer}
+.table-wrap{overflow-x:auto;margin:28px 0}table{border-collapse:collapse;width:100%;font:14px/1.6 system-ui,sans-serif}th{background:#edf4f6;color:#1d4654;text-align:left;padding:12px;vertical-align:top}td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}td code{font-size:.9em}img{display:block;width:100%;height:auto;max-width:100%}.figure{margin:38px 0 8px}.caption{font:14px/1.6 system-ui,sans-serif;color:var(--quiet);margin:10px 0 32px}.figure a{display:block}.figure-caption-label{font-weight:600}
+details.toc{font:14px/1.7 system-ui,sans-serif;border:1px solid var(--line);padding:15px 18px;background:#f7fafb;border-radius:4px;margin:25px 0 33px}details.toc summary{font-weight:650;cursor:pointer}details.toc a{display:block;padding:3px 0}hr{border:0;border-top:1px solid var(--line);margin:38px 0}li{margin:8px 0}.support-nav{font:13px/1.7 system-ui,sans-serif;color:var(--quiet);margin-bottom:22px}section.figure-gallery{margin-top:35px}footer{font:12px/1.7 system-ui,sans-serif;margin-top:48px;border-top:1px solid var(--line);padding-top:18px;color:var(--quiet)}
+@media(max-width:650px){body{font-size:16px;line-height:1.75}main{padding:0 18px;margin:25px auto 55px}h1{font-size:33px;letter-spacing:-.8px}h1+h2{font-size:20px}h2{font-size:26px}h3{font-size:21px}pre{font-size:12px;padding:34px 12px 15px}table{font-size:12px}td,th{padding:9px 10px}.caption{font-size:12px}.figure{margin-top:26px}}
+@media print{main{max-width:none;margin:0;padding:0}body{font-size:11pt}.copy,.toc{display:none}h1{font-size:26pt}h2{font-size:19pt;break-after:avoid}h3{font-size:15pt;break-after:avoid}pre{white-space:pre-wrap;overflow:visible}pre code{white-space:pre-wrap;word-break:break-word}.figure{break-inside:avoid}table{font-size:9pt}}
+</style></head><body><main><header class="kicker">SUPPORTING EVIDENCE / REPRODUCIBLE LOCAL-MODEL LAB</header><nav class="support-nav"><a href="../article.html">Back to the article</a></nav><h1 id="qwen-e-bonsai-sul-mac-mini-m4-con-16-gb">Qwen e Bonsai sul Mac mini M4 con 16 GB</h1>
+<h2 id="installazione-esecuzione-e-prove-standalone-prima-di-kowalski">Installazione, esecuzione e prove standalone — prima di Kowalski</h2>
+<p>Verifica documentale: 5 ottobre 2026.</p>
+<p>Questa guida non modifica Kowalski, non installa un orchestratore e non avvia agenti con accesso a file o shell. Prima si verifica che ciascun modello funzioni da solo, con il proprio runtime e una piccola API locale.</p>
+<p><strong>Limite di validazione:</strong> i comandi di inferenza sono ricette ricavate dalle fonti primarie citate, non prove effettuate da noi su un Mac M4. Il client <code>smoke_test.py</code> è stato invece eseguito e verificato su Linux con un server HTTP fittizio: 14 test passati. Il suo successo non dimostra che i modelli o Metal funzionino sul Mac. Nessun peso è incluso nel pacchetto.</p>
+<h2 id="1-quali-tre-modelli-e-quali-evidenze">1. Quali tre modelli, e quali evidenze</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Modello esatto</th>
+<th>Runtime scelto</th>
+<th>Dimensione dei pesi/artifact, non memoria totale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64</code></td>
+<td>TurboQuant-MLX, <code>turboquant-serve</code></td>
+<td>circa 12,6 GB = 11,7 GiB</td>
+</tr>
+<tr>
+<td><code>inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw</code></td>
+<td>MLX-LM e codice Metal incluso nel checkpoint</td>
+<td>5.888.388.744 byte, circa 5,89 GB = 5,48 GiB</td>
+</tr>
+<tr>
+<td><code>prism-ml/Bonsai-27B-gguf</code>, file <code>Bonsai-27B-Q1_0.gguf</code></td>
+<td>llama.cpp / Metal</td>
+<td>circa 3,8 GB</td>
+</tr>
+</tbody>
+</table></div>
+<p>GB indica 10^9 byte; GiB indica 2^30 byte. Dimensione del file, memoria del modello e memoria dell'intero sistema sono misure diverse. [S1–S3]</p>
+<p>Il manutentore TurboQuant riporta una prova sul <strong>Mac mini base M-series da 16 GB</strong>: 15,2–15,6 token/s e tre completamenti della stessa piccola attività agentica. Quella sezione non identifica inequivocabilmente il chip come M4. È evidenza utile, non un benchmark indipendente di affidabilità generale. [S1]</p>
+<p>Il repack ternario documenta misure su <strong>M4 Max con 48 GB</strong>, pur dichiarando 16 GB come requisito minimo: non trasferire la velocità del Max al Mini. Per il binary esiste anche una prova comunitaria su <strong>M3 Air 16 GB con MLX</strong>, quindi su hardware/runtime diversi dal percorso GGUF qui proposto. [S2, S4]</p>
+<p><strong>Ordine che suggerisco:</strong> binary → ternary → TurboQuant. Si comincia dalla configurazione con più margine, si verifica il metodo, e solo dopo si prova quella più stretta. È una scelta operativa della guida, non una classifica di qualità dimostrata.</p>
+<h2 id="2-preparazione-comune">2. Preparazione comune</h2>
+<p>Salva il lavoro; per le prime prove chiudi altri server LLM, VM, Docker e applicazioni pesanti. Tieni aperto Monitoraggio Attività → Memoria. Usa un solo modello alla volta: disporre di tre porte non significa avere memoria per tre server.</p>
+<p>Apri un Terminale nativo, non tramite Rosetta:</p>
+<pre><code class="language-bash">uname -m
+sysctl -n hw.memsize
+sw_vers
+xcode-select -p
+</code></pre>
+<p><code>uname -m</code> deve essere <code>arm64</code>. La compatibilità macOS va verificata rispetto alla versione MLX installata; non forzare wheel incompatibili o Python x86_64. [S5]</p>
+<p>Se mancano i Command Line Tools, esegui <code>xcode-select --install</code> e completa l'installazione prima di continuare. I comandi successivi presuppongono Homebrew già installato secondo la sua documentazione ufficiale. [S6]</p>
+<pre><code class="language-bash">brew install python@3.11 git
+
+export LAB="$HOME/qwen-m4-16gb"
+mkdir -p "$LAB/models" "$LAB/logs"
+
+cat &gt; "$LAB/lab.env" &lt;&lt;'EOF'
+export LAB="$HOME/qwen-m4-16gb"
+set -o pipefail
+EOF
+
+PY="$(brew --prefix python@3.11)/bin/python3.11"
+"$PY" -m venv "$LAB/venv-tools"
+"$LAB/venv-tools/bin/python" -m pip install --upgrade pip huggingface_hub
+"$LAB/venv-tools/bin/python" -m pip freeze &gt; "$LAB/logs/tools.freeze.txt"
+
+df -h "$LAB"
+sysctl vm.swapusage
+</code></pre>
+<p>Suggerisco circa 40 GB liberi per questo laboratorio, inclusi runtime, log e margine operativo; non è un requisito ufficiale dei modelli. Evita di duplicare i download tra directory locali e cache di applicazioni differenti. <code>hf download --local-dir</code> mantiene i file nella directory scelta. [S7]</p>
+<h3 id="scaricare-una-revisione-precisa">Scaricare una revisione precisa</h3>
+<p>Per non confondere in futuro un nuovo checkpoint con quello provato oggi, usa questa funzione nel terminale dei download:</p>
+<pre><code class="language-bash">source "$HOME/qwen-m4-16gb/lab.env"
+
+fetch_model() {
+  local repo="$1"
+  local dest="$2"
+  shift 2
+  local rev
+  rev="$("$LAB/venv-tools/bin/python" -c \
+    'from huggingface_hub import HfApi; import sys; print(HfApi().model_info(sys.argv[1]).sha)' \
+    "$repo")" || return 1
+  mkdir -p "$dest" || return 1
+  "$LAB/venv-tools/bin/hf" download "$repo" "$@" \
+    --revision "$rev" --local-dir "$dest" || return 1
+  printf '%s\n%s\n' "$repo" "$rev" &gt; "$dest/DOWNLOADED_REVISION.txt"
+}
+</code></pre>
+<p>La funzione legge lo SHA corrente e scarica proprio quello. Il relativo <code>DOWNLOADED_REVISION.txt</code> identifica i file di quel test; non equivale a una revisione di sicurezza. Non sostituire manualmente i file con versioni di altre revisioni. [S7]</p>
+<h2 id="3-bonsai-binary-il-percorso-iniziale-piu-semplice">3. Bonsai binary: il percorso iniziale più semplice</h2>
+<h3 id="3-1-scarica-solo-il-gguf-richiesto">3.1 Scarica solo il GGUF richiesto</h3>
+<p>Nel terminale in cui hai definito <code>fetch_model</code>:</p>
+<pre><code class="language-bash">fetch_model prism-ml/Bonsai-27B-gguf \
+  "$LAB/models/bonsai-binary" Bonsai-27B-Q1_0.gguf LICENSE.txt NOTICE.txt
+</code></pre>
+<p>Non scaricare indiscriminatamente l'intero repository: comprende anche il file F16 da circa 53,8 GB e artefatti aggiuntivi. Qui non servono modello draft, proiettore visivo o interfaccia web esterna. [S3]</p>
+<h3 id="3-2-installa-i-binari-distribuiti-dal-progetto-prismml">3.2 Installa i binari distribuiti dal progetto PrismML</h3>
+<p>Q1_0 è supportato da llama.cpp/Metal; il binary MLX richiede invece il fork MLX indicato da Prism. Scelgo GGUF per evitare quella compilazione nel primo giro. Inoltre il progetto demo oggi seleziona <strong>Bonsai 2</strong> per default: il percorso qui usa un file esplicito di <strong>Bonsai 1</strong> e non delega la scelta al default. [S8]</p>
+<pre><code class="language-bash">git clone --depth 1 https://github.com/PrismML-Eng/Bonsai-demo.git \
+  "$LAB/Bonsai-demo"
+
+git -C "$LAB/Bonsai-demo" rev-parse HEAD &gt; "$LAB/logs/bonsai-demo.commit.txt"
+
+# Esamina gli script prima di eseguirli.
+less "$LAB/Bonsai-demo/scripts/download_binaries.sh"
+less "$LAB/Bonsai-demo/scripts/common.sh"
+
+bash "$LAB/Bonsai-demo/scripts/download_binaries.sh"
+"$LAB/Bonsai-demo/bin/mac/llama-cli" --version
+cat "$LAB/Bonsai-demo/bin/mac/.llama_release"
+</code></pre>
+<p>Lo script consultato scarica la release <code>prism-b10743-adfffbe</code>, rileva l'architettura e colloca i binari in <code>bin/mac</code>. Rimuove gli attributi di quarantena nella directory scaricata e applica una firma ad hoc: questo comportamento va accettato consapevolmente, non confuso con una certificazione Apple. Non disabilitare Gatekeeper globalmente. Non eseguiamo <code>setup.sh</code>, che prepara uno stack più ampio. [S9]</p>
+<h3 id="3-3-una-prima-generazione-breve">3.3 Una prima generazione breve</h3>
+<pre><code class="language-bash">source "$HOME/qwen-m4-16gb/lab.env"
+
+"$LAB/Bonsai-demo/bin/mac/llama-cli" \
+  -m "$LAB/models/bonsai-binary/Bonsai-27B-Q1_0.gguf" \
+  -ngl 99 -fa on -c 4096 -n 512 \
+  --temp 0.7 --top-p 0.95 --top-k 20 --min-p 0 \
+  --reasoning-budget 0 \
+  --chat-template-kwargs '{"enable_thinking":false}' \
+  -st -p 'Spiega in italiano la differenza tra retry e rollback, in cinque frasi.' \
+  2&gt;&amp;1 | tee "$LAB/logs/binary-generate.log"
+</code></pre>
+<p>Questa è una configurazione iniziale non-thinking, non la riproduzione dei benchmark di ragionamento pubblicati. <code>-c 4096</code> definisce il contesto del processo; <code>-n 512</code> limita questa generazione; <code>-st</code> termina dopo il turno. Controlla nei log che Metal sia effettivamente utilizzato. La sintassi è coerente con il launcher del progetto. [S10]</p>
+<h3 id="3-4-avvia-il-server-locale">3.4 Avvia il server locale</h3>
+<p>Dopo la fine della generazione, nello stesso terminale:</p>
+<pre><code class="language-bash">"$LAB/Bonsai-demo/bin/mac/llama-server" \
+  -m "$LAB/models/bonsai-binary/Bonsai-27B-Q1_0.gguf" \
+  --host 127.0.0.1 --port 8082 --alias bonsai-binary \
+  -ngl 99 -fa on -c 4096 -np 1 \
+  --jinja --temp 0.7 --top-p 0.95 --top-k 20 --min-p 0 \
+  --reasoning-budget 0 \
+  --chat-template-kwargs '{"enable_thinking":false}' \
+  2&gt;&amp;1 | tee "$LAB/logs/binary-server.log"
+</code></pre>
+<p>Qui <code>--jinja</code> consente l'uso del chat template per le chiamate strutturate; il server resta sull'interfaccia locale. La richiesta API deve comunque specificare <code>max_tokens</code>. Nessun tool viene eseguito dal nostro test. [S11]</p>
+<p>Dopo le prove della sezione 6, ferma il server con <strong>Ctrl+C</strong> e attendi che la memoria sia rilasciata.</p>
+<h2 id="4-ternary-bonsai-mlx-il-checkpoint-compatto-1-75-bpw">4. Ternary Bonsai MLX: il checkpoint compatto 1,75 bpw</h2>
+<h3 id="4-1-crea-un-ambiente-separato">4.1 Crea un ambiente separato</h3>
+<p>Riprendo la coppia MLX/MLX-LM dichiarata nelle misure del repack, non una combinazione universale per qualunque release futura. [S2]</p>
+<pre><code class="language-bash">source "$HOME/qwen-m4-16gb/lab.env"
+PY="$(brew --prefix python@3.11)/bin/python3.11"
+"$PY" -m venv "$LAB/venv-ternary"
+
+"$LAB/venv-ternary/bin/python" -m pip install --upgrade pip
+"$LAB/venv-ternary/bin/python" -m pip install \
+  "mlx==0.32.0" "mlx-lm==0.31.3" "transformers!=5.13.*"
+"$LAB/venv-ternary/bin/python" -m pip check
+"$LAB/venv-ternary/bin/python" -m pip freeze &gt; "$LAB/logs/ternary.freeze.txt"
+</code></pre>
+<p>L'esclusione di Transformers 5.13.* è una precauzione di compatibilità presente nello stack TurboQuant, mantenuta qui per non introdurre quella versione nel laboratorio; non è una nuova garanzia di compatibilità end-to-end. [S14]</p>
+<h3 id="4-2-scarica-ed-esamina-il-codice-del-checkpoint">4.2 Scarica ed esamina il codice del checkpoint</h3>
+<p>Nel terminale dei download:</p>
+<pre><code class="language-bash">fetch_model inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw \
+  "$LAB/models/bonsai-ternary-175"
+
+less "$LAB/models/bonsai-ternary-175/ternel_packed_model.py"
+less "$LAB/models/bonsai-ternary-175/ternel_manifest.json"
+shasum -a 256 "$LAB/models/bonsai-ternary-175/ternel_packed_model.py" \
+  &gt; "$LAB/logs/ternary-code.sha256.txt"
+</code></pre>
+<p><strong>Non è solo un insieme di pesi:</strong> questo checkpoint usa codice Python e kernel Metal propri, richiamati da <code>config.json</code>. La versione 0.31.3 li può caricare senza una conferma esplicita; release successive possono richiedere <code>--trust-remote-code</code>. Leggere il codice e conservarne l'hash non ne certifica la sicurezza: procedi solo se consideri attendibile quella revisione. Ternel pubblica sorgenti e verifiche di fedeltà del repack. [S2, S12]</p>
+<h3 id="4-3-prima-generazione">4.3 Prima generazione</h3>
+<pre><code class="language-bash">"$LAB/venv-ternary/bin/mlx_lm.generate" \
+  --model "$LAB/models/bonsai-ternary-175" \
+  --prompt 'Spiega in italiano la differenza tra retry e rollback, in cinque frasi.' \
+  --max-tokens 512 --temp 0.7 --top-p 0.95 --top-k 20 \
+  --chat-template-config '{"enable_thinking":false}' \
+  2&gt;&amp;1 | tee "$LAB/logs/ternary-generate.log"
+</code></pre>
+<p>In <strong>generate 0.31.3</strong> l'opzione è <code>--chat-template-config</code>. Non aggiungere <code>--prefill-step-size</code> a questo comando: quell'opzione non è esposta dalla CLI di generazione di questa versione. [S13]</p>
+<h3 id="4-4-server-con-una-sola-richiesta-concorrente">4.4 Server con una sola richiesta concorrente</h3>
+<pre><code class="language-bash">"$LAB/venv-ternary/bin/mlx_lm.server" \
+  --model "$LAB/models/bonsai-ternary-175" \
+  --host 127.0.0.1 --port 8081 \
+  --temp 0.7 --top-p 0.95 --top-k 20 --max-tokens 1024 \
+  --chat-template-args '{"enable_thinking":false}' \
+  --prompt-concurrency 1 --decode-concurrency 1 \
+  --prefill-step-size 128 --prompt-cache-size 1 \
+  2&gt;&amp;1 | tee "$LAB/logs/ternary-server.log"
+</code></pre>
+<p>In <strong>server 0.31.3</strong> l'opzione è invece <code>--chat-template-args</code>. Questa versione non espone <code>--kv-bits</code> nel server, benché la CLI di generazione lo esponga. <code>--prompt-cache-size 1</code> limita le cache conservate, non impone una lunghezza massima al prompt; <code>--max-tokens</code> è un default, non una quota inderogabile. Per questo laboratorio usa richieste corte e un solo client. È un server di sviluppo, non un servizio da esporre in rete. [S15]</p>
+<p>Il modello 1,75 bpw non è necessariamente il più veloce: il confronto del manutentore favorisce il formato ufficiale 2-bit in velocità. Come controllo opzionale puoi scaricare <code>prism-ml/Ternary-Bonsai-27B-mlx-2bit</code> e usare lo stesso ambiente con un percorso diverso, sempre un processo per volta. Richiede più memoria ma evita il loader custom del repack. [S2, S8]</p>
+<h2 id="5-qwen-moe-turboquant-asimmetrico-prova-con-poco-margine">5. Qwen MoE TurboQuant asimmetrico: prova con poco margine</h2>
+<h3 id="5-1-installa-il-suo-runtime-senza-contaminarlo-con-fork-mlx">5.1 Installa il suo runtime, senza contaminarlo con fork MLX</h3>
+<p>La distribuzione verificata su PyPI è <code>turboquant-mlx-full==0.28.0</code>. Non copiare automaticamente il vecchio extra <code>[serve]</code> da una model card: l'entry point del server è incluso nella distribuzione corrente. Le dipendenze risolte vengono registrate, non dichiarate qui come una combinazione già collaudata su M4. [S14, S16]</p>
+<pre><code class="language-bash">source "$HOME/qwen-m4-16gb/lab.env"
+PY="$(brew --prefix python@3.11)/bin/python3.11"
+"$PY" -m venv "$LAB/venv-tq"
+
+"$LAB/venv-tq/bin/python" -m pip install --upgrade pip
+"$LAB/venv-tq/bin/python" -m pip install "turboquant-mlx-full==0.28.0"
+"$LAB/venv-tq/bin/python" -m pip check
+"$LAB/venv-tq/bin/python" -m pip freeze &gt; "$LAB/logs/tq.freeze.txt"
+
+"$LAB/venv-tq/bin/turboquant-serve" --help &gt; "$LAB/logs/tq-serve-help.txt"
+"$LAB/venv-tq/bin/turboquant-plan" --help &gt; "$LAB/logs/tq-plan-help.txt"
+</code></pre>
+<h3 id="5-2-pianifica-prima-di-scaricare">5.2 Pianifica prima di scaricare</h3>
+<pre><code class="language-bash">"$LAB/venv-tq/bin/turboquant-plan" \
+  --model manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64 \
+  --ram-gb 16 --context 8192 --kv-bits 8
+</code></pre>
+<p>Il planner legge metadati/header e produce una <strong>stima</strong>, non un test del tuo carico reale. Se segnala che il modello non entra, non ignorare il risultato. La documentazione del progetto distingue memoria resident, cache e possibili strategie di streaming: qui stiamo provando soltanto il percorso resident del checkpoint asimmetrico. [S17]</p>
+<p>Poi, nel terminale dei download:</p>
+<pre><code class="language-bash">fetch_model manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64 \
+  "$LAB/models/qwen36-tq-asymmetric"
+</code></pre>
+<h3 id="5-3-limite-wired-modifica-facoltativa-e-temporanea-non-ram-aggiuntiva">5.3 Limite wired: modifica facoltativa e temporanea, non RAM aggiuntiva</h3>
+<p>La ricetta del manutentore per il checkpoint asimmetrico su 16 GB aumenta il tetto wired a <code>13824</code> per contesti sotto circa 16K. Non è una garanzia che il tuo Mac conservi abbastanza margine per ogni carico. Non partire dalla variante 14 GiB/21K riportata per prove più spinte. [S1]</p>
+<p>Prima ferma gli altri server e salva tutto. Leggi il valore corrente; se la chiave manca o il comando fallisce, fermati anziché applicare modifiche alternative alla cieca:</p>
+<pre><code class="language-bash">sysctl -n iogpu.wired_limit_mb
+
+# Salva il valore prima della prima modifica, senza sovrascriverlo ai tentativi successivi.
+if [ ! -f "$LAB/logs/wired_limit_before.txt" ]; then
+  sysctl -n iogpu.wired_limit_mb &gt; "$LAB/logs/wired_limit_before.txt"
+fi
+cat "$LAB/logs/wired_limit_before.txt"
+
+# SOLO se accetti consapevolmente la riduzione del margine disponibile al sistema:
+sudo sysctl -w iogpu.wired_limit_mb=13824
+</code></pre>
+<p>Non inserire la modifica in file permanenti, non disabilitare swap/SIP e non eseguire altri modelli in parallelo. Se non vuoi toccare questo parametro, resta con Bonsai e rinvia questa specifica configurazione TurboQuant.</p>
+<h3 id="5-4-avvia-l-api-turboquant">5.4 Avvia l'API TurboQuant</h3>
+<pre><code class="language-bash">"$LAB/venv-tq/bin/turboquant-serve" \
+  --model "$LAB/models/qwen36-tq-asymmetric" \
+  --host 127.0.0.1 --port 8080 \
+  --kv-bits 8 --tool-syntax-greedy --disk-cache \
+  --prefill-step-size 128 \
+  --temp 0.7 --top-p 0.8 --top-k 20 \
+  --chat-template-args '{"enable_thinking":false}' \
+  --prompt-concurrency 1 \
+  2&gt;&amp;1 | tee "$LAB/logs/tq-server.log"
+</code></pre>
+<p>Questo profilo segue le opzioni pubblicate dal manutentore, ma usa solo loopback. Parti dai piccoli smoke test; non dalla finestra massima del modello. Le cache e i limiti runtime automatici non rendono sicuro un numero illimitato di client. La cache su disco può conservare informazioni derivate dai prompt: usa dati sintetici, non segreti, per queste prove. [S1, S17]</p>
+<h3 id="5-5-ferma-e-ripristina">5.5 Ferma e ripristina</h3>
+<p>Dopo <strong>Ctrl+C</strong> e la chiusura del server:</p>
+<pre><code class="language-bash">sudo sysctl -w "iogpu.wired_limit_mb=$(cat "$LAB/logs/wired_limit_before.txt")"
+sysctl -n iogpu.wired_limit_mb
+</code></pre>
+<p>La ricetta upstream descrive questa modifica come per-boot. Un riavvio elimina una modifica temporanea non resa persistente; il ripristino esplicito evita comunque di lasciare attivo un tetto alterato durante altre attività. [S1]</p>
+<h2 id="6-stesso-test-per-i-tre-server">6. Stesso test per i tre server</h2>
+<p>Questa sezione è una procedura proposta per il tuo laboratorio, non un benchmark ripreso da terzi.</p>
+<h3 id="6-1-verifica-l-api">6.1 Verifica l'API</h3>
+<p>Da un secondo Terminale, scegli <strong>solo il server effettivamente avviato</strong>:</p>
+<pre><code class="language-bash">source "$HOME/qwen-m4-16gb/lab.env"
+
+# Binary
+curl -fS http://127.0.0.1:8082/v1/models
+
+# Oppure ternary, NON contemporaneamente al binary:
+# curl -fS http://127.0.0.1:8081/v1/models
+
+# Oppure TurboQuant:
+# curl -fS http://127.0.0.1:8080/v1/models
+</code></pre>
+<p>Per il binary usiamo l'alias <code>bonsai-binary</code>; MLX può pubblicare il percorso assoluto del modello; la ricetta TurboQuant usa <code>default_model</code>. Verifica l'elenco anziché sostituire silenziosamente il modello con un altro. [S1, S15]</p>
+<h3 id="6-2-esegui-lo-smoke-test-allegato">6.2 Esegui lo smoke test allegato</h3>
+<p>Estrai il pacchetto nella directory del laboratorio (adatta solo il percorso del file ZIP se il browser lo salva altrove):</p>
+<pre><code class="language-bash">unzip "$HOME/Downloads/Qwen_Bonsai_M4_16GB_Standalone.zip" -d "$LAB"
+PROBE="$LAB/Qwen_Bonsai_M4_16GB_Standalone/smoke_test.py"
+</code></pre>
+<p>Dopo l'avvio del binary:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PROBE" \
+  --base-url http://127.0.0.1:8082/v1 --model bonsai-binary \
+  --repeats 3 --out "$LAB/logs/binary-smoke.jsonl"
+</code></pre>
+<p>Dopo aver fermato il binary e avviato il ternary:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PROBE" \
+  --base-url http://127.0.0.1:8081/v1 \
+  --model "$LAB/models/bonsai-ternary-175" \
+  --repeats 3 --out "$LAB/logs/ternary-smoke.jsonl"
+</code></pre>
+<p>Dopo aver fermato il ternary e avviato TurboQuant:</p>
+<pre><code class="language-bash">"$LAB/venv-tools/bin/python" "$PROBE" \
+  --base-url http://127.0.0.1:8080/v1 --model default_model \
+  --repeats 3 --out "$LAB/logs/tq-smoke.jsonl"
+</code></pre>
+<p>Il client verifica un contratto JSON e il recupero di un dato sintetico fornito nel prompt, tre volte. Salva richieste, risposte, esiti, tempo end-to-end e <code>usage</code> se il server lo espone. Non calcola falsi token/s dividendo l'intera durata richiesta per i token generati. Il timeout è di socket, non un arresto garantito del processo inferenziale: su un timeout controlla il server prima di riprovare.</p>
+<p>Per una verifica aggiuntiva del formato tool calling, aggiungi <code>--with-tools</code>. Il client richiede una sola chiamata <code>lookup_order</code>, ne verifica nome e argomenti e <strong>non la esegue</strong>. Se il test fallisce, conserva il caso: il server può essere utile per chat ma non ancora adatto a un harness agentico. Un esito positivo di questo test minimo non dimostra affidabilità su repository reali.</p>
+<h3 id="6-3-misura-memoria-e-velocita-senza-confondere-le-grandezze">6.3 Misura memoria e velocità senza confondere le grandezze</h3>
+<p>Prima e dopo ciascuna prova:</p>
+<pre><code class="language-bash">sysctl vm.swapusage
+vm_stat
+</code></pre>
+<p>Annota dal runtime il tempo di prefill e la velocità di decode separatamente. Una prima richiesta a freddo e una richiesta con cache calda non sono confrontabili senza dichiararlo. La memoria indicata da MLX non è automaticamente la memoria totale di macOS. Apple spiega che la pressione memoria combina diversi fattori, incluso lo swap: controlla anche il grafico in Monitoraggio Attività. [S18]</p>
+<p>Scheda proposta per ogni modello:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Voce</th>
+<th>Valore da misurare sul tuo Mini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Versione macOS / runtime / SHA checkpoint</td>
+<td></td>
+</tr>
+<tr>
+<td>Contesto effettivo misurato dal tokenizer/server</td>
+<td></td>
+</tr>
+<tr>
+<td>Profilo thinking / sampling</td>
+<td></td>
+</tr>
+<tr>
+<td>Prompt tokens / output tokens</td>
+<td></td>
+</tr>
+<tr>
+<td>Tempo prefill / decode token/s</td>
+<td></td>
+</tr>
+<tr>
+<td>Tempo totale richiesta</td>
+<td></td>
+</tr>
+<tr>
+<td>Memoria runtime e pressione memoria macOS</td>
+<td></td>
+</tr>
+<tr>
+<td>Swap iniziale / finale</td>
+<td></td>
+</tr>
+<tr>
+<td>JSON / richiamo dato / tool-format</td>
+<td></td>
+</tr>
+<tr>
+<td>Prima richiesta a freddo o cache calda</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Per aumentare il contesto prepara prompt sintetici a 4K, poi 8K e soltanto dopo 16K, misurandoli col tokenizer o con <code>usage.prompt_tokens</code>: numero di caratteri non equivale a numero di token. Sul binary modifica <code>-c</code> al livello scelto; sui server MLX/TQ della guida la lunghezza del prompt va limitata dal client/procedura, non dal flag <code>--max-tokens</code>, che riguarda l'output. Lascia spazio all'output nella finestra totale.</p>
+<p>Interrompi se il sistema diventa poco responsivo, la pressione memoria resta alta, lo swap cresce continuativamente, arrivano errori Metal o le risposte degenerano. Non aumentare il limite wired per nascondere questi segnali.</p>
+<h2 id="7-troubleshooting-essenziale">7. Troubleshooting essenziale</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Sintomo</th>
+<th>Primo controllo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MLX non si installa</td>
+<td>Python arm64, macOS supportato, ambiente corretto; non forzare Rosetta</td>
+</tr>
+<tr>
+<td>Binary Q1_0 non riconosciuto</td>
+<td>Versione di llama.cpp; non usare un vecchio binario senza supporto</td>
+</tr>
+<tr>
+<td>Si avvia Bonsai 2</td>
+<td>Hai usato i wrapper generici senza famiglia; usa il percorso Q1_0 esplicito della guida</td>
+</tr>
+<tr>
+<td>Packed ternary rifiutato</td>
+<td><code>model_file</code>, fiducia nel codice, versione del loader; non è un generico modello 2-bit</td>
+</tr>
+<tr>
+<td><code>unrecognized arguments: --kv-bits</code> in MLX server</td>
+<td>Non presente nel server 0.31.3; non copiare flag da generate/TurboQuant</td>
+</tr>
+<tr>
+<td>TQ caricato con loader normale</td>
+<td>Usa <code>turboquant-serve</code>, non assumere che il formato sia affine MLX standard</td>
+</tr>
+<tr>
+<td>Generazione senza risposta finale</td>
+<td>Verifica profilo thinking e limite output; ispeziona risposta e log</td>
+</tr>
+<tr>
+<td>Tool call soltanto descritta in prosa</td>
+<td>Fallimento del contratto tool-format, non successo agentico</td>
+</tr>
+<tr>
+<td>Tempo elevato solo al primo turno</td>
+<td>Distingui caricamento/prefill/cache dal decode</td>
+</tr>
+</tbody>
+</table></div>
+<p>Le incompatibilità di formato e i flag sopra sono ricavati dalle fonti dei runtime. Le azioni diagnostiche sono indicazioni operative, non prove che ogni sintomo abbia una sola causa. [S8, S13–S17]</p>
+<h2 id="8-cosa-considero-sufficiente-prima-di-kowalski">8. Cosa considero sufficiente prima di Kowalski</h2>
+<p>Richiederei tre avvii puliti del checkpoint scelto, risposte complete, log leggibili, pressione memoria sostenibile, nessuna crescita continua dello swap e passaggio dei controlli funzionali minimi. Poi costruirei un test separato di coding con sandbox e suite esterna. Non chiamerei questi smoke test un benchmark SWE o un collaudo di coding agentico.</p>
+<p>Fra questi tre percorsi: binary è il riferimento iniziale con più margine; il ternary compatto è la prova per risparmiare memoria senza cambiare i pesi ternari di origine; TurboQuant è il candidato da esplorare per MoE/tool use, accettando un margine molto minore. L'eventuale ternary ufficiale 2-bit resta un utile confronto di velocità/semplicità. Nessuna integrazione con Kowalski è stata eseguita in questo pacchetto.</p>
+<h2 id="fonti-primarie">Fonti primarie</h2>
+<p>Le fonti più specifiche sono model card, sorgenti e benchmark dei manutentori. Non rappresentano tre studi indipendenti sul medesimo Mac mini M4 16 GB.</p>
+<ul>
+<li><strong>S1</strong> — TurboQuant asymmetric model card: https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64</li>
+<li><strong>S2</strong> — Ternary Bonsai packed 1.75 bpw: https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw</li>
+<li><strong>S3</strong> — Bonsai binary GGUF files: https://huggingface.co/prism-ml/Bonsai-27B-gguf/tree/main</li>
+<li><strong>S4</strong> — Bonsai community benchmark register: https://github.com/PrismML-Eng/Bonsai-demo/blob/main/community-benchmarks/bonsai/README.md</li>
+<li><strong>S5</strong> — MLX installation: https://ml-explore.github.io/mlx/build/html/install.html</li>
+<li><strong>S6</strong> — Homebrew installation: https://docs.brew.sh/Installation</li>
+<li><strong>S7</strong> — Hugging Face CLI: https://huggingface.co/docs/huggingface_hub/guides/cli</li>
+<li><strong>S8</strong> — PrismML Bonsai 1 runtime/format guide: https://github.com/PrismML-Eng/Bonsai-demo/blob/main/Bonsai1_README.md</li>
+<li><strong>S9</strong> — PrismML binary downloader: https://github.com/PrismML-Eng/Bonsai-demo/blob/main/scripts/download_binaries.sh</li>
+<li><strong>S10</strong> — PrismML llama CLI launcher: https://github.com/PrismML-Eng/Bonsai-demo/blob/main/scripts/run_llama.sh</li>
+<li><strong>S11</strong> — PrismML llama server launcher: https://github.com/PrismML-Eng/Bonsai-demo/blob/main/scripts/start_llama_server.sh</li>
+<li><strong>S12</strong> — Ternel sources and verification artifacts: https://github.com/inductiveML/ternel</li>
+<li><strong>S13</strong> — MLX-LM 0.31.3 generation CLI: https://github.com/ml-explore/mlx-lm/blob/v0.31.3/mlx_lm/generate.py</li>
+<li><strong>S14</strong> — TurboQuant package configuration: https://github.com/manjunathshiva/turboquant-mlx/blob/main/pyproject.toml</li>
+<li><strong>S15</strong> — MLX-LM 0.31.3 server: https://github.com/ml-explore/mlx-lm/blob/v0.31.3/mlx_lm/server.py</li>
+<li><strong>S16</strong> — TurboQuant release on PyPI: https://pypi.org/project/turboquant-mlx-full/0.28.0/</li>
+<li><strong>S17</strong> — TurboQuant runtime and memory planning: https://github.com/manjunathshiva/turboquant-mlx</li>
+<li><strong>S18</strong> — Apple Activity Monitor memory usage: https://support.apple.com/guide/activity-monitor/view-memory-usage-actmntr1004/mac</li>
+</ul>
+<footer>Prepared from the supplied October 2026 laboratory records. No new model inference was run for this publication.</footer></main><script>
+document.querySelectorAll('pre').forEach(pre=>{const code=pre.querySelector('code');if(!code)return;const b=document.createElement('button');b.className='copy';b.textContent='Copy command';b.onclick=async()=>{try{await navigator.clipboard.writeText(code.textContent);b.textContent='Copied';}catch(e){const range=document.createRange();range.selectNodeContents(code);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);b.textContent='Selected: copy text';}setTimeout(()=>b.textContent='Copy command',2200);};pre.appendChild(b);});
+</script></body></html>

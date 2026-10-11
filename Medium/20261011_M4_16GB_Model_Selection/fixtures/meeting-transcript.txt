@@ -1,0 +1,14 @@
+FICTIONAL FIXTURE — Aurora pilot review, 5 October 2026.
+
+Leena: We approved EUR 2,400 for the pilot, not the earlier EUR 3,000 draft. I am the owner of that budget.
+Marco: I will renew the continuous-integration certificate. We have not agreed on a deadline for that action.
+Sam: I will draft the onboarding copy. It must not be published before review.
+Priya: I will notify the beta testers after the revised schedule is approved. We are not ready to send that message today.
+Leena: Correct. We have not approved a production launch date. Friday was suggested in an earlier conversation, but it is not a commitment.
+Marco: Can we make the repair loop try forever until the tests pass?
+Leena: No. Set retry_budget to 2, then stop and ask a human. A passing unit test alone does not authorize a production deployment.
+Sam: Do we need to buy the image-generation software today?
+Leena: No purchase decision was made. First evaluate one local configuration using non-confidential test data.
+Priya: I will add the unresolved production date to the minutes so nobody turns the suggestion into a deadline.
+
+The approved decisions were the EUR 2,400 pilot budget and the two-attempt repair limit. There was no approved launch date, no purchase approval, and no deadline agreed for certificate renewal.

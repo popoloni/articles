@@ -1,0 +1,110 @@
+{
+  "as_of": "2026-10-05",
+  "target": "Mac mini M4, 16 GB unified memory",
+  "scope": "Proposed starting selections, not measured rankings or peak-memory certifications.",
+  "baseline": {
+    "ollama": "0.35.1",
+    "context_tokens": 4096,
+    "parallel_requests": 1,
+    "max_loaded_ollama_models": 1
+  },
+  "python": "3.11 native arm64; isolated environments",
+  "top_level_packages": {
+    "pypdf": "6.19.0",
+    "parakeet-mlx": "0.5.3",
+    "mlx-audio": "0.5.7",
+    "misaki[en]": "resolved at installation; freeze afterward"
+  },
+  "ollama_models": [
+    {
+      "id": "qwen3.5:4b-q4_K_M",
+      "role": "bootstrap/general/vision",
+      "download_gb_approx": 3.3,
+      "stage": "starter"
+    },
+    {
+      "id": "qwen3.5:9b-q4_K_M",
+      "role": "daily/chat/code/summary/vision",
+      "download_gb_approx": 6.6,
+      "stage": "text"
+    },
+    {
+      "id": "qwen3-embedding:0.6b",
+      "role": "retrieval",
+      "download_gb_approx": 0.639,
+      "stage": "text"
+    },
+    {
+      "id": "translategemma:4b",
+      "role": "translation",
+      "download_gb_approx": 3.3,
+      "stage": "text"
+    },
+    {
+      "id": "qwen2.5-coder:7b",
+      "role": "coding comparison",
+      "download_gb_approx": 4.7,
+      "stage": "comparisons"
+    },
+    {
+      "id": "qwen3-vl:4b",
+      "role": "vision comparison",
+      "download_gb_approx": 3.3,
+      "stage": "comparisons"
+    },
+    {
+      "id": "glm-ocr",
+      "role": "document OCR",
+      "download_gb_approx": null,
+      "stage": "comparisons"
+    },
+    {
+      "id": "tev1:0.8b",
+      "role": "optional finite decisions",
+      "download_gb_approx": 0.812,
+      "stage": "comparisons"
+    }
+  ],
+  "hugging_face_models": [
+    {
+      "id": "mlx-community/parakeet-tdt-0.6b-v3",
+      "role": "ASR",
+      "snapshot_record": "outputs/parakeet-snapshot.json"
+    },
+    {
+      "id": "mlx-community/Qwen3-ASR-0.6B-8bit",
+      "role": "optional ASR comparison",
+      "snapshot_record": "outputs/qwen-asr-snapshot.json"
+    },
+    {
+      "id": "mlx-community/whisper-large-v3-turbo-asr-fp16",
+      "role": "optional ASR comparison"
+    },
+    {
+      "id": "mlx-community/Kokoro-82M-bf16",
+      "role": "TTS",
+      "snapshot_record": "outputs/kokoro-snapshot.json"
+    },
+    {
+      "id": "mlx-community/chatterbox-turbo-fp16",
+      "role": "optional consented voice cloning",
+      "snapshot_record": "outputs/chatterbox-snapshot.json"
+    }
+  ],
+  "image": {
+    "runtime": "Draw Things, local compute",
+    "model": "FLUX.2 [klein] 4B (6-bit), distilled",
+    "catalogue_file": "flux_2_klein_4b_q6p.ckpt",
+    "text_encoder": "qwen_3_4b_q8p.ckpt",
+    "vae": "flux_2_vae_f16.ckpt",
+    "initial_resolution": [
+      512,
+      512
+    ],
+    "steps": 4,
+    "batch": 1,
+    "seed": 42,
+    "measured_here": false
+  },
+  "reproducibility": "Record installed Ollama digests, Hugging Face snapshot revisions and full pip freeze after successful installation. Model tags and unpinned dependencies can change."
+}

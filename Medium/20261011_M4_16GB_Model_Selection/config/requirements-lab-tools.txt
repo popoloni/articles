@@ -1,0 +1,2 @@
+huggingface_hub>=0.34
+# Resolve on your Mac; record pip freeze. No model runtime in this environment.

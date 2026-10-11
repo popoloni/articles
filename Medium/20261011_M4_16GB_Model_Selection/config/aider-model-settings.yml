@@ -1,0 +1,7 @@
+# Aider's default adaptive context can grow beyond this small-machine budget.
+# Keep the fixture small; this is a request setting, not a physical-memory cap.
+- name: ollama_chat/qwen2.5-coder:7b
+  edit_format: whole
+  extra_params:
+    num_ctx: 8192
+    max_tokens: 1024

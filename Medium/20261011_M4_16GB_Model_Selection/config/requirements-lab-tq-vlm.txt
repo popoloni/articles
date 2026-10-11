@@ -1,0 +1,2 @@
+turboquant-mlx-full[vlm]==0.28.0
+# OPTIONAL diagnostic only; different from historical 0.24 benchmark stack.

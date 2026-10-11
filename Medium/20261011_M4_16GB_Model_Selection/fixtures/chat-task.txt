@@ -1,0 +1,1 @@
+A team wants to install a private coding assistant on one 16 GB Mac mini. We have not measured any model yet. Write a concise plan with three sections: what to test first, what to measure, and what cannot yet be claimed. Do not invent performance numbers. Explain why a successful load is not the same as a successful coding task.
