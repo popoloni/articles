@@ -1,0 +1,90 @@
+{
+  "units": "approx_download_gb is decimal file/package GB, NOT inference RAM",
+  "models": {
+    "bonsai-binary": {
+      "repo": "prism-ml/Bonsai-27B-gguf",
+      "format": "gguf-bonsai-q1_0",
+      "file": "Bonsai-27B-Q1_0.gguf",
+      "approx_download_gb": 3.8,
+      "runtime": "prism-llama",
+      "port": 8082,
+      "source": "https://huggingface.co/prism-ml/Bonsai-27B-gguf"
+    },
+    "bonsai-ternary": {
+      "repo": "inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw",
+      "format": "packed-ternary-custom-mlx",
+      "approx_download_gb": 5.89,
+      "runtime": "mlx-custom",
+      "port": 8081,
+      "custom_code": true,
+      "source": "https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw"
+    },
+    "qwen36-asym": {
+      "repo": "manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64",
+      "format": "turboquant-asymmetric-moe",
+      "approx_download_gb": 12.6,
+      "runtime": "turboquant",
+      "port": 8080,
+      "source": "https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64"
+    },
+    "qwen36-stream": {
+      "repo": "manjunathshiva/Qwen3.6-35B-A3B-tq3-g32",
+      "format": "turboquant-moe",
+      "approx_download_gb": 16.4,
+      "runtime": "turboquant-stream",
+      "port": 8080,
+      "source": "https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3-g32"
+    },
+    "qwen38-iq2s": {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "format": "gguf",
+      "file": "Qwen3.8-27B-UD-IQ2_S.gguf",
+      "approx_download_gb": 8.37,
+      "runtime": "llama",
+      "port": 8083,
+      "source": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
+    },
+    "qwen38-q2xl": {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "format": "gguf",
+      "file": "Qwen3.8-27B-UD-Q2_K_XL.gguf",
+      "approx_download_gb": 9.83,
+      "runtime": "llama",
+      "port": 8083,
+      "source": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
+    },
+    "qwen38-iq3xxs": {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "format": "gguf",
+      "file": "Qwen3.8-27B-UD-IQ3_XXS.gguf",
+      "approx_download_gb": 10.9,
+      "runtime": "llama",
+      "port": 8083,
+      "source": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
+    },
+    "qwen38-mlx2": {
+      "repo": "lukaskremla/Qwen3.8-27B-2bit-MLX-TextOnly",
+      "format": "mlx-affine-text-only",
+      "approx_download_gb": 8.43,
+      "runtime": "mlx",
+      "port": 8084,
+      "source": "https://huggingface.co/lukaskremla/Qwen3.8-27B-2bit-MLX-TextOnly"
+    },
+    "qwen38-mlx3": {
+      "repo": "lukaskremla/Qwen3.8-27B-3bit-MLX-TextOnly",
+      "format": "mlx-affine-text-only",
+      "approx_download_gb": 11.8,
+      "runtime": "mlx",
+      "port": 8084,
+      "source": "https://huggingface.co/lukaskremla/Qwen3.8-27B-3bit-MLX-TextOnly"
+    },
+    "qwen38-tq-diagnostic": {
+      "repo": "manjunathshiva/Qwen3.8-27B-tq3-mini-g64",
+      "format": "turboquant-vlm",
+      "approx_download_gb": 12.4,
+      "runtime": "turboquant-vlm-diagnostic",
+      "port": 8085,
+      "source": "https://huggingface.co/manjunathshiva/Qwen3.8-27B-tq3-mini-g64"
+    }
+  }
+}

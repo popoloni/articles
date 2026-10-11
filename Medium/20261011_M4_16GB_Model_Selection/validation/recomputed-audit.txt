@@ -1,0 +1,51 @@
+{
+  "source_archive": "logs.zip",
+  "archive_sha256": "0856bf466702f953dcc05a0fe1ed278917cd2d450a7fc12a529745de137f78ca",
+  "source_files": 64,
+  "expanded_bytes": 693454,
+  "smoke_records": 66,
+  "readiness_records": 1,
+  "profiles_with_smoke": 10,
+  "smoke_suites": 11,
+  "passed": 53,
+  "failed": 13,
+  "truncated": 5,
+  "reported_recomputed_disagreements": [],
+  "duplicate_response_ids": [],
+  "unique_input_messages_per_case": {
+    "json_contract": 1,
+    "literal_recall": 1
+  },
+  "all_smoke_temperatures": [
+    0.7
+  ],
+  "all_smoke_output_budgets": [
+    512
+  ],
+  "all_smoke_streaming_values": [
+    false
+  ],
+  "api_token_count_consistency": true,
+  "tools_executed": 0,
+  "total_wall_seconds": 565.4160432900044,
+  "failed_wall_seconds": 319.184810998986,
+  "total_completion_tokens": 4621,
+  "failed_completion_tokens": 2973,
+  "unique_dates_utc": [
+    "2026-10-05",
+    "2026-10-06"
+  ],
+  "scope": "Historical supplied short text tests only; no new model inference performed."
+}
+|Model/runtime|Pass|N|JSON median s|Recall median s|
+|---|---|---|---|---|
+|Bonsai binary · llama.cpp|5|6|3.109|0.699|
+|Bonsai packed ternary · MLX-LM|12|12|3.481|1.673|
+|Qwen3.6 streamed · TurboQuant|6|6|5.822|2.511|
+|Qwen3.8 IQ2_S · llama.cpp|6|6|3.671|1.203|
+|Qwen3.8 Q2_K_XL · llama.cpp|6|6|4.344|1.349|
+|Qwen3.8 IQ3_XXS · llama.cpp|6|6|4.263|1.267|
+|Qwen3.8 MLX 2-bit · MLX-LM|0|6|54.190|1.803|
+|Qwen3.8 MLX 3-bit · MLX-LM|6|6|6.703|2.514|
+|Qwen3.8 MLX 2-bit · oMLX|0|6|16.146|8.775|
+|Qwen3.8 MLX 3-bit · oMLX|6|6|21.281|9.304|

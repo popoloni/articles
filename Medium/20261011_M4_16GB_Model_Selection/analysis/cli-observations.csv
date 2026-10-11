@@ -1,0 +1,4 @@
+profile,source_file,prompt_tokens,prompt_tps,prompt_source_line,generation_tokens,generation_tps,generation_source_line,peak_memory_printed_gb,memory_source_line,qualitative_review,second_peak_memory_printed_gb,second_memory_source_line
+bonsai-ternary,logs/ternary-generate.log,24,6.726,4,133,16.208,5,6.232,6,Coherent five-sentence answer; no separate exit-status file.,,
+qwen38-mlx2,logs/qwen38-mlx2-generate.log,24,9.508,5,135,11.001,6,8.737,7,Meta-commentary and malformed trailing text; not a satisfactory final answer.,,
+qwen38-tq-diagnostic,logs/qwen38-tq-diagnostic.log,24,11.585,21,133,2.67,22,12.798,23,Coherent five-sentence answer; paired exit-code file is 0. Not a coding/agent test.,11.92,24

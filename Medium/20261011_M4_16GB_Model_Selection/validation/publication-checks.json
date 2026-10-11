@@ -1,0 +1,14 @@
+{
+  "article_bash_blocks_checked": 61,
+  "html_local_links_checked": 91,
+  "embedded_png_figures": 8,
+  "recomputed_tables_compared": [
+    "audit.json",
+    "profile-summary.csv",
+    "request-metrics.csv",
+    "cli-observations.csv",
+    "case-summary.csv",
+    "suite-summary.csv"
+  ],
+  "errors": []
+}

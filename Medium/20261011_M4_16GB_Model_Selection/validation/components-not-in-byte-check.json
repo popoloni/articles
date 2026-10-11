@@ -1,0 +1,7 @@
+{
+  "config/standalone-models.json": "status descriptions and date updated; execution fields unchanged",
+  "scripts/pull_models.sh": "not included (obsolete patch installer)",
+  "scripts/apply_r5_patch.py": "not included (obsolete patch installer)",
+  "scripts/apply_r3_patch.py": "not included (obsolete patch installer)",
+  "scripts/apply_r6_patch.py": "not included (obsolete patch installer)"
+}
