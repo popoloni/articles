@@ -1,0 +1,155 @@
+{
+  "article": "ARTICLE_MEDIUM_EN.md",
+  "images_used_in_article": [
+    "images/01_Medium_Article_Banner.png",
+    "images/05_Book_Figure_Engineering_Lifecycle.jpg",
+    "images/06_Book_Figure_Perception_vs_Measured_Time.jpg",
+    "images/07_Book_Figure_Change_and_Evidence_Trace.jpg",
+    "images/08_Book_Figure_Independent_Test_Oracle.jpg",
+    "images/09_Book_Figure_Memory_Handoff.jpg",
+    "images/10_Knowledge_Atlas_Interactive_View.png",
+    "images/02_Official_EN_6x9_Cover.png"
+  ],
+  "files": [
+    {
+      "file": "images/01_Medium_Article_Banner.png",
+      "pixels": [
+        1672,
+        941
+      ],
+      "bytes": 1698608,
+      "sha256": "c4f80f99d0bc89b1769e98370d6be0b210f0779548601f88157ad6d1e2a92810",
+      "provenance": "Promotional portrait, author-approved earlier image + typographic overlay"
+    },
+    {
+      "file": "images/02_Official_EN_6x9_Cover.png",
+      "pixels": [
+        1297,
+        1944
+      ],
+      "bytes": 2769037,
+      "sha256": "3d3a73ae2b1e523119e707ffd3640f929b07291c4a30083f0ee8b8e6a79ac6af",
+      "provenance": "Original official book cover asset from NDSE Library"
+    },
+    {
+      "file": "images/03_Official_EN_Full_Wrap.png",
+      "pixels": [
+        1700,
+        1219
+      ],
+      "bytes": 1760853,
+      "sha256": "95b9347d90a4cadd4a29507140a16e0479596e8e64a3ef2ed7e28c34ef96bffc",
+      "provenance": "Original official book cover asset from NDSE Library"
+    },
+    {
+      "file": "images/04_Official_ITA_Full_Wrap.png",
+      "pixels": [
+        1700,
+        1214
+      ],
+      "bytes": 1743196,
+      "sha256": "2c862d83f3417bfcdafd5f0ffe3cdca1658fe8442a0f21500f9c3e3d46ecb5b2",
+      "provenance": "Original official book cover asset from NDSE Library"
+    },
+    {
+      "file": "images/05_Book_Figure_Engineering_Lifecycle.jpg",
+      "pixels": [
+        1530,
+        687
+      ],
+      "bytes": 578634,
+      "sha256": "01407b247da94c72884ab0e55d94d2b0f3ef34a28c8da86e7b065238ad004ce7",
+      "provenance": "Original interior diagram extracted from English NDSE v13.7.1 PDF"
+    },
+    {
+      "file": "images/06_Book_Figure_Perception_vs_Measured_Time.jpg",
+      "pixels": [
+        1427,
+        856
+      ],
+      "bytes": 363128,
+      "sha256": "7bad8b90bb3cfd4b48e2b5092cdf9262660eac9a71b5bf3b99613b6c527f60ae",
+      "provenance": "Original interior diagram extracted from English NDSE v13.7.1 PDF"
+    },
+    {
+      "file": "images/07_Book_Figure_Change_and_Evidence_Trace.jpg",
+      "pixels": [
+        2110,
+        535
+      ],
+      "bytes": 457803,
+      "sha256": "d90717c044a29bf1967644b5d9194d0c77d9010e39ac3f4179f1ef3aab8f54c4",
+      "provenance": "Original interior diagram extracted from English NDSE v13.7.1 PDF"
+    },
+    {
+      "file": "images/08_Book_Figure_Independent_Test_Oracle.jpg",
+      "pixels": [
+        1885,
+        659
+      ],
+      "bytes": 409126,
+      "sha256": "93188ae1672e4399db3b6d376e454aea3e688b41da642384b20efb3b4e60cb02",
+      "provenance": "Original interior diagram extracted from English NDSE v13.7.1 PDF"
+    },
+    {
+      "file": "images/09_Book_Figure_Memory_Handoff.jpg",
+      "pixels": [
+        1480,
+        389
+      ],
+      "bytes": 241689,
+      "sha256": "cba4ef89fdeb57493becbbebcade566d028bf02acb88dca5306326efcd4c614b",
+      "provenance": "Original interior diagram extracted from English NDSE v13.7.1 PDF"
+    },
+    {
+      "file": "images/10_Knowledge_Atlas_Interactive_View.png",
+      "pixels": [
+        1440,
+        1001
+      ],
+      "bytes": 288598,
+      "sha256": "9792c7be1c6a22e0d41177ebb1c53959f8cd8eff51344b7e303661b5f0d19e9a",
+      "provenance": "Original screenshot from Knowledge Atlas website package"
+    },
+    {
+      "file": "images/11_Knowledge_Atlas_Home_Page.png",
+      "pixels": [
+        1440,
+        2296
+      ],
+      "bytes": 544277,
+      "sha256": "f2e28998836b129de553468932b538e5e637ac2fc34d4c97fcbe4156ff5917ac",
+      "provenance": "Original screenshot from Knowledge Atlas website package"
+    },
+    {
+      "file": "images/12_Knowledge_Atlas_Research_Record.png",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "bytes": 130514,
+      "sha256": "08982bc9a23ba81b413d08893e782f40adb7b2c1ebbf7294ee3ddca6189b01e0",
+      "provenance": "Original screenshot from Knowledge Atlas website package"
+    },
+    {
+      "file": "images/13_Official_EN_Kindle_Cover.jpg",
+      "pixels": [
+        1600,
+        2560
+      ],
+      "bytes": 611913,
+      "sha256": "721714ae1ac863e25ffe16984bba5b329eaec943c693305017579b5664d93fdd",
+      "provenance": "Original official book cover asset from NDSE Library"
+    },
+    {
+      "file": "images/14_Official_ITA_Kindle_Cover.jpg",
+      "pixels": [
+        1600,
+        2560
+      ],
+      "bytes": 610488,
+      "sha256": "3230511e12a0b60e3b0eb615ddd69e03ec8ced470b541d79a7798ed6e4ec14d7",
+      "provenance": "Original official book cover asset from NDSE Library"
+    }
+  ]
+}
