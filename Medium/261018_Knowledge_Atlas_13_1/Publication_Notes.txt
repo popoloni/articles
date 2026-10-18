@@ -1,0 +1,61 @@
+MEDIUM ARTICLE PACKAGE
+
+Title
+The Map I Built While Writing About AI Coding
+
+Subtitle
+An illustrated tour of the research and practices behind my second edition
+
+Author
+Enrico Papalini
+
+The article is approximately 1,820 words including captions. It includes five original screenshots from the live Knowledge Atlas v13.1, captured on 18 October 2026. No screenshots are mockups or generated illustrations.
+
+FILES
+
+Medium_Article_Atlas_13_1.docx
+Editable article with the five screenshots, captions, descriptive image text and working hyperlinks.
+
+Medium_Article_Atlas_13_1.html
+Illustrated reading version. Extract the complete ZIP before opening it, keeping the screenshots folder beside this HTML file.
+
+Medium_Article_Atlas_13_1.txt
+Plain-text copy with image placement markers, captions, alt text and a numbered link list. The image markers and link list are publishing aids, not additional article sections.
+
+screenshots/
+The five original JPEG files, numbered in reading order. Use the original files when preparing the Medium article, so that the screenshots remain as clear as possible. Figure 1 is the suggested lead image.
+
+Screenshot_Captions_and_Alt_Text.json
+Figure order, captions, alt text and image checksums in a reusable format.
+
+screenshot_provenance.json
+The live URLs, capture times in UTC and views shown in the five screenshots. The graph's temporary filter and inspector state is not encoded in its bare URL; use the walkthrough in the article to reproduce it.
+
+build_article.py
+Optional source for regenerating the Word and plain-text versions after an HTML edit. It requires Python with python-docx and lxml. Run it from the extracted package directory. It uses the existing JPEG files and does not capture new screenshots.
+
+PREPARING THE ARTICLE
+
+Use the title and subtitle as separate fields. Copy the article text from the Word document or the rendered HTML. Place the five original JPEG images at their corresponding locations and use the supplied captions. Keep the links to the research, the Atlas and the chapter guide attached to their descriptive text.
+
+The only purchase link in the article is the author's supplied Amazon.com listing:
+https://www.amazon.com/dp/B0GHCXPBRM
+
+The article makes no claim about current retail prices, stock or available formats. The Amazon listing metadata could not be independently retrieved during preparation; the article uses the book link supplied by the author.
+
+The article has been prepared for publication but has not been posted to Medium.
+
+SOURCE AND EDITORIAL NOTES
+
+The opening study comparison was checked against the primary publisher and author-paper abstracts:
+https://pubsonline.informs.org/doi/10.1287/mnsc.2025.00535
+https://arxiv.org/abs/2507.09089v2
+
+The original bibliography attribution was checked against:
+https://www.sepolimi.com/p/se-ai-annotated-bibliography
+
+The graph, practices and chapter reading guide were inspected on the live v13.1 site. The approval-routing example was checked against the author's final English chapter sources. It is explicitly described as synthetic in both the book and this article.
+
+The article distinguishes published citations from editorial reading suggestions and avoids claiming that the 84 practice guides are 84 independently validated interventions. It also distinguishes the Atlas's development alongside the book from the practice expansion after publication.
+
+Do not paste these publication notes into the Medium article.

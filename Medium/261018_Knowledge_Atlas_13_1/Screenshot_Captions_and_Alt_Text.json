@@ -1,0 +1,37 @@
+[
+  {
+    "figure": 1,
+    "file": "screenshots/01_atlas_research_start.jpg",
+    "caption": "The Atlas opens with the original research collection. Start with a question and a few records; you can expand the view as your reading develops.",
+    "alt_text": "Knowledge Atlas v13.1 showing the original 193 bibliography records grouped into nine research streams, with collection filters and search controls.",
+    "sha256": "2ba3dc181422301b172416896552b0916db04b0936b4ade23923c931c4b89bbf"
+  },
+  {
+    "figure": 2,
+    "file": "screenshots/02_productivity_evidence_relationship.jpg",
+    "caption": "W003 and W023 are connected by an editorial comparison. The inspector explains the differences in context and records the basis for the connection.",
+    "alt_text": "A focused graph around W003 and W023 with the relationship inspector explaining their context-dependent tension and identifying the connection as an editorial inference.",
+    "sha256": "59be9e3d8b2c547b733fdd3f655f37f96fc7a6ef0db6abc878e795abebd3e91a"
+  },
+  {
+    "figure": 3,
+    "file": "screenshots/03_practices_by_family.jpg",
+    "caption": "The practices collection in v13.1. Family groups let you begin with an engineering concern and then inspect the individual techniques.",
+    "alt_text": "All 84 practice nodes in Knowledge Atlas v13.1 arranged into 12 labelled families, with the Software Engineering Practices collection enabled.",
+    "sha256": "dc7c8a45bedf2fadf2b9e7742750300bf80dea86ccb4047f21f97b10fd89e4d8"
+  },
+  {
+    "figure": 4,
+    "file": "screenshots/04_maker_checker_practice.jpg",
+    "caption": "Maker–Checker includes conditions for use, steps and failure modes. The guide makes the origin and protection of expected results part of the practice.",
+    "alt_text": "The expanded English Maker–Checker guide showing its purpose, when to use or avoid it, prerequisites, five application steps and an illustrative example.",
+    "sha256": "470df55b00eeb7dc65be96b803f8d421c8cc9401fe15e098fe5921b2ce0498f4"
+  },
+  {
+    "figure": 5,
+    "file": "screenshots/05_chapter_07_guide_and_citations.jpg",
+    "caption": "The chapter guide keeps the published citation trail visible. Wider reading suggestions are listed separately from sources actually cited in the chapter.",
+    "alt_text": "The Chapter 7 guide showing learning goals followed by a Cited in the published chapter section and links to the chapter’s research references.",
+    "sha256": "720db5287f700121804eac1625a0697fc4360ca0eb82144f9bdfabb00f991541"
+  }
+]
