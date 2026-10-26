@@ -1,0 +1,7 @@
+figure,name,filename,location,width_px,height_px,bytes
+01,Three Shifts in Coding Agents,figures/Figure_01_Three_Shifts_in_Coding_Agents.png,Introduction (after the three developments),1672,941,1776720
+02,OpenCode 2.0: The Agent Becomes a Service,figures/Figure_02_OpenCode_2_Background_Service.png,1. OpenCode 2.0 (after service-model explanation),1672,941,1711415
+03,GitHub Copilot: Agent Host & AHP,figures/Figure_03_GitHub_Copilot_Agent_Host.png,3. GitHub Copilot (after AHP distinction),1672,941,1682307
+04,Claude Code: Composable Agent Architecture,figures/Figure_04_Claude_Code_Composable_Agents.png,4. Claude Code (after subagents explanation),1672,941,1869189
+05,Enterprise SDD: Current Architecture,figures/Figure_05_Enterprise_SDD_Current_Architecture.png,6. Enterprise SDD today (after inventory),1672,941,1754944
+06,Enterprise SDD: Planned Next Architecture,figures/Figure_06_Enterprise_SDD_Planned_Architecture.png,7. Planned evolution (after future design),1672,941,1665529
