@@ -1,7 +1,15 @@
-figure,name,filename,location,width_px,height_px,bytes
-01,Three Shifts in Coding Agents,figures/Figure_01_Three_Shifts_in_Coding_Agents.png,Introduction (after the three developments),1672,941,1776720
-02,OpenCode 2.0: The Agent Becomes a Service,figures/Figure_02_OpenCode_2_Background_Service.png,1. OpenCode 2.0 (after service-model explanation),1672,941,1711415
-03,GitHub Copilot: Agent Host & AHP,figures/Figure_03_GitHub_Copilot_Agent_Host.png,3. GitHub Copilot (after AHP distinction),1672,941,1682307
-04,Claude Code: Composable Agent Architecture,figures/Figure_04_Claude_Code_Composable_Agents.png,4. Claude Code (after subagents explanation),1672,941,1869189
-05,Enterprise SDD: Current Architecture,figures/Figure_05_Enterprise_SDD_Current_Architecture.png,6. Enterprise SDD today (after inventory),1672,941,1754944
-06,Enterprise SDD: Planned Next Architecture,figures/Figure_06_Enterprise_SDD_Planned_Architecture.png,7. Planned evolution (after future design),1672,941,1665529
+file,type,bytes,pixels,sha256
+ARTICLE_Medium_Paste_Ready.md,md,35323,,5a91d524c2d02ce57fdf620116962b4c93a6ca1eaf6355e3ed3d16246f728481
+ARTICLE_Medium_with_Figures.md,md,36344,,8d84cbf4a939b2211c8ec7a3b1df5891453b21bd6f64effa308f20ffe6b4478e
+BOOK_UPDATE_Section_Only.md,md,1093,,f82dd05f970e63b613e4076e87815679fa2cb911ebb740012cb48c9eeeb71ad6
+CHANGELOG.md,md,1111,,d3be978cb11eaf7b949b7ce4c2ca229062b5d0d6cfa1c2ff26870b77854e8899
+FIGURES_Captions_and_Alt_Text.md,md,4022,,5dc842d7a72444130ee6ca18c7f15c3f81c83783f6235c18aca4c5e50ef9be0b
+README.md,md,2304,,8f106d1a89f76e9fb2adb09cc70c1909cdc92cb14fa94da5936d699f7970d7ca
+SOURCES_and_Fact_Check.md,md,1546,,d74f7fdffd6116e74030ef34644ea26adf264916b5348177db1ed3f202de0561
+assets/NDSDD_Enterprise_Edition_Cover.jpg,jpg,725055,1600x2560,46d3f4f0af97a35cc9599bc91848317a9044ad629d73b7490931a279f34d19fb
+figures/Figure_01_Three_Shifts_in_Coding_Agents.png,png,1776720,1672x941,42a847ecf74f0ba1b910268d5f2bc2c4033f7be8c6984c7e740ca8b4b22ffbb5
+figures/Figure_02_OpenCode_2_Background_Service.png,png,1711415,1672x941,92ca13105cdaedc8b6ac5183c2fd88cd1caec8c0219859884e155559e9bfa100
+figures/Figure_03_GitHub_Copilot_Agent_Host.png,png,1682307,1672x941,b34161e69a4b06e1646aaf82c509b37cc7c8da0ad7d987bde965e6cc0d8bfc23
+figures/Figure_04_Claude_Code_Composable_Agents.png,png,1869189,1672x941,d0ebedab658b0ff08da3b560f58ef53747401e4c8b87c5310d7821221e6ee713
+figures/Figure_05_Enterprise_SDD_Current_Architecture.png,png,1754944,1672x941,24185dddecf6edfb23761f174f1d93f56d48f7fb4468cf7d13e99bccf2e7b7a0
+figures/Figure_06_Enterprise_SDD_Planned_Architecture.png,png,1665529,1672x941,54b5ac1b7b5e07732e25770dcc1b2d58e22b085a781bf00040636df2d48ba97d

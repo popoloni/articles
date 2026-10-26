@@ -1,15 +1,16 @@
 # Changelog
 
-## 2026-10-26 — Complete Medium package v2 (OpenCode 2.0)
+## v3 — 26 October 2026
 
-- Rewrote the introduction to explain the architectural shift through OpenCode 2.0, Copilot AHP, and Claude Code.
-- Added a dedicated, verified OpenCode v2 service/security section; credited Najam Us Saqib’s 16 October 2026 *Towards AI* article.
-- Added **Figure 01** (three architectures overview) and **Figure 02** (OpenCode 2.0 shared service/security boundary).
-- Preserved all four prior diagrams as Figures 03–06 with stable subject mapping.
-- Kept the announced November migration focused on **Copilot and Claude Code**; OpenCode is an optional future compatibility candidate.
-- Included both standalone Markdown with embedded relative image paths and a Medium paste-ready version with placement markers.
-- Added per-figure accessibility alt text, captions, source validation notes, and asset manifest.
+- Preserved the *latest edited writing-block article*, including its vendor lock-in framing, assessment of provider portability, and expanded Sections 5–12. The previous v2 ZIP had an earlier article and was **not** used as the narrative source.
+- Added **“A companion book update: Enterprise Edition v2.1”** in the final section.
+- Included the original user-supplied NDSDD Enterprise Edition cover at `assets/NDSDD_Enterprise_Edition_Cover.jpg`.
+- Linked directly to https://www.amazon.it/gp/product/B0GZZDFMYF.
+- Clarified that v2.1 is a minor readability improvement that continues to fully support the Enterprise SDD framework, **not a completed harness migration**.
+- Preserved all six existing figures unchanged and revised captions, README, sources, asset listing and integrity manifest.
+- Added `BOOK_UPDATE_Section_Only.md` for convenient reuse.
 
-## 2026-10-26 — Original figures edition
+## Prior v2
 
-- Four diagrams: Copilot Agent Host, Claude Code composition, Enterprise SDD current, Enterprise SDD planned.
+- Added OpenCode 2.0 to the article introduction, comparison figure and service/security figure.
+- Included four architecture figures for Copilot, Claude Code, and current/future Enterprise SDD.
