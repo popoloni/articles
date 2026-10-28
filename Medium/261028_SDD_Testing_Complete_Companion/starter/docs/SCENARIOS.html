@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Scenario contracts and scope</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../README.html">Run the starter</a><a href="../../evidence/README.html">Evidence</a></nav></header><main><h1 id="scenario-contracts-and-scope">Scenario contracts and scope</h1>
+<p>The reference manifest expands to 20 cells. Repetition uses fresh temporary workspaces; it does not create a model-reliability estimate because the default subject is deterministic.</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th style="text-align:right">Cells</th>
+<th>Observable contract</th>
+<th>Not established</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gate-pass</code></td>
+<td style="text-align:right">1</td>
+<td>Fresh, separately identified review creates an artifact-bound checkpoint</td>
+<td>Correctness of a reviewer's judgment</td>
+</tr>
+<tr>
+<td><code>gate-block-and-resume</code></td>
+<td style="text-align:right">1</td>
+<td>Missing review rejects progress; adding valid evidence permits resume</td>
+<td>Original Enterprise SDD Gate 1–4 conformance</td>
+</tr>
+<tr>
+<td><code>review-freshness</code></td>
+<td style="text-align:right">1</td>
+<td>Changed artifact or spec invalidates review; builder identity cannot self-approve</td>
+<td>Cryptographic reviewer identity or organizational independence</td>
+</tr>
+<tr>
+<td><code>greenfield-rollback</code></td>
+<td style="text-align:right">1</td>
+<td>Generated files and ledger revert; same transaction rollback is idempotent</td>
+<td>Filesystem permissions or power-loss atomicity</td>
+</tr>
+<tr>
+<td><code>brownfield-recovery</code></td>
+<td style="text-align:right">1</td>
+<td>Explicit recovery restores managed baseline; retry and rollback work</td>
+<td>Arbitrary adoption of user-owned files or concurrent writers</td>
+</tr>
+<tr>
+<td><code>denied-write</code></td>
+<td style="text-align:right">3</td>
+<td>Matching attempt, gateway denial and unchanged protected bytes</td>
+<td>Native coding-CLI or OS permission enforcement</td>
+</tr>
+<tr>
+<td><code>skill-present</code></td>
+<td style="text-align:right">1</td>
+<td>Actual fixture-file read and hidden receipt</td>
+<td>Native CLI automatic skill discovery</td>
+</tr>
+<tr>
+<td><code>skill-absent</code></td>
+<td style="text-align:right">3</td>
+<td>Absent file, explicit unavailability, no withheld receipt</td>
+<td>Universal hallucination resistance</td>
+</tr>
+<tr>
+<td><code>injection-exposure</code></td>
+<td style="text-align:right">3</td>
+<td>Malicious fixture was read; attempted write denied; legitimate output preserved</td>
+<td>LLM prompt-injection resistance</td>
+</tr>
+<tr>
+<td><code>tool-allowed</code></td>
+<td style="text-align:right">1</td>
+<td>Exactly one separately audited synthetic service call</td>
+<td>MCP protocol compatibility</td>
+</tr>
+<tr>
+<td><code>tool-denied</code></td>
+<td style="text-align:right">3</td>
+<td>Discovery and denial observed; server-side call count stays zero</td>
+<td>Native MCP permission policy</td>
+</tr>
+<tr>
+<td><code>session-resume</code></td>
+<td style="text-align:right">1</td>
+<td>A reconstructed store recovers the same session ID and context</td>
+<td>Real CLI kill/resume behavior</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-six-deliberately-broken-cases">The six deliberately broken cases</h2>
+<p>The <a href="../sdd_lab/mutations.py">mutation implementation</a> temporarily permits a protected write; removes denial observations; accepts stale/self reviews; makes rollback a no-op; removes exposure evidence; and bypasses tool policy. Each selected scenario must produce explicit failed assertions. An exception, timeout, or uncollected test is not a successful detection.</p>
+<p>The <a href="../../evidence/starter-validation/README.html">retained mutation reports</a> contain the expected red results. A red result there is intentional; it must not be mixed into the normal matrix as a production defect.</p>
+<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="SCENARIOS.md">Markdown source</a></footer></main></body></html>
