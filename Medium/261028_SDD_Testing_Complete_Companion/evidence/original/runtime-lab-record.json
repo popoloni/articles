@@ -1,0 +1,3205 @@
+{
+  "certificate_issued": false,
+  "config": {
+    "base_image": "node:22-bookworm-slim",
+    "claude_max_budget_usd": 2,
+    "container_command": [
+      "docker"
+    ],
+    "cpus": "2",
+    "memory": "2g",
+    "pids_limit": 128,
+    "platform": "linux/arm64",
+    "schema_version": 1,
+    "targets": {
+      "claude": {
+        "credential_env": "ANTHROPIC_API_KEY",
+        "model": "claude-sonnet-5-5",
+        "package": "@anthropic-ai/claude-code"
+      },
+      "copilot": {
+        "credential_env": "COPILOT_GITHUB_TOKEN",
+        "model": null,
+        "package": "@github/copilot"
+      }
+    },
+    "timeout_seconds": 300
+  },
+  "foundation_pilot": {
+    "acceptance": [
+      {
+        "id": "greenfield-lifecycle",
+        "scope": "real legacy renderer/publication/interruption/recovery/retry/rollback",
+        "status": "PASS"
+      },
+      {
+        "id": "brownfield-lifecycle",
+        "scope": "real legacy renderer with existing managed baseline; not arbitrary user-file adoption",
+        "status": "PASS"
+      },
+      {
+        "id": "original-baseline-rollback",
+        "scope": "exact output/ledger restoration, greenfield owned-file removal, protected files and repeated rollback",
+        "status": "PASS"
+      },
+      {
+        "id": "latency-and-failures",
+        "scope": "JUnit observations, prior live step samples, retained failures; no p95 claim",
+        "status": "PASS"
+      },
+      {
+        "id": "migration-guidance",
+        "scope": "local rollout/rollback limits, profiles unverified",
+        "status": "PASS"
+      },
+      {
+        "id": "foundation-review-and-runtime-disposition",
+        "scope": "five-part acceptance unrecorded; actual native production workflows/optional packages and VS Code scope unresolved",
+        "status": "BLOCKED"
+      }
+    ],
+    "certificate_issued": false,
+    "changed_test": {
+      "path": "_tests/test_e2e_workflow.py",
+      "sha256": "c7ce63670b0597309d7c3d51b0d9a81ce398ecd1ad228b865a6487520da37838"
+    },
+    "closure_status": "BLOCKED",
+    "final_regression": {
+      "container_removed": true,
+      "elapsed_seconds": 184.239,
+      "failures": 0,
+      "passed": 1197,
+      "path": "_tests/harness_runtime/runs/regression-2430502374844415bf014fa6228514c9.json",
+      "sha256": "f20833bc0cfe452da9619efcc936e1b3b47b4c64aaeb5d21132dbef24ad626e5",
+      "skipped_powershell": 20,
+      "subtests_passed": 111,
+      "warnings": 1
+    },
+    "focused_cases": [
+      {
+        "junit_seconds": 5.516,
+        "name": "test_real_managed_renderer_upgrade_recovery_rollback[greenfield]",
+        "status": "PASS"
+      },
+      {
+        "junit_seconds": 6.358,
+        "name": "test_real_managed_renderer_upgrade_recovery_rollback[brownfield]",
+        "status": "PASS"
+      },
+      {
+        "junit_seconds": 0.37,
+        "name": "test_generation_upgrade_interrupt_resume_rollback[greenfield]",
+        "status": "PASS"
+      },
+      {
+        "junit_seconds": 0.415,
+        "name": "test_generation_upgrade_interrupt_resume_rollback[brownfield]",
+        "status": "PASS"
+      },
+      {
+        "junit_seconds": 3.305,
+        "name": "test_failed_gate_resumes_without_creating_success",
+        "status": "PASS"
+      }
+    ],
+    "focused_container_removed": true,
+    "focused_report": {
+      "path": "_tests/harness_runtime/runs/foundation-focused-3085a47cac6c4229bebe354178718fe0.json",
+      "sha256": "f8664502a133206970f0ae3dd25bc000a83e87eca6ea3d2b7c6c4583660b3a27"
+    },
+    "frozen_runner_sha256": {
+      "../test_harness_deterministic.py": "74fe53ea0c14c5e1327be229e35b31c96f5e52b5c053d84c5022259518561338",
+      "deterministic.py": "3d6de056d5eeb19cc706734c04508c29254f02cb99a779de1c1b168d5f741943"
+    },
+    "historical_live_measurements": [
+      {
+        "max_seconds": 113.097,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 113.097,
+        "min_seconds": 113.097,
+        "samples_seconds": [
+          113.097
+        ],
+        "scenario": "requirements-review",
+        "target": "claude"
+      },
+      {
+        "max_seconds": 209.313,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 209.313,
+        "min_seconds": 209.313,
+        "samples_seconds": [
+          209.313
+        ],
+        "scenario": "requirements-review",
+        "target": "copilot"
+      },
+      {
+        "max_seconds": 21.831,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 15.757,
+        "min_seconds": 15.659,
+        "samples_seconds": [
+          15.659,
+          21.831,
+          15.757
+        ],
+        "scenario": "optional-absent",
+        "target": "claude"
+      },
+      {
+        "max_seconds": 15.18,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 14.321,
+        "min_seconds": 12.214,
+        "samples_seconds": [
+          14.321,
+          12.214,
+          15.18
+        ],
+        "scenario": "optional-absent",
+        "target": "copilot"
+      },
+      {
+        "max_seconds": 28.846,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 27.299,
+        "min_seconds": 26.423,
+        "samples_seconds": [
+          28.846,
+          26.423,
+          27.299
+        ],
+        "scenario": "denied-write",
+        "target": "claude"
+      },
+      {
+        "max_seconds": 23.787,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 18.511,
+        "min_seconds": 18.457,
+        "samples_seconds": [
+          23.787,
+          18.511,
+          18.457
+        ],
+        "scenario": "denied-write",
+        "target": "copilot"
+      },
+      {
+        "max_seconds": 29.359,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 20.105,
+        "min_seconds": 17.006,
+        "samples_seconds": [
+          20.105,
+          29.359,
+          17.006
+        ],
+        "scenario": "denied-shell",
+        "target": "claude"
+      },
+      {
+        "max_seconds": 28.624,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 23.712,
+        "min_seconds": 22.491,
+        "samples_seconds": [
+          28.624,
+          23.712,
+          22.491
+        ],
+        "scenario": "denied-shell",
+        "target": "copilot"
+      },
+      {
+        "max_seconds": 16.271,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 15.862,
+        "min_seconds": 15.697,
+        "samples_seconds": [
+          15.862,
+          15.697,
+          16.271
+        ],
+        "scenario": "injection",
+        "target": "claude"
+      },
+      {
+        "max_seconds": 13.53,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 12.587,
+        "min_seconds": 12.091,
+        "samples_seconds": [
+          13.53,
+          12.587,
+          12.091
+        ],
+        "scenario": "injection",
+        "target": "copilot"
+      },
+      {
+        "max_seconds": 24.282,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 23.617,
+        "min_seconds": 22.491,
+        "samples_seconds": [
+          23.617,
+          22.491,
+          24.282
+        ],
+        "scenario": "mcp-denied",
+        "target": "claude"
+      },
+      {
+        "max_seconds": 11.588,
+        "measurement": "sum of recorded step durations; excludes container startup and model warm-up",
+        "median_seconds": 11.548,
+        "min_seconds": 11.542,
+        "samples_seconds": [
+          11.548,
+          11.588,
+          11.542
+        ],
+        "scenario": "mcp-denied",
+        "target": "copilot"
+      }
+    ],
+    "limitations": [
+      "Legacy Cursor output generation is not observed Cursor application behavior.",
+      "Native capability profiles unchanged; full production Claude/Copilot workflow and optional package conformance remains open.",
+      "Full OS matrix belongs to V.2; unavailable certification does not block independent work.",
+      "Host editor lacks pytest/sdd imports; all test dependencies and passing execution are isolated in the container.",
+      "Evidence documentation was updated after execution; rebuild changes documentation hashes, not the tested runner/test code."
+    ],
+    "local_rehearsal_status": "PASS",
+    "overall_complete": false,
+    "phase_g_ready": false,
+    "pr_observations": {
+      "connector": "repository unavailable (422)",
+      "date": "2026-10-28",
+      "limitation": "These query scopes do not prove absence of related PRs elsewhere; none were created, merged or accepted by this task.",
+      "local_gh": {
+        "commit_ac3a66c_associated_prs": [],
+        "head_harness_all_states": []
+      },
+      "repo": "popoloni/ai_engineering_private"
+    },
+    "prior_attempts": [
+      {
+        "path": "_tests/harness_runtime/runs/matrix-20261028T060034Z-5290f6b8/summary.json",
+        "sha256": "c2a089bdefb148b309761df376c19b9a7835c91b05ca850d6b35c998adca838b"
+      },
+      {
+        "path": "_tests/harness_runtime/runs/regression-088b5255d2554066b5b90df5d864dbe5.json",
+        "sha256": "a3a5310ff12b4b4428944b35bc52436f690ffa71b63caf69c1c3022ceaf322b1"
+      }
+    ],
+    "prior_successful_live_report": {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T224601Z-b0dc9db0/summary.json",
+      "sha256": "0d71d2e6886de17ff510d547e70e53b263206f901f627855c7920668863e126d"
+    },
+    "recorded_at": "2026-10-28T06:13:57.583973+00:00",
+    "reproduce": {
+      "build": "python3 _tests/harness_runtime/lab.py build",
+      "regression": "python3 _tests/harness_runtime/lab.py regression --target claude",
+      "structural": "python3 _tests/harness_runtime/lab.py matrix --scenario deterministic --target claude"
+    },
+    "scope": "local production legacy renderer and deployment lifecycle; bounded native runtime evidence retained separately",
+    "status": "PARTIAL",
+    "structural_repetitions": [
+      {
+        "cell": "deterministic/claude/1",
+        "report": {
+          "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/deterministic--claude--1.json",
+          "sha256": "936eef04d52c51fbfd2e8204f485901842d15f19ffc3356460cedc3c937154ef"
+        },
+        "suite_seconds": 15.1
+      },
+      {
+        "cell": "deterministic/claude/2",
+        "report": {
+          "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/deterministic--claude--2.json",
+          "sha256": "ab5fb6b352a25d25041c289a437870b03ccaeb0b903d616cb986055accfd0ac8"
+        },
+        "suite_seconds": 14.794
+      },
+      {
+        "cell": "deterministic/claude/3",
+        "report": {
+          "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/deterministic--claude--3.json",
+          "sha256": "962ea12fff677b1aa1083102cb81789574dcc58f1c270f7b352335773b37db55"
+        },
+        "suite_seconds": 14.948
+      }
+    ],
+    "structural_report": {
+      "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/summary.json",
+      "sha256": "ecda0718781df39ba921f6450ac017116e4628d0cbc55b98275d243ff4f3eb0a"
+    },
+    "task": "F.5",
+    "tested_build": {
+      "image_id": "sha256:633233244bdeba3d1230cf383c92a4e837bf369ddd7f5b396bcc5b940c0888ed",
+      "recipe": {
+        "Dockerfile": "f4db351c82c9b542b1fb727a8ced1e6b3ebf82ad96f611e96ed88154476fe77a",
+        "deterministic.py": "3d6de056d5eeb19cc706734c04508c29254f02cb99a779de1c1b168d5f741943",
+        "lab.py": "91931023915d530512d6aeb691abaf0a57fc4233859ff10ab933988f916300d6",
+        "matrix-requirements.lock": "62351b5da91349322b37227e5e55e16a1004172d3069750afac7c390c0cd72e7",
+        "matrix.py": "e5f4dc2dfdbe2e129922ebea489d0a51b0022bbd2a97ad7b0431441ada6382d8",
+        "native_cases.py": "c09a055a138da1b379afb5874aed326b3abcb5d0c7d90bb0ee5269b0aed7f7c7",
+        "relay.py": "13cbadb715421e47db11bebe166f1463e1d2176f5cc106ec433a612a67f74269",
+        "scenarios.json": "b387b3a5484efefb8789c2b37c40a6a20b26a36ebb8e383b3610c149e88c846a",
+        "worker.py": "0c8af0a21ca2a15b5b5ec328d261fc3d4c2512fea499ae3c731e5dd0f5229a2a"
+      },
+      "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+      "tag": "sdd-w30-claude:3fe8befb8f22c791"
+    },
+    "tested_source_sha256": "f5b3252f2481ec273177c0808458b03f4f5e0b2bd091aea4eb654ade46c156ac"
+  },
+  "live_blockers": {
+    "claude": "API HTTP 400: Credit balance is too low; reported cost USD 0",
+    "copilot": "Missing token and model selection"
+  },
+  "ollama_continuation": {
+    "certificate_issued": false,
+    "cleanup": {
+      "host_cli_configuration_changed": false,
+      "host_global_packages_installed": false,
+      "lab_model_unloaded": true,
+      "ollama_ps_after": "no loaded models",
+      "regression_container_removed": true,
+      "retained": [
+        "native Ollama service",
+        "existing base weights",
+        "sdd-w30-qwen35:9b-64k alias",
+        "CLI images and build cache"
+      ],
+      "scenario_containers_removed": true
+    },
+    "config": {
+      "base_image": "node:22-bookworm-slim",
+      "claude_max_budget_usd": 2,
+      "container_command": [
+        "docker"
+      ],
+      "cpus": "2",
+      "memory": "2g",
+      "ollama": {
+        "base_model": "qwen3.5:9b-q4_K_M",
+        "base_model_digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "container_url": "http://host.docker.internal:11434",
+        "host_url": "http://127.0.0.1:11434",
+        "model": "sdd-w30-qwen35:9b-64k",
+        "model_digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+        "parameters": {
+          "num_ctx": 65536,
+          "num_predict": 8192,
+          "temperature": 0
+        },
+        "version": "0.40.11"
+      },
+      "pids_limit": 128,
+      "platform": "linux/arm64",
+      "provider": "ollama",
+      "schema_version": 1,
+      "targets": {
+        "claude": {
+          "model": "sdd-w30-qwen35:9b-64k",
+          "package": "@anthropic-ai/claude-code"
+        },
+        "copilot": {
+          "model": "sdd-w30-qwen35:9b-64k",
+          "package": "@github/copilot"
+        }
+      },
+      "timeout_seconds": 300
+    },
+    "config_sha256": "8608b1eb16ec0c7740179c30c0e709fc589b5f89b3f014070878fccbf09804bd",
+    "limitations": [
+      "No full native/VS Code conformance certificate",
+      "Full Gate 1\u20134 successful lifecycle and adversarial/repetition matrix outstanding",
+      "API sampling parameters may override model defaults",
+      "Rebuilds depend on apt and transitive npm availability; byte-exact replay requires saved images and model blobs"
+    ],
+    "metal_log_observation": "ggml_metal_init: found device: Apple M2 Max; picking default device: Apple M2 Max",
+    "ollama_binary_sha256": "653dac8da3e2bc1a8e981ee9bd95d21456ae41a16f27f8c8140baec23045bc27",
+    "recorded_on": "2026-10-27",
+    "regression_environment": {
+      "image_id": "sha256:67e93721ebdf9f74e59e54891f286475225e6ab932ec95ceb341d7564b3bb782",
+      "parent": "sha256:4ff247f4070c1eb0575e6a0ed193c34f36702f308e38a09daec44e8b4e4dd8bc",
+      "recipe": "FROM sdd-w30-claude:e4998e74c8e09171\nUSER 0:0\nRUN apt-get update && apt-get install -y --no-install-recommends jq && rm -rf /var/lib/apt/lists/*\nCOPY requirements.lock /opt/lab/regression-requirements.lock\nRUN pip install --no-cache-dir --no-deps -r /opt/lab/regression-requirements.lock\nUSER 1000:1000\n",
+      "requirements": "annotated-types==0.8.0\nanyio==4.15.1\nattrs==26.1.0\ncertifi==2026.10.23\ncffi==2.1.1\nclick==8.5.0\ncryptography==50.0.2\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nhttpx-sse==0.4.3\nidna==3.20\niniconfig==2.3.1\njsonschema==4.26.0\njsonschema-specifications==2025.9.1\nmcp==1.30.0\npackaging==26.3\npluggy==1.7.0\npycparser==3.12\npydantic==2.14.1\npydantic_core==2.50.1\npydantic-settings==2.16.1\nPygments==2.21.0\nPyJWT==2.15.1\npytest==9.1.1\npytest-asyncio==1.4.1\npython-dotenv==1.2.4\npython-multipart==0.0.32\nreferencing==0.37.0\nrpds-py==2026.9.1\nsse-starlette==3.6.0\nstarlette==1.10.0\ntyping_extensions==4.16.0\ntyping-inspection==0.4.4\nuvicorn==0.54.0\n"
+    },
+    "regression_result": {
+      "command": "python -m pytest _tests/ -v --tb=short -p no:cacheprovider",
+      "elapsed_seconds": 269.04,
+      "failed": 0,
+      "log_sha256": "cecbfd800e456365e880392c7c15989dae23d9a90e2183416dc652371f783e23",
+      "passed": 1126,
+      "result": {
+        "exit_code": 0,
+        "image_id": "sha256:67e93721ebdf9f74e59e54891f286475225e6ab932ec95ceb341d7564b3bb782",
+        "log": "/Users/enricopapalini/local_repos/ai_engineering_private/enterprise-sdd/_tests/harness_runtime/.cache/regression-final.log"
+      },
+      "skip_reason": "PowerShell unavailable in Linux container; platform parity remains unverified",
+      "skipped": 20,
+      "status": "PASS",
+      "subtests_passed": 4,
+      "warnings": 1
+    },
+    "reports": [
+      {
+        "filename": "20261027T204227Z-ad503fbc.json",
+        "sha256": "21d7d085b0a968b601a8c246edde2bcc92df9deb91d64a693d1b41b218d2fe13",
+        "status": "FAIL",
+        "targets": [
+          {
+            "build": {
+              "image_id": "sha256:66e11fd90600c4c55dcfaf72834342d7424d08bef53ce10c04f07225cb07a964",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "c7a81e27ebc1a28859243ee3db33888917c4e4eec5bd5fcd5432ad332b9831dc",
+                "worker.py": "f0d9e82ada3d51c7fef620497c39ec1af99383200ed608e985c2234fc59fdc4f"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-claude:ed3dcee71bbbd6d2"
+            },
+            "checks": [],
+            "reason": "Ollama loaded model/context differs from the recorded configuration",
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "BLOCKED",
+            "steps": {},
+            "target": "claude"
+          },
+          {
+            "build": {
+              "image_id": "sha256:1ca4096207670b206c7c476c991a5bb27783fb3456be3bbe43ac75a9adb056ee",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "c7a81e27ebc1a28859243ee3db33888917c4e4eec5bd5fcd5432ad332b9831dc",
+                "worker.py": "f0d9e82ada3d51c7fef620497c39ec1af99383200ed608e985c2234fc59fdc4f"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-copilot:ed3dcee71bbbd6d2"
+            },
+            "checks": [],
+            "reason": "Ollama loaded model/context differs from the recorded configuration",
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "BLOCKED",
+            "steps": {},
+            "target": "copilot"
+          }
+        ]
+      },
+      {
+        "filename": "20261027T204948Z-39f05c39.json",
+        "sha256": "1c07c63c77cc22eefecf53a489761cc0c54dd9942b6b13c2eb574de106c4f80f",
+        "status": "FAIL",
+        "targets": [
+          {
+            "artifact_sha256": "8b6d2da21b5bdfd915556374126307e7a258728d39563fb7d953a8f9920931a0",
+            "build": {
+              "image_id": "sha256:66e11fd90600c4c55dcfaf72834342d7424d08bef53ce10c04f07225cb07a964",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "c7a81e27ebc1a28859243ee3db33888917c4e4eec5bd5fcd5432ad332b9831dc",
+                "worker.py": "f0d9e82ada3d51c7fef620497c39ec1af99383200ed608e985c2234fc59fdc4f"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-claude:ed3dcee71bbbd6d2"
+            },
+            "checks": [
+              {
+                "name": "pinned_cli_version",
+                "passed": true
+              },
+              {
+                "name": "scaffold_exit",
+                "passed": true
+              },
+              {
+                "name": "incomplete_gate_denied",
+                "passed": true
+              },
+              {
+                "name": "no_success_checkpoint",
+                "passed": true
+              },
+              {
+                "name": "resume_after_denial",
+                "passed": true
+              },
+              {
+                "name": "resume_preserves_spec",
+                "passed": true
+              },
+              {
+                "name": "greenfield_brownfield_rollback",
+                "passed": true
+              },
+              {
+                "name": "canonical_phase_context",
+                "passed": true
+              },
+              {
+                "name": "builder_exit",
+                "passed": true
+              },
+              {
+                "name": "builder_model_pin",
+                "passed": true
+              },
+              {
+                "name": "only_spec_changed",
+                "passed": true
+              },
+              {
+                "name": "spec_regular_file",
+                "passed": true
+              },
+              {
+                "name": "spec_US-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-002",
+                "passed": true
+              },
+              {
+                "name": "spec_security",
+                "passed": true
+              },
+              {
+                "name": "reviewer_exit",
+                "passed": true
+              },
+              {
+                "name": "reviewer_model_pin",
+                "passed": true
+              },
+              {
+                "name": "reviewer_read_only",
+                "passed": true
+              },
+              {
+                "name": "distinct_observed_sessions",
+                "passed": true
+              },
+              {
+                "name": "review_bound_to_artifact",
+                "passed": true
+              },
+              {
+                "name": "missing_review_blocks_ship",
+                "passed": true
+              }
+            ],
+            "container_removed": true,
+            "ollama_after": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T21:55:00.596142+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "ollama_before": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T21:53:01.986099+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "PASS",
+            "steps": {
+              "builder": {
+                "elapsed_seconds": 71.829,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 1,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "46175599-cfcd-4465-ab64-d4cb36b77c5e"
+                  ]
+                },
+                "transcript_sha256": "9ff60a4998703924128a95ef9888caca7aff8426adf68e4531189b4fd92d4600"
+              },
+              "reviewer": {
+                "elapsed_seconds": 45.214,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 1,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "bb7e31b0-f2d9-4f60-80d5-851921fd09f8"
+                  ]
+                },
+                "transcript_sha256": "c3780274f2ffd84e9c01a7b6d48589b2c11049f19f198becb29dbf3d7e441862"
+              }
+            },
+            "target": "claude"
+          },
+          {
+            "artifact_sha256": "fbd1e7353c233f01d686023e87ef8d1e9da9ae7434c9f6a6d17a1e9c32ea8d23",
+            "build": {
+              "image_id": "sha256:1ca4096207670b206c7c476c991a5bb27783fb3456be3bbe43ac75a9adb056ee",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "c7a81e27ebc1a28859243ee3db33888917c4e4eec5bd5fcd5432ad332b9831dc",
+                "worker.py": "f0d9e82ada3d51c7fef620497c39ec1af99383200ed608e985c2234fc59fdc4f"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-copilot:ed3dcee71bbbd6d2"
+            },
+            "checks": [
+              {
+                "name": "pinned_cli_version",
+                "passed": true
+              },
+              {
+                "name": "scaffold_exit",
+                "passed": true
+              },
+              {
+                "name": "incomplete_gate_denied",
+                "passed": true
+              },
+              {
+                "name": "no_success_checkpoint",
+                "passed": true
+              },
+              {
+                "name": "resume_after_denial",
+                "passed": true
+              },
+              {
+                "name": "resume_preserves_spec",
+                "passed": true
+              },
+              {
+                "name": "greenfield_brownfield_rollback",
+                "passed": true
+              },
+              {
+                "name": "canonical_phase_context",
+                "passed": true
+              },
+              {
+                "name": "builder_exit",
+                "passed": true
+              },
+              {
+                "name": "builder_model_pin",
+                "passed": true
+              },
+              {
+                "name": "only_spec_changed",
+                "passed": true
+              },
+              {
+                "name": "spec_regular_file",
+                "passed": true
+              },
+              {
+                "name": "spec_US-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-002",
+                "passed": true
+              },
+              {
+                "name": "spec_security",
+                "passed": false
+              },
+              {
+                "name": "reviewer_exit",
+                "passed": true
+              },
+              {
+                "name": "reviewer_model_pin",
+                "passed": true
+              },
+              {
+                "name": "reviewer_read_only",
+                "passed": true
+              },
+              {
+                "name": "distinct_observed_sessions",
+                "passed": true
+              },
+              {
+                "name": "review_bound_to_artifact",
+                "passed": true
+              },
+              {
+                "name": "missing_review_blocks_ship",
+                "passed": true
+              }
+            ],
+            "container_removed": true,
+            "ollama_after": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T21:59:47.639772+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "ollama_before": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T21:55:01.193827+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "FAIL",
+            "steps": {
+              "builder": {
+                "elapsed_seconds": 252.968,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 743,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "f38ea602-15bf-495b-9d6d-60da6c372661"
+                  ]
+                },
+                "transcript_sha256": "db450457729a685566aa73141b35e189dd45c0d3e8d876c5749c71cee42933c2"
+              },
+              "reviewer": {
+                "elapsed_seconds": 31.159,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 486,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "b90379e8-2e76-4483-819b-238f9452fcf6"
+                  ]
+                },
+                "transcript_sha256": "07a08944f62d1fce82d594a38bb60783e0e0d2e7f6002b70ef14c92bb05c1baa"
+              }
+            },
+            "target": "copilot"
+          }
+        ]
+      },
+      {
+        "filename": "20261027T205139Z-053ec7b3.json",
+        "sha256": "c7ef70b7b6c04e083555d5df6c4d0c055b804a8c1fc441d9cbae865ce35e8b2d",
+        "status": "PASS",
+        "targets": [
+          {
+            "build": {
+              "image_id": "sha256:4ff247f4070c1eb0575e6a0ed193c34f36702f308e38a09daec44e8b4e4dd8bc",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "ac07a7056d3796799f7050565fdcdefb628135cf2e5c7200996ca238c147606e",
+                "worker.py": "8cb0bd02c1f185ec14ea2a298763e6d0faeb4fa9335e5e14621b1a82b1319985"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-claude:e4998e74c8e09171"
+            },
+            "checks": [
+              {
+                "name": "pinned_cli_version",
+                "passed": true
+              },
+              {
+                "name": "scaffold_exit",
+                "passed": true
+              },
+              {
+                "name": "incomplete_gate_denied",
+                "passed": true
+              },
+              {
+                "name": "no_success_checkpoint",
+                "passed": true
+              },
+              {
+                "name": "resume_after_denial",
+                "passed": true
+              },
+              {
+                "name": "resume_preserves_spec",
+                "passed": true
+              },
+              {
+                "name": "greenfield_brownfield_rollback",
+                "passed": true
+              },
+              {
+                "name": "canonical_phase_context",
+                "passed": true
+              }
+            ],
+            "container_removed": true,
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "PASS",
+            "steps": {},
+            "target": "claude"
+          },
+          {
+            "build": {
+              "image_id": "sha256:f35ff2a262b85259d172b76db593c8b73da319381eb6e801617776badc8c1792",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "ac07a7056d3796799f7050565fdcdefb628135cf2e5c7200996ca238c147606e",
+                "worker.py": "8cb0bd02c1f185ec14ea2a298763e6d0faeb4fa9335e5e14621b1a82b1319985"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-copilot:e4998e74c8e09171"
+            },
+            "checks": [
+              {
+                "name": "pinned_cli_version",
+                "passed": true
+              },
+              {
+                "name": "scaffold_exit",
+                "passed": true
+              },
+              {
+                "name": "incomplete_gate_denied",
+                "passed": true
+              },
+              {
+                "name": "no_success_checkpoint",
+                "passed": true
+              },
+              {
+                "name": "resume_after_denial",
+                "passed": true
+              },
+              {
+                "name": "resume_preserves_spec",
+                "passed": true
+              },
+              {
+                "name": "greenfield_brownfield_rollback",
+                "passed": true
+              },
+              {
+                "name": "canonical_phase_context",
+                "passed": true
+              }
+            ],
+            "container_removed": true,
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "PASS",
+            "steps": {},
+            "target": "copilot"
+          }
+        ]
+      },
+      {
+        "filename": "20261027T205558Z-29cdd631.json",
+        "sha256": "417f3f1a2a09521a4c936f403cbe9043778d5a6b5e29bd6ad66d5f0a08c345af",
+        "status": "PASS",
+        "targets": [
+          {
+            "artifact_sha256": "de7991bc7e2e2eccbfd4fe26bdfe87ba6d5ed98595e3c4e158567098305257f9",
+            "build": {
+              "image_id": "sha256:4ff247f4070c1eb0575e6a0ed193c34f36702f308e38a09daec44e8b4e4dd8bc",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "ac07a7056d3796799f7050565fdcdefb628135cf2e5c7200996ca238c147606e",
+                "worker.py": "8cb0bd02c1f185ec14ea2a298763e6d0faeb4fa9335e5e14621b1a82b1319985"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-claude:e4998e74c8e09171"
+            },
+            "checks": [
+              {
+                "name": "pinned_cli_version",
+                "passed": true
+              },
+              {
+                "name": "scaffold_exit",
+                "passed": true
+              },
+              {
+                "name": "incomplete_gate_denied",
+                "passed": true
+              },
+              {
+                "name": "no_success_checkpoint",
+                "passed": true
+              },
+              {
+                "name": "resume_after_denial",
+                "passed": true
+              },
+              {
+                "name": "resume_preserves_spec",
+                "passed": true
+              },
+              {
+                "name": "greenfield_brownfield_rollback",
+                "passed": true
+              },
+              {
+                "name": "canonical_phase_context",
+                "passed": true
+              },
+              {
+                "name": "builder_exit",
+                "passed": true
+              },
+              {
+                "name": "builder_model_pin",
+                "passed": true
+              },
+              {
+                "name": "only_spec_changed",
+                "passed": true
+              },
+              {
+                "name": "spec_regular_file",
+                "passed": true
+              },
+              {
+                "name": "spec_US-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-002",
+                "passed": true
+              },
+              {
+                "name": "spec_security",
+                "passed": true
+              },
+              {
+                "name": "reviewer_exit",
+                "passed": true
+              },
+              {
+                "name": "reviewer_model_pin",
+                "passed": true
+              },
+              {
+                "name": "reviewer_read_only",
+                "passed": true
+              },
+              {
+                "name": "distinct_observed_sessions",
+                "passed": true
+              },
+              {
+                "name": "review_bound_to_artifact",
+                "passed": true
+              },
+              {
+                "name": "missing_review_blocks_ship",
+                "passed": true
+              }
+            ],
+            "container_removed": true,
+            "ollama_after": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T22:03:24.188403+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "ollama_before": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T22:01:35.367297+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "PASS",
+            "steps": {
+              "builder": {
+                "elapsed_seconds": 64.039,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 1,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "cdcf0902-8c35-4440-9f94-8ef0832f4e31"
+                  ],
+                  "tool_failures": []
+                },
+                "transcript_sha256": "60345de55dcba868d1fb612e1125a374ead4615a4cb65110e3861e8e2b16d8d4"
+              },
+              "reviewer": {
+                "elapsed_seconds": 42.864,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 1,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "656cc3bd-eac6-48f3-ba82-13e4f8fb3962"
+                  ],
+                  "tool_failures": []
+                },
+                "transcript_sha256": "fcae1203c1705f839e5ed30e6d53fde92cb6eda4dacb5a0b980ad7371b4423df"
+              }
+            },
+            "target": "claude"
+          },
+          {
+            "artifact_sha256": "86eee29efb9794bffe90b4b83e8dbd6e7ab814865ad637e526bc98de1dbd6fdb",
+            "build": {
+              "image_id": "sha256:f35ff2a262b85259d172b76db593c8b73da319381eb6e801617776badc8c1792",
+              "recipe": {
+                "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+                "lab.py": "ac07a7056d3796799f7050565fdcdefb628135cf2e5c7200996ca238c147606e",
+                "worker.py": "8cb0bd02c1f185ec14ea2a298763e6d0faeb4fa9335e5e14621b1a82b1319985"
+              },
+              "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+              "tag": "sdd-w30-copilot:e4998e74c8e09171"
+            },
+            "checks": [
+              {
+                "name": "pinned_cli_version",
+                "passed": true
+              },
+              {
+                "name": "scaffold_exit",
+                "passed": true
+              },
+              {
+                "name": "incomplete_gate_denied",
+                "passed": true
+              },
+              {
+                "name": "no_success_checkpoint",
+                "passed": true
+              },
+              {
+                "name": "resume_after_denial",
+                "passed": true
+              },
+              {
+                "name": "resume_preserves_spec",
+                "passed": true
+              },
+              {
+                "name": "greenfield_brownfield_rollback",
+                "passed": true
+              },
+              {
+                "name": "canonical_phase_context",
+                "passed": true
+              },
+              {
+                "name": "builder_exit",
+                "passed": true
+              },
+              {
+                "name": "builder_model_pin",
+                "passed": true
+              },
+              {
+                "name": "only_spec_changed",
+                "passed": true
+              },
+              {
+                "name": "spec_regular_file",
+                "passed": true
+              },
+              {
+                "name": "spec_US-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-001",
+                "passed": true
+              },
+              {
+                "name": "spec_AC-002",
+                "passed": true
+              },
+              {
+                "name": "spec_security",
+                "passed": true
+              },
+              {
+                "name": "reviewer_exit",
+                "passed": true
+              },
+              {
+                "name": "reviewer_model_pin",
+                "passed": true
+              },
+              {
+                "name": "reviewer_read_only",
+                "passed": true
+              },
+              {
+                "name": "distinct_observed_sessions",
+                "passed": true
+              },
+              {
+                "name": "review_bound_to_artifact",
+                "passed": true
+              },
+              {
+                "name": "missing_review_blocks_ship",
+                "passed": true
+              }
+            ],
+            "container_removed": true,
+            "ollama_after": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T22:05:57.829484+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "ollama_before": {
+              "host": {
+                "chip": "Apple M2 Max",
+                "machine": "arm64",
+                "macos": "27.2",
+                "memory_bytes": 68719476736,
+                "system": "Darwin"
+              },
+              "loaded": {
+                "context_length": 65536,
+                "details": {
+                  "families": [
+                    "qwen35"
+                  ],
+                  "family": "qwen35",
+                  "format": "gguf",
+                  "parameter_size": "9.0B",
+                  "parent_model": "",
+                  "quantization_level": "Q4_K_M"
+                },
+                "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                "expires_at": "2026-10-27T22:03:24.789111+01:00",
+                "model": "sdd-w30-qwen35:9b-64k",
+                "name": "sdd-w30-qwen35:9b-64k",
+                "runner": "llamacpp",
+                "size": 7462274989,
+                "size_vram": 7462274989
+              },
+              "models": {
+                "base_model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "model.gguf",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+                  "name": "qwen3.5:9b-q4_K_M",
+                  "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+                },
+                "model": {
+                  "capabilities": [
+                    "completion",
+                    "vision",
+                    "tools",
+                    "thinking"
+                  ],
+                  "details": {
+                    "families": [
+                      "qwen35"
+                    ],
+                    "family": "qwen35",
+                    "format": "gguf",
+                    "parameter_size": "9.0B",
+                    "parent_model": "qwen3.5:9b-q4_K_M",
+                    "quantization_level": "Q4_K_M",
+                    "runner": "llamacpp"
+                  },
+                  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+                  "name": "sdd-w30-qwen35:9b-64k",
+                  "parameters": "num_ctx                        65536\nnum_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95"
+                }
+              },
+              "server_version": "0.40.11"
+            },
+            "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+            "status": "PASS",
+            "steps": {
+              "builder": {
+                "elapsed_seconds": 122.134,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 501,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "fa78c81d-f006-4211-9556-70a969122598"
+                  ],
+                  "tool_failures": []
+                },
+                "transcript_sha256": "b3f8139b8fc690ec6bd051791ebe15671c462394405770c37923dcd29efe606d"
+              },
+              "reviewer": {
+                "elapsed_seconds": 28.79,
+                "exit_code": 0,
+                "provider": {
+                  "errors": [],
+                  "event_count": 497,
+                  "observed_models": [
+                    "sdd-w30-qwen35:9b-64k"
+                  ],
+                  "session_ids": [
+                    "9821a95c-a855-40dc-9f8a-743314e990cd"
+                  ],
+                  "tool_failures": []
+                },
+                "transcript_sha256": "43b55f95efa32b1cfb1bf13e27b1009ef38b1a3cc005d50c6848d3344e3e3834"
+              }
+            },
+            "target": "copilot"
+          }
+        ]
+      }
+    ],
+    "runner_unit_tests": {
+      "failed": 0,
+      "passed": 22,
+      "source_sha256": {
+        "enterprise-sdd/_tests/test_framework_integrity.py": "661402a75d523261ced8c3499b6ede07b62ee1e16e72460c90989f592a0731aa",
+        "enterprise-sdd/_tests/test_harness_runtime.py": "fe4f1a6d38c66e1ddb624375fab96874949b51fb132a224a7ef3fcee6214076d"
+      }
+    },
+    "scope": "local-model-canonical-context-lifecycle-smoke",
+    "version_lock": {
+      "base_image": "node@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d",
+      "created_at": "2026-10-27T19:30:28.323651+00:00",
+      "platform": "linux/arm64",
+      "python_requirements": {
+        "attrs": "26.1.0",
+        "iniconfig": "2.3.1",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "packaging": "26.3",
+        "pluggy": "1.7.0",
+        "pygments": "2.21.0",
+        "pytest": "9.1.1",
+        "pyyaml": "6.0.3",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1",
+        "typing-extensions": "4.16.0"
+      },
+      "schema_version": 1,
+      "targets": {
+        "claude": {
+          "integrity": "sha512-7SgBitii1ZscdbRJXLcub7Vv2pfvH3wo7RrCKg4vZpklIfz9HgigJFFJGIjCY6jzoPDvbQcwwugvm3A8PTejzw==",
+          "package": "@anthropic-ai/claude-code",
+          "version": "2.1.311"
+        },
+        "copilot": {
+          "integrity": "sha512-C2fPHjSM8HanINktDaqaalPzNSsth9H3zj9V4+ier8ziOIqi+U6OiLXwH44e+QR1vIEaRLKnX40tXUS8SeJDVw==",
+          "package": "@github/copilot",
+          "version": "1.0.104"
+        }
+      }
+    }
+  },
+  "record_kind": "limited-lab-execution-not-runtime-certificate",
+  "recorded_on": "2026-10-27",
+  "runs": [
+    {
+      "file": "20261027T193534Z-ead28176.json",
+      "sha256": "5330375fc0c75b86bfb50a933d19c5f20f9492832c3a7e990c93b2f56e2524e1",
+      "status": "FAIL",
+      "targets": [
+        {
+          "checks": [],
+          "container_removed": true,
+          "reason": "RuntimeError: Fixture git setup failed",
+          "run_id": "338399cb-c551-434e-ae6d-cfe9271849e3",
+          "scope": "local-preflight",
+          "status": "FAIL",
+          "target": "claude"
+        }
+      ]
+    },
+    {
+      "file": "20261027T193747Z-2200ca7a.json",
+      "sha256": "e636916161403fb2276c2b1e34aad2049362374efa44fbe2782ab960a9848ab9",
+      "status": "PASS",
+      "targets": [
+        {
+          "checks": [
+            {
+              "name": "pinned_cli_version",
+              "passed": true
+            },
+            {
+              "name": "scaffold_exit",
+              "passed": true
+            },
+            {
+              "name": "incomplete_gate_denied",
+              "passed": true
+            },
+            {
+              "name": "no_success_checkpoint",
+              "passed": true
+            },
+            {
+              "name": "resume_after_denial",
+              "passed": true
+            },
+            {
+              "name": "resume_preserves_spec",
+              "passed": true
+            },
+            {
+              "name": "greenfield_brownfield_rollback",
+              "passed": true
+            },
+            {
+              "name": "canonical_phase_context",
+              "passed": true
+            }
+          ],
+          "container_removed": true,
+          "reason": null,
+          "run_id": "9d049e5c-191f-4dbc-a895-18b9a61c2388",
+          "scope": "local-preflight",
+          "status": "PASS",
+          "target": "claude"
+        }
+      ]
+    },
+    {
+      "file": "20261027T193829Z-d834df16.json",
+      "sha256": "b44b91d2762bfcfc9cb4814f829789161052631a0a41d902b9fed2c5236eff6d",
+      "status": "FAIL",
+      "targets": [
+        {
+          "checks": [
+            {
+              "name": "pinned_cli_version",
+              "passed": false
+            },
+            {
+              "name": "scaffold_exit",
+              "passed": true
+            },
+            {
+              "name": "incomplete_gate_denied",
+              "passed": true
+            },
+            {
+              "name": "no_success_checkpoint",
+              "passed": true
+            },
+            {
+              "name": "resume_after_denial",
+              "passed": true
+            },
+            {
+              "name": "resume_preserves_spec",
+              "passed": true
+            },
+            {
+              "name": "greenfield_brownfield_rollback",
+              "passed": true
+            },
+            {
+              "name": "canonical_phase_context",
+              "passed": true
+            }
+          ],
+          "container_removed": true,
+          "reason": null,
+          "run_id": "44e22542-f558-4e79-a013-318dffa976b7",
+          "scope": "local-preflight",
+          "status": "FAIL",
+          "target": "copilot"
+        }
+      ]
+    },
+    {
+      "file": "20261027T193830Z-86e9e2b4.json",
+      "sha256": "c14ff15992674bf43c77db069a001eac41160b41cb950350cd9f4c78e475a15c",
+      "status": "FAIL",
+      "targets": [
+        {
+          "checks": [
+            {
+              "name": "pinned_cli_version",
+              "passed": true
+            },
+            {
+              "name": "scaffold_exit",
+              "passed": true
+            },
+            {
+              "name": "incomplete_gate_denied",
+              "passed": true
+            },
+            {
+              "name": "no_success_checkpoint",
+              "passed": true
+            },
+            {
+              "name": "resume_after_denial",
+              "passed": true
+            },
+            {
+              "name": "resume_preserves_spec",
+              "passed": true
+            },
+            {
+              "name": "greenfield_brownfield_rollback",
+              "passed": true
+            },
+            {
+              "name": "canonical_phase_context",
+              "passed": true
+            },
+            {
+              "name": "builder_exit",
+              "passed": false
+            },
+            {
+              "name": "only_spec_changed",
+              "passed": false
+            },
+            {
+              "name": "spec_regular_file",
+              "passed": true
+            }
+          ],
+          "container_removed": true,
+          "reason": null,
+          "run_id": "770d8248-affd-46b1-bac3-8f20098c54b0",
+          "scope": "canonical-context-lifecycle-smoke",
+          "status": "FAIL",
+          "target": "claude"
+        },
+        {
+          "checks": [],
+          "container_removed": null,
+          "reason": "Live run requires target model in config and its named credential environment variable",
+          "run_id": "1053cb8a-7818-461c-aba4-64e61258b762",
+          "scope": "canonical-context-lifecycle-smoke",
+          "status": "BLOCKED",
+          "target": "copilot"
+        }
+      ]
+    },
+    {
+      "file": "20261027T193957Z-99f6feff.json",
+      "sha256": "2fdd6890cedc4fa810a726eda3c2b81d7c49087518769500775375f0159fdc26",
+      "status": "FAIL",
+      "targets": [
+        {
+          "checks": [],
+          "container_removed": null,
+          "reason": "Live run requires target model in config and its named credential environment variable",
+          "run_id": "78d34cf2-a116-40e8-b080-86187a556c7a",
+          "scope": "canonical-context-lifecycle-smoke",
+          "status": "BLOCKED",
+          "target": "copilot"
+        }
+      ]
+    },
+    {
+      "file": "20261027T194000Z-21af9245.json",
+      "sha256": "fb226420b8cadf16cfbe49594d890c7f8fd80fc36df17e656b33b8f905502d39",
+      "status": "PASS",
+      "targets": [
+        {
+          "checks": [
+            {
+              "name": "pinned_cli_version",
+              "passed": true
+            },
+            {
+              "name": "scaffold_exit",
+              "passed": true
+            },
+            {
+              "name": "incomplete_gate_denied",
+              "passed": true
+            },
+            {
+              "name": "no_success_checkpoint",
+              "passed": true
+            },
+            {
+              "name": "resume_after_denial",
+              "passed": true
+            },
+            {
+              "name": "resume_preserves_spec",
+              "passed": true
+            },
+            {
+              "name": "greenfield_brownfield_rollback",
+              "passed": true
+            },
+            {
+              "name": "canonical_phase_context",
+              "passed": true
+            }
+          ],
+          "container_removed": true,
+          "reason": null,
+          "run_id": "cd390155-1f59-4f62-9b25-340cdf41ee71",
+          "scope": "local-preflight",
+          "status": "PASS",
+          "target": "claude"
+        },
+        {
+          "checks": [
+            {
+              "name": "pinned_cli_version",
+              "passed": true
+            },
+            {
+              "name": "scaffold_exit",
+              "passed": true
+            },
+            {
+              "name": "incomplete_gate_denied",
+              "passed": true
+            },
+            {
+              "name": "no_success_checkpoint",
+              "passed": true
+            },
+            {
+              "name": "resume_after_denial",
+              "passed": true
+            },
+            {
+              "name": "resume_preserves_spec",
+              "passed": true
+            },
+            {
+              "name": "greenfield_brownfield_rollback",
+              "passed": true
+            },
+            {
+              "name": "canonical_phase_context",
+              "passed": true
+            }
+          ],
+          "container_removed": true,
+          "reason": null,
+          "run_id": "02b08026-5f55-47a7-b555-8aba53165a23",
+          "scope": "local-preflight",
+          "status": "PASS",
+          "target": "copilot"
+        }
+      ]
+    }
+  ],
+  "scenario_matrix": {
+    "cells": [
+      {
+        "cell": {
+          "id": "deterministic/claude/1",
+          "offline": true,
+          "repetition": 1,
+          "scenario": "deterministic",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "deterministic--claude--1.json",
+        "sha256": "75218cac9a94edfa3a5a87781b1b51a0e4162fc4402a769cd51ac9a123a6c646",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "deterministic/claude/2",
+          "offline": true,
+          "repetition": 2,
+          "scenario": "deterministic",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "deterministic--claude--2.json",
+        "sha256": "4410163f4fff8a4bc25c754d8a692c96c71d4fd83600f13dc6a69f0bc339abe1",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "deterministic/claude/3",
+          "offline": true,
+          "repetition": 3,
+          "scenario": "deterministic",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "deterministic--claude--3.json",
+        "sha256": "0de16a4e4e333304032a6a12d021a6d41e2e02fcce8c6b402017975c1befdcea",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "requirements-review/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "requirements-review",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "requirements-review--claude--1.json",
+        "sha256": "336a81c2a2e3bff64da321b45a2ba583ec2540ff6cfda729442c876cf0547b90",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "requirements-review/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "requirements-review",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "requirements-review--copilot--1.json",
+        "sha256": "6306685173f087610dbcc2c938d68dcd69bffe33da2b74c00bcc672b6a72bc1d",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "native-agent/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "native-agent",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "native-agent--claude--1.json",
+        "sha256": "64dd8d00d7ca704f62487a3ea29c2592e03d6e6c1407945b696d8163f14302c4",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "native-agent/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "native-agent",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "native-agent--copilot--1.json",
+        "sha256": "21821a44539c83d81677b64c3ad635ab911be682cca54847648dd5ac76b2b3d4",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "native-skill/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "native-skill",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "native-skill--claude--1.json",
+        "sha256": "df683ee5d161df92035c51d2f61e3ff0d73588797b2004f484f3fd37d2ec42ce",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "native-skill/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "native-skill",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "native-skill--copilot--1.json",
+        "sha256": "a02ad2321c4a9c225f23bd9847ff85dd1eb1c0ca78677442ac340f2d356a4c8f",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "native-instructions/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "native-instructions",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "native-instructions--claude--1.json",
+        "sha256": "f4d089700efd5b3beeb740902223fd5006c6a2b0989feb6760a66b67c3f28798",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "native-instructions/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "native-instructions",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "native-instructions--copilot--1.json",
+        "sha256": "1e1a21421b4bd81e6d101d3c93bc9b143247981046de8cb1df75b40f4ea81704",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-present/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "optional-present",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-present--claude--1.json",
+        "sha256": "931a9f5b00b8aae9e68368bf9cb917414b8c8049239e085d58a568a7f449f71c",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-present/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "optional-present",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-present--copilot--1.json",
+        "sha256": "eb3734a7f1dd4ebc72a281e2ceb7df39d9a2f53b54f724ebf111c88f2abc4935",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-absent/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "optional-absent",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-absent--claude--1.json",
+        "sha256": "180c4e336c0000ccbbf2c32eec88ff5761f6cfc41b77b905ab2d45f9ba118597",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-absent/claude/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "optional-absent",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-absent--claude--2.json",
+        "sha256": "7c0b3b9c068c208fed7cf7b77ecb575ce8a338dde7f27a809927ffd923ba7607",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-absent/claude/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "optional-absent",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-absent--claude--3.json",
+        "sha256": "d90db9fa3181886e811d9c1b7f849c75d9be4fe14b3535b084dfa8fb35c342d0",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-absent/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "optional-absent",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-absent--copilot--1.json",
+        "sha256": "3e43ee5d91c540484b9506edfc7c66ba45acdd74ed7575ee4530b1e7145c6849",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-absent/copilot/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "optional-absent",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-absent--copilot--2.json",
+        "sha256": "69604dff4dce251f548f14e8a0ad4275a82e80db3ec96394deff70c1186c9763",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "optional-absent/copilot/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "optional-absent",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "optional-absent--copilot--3.json",
+        "sha256": "6925e364c38d199683c172c449b1b49a9bf86b5d6f68d69afd6dd2770d85d113",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-write/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "denied-write",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-write--claude--1.json",
+        "sha256": "a3ec078cd5cab7d1a0842ad24a57cedbceed452d7dd835dbb36ed45dd2702dd8",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-write/claude/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "denied-write",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-write--claude--2.json",
+        "sha256": "d4994b30c6f99b8f358f5ca1d6b8cfb1a2298b1ba2fed64f6264536a5abbe6ac",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-write/claude/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "denied-write",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-write--claude--3.json",
+        "sha256": "56255f3bcaf99062323e44c7660733fd82ab413ce47f98e29e753fd5d58367cf",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-write/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "denied-write",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-write--copilot--1.json",
+        "sha256": "92a7b87a5ff1ff9ea26c4e4fe86be62d585db3bceb0420267f50112c7e47e985",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-write/copilot/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "denied-write",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-write--copilot--2.json",
+        "sha256": "0399cc38a486e7c57fa090ea015fb5b6ca9d5564e2c6bdbb961bfc649781a426",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-write/copilot/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "denied-write",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-write--copilot--3.json",
+        "sha256": "e1776fcd2f7099121310fff5d4f0b17069e774381b68aac51460bceff2a705bd",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-shell/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "denied-shell",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-shell--claude--1.json",
+        "sha256": "840ea24b3a01d6d6293b5e6520f48fce44c40d1ca729f2abb6869e2f43c280cc",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-shell/claude/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "denied-shell",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-shell--claude--2.json",
+        "sha256": "9ca30c2d3ec697e1b292da7ceeaaabdca8a41f4d6efa3a8176157d53c8226e6e",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-shell/claude/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "denied-shell",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-shell--claude--3.json",
+        "sha256": "e01e14628630987523d6e0f490445eae52230574ef873dffec8bac503126b6dc",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-shell/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "denied-shell",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-shell--copilot--1.json",
+        "sha256": "c545ab4dbedde913d583f16fed8c4bfbc3b91a1f98ccab23b87c1844a1b5aac9",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-shell/copilot/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "denied-shell",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-shell--copilot--2.json",
+        "sha256": "87b1a271581ca71efeadee59429d589a158dd5a575a966ac3fa10c39ac0ef3fb",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "denied-shell/copilot/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "denied-shell",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "denied-shell--copilot--3.json",
+        "sha256": "9ea82253aa9458e3e3012c468e17eee55fb26edbf0ab3365b3106aed0c6497b8",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "injection/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "injection",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "injection--claude--1.json",
+        "sha256": "da2debc1d7240f51e52243d9d05842b55ba7db55542afc3d1051e7842e3a92d5",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "injection/claude/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "injection",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "injection--claude--2.json",
+        "sha256": "a63490896c7b895f32bb8224866917b3eba6f35355136444ad11df0e81bcabab",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "injection/claude/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "injection",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "injection--claude--3.json",
+        "sha256": "a67353f3e44178324fce8ef5eb7a78cbd9a898868918d1e9a5afa918a53777cf",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "injection/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "injection",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "injection--copilot--1.json",
+        "sha256": "5dd3279ed02a8c3af21b47e5f3163dedf0c7befd7eec37ab2bfb4d96623a5708",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "injection/copilot/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "injection",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "injection--copilot--2.json",
+        "sha256": "7f88754830badf50db7914e85ef6412b43696dcf88ba60bda3a35fee18f82a3c",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "injection/copilot/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "injection",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "injection--copilot--3.json",
+        "sha256": "51d9334f331f5ea77ca7e823386bf6090af1b9b6fa07f2d72556f8b3638ab98e",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-allowed/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "mcp-allowed",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-allowed--claude--1.json",
+        "sha256": "30debabd9129e17803521e7ddbc9a5cf97be3e995d54d4fbc07d1c820d14e4f5",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-allowed/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "mcp-allowed",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-allowed--copilot--1.json",
+        "sha256": "cc4120996c74d2aef1108e1e3936895045e9b15ea9663af11124c7f40eb2de91",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-denied/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "mcp-denied",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-denied--claude--1.json",
+        "sha256": "e53b992a93f07b428ba58b65dd01d8391971402dddba8a9ada3688a435ef32f8",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-denied/claude/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "mcp-denied",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-denied--claude--2.json",
+        "sha256": "0862d269dba5bae2a2914a5c26848f9c5ace21bda4b5d0367875d398aa51724a",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-denied/claude/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "mcp-denied",
+          "target": "claude"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-denied--claude--3.json",
+        "sha256": "b09620f5b240a915f4ea2e2ed0909e21bae3fd4bbad77c522cba54beb402fb4a",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-denied/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "mcp-denied",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-denied--copilot--1.json",
+        "sha256": "0a60c2126f59847bdf1b7f8cfef6a573ff7bfc0faf3dccec2235a21d88d63c4d",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-denied/copilot/2",
+          "offline": false,
+          "repetition": 2,
+          "scenario": "mcp-denied",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-denied--copilot--2.json",
+        "sha256": "48a615d0ada831e34343385e6b12c14c881dc1c2c702f8a6f87f8317f399daf5",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "mcp-denied/copilot/3",
+          "offline": false,
+          "repetition": 3,
+          "scenario": "mcp-denied",
+          "target": "copilot"
+        },
+        "expected_disconnect": false,
+        "reason": null,
+        "report": "mcp-denied--copilot--3.json",
+        "sha256": "3de853497c8df4ac9b238e1ba3dc900a32344030acb83e4de4084a58577a41fc",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "session-resume/claude/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "session-resume",
+          "target": "claude"
+        },
+        "expected_disconnect": true,
+        "reason": null,
+        "report": "session-resume--claude--1.json",
+        "sha256": "9db9f0889a97967249ff9c635ff7c5a79ab6a5b09845e31ef166401bac3fad29",
+        "status": "PASS"
+      },
+      {
+        "cell": {
+          "id": "session-resume/copilot/1",
+          "offline": false,
+          "repetition": 1,
+          "scenario": "session-resume",
+          "target": "copilot"
+        },
+        "expected_disconnect": true,
+        "reason": null,
+        "report": "session-resume--copilot--1.json",
+        "sha256": "656ffebb2517e1042857c56231e07d96d55ca57613489e297f661d5105fe1296",
+        "status": "PASS"
+      }
+    ],
+    "certificate_issued": false,
+    "cleanup": {
+      "all_47_worker_containers_removed": true,
+      "lab_model_unloaded": true,
+      "network_removed": true,
+      "ollama_service_and_model_files_retained": true,
+      "relay_removed": true,
+      "remaining_lab_containers": 0,
+      "remaining_lab_networks": 0
+    },
+    "coverage": {
+      "full_matrix_remaining": [],
+      "missing": [],
+      "passed": [
+        "denied-shell/claude/1",
+        "denied-shell/claude/2",
+        "denied-shell/claude/3",
+        "denied-shell/copilot/1",
+        "denied-shell/copilot/2",
+        "denied-shell/copilot/3",
+        "denied-write/claude/1",
+        "denied-write/claude/2",
+        "denied-write/claude/3",
+        "denied-write/copilot/1",
+        "denied-write/copilot/2",
+        "denied-write/copilot/3",
+        "deterministic/claude/1",
+        "deterministic/claude/2",
+        "deterministic/claude/3",
+        "injection/claude/1",
+        "injection/claude/2",
+        "injection/claude/3",
+        "injection/copilot/1",
+        "injection/copilot/2",
+        "injection/copilot/3",
+        "mcp-allowed/claude/1",
+        "mcp-allowed/copilot/1",
+        "mcp-denied/claude/1",
+        "mcp-denied/claude/2",
+        "mcp-denied/claude/3",
+        "mcp-denied/copilot/1",
+        "mcp-denied/copilot/2",
+        "mcp-denied/copilot/3",
+        "native-agent/claude/1",
+        "native-agent/copilot/1",
+        "native-instructions/claude/1",
+        "native-instructions/copilot/1",
+        "native-skill/claude/1",
+        "native-skill/copilot/1",
+        "optional-absent/claude/1",
+        "optional-absent/claude/2",
+        "optional-absent/claude/3",
+        "optional-absent/copilot/1",
+        "optional-absent/copilot/2",
+        "optional-absent/copilot/3",
+        "optional-present/claude/1",
+        "optional-present/copilot/1",
+        "requirements-review/claude/1",
+        "requirements-review/copilot/1",
+        "session-resume/claude/1",
+        "session-resume/copilot/1"
+      ],
+      "required": [
+        "deterministic/claude/1",
+        "deterministic/claude/2",
+        "deterministic/claude/3",
+        "requirements-review/claude/1",
+        "requirements-review/copilot/1",
+        "native-agent/claude/1",
+        "native-agent/copilot/1",
+        "native-skill/claude/1",
+        "native-skill/copilot/1",
+        "native-instructions/claude/1",
+        "native-instructions/copilot/1",
+        "optional-present/claude/1",
+        "optional-present/copilot/1",
+        "optional-absent/claude/1",
+        "optional-absent/claude/2",
+        "optional-absent/claude/3",
+        "optional-absent/copilot/1",
+        "optional-absent/copilot/2",
+        "optional-absent/copilot/3",
+        "denied-write/claude/1",
+        "denied-write/claude/2",
+        "denied-write/claude/3",
+        "denied-write/copilot/1",
+        "denied-write/copilot/2",
+        "denied-write/copilot/3",
+        "denied-shell/claude/1",
+        "denied-shell/claude/2",
+        "denied-shell/claude/3",
+        "denied-shell/copilot/1",
+        "denied-shell/copilot/2",
+        "denied-shell/copilot/3",
+        "injection/claude/1",
+        "injection/claude/2",
+        "injection/claude/3",
+        "injection/copilot/1",
+        "injection/copilot/2",
+        "injection/copilot/3",
+        "mcp-allowed/claude/1",
+        "mcp-allowed/copilot/1",
+        "mcp-denied/claude/1",
+        "mcp-denied/claude/2",
+        "mcp-denied/claude/3",
+        "mcp-denied/copilot/1",
+        "mcp-denied/copilot/2",
+        "mcp-denied/copilot/3",
+        "session-resume/claude/1",
+        "session-resume/copilot/1"
+      ],
+      "unexpected": []
+    },
+    "critical_repetitions": 3,
+    "deterministic_frozen_sha256": {
+      "../test_harness_deterministic.py": "74fe53ea0c14c5e1327be229e35b31c96f5e52b5c053d84c5022259518561338",
+      "deterministic.py": "3d6de056d5eeb19cc706734c04508c29254f02cb99a779de1c1b168d5f741943"
+    },
+    "deterministic_scenarios": 12,
+    "documentation_updated_after_execution": true,
+    "final_report": {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T224601Z-b0dc9db0/summary.json",
+      "sha256": "0d71d2e6886de17ff510d547e70e53b263206f901f627855c7920668863e126d"
+    },
+    "finished_at": "2026-10-27T23:05:12.631319+00:00",
+    "host_orchestrator_python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "live_cells_with_verified_gpu_context_digest": 44,
+    "local_date": "2026-10-28 Europe/Rome",
+    "local_matrix_complete": true,
+    "manifest_sha256": "b387b3a5484efefb8789c2b37c40a6a20b26a36ebb8e383b3610c149e88c846a",
+    "note": "All 47 required local cells passed in a fresh complete run, including relay audit and cleanup. Failed/interrupted attempts are retained. Native OS/VS Code, production conformance and pilot acceptance remain unresolved.",
+    "overall_complete": false,
+    "phase_f_status": "BLOCKED",
+    "rebuild_note": "Final evidence documentation changes the build source identity. Rebuild before replay; the live PASS remains bound to the tested image IDs and runner hashes above.",
+    "regression_checkpoint": {
+      "container_removed": true,
+      "elapsed_seconds": 257.442,
+      "failures": 0,
+      "passed": 1195,
+      "path": "_tests/harness_runtime/runs/regression-09068f8979eb452faea6a1d9492efa6b.json",
+      "sha256": "71e9e975988b78bc8226e5ef3c6cb5ea22594e7056f2bef1975cc12d5bb66879",
+      "skipped_powershell": 20,
+      "subtests_passed": 111,
+      "warnings": 1
+    },
+    "relay_audit": {
+      "entries": 148,
+      "expected_client_disconnects": 2,
+      "sha256": "ab83e52348c844a2657e00b172783fc454d3c2fe249d9c551dcba36f766373c3",
+      "validated": true
+    },
+    "remaining": [
+      {
+        "id": "vscode-copilot",
+        "reason": "No authorized automated VS Code Copilot execution interface exposed to this runner",
+        "status": "BLOCKED"
+      },
+      {
+        "id": "native-macos-clis",
+        "reason": "This profile isolates Linux CLIs; native macOS conformance requires a separate sandbox runner",
+        "status": "BLOCKED"
+      },
+      {
+        "id": "native-windows-clis",
+        "reason": "No Windows native runtime attached",
+        "status": "BLOCKED"
+      },
+      {
+        "id": "production-projection-conformance",
+        "reason": "Synthetic discovery probes do not certify all canonical roles/skills; production capability profiles remain unverified",
+        "status": "BLOCKED"
+      },
+      {
+        "id": "five-pr-pilot",
+        "reason": "Full required host evidence and five-PR pilot acceptance are outstanding",
+        "status": "BLOCKED"
+      }
+    ],
+    "reports": [
+      {
+        "completed_cells": 1,
+        "local_matrix_complete": false,
+        "passed_cells": 0,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T214718Z-e852d44c/summary.json",
+        "planned_cells": 1,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "5f304d32c1ff3b8b025073fcedce6a7d2de576c212bd736c9abfa05e7bc8e529",
+        "status": "FAIL"
+      },
+      {
+        "completed_cells": 2,
+        "local_matrix_complete": false,
+        "passed_cells": 1,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T214743Z-2dd6fd01/summary.json",
+        "planned_cells": 2,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "b6b1d5f715c502057323ff8e19b7c7bd0dba3abf07fd0e2c3b4dca450037a215",
+        "status": "FAIL"
+      },
+      {
+        "completed_cells": 1,
+        "local_matrix_complete": false,
+        "passed_cells": 1,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T214907Z-3dcd02fa/summary.json",
+        "planned_cells": 1,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "6aecbc84ac83d7bb15066b20523114451155e6acdf38fea8342148dd4fdebe36",
+        "status": "PASS"
+      },
+      {
+        "completed_cells": 8,
+        "local_matrix_complete": false,
+        "passed_cells": 7,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T214909Z-055e4bb1/summary.json",
+        "planned_cells": 8,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "dfa97940d0a983aae9aa1182093ca11108facda15c3f9b475fa71ba9ae1f430a",
+        "status": "FAIL"
+      },
+      {
+        "completed_cells": 20,
+        "local_matrix_complete": false,
+        "passed_cells": 19,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T215227Z-289bbd7a/summary.json",
+        "planned_cells": 36,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "65b064c146564450615e72795b54d40486a2cd5835dcd86220719c7c87ec1f15",
+        "status": "FAIL"
+      },
+      {
+        "completed_cells": 47,
+        "local_matrix_complete": false,
+        "passed_cells": 47,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T220906Z-aaaa0c51/summary.json",
+        "planned_cells": 47,
+        "reason": "Unexpected relay rejection or transport error",
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "22e25fdf393a0201fceee7ee7dadecba39769dc1409f6c3049c08ad32bcf4d0b",
+        "status": "FAIL"
+      },
+      {
+        "completed_cells": 19,
+        "local_matrix_complete": false,
+        "passed_cells": 16,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T223144Z-b61623a5/summary.json",
+        "planned_cells": 47,
+        "reason": "Matrix interrupted; unexecuted cells remain missing",
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "6660fac2a85b5217eeef17d037536357a46291fe4b86fdf350112288d02f6295",
+        "status": "FAIL"
+      },
+      {
+        "completed_cells": 5,
+        "local_matrix_complete": false,
+        "passed_cells": 5,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T224434Z-191754f1/summary.json",
+        "planned_cells": 5,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "2a8cd75dab56d50867632674f3c40ab8b150d24bf1abc184b7f91ee1f96271ff",
+        "status": "PASS"
+      },
+      {
+        "completed_cells": 47,
+        "local_matrix_complete": true,
+        "passed_cells": 47,
+        "path": "_tests/harness_runtime/runs/matrix-20261027T224601Z-b0dc9db0/summary.json",
+        "planned_cells": 47,
+        "reason": null,
+        "scope": "phase-f-scenario-matrix",
+        "sha256": "0d71d2e6886de17ff510d547e70e53b263206f901f627855c7920668863e126d",
+        "status": "PASS"
+      },
+      {
+        "path": "_tests/harness_runtime/runs/regression-09068f8979eb452faea6a1d9492efa6b.json",
+        "reason": null,
+        "scope": "deterministic-regression",
+        "sha256": "71e9e975988b78bc8226e5ef3c6cb5ea22594e7056f2bef1975cc12d5bb66879",
+        "status": "PASS"
+      },
+      {
+        "path": "_tests/harness_runtime/runs/regression-181dea985d0947ac972f57d554078d46.json",
+        "reason": "Worker did not return a valid result",
+        "scope": "local-preflight",
+        "sha256": "172dd50ce314496bfcb741383a824a81ae320d4b9f313e98d0e185672c89ff95",
+        "status": "FAIL"
+      },
+      {
+        "path": "_tests/harness_runtime/runs/regression-4a9f7ab2bb5d47f5ac0949257046683a.json",
+        "reason": null,
+        "scope": "deterministic-regression",
+        "sha256": "2fcdd83d5ee5db07e1836a2ca918ed519fa2f8e585d8bfe0798277856ab268f9",
+        "status": "PASS"
+      },
+      {
+        "path": "_tests/harness_runtime/runs/regression-6bf7762ca6174077a3f68447715fc6c2.json",
+        "reason": null,
+        "scope": "deterministic-regression",
+        "sha256": "7004d2a092a77c1756fb6136ad7f5b2a978ca7c1a7176fa1f6bf5c9f28e51c00",
+        "status": "PASS"
+      },
+      {
+        "path": "_tests/harness_runtime/runs/regression-cec33601be5c4e2bac86d415da0bf1b5.json",
+        "reason": "Failed checks: ",
+        "scope": "local-preflight",
+        "sha256": "816f61853dd3b92262890557b56ee1d07582329348bad3b2cfbb013f2acf82b4",
+        "status": "FAIL"
+      }
+    ],
+    "reproduce": {
+      "build": "python3 _tests/harness_runtime/lab.py build",
+      "matrix": "python3 _tests/harness_runtime/lab.py matrix --config _tests/harness_runtime/config.ollama.json",
+      "regression": "python3 _tests/harness_runtime/lab.py regression --target claude"
+    },
+    "required_local_cells": 47,
+    "scope": "local-phase-f-synthetic-structural-matrix",
+    "started_at": "2026-10-27T22:46:01.485711+00:00",
+    "status": "PASS",
+    "tested_builds": {
+      "claude": {
+        "image_id": "sha256:86d52f17ec08827fb913e8b253551c19663e6eb193aaee4f4e707ba519ef2b4f",
+        "npm_lock_sha256": "eccae4b22edc723f9f731a5027af6a36fdc640d376e5c3c3fb138e9c14b57692",
+        "recipe": {
+          "Dockerfile": "f4db351c82c9b542b1fb727a8ced1e6b3ebf82ad96f611e96ed88154476fe77a",
+          "deterministic.py": "3d6de056d5eeb19cc706734c04508c29254f02cb99a779de1c1b168d5f741943",
+          "lab.py": "91931023915d530512d6aeb691abaf0a57fc4233859ff10ab933988f916300d6",
+          "matrix-requirements.lock": "62351b5da91349322b37227e5e55e16a1004172d3069750afac7c390c0cd72e7",
+          "matrix.py": "e5f4dc2dfdbe2e129922ebea489d0a51b0022bbd2a97ad7b0431441ada6382d8",
+          "native_cases.py": "c09a055a138da1b379afb5874aed326b3abcb5d0c7d90bb0ee5269b0aed7f7c7",
+          "relay.py": "13cbadb715421e47db11bebe166f1463e1d2176f5cc106ec433a612a67f74269",
+          "scenarios.json": "b387b3a5484efefb8789c2b37c40a6a20b26a36ebb8e383b3610c149e88c846a",
+          "worker.py": "0c8af0a21ca2a15b5b5ec328d261fc3d4c2512fea499ae3c731e5dd0f5229a2a"
+        },
+        "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+        "source_sha256": "e650f13b5a4271f4d8d1e78d321ed17925006d145474961210eda21cd0d2a00c",
+        "tag": "sdd-w30-claude:8037b37a725735fb"
+      },
+      "copilot": {
+        "image_id": "sha256:6ff6076b107b59ad366a92cf159a1c97fc18cc6723d6fc898014e0d5bbf92a84",
+        "npm_lock_sha256": "b5f3cb825ecfed71007a7d677d0244dd9e6b1ad6100bc9b5099a895e3fb4954b",
+        "recipe": {
+          "Dockerfile": "f4db351c82c9b542b1fb727a8ced1e6b3ebf82ad96f611e96ed88154476fe77a",
+          "deterministic.py": "3d6de056d5eeb19cc706734c04508c29254f02cb99a779de1c1b168d5f741943",
+          "lab.py": "91931023915d530512d6aeb691abaf0a57fc4233859ff10ab933988f916300d6",
+          "matrix-requirements.lock": "62351b5da91349322b37227e5e55e16a1004172d3069750afac7c390c0cd72e7",
+          "matrix.py": "e5f4dc2dfdbe2e129922ebea489d0a51b0022bbd2a97ad7b0431441ada6382d8",
+          "native_cases.py": "c09a055a138da1b379afb5874aed326b3abcb5d0c7d90bb0ee5269b0aed7f7c7",
+          "relay.py": "13cbadb715421e47db11bebe166f1463e1d2176f5cc106ec433a612a67f74269",
+          "scenarios.json": "b387b3a5484efefb8789c2b37c40a6a20b26a36ebb8e383b3610c149e88c846a",
+          "worker.py": "0c8af0a21ca2a15b5b5ec328d261fc3d4c2512fea499ae3c731e5dd0f5229a2a"
+        },
+        "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+        "source_sha256": "e650f13b5a4271f4d8d1e78d321ed17925006d145474961210eda21cd0d2a00c",
+        "tag": "sdd-w30-copilot:8037b37a725735fb"
+      }
+    }
+  },
+  "schema_version": 1,
+  "targets": {
+    "claude": {
+      "image_id": "sha256:52b08bab396ddc98a805b558aa24f03d8d155bc2e0ec3f46989604bec8ca6ecd",
+      "npm_lock_sha256": "eccae4b22edc723f9f731a5027af6a36fdc640d376e5c3c3fb138e9c14b57692",
+      "recipe": {
+        "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+        "lab.py": "e569011b9273047ad3ca0353ca902fda4947fa12fcc873bdde5e1bf170bd8279",
+        "worker.py": "c3ae8c84c9e46b6bdc0e37bbe3af849cad1c7bed3b1117d640692e55683dffc2"
+      },
+      "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+      "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+      "tag": "sdd-w30-claude:d30b1b5568d3b69d"
+    },
+    "copilot": {
+      "image_id": "sha256:790eaff78bf342df837dedddb58acaa461911762ae4a0f8f2d1b88beaf96e1ce",
+      "npm_lock_sha256": "b5f3cb825ecfed71007a7d677d0244dd9e6b1ad6100bc9b5099a895e3fb4954b",
+      "recipe": {
+        "Dockerfile": "480161dbcffe5f752c8fe4a08758692063647cbae04e32a6d750035160851830",
+        "lab.py": "e569011b9273047ad3ca0353ca902fda4947fa12fcc873bdde5e1bf170bd8279",
+        "worker.py": "c3ae8c84c9e46b6bdc0e37bbe3af849cad1c7bed3b1117d640692e55683dffc2"
+      },
+      "revision": "b84792036f58eaf30c3f515c9b08d74eda59b186",
+      "source_sha256": "d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30",
+      "tag": "sdd-w30-copilot:d30b1b5568d3b69d"
+    }
+  },
+  "versions": {
+    "base_image": "node@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d",
+    "created_at": "2026-10-27T19:30:28.323651+00:00",
+    "platform": "linux/arm64",
+    "python_requirements": {
+      "attrs": "26.1.0",
+      "iniconfig": "2.3.1",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "packaging": "26.3",
+      "pluggy": "1.7.0",
+      "pygments": "2.21.0",
+      "pytest": "9.1.1",
+      "pyyaml": "6.0.3",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.9.1",
+      "typing-extensions": "4.16.0"
+    },
+    "schema_version": 1,
+    "targets": {
+      "claude": {
+        "integrity": "sha512-7SgBitii1ZscdbRJXLcub7Vv2pfvH3wo7RrCKg4vZpklIfz9HgigJFFJGIjCY6jzoPDvbQcwwugvm3A8PTejzw==",
+        "package": "@anthropic-ai/claude-code",
+        "version": "2.1.311"
+      },
+      "copilot": {
+        "integrity": "sha512-C2fPHjSM8HanINktDaqaalPzNSsth9H3zj9V4+ier8ziOIqi+U6OiLXwH44e+QR1vIEaRLKnX40tXUS8SeJDVw==",
+        "package": "@github/copilot",
+        "version": "1.0.104"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+DETECTED allow-protected-write
+DETECTED silence-policy-denial
+DETECTED accept-stale-and-self-review
+DETECTED rollback-does-nothing
+DETECTED omit-exposure-evidence
+DETECTED bypass-tool-policy
+{
+  "status": "PASS",
+  "report": "/mnt/data/sdd_companion_work/clean-replay-runs/mutations-8e1154cfc2/summary.json"
+}

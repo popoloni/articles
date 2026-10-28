@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-28T09:56:54.513782+00:00",
+  "status": "PASS",
+  "evidence_kind": "historical-summary-consistency-audit",
+  "source": "evidence/original/runtime-lab-record.json",
+  "source_sha256": "805bc8685c66699671b99c681d8f9f66fe70041b8b1e65bc65fbbe7c23ccd0ff",
+  "checks": [
+    {
+      "name": "47_required_execution_cells",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "unique_cell_ids",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "exact_declared_scenario_expansion",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all_reported_cell_statuses_pass",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "44_live_plus_3_structural",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "per_cell_hash_metadata_well_formed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "coverage_required_matches_cells",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "coverage_passed_matches_cells",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_missing_or_unexpected_cells_reported",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "local_pass_does_not_issue_certificate",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "later_regression_counts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "skips_and_failures_visible",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "five_focused_foundation_cases",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "foundation_acceptance_not_claimed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "failed_matrix_attempts_preserved_in_summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "aggregate_failure_despite_green_cells_preserved",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "matrix_cell_counts": {
+    "structural": 3,
+    "claude": 22,
+    "copilot": 22
+  },
+  "recorded_matrix_duration_seconds": 1151.145608,
+  "original_runtime_reexecuted": false,
+  "raw_per_cell_payloads_verified": false,
+  "certificate_issued": false,
+  "limitation": "Checks internal consistency and preserved metadata only. Missing raw transcripts, per-cell reports, container archives, weights and private source cannot be authenticated or reconstructed from hashes."
+}
+

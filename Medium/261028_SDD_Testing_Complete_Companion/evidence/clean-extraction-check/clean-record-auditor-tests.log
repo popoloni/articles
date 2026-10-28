@@ -1,0 +1,11 @@
+test_changed_regression_count_detected (test_record_audit.RecordAuditTests.test_changed_regression_count_detected) ... ok
+test_duplicate_cell_detected (test_record_audit.RecordAuditTests.test_duplicate_cell_detected) ... ok
+test_missing_cell_detected (test_record_audit.RecordAuditTests.test_missing_cell_detected) ... ok
+test_nonpassing_cell_detected (test_record_audit.RecordAuditTests.test_nonpassing_cell_detected) ... ok
+test_original_summary_is_consistent (test_record_audit.RecordAuditTests.test_original_summary_is_consistent) ... ok
+test_unjustified_certificate_detected (test_record_audit.RecordAuditTests.test_unjustified_certificate_detected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.010s
+
+OK

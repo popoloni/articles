@@ -1,0 +1,24 @@
+PASS  gate-pass/reference-fixture/1
+PASS  gate-block-and-resume/reference-fixture/1
+PASS  review-freshness/reference-fixture/1
+PASS  greenfield-rollback/reference-fixture/1
+PASS  brownfield-recovery/reference-fixture/1
+PASS  denied-write/reference-fixture/1
+PASS  denied-write/reference-fixture/2
+PASS  denied-write/reference-fixture/3
+PASS  skill-present/reference-fixture/1
+PASS  skill-absent/reference-fixture/1
+PASS  skill-absent/reference-fixture/2
+PASS  skill-absent/reference-fixture/3
+PASS  injection-exposure/reference-fixture/1
+PASS  injection-exposure/reference-fixture/2
+PASS  injection-exposure/reference-fixture/3
+PASS  tool-allowed/reference-fixture/1
+PASS  tool-denied/reference-fixture/1
+PASS  tool-denied/reference-fixture/2
+PASS  tool-denied/reference-fixture/3
+PASS  session-resume/reference-fixture/1
+{
+  "status": "PASS",
+  "report": "/mnt/data/sdd_companion_work/clean-replay-runs/matrix-20261028T100601Z-9f44debfb8/summary.json"
+}

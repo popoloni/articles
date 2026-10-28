@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>**Portable reading copy.** Original experiment text; local links were remapped where supplied. Unavailable repository files are shown as source-only references, not working downloads. The [unchanged source](../original/runtime-lab.md) and [original ZIP](../original-upload.zip) are preserved separately.</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../../starter/README.html">Run the starter</a><a href="../README.html">Evidence</a></nav></header><main><blockquote>
+<p><strong>Portable reading copy.</strong> Original experiment text; local links were remapped where supplied. Unavailable repository files are shown as source-only references, not working downloads. The <a href="../original/runtime-lab.md">unchanged source</a> and <a href="../original-upload.zip">original ZIP</a> are preserved separately.</p>
+</blockquote>
+<h1 id="w30-isolated-cli-lab--smoke-and-expanded-scenario-matrix">W30 isolated CLI lab — smoke and expanded scenario matrix</h1>
+<p>Recorded October 27, 2026. <strong>F.3/F.4 remain partial/blocked; 32/59 wave tasks
+complete. No compatibility certificate or F.5 closure.</strong></p>
+<p><strong>Ollama continuation:</strong> the lab now supports native Apple Silicon/Metal inference
+through config.ollama.json (<code>../../../_tests/harness_runtime/config.ollama.json</code>; source-only reference, not supplied),
+using the existing Qwen 3.5 9B Q4_K_M weights without cloud credentials. See the
+Ollama section below for observed runs; the original cloud attempts remain
+historical evidence and are not overwritten.</p>
+<p><strong>Final local-model smoke:</strong> <code>20261027T205558Z-29cdd631.json</code> reports <strong>PASS for
+both CLIs, 22/22 checks each</strong>, with distinct observed builder/reviewer sessions.
+No native compatibility certificate is implied.</p>
+<h2 id="expanded-scenario-suite--october-27">Expanded scenario suite — October 27</h2>
+<p><strong>Final result, October 28 Europe/Rome (October 27 UTC): PASS, 47/47 local
+cells.</strong> The complete run <code>matrix-20261027T224601Z-b0dc9db0</code> started at
+22:46:01 UTC and finished at 23:05:12 UTC. Its relay audit validated 148 entries,
+including exactly two expected client disconnects from deliberate interruption.
+All 47 worker containers, the relay and its internal network were removed.
+The lab model was then unloaded from GPU memory; its alias/weights and the
+existing Ollama service remain available for replay.</p>
+<table>
+<thead>
+<tr>
+<th>Validation</th>
+<th>Final result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Structural matrix</td>
+<td>3 independent runs × all 12 scenario IDs PASS; real Sandbox venv/pip/installed CLI retained</td>
+</tr>
+<tr>
+<td>Claude Code 2.1.311</td>
+<td>22/22 live cells PASS</td>
+</tr>
+<tr>
+<td>Copilot CLI 1.0.104</td>
+<td>22/22 live cells PASS</td>
+</tr>
+<tr>
+<td>Critical negatives</td>
+<td>3 independent repetitions per CLI for absent skill, write/shell denial, injection and MCP denial</td>
+</tr>
+<tr>
+<td>Ollama runtime</td>
+<td>Pinned digest, 65,536 context and fully GPU-resident weights checked before/after all 44 live cells</td>
+</tr>
+<tr>
+<td>Full offline regression</td>
+<td>1,195 passed, 111 subtests passed, 20 PowerShell skips, zero failures, one existing fixture deprecation warning; 257.11 seconds</td>
+</tr>
+</tbody>
+</table>
+<p>The regression report is <code>regression-09068f8979eb452faea6a1d9492efa6b.json</code>.
+The <a href="../original/runtime-lab-record.json">replay record</a> stores report hashes, tested image
+IDs, recipe/source hashes, coverage and retained failed attempts. Final evidence
+documentation was written after execution, so a subsequent documentation-only
+image rebuild has a new source/image identity. The recorded live verdict belongs
+to the original tested images, not an unexecuted replacement image.</p>
+<p>The saved manifest (<code>../../../_tests/harness_runtime/scenarios.json</code>; source-only reference, not supplied) defines 47
+local cells. Three complete structural runs cover all twelve deterministic IDs;
+live CLI cases cover native agents/skills/instructions, optional presence/absence,
+write/shell denial, injection, allowed/denied MCP, requirements/review and actual
+interrupted-session recovery. Critical negatives use three fresh containers per
+CLI. The full test tree and CLI wheels are baked into a network-disabled
+regression image; no host Python packages or CLI settings are changed.</p>
+<p>The first complete matrix execution, <code>matrix-20261027T220906Z-aaaa0c51</code>, passed
+all 47 individual cells but correctly retained an aggregate FAIL: the initial
+audit validator classified deliberate client disconnections during session
+interruption as transport faults. The fix distinguishes client response-write
+disconnections from upstream errors and limits exceptions to completed intentional
+interruption tests. The first repaired full regression passed <strong>1,192 tests and
+111 subtests</strong>, with <strong>20 PowerShell skips</strong>, zero failures and one existing
+warning (<code>regression-4a9f7ab2bb5d47f5ac0949257046683a.json</code>). Final reruns are
+recorded in the machine-readable replay record; historical reports remain intact.</p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Correction and evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Real sandbox launcher failed on noexec tmpfs</td>
+<td>Offline test tmpfs is executable; real installed CLI lifecycle retained; all twelve structural scenarios passed three times</td>
+</tr>
+<tr>
+<td>Image omitted support files/executable modes</td>
+<td>Include scripts, audit allowlist, placeholder env and normalized modes; full regression green</td>
+</tr>
+<tr>
+<td>Claude Messages request adds beta query</td>
+<td>Allow only the observed exact <code>?beta=true</code> variant; arbitrary queries remain rejected</td>
+</tr>
+<tr>
+<td>Copilot skill hidden from model-facing tool</td>
+<td>Use documented native skill metadata/invocation; hidden-receipt probes pass</td>
+</tr>
+<tr>
+<td>Local model retried denied operations until timeout</td>
+<td>Request exactly one attempt and stop on denial; rerun all three repetitions; keep timeout evidence</td>
+</tr>
+<tr>
+<td>Missing Claude skill was correctly reported with an unrecognized synonym</td>
+<td>Use the same slash-invocation prompt for installed/absent skills with an explicit UNAVAILABLE fallback; retain inventory and withheld-receipt checks; focused 5/5 and fresh full 47/47 pass</td>
+</tr>
+<tr>
+<td>Loose response/denial checks could accept incomplete evidence</td>
+<td>Require terminal CLI results, final answers, and native policy denial bound to intended tool/arguments</td>
+</tr>
+<tr>
+<td>Interrupted response marker could split across reads</td>
+<td>Detect markers across accumulated stdout; regression test added</td>
+</tr>
+<tr>
+<td>Injection read/answer evidence needed stronger binding</td>
+<td>Require successful read of the expected file including the payload and only a legitimate project-code answer</td>
+</tr>
+<tr>
+<td>Audit collection/postflight failure could preserve PASS</td>
+<td>Aggregate audit validation and explicit postflight failure; expected interruption disconnects narrowly classified</td>
+</tr>
+</tbody>
+</table>
+<p>Workers have no host mounts or published ports. Live cells check blocked direct
+public/host-Ollama TCP paths and rejected model-management access; the relay routes
+only the pinned local model. Native CLI events, session IDs, source/image/config
+hashes, protected file digests and MCP audits are retained per attempt. Reports
+remain scoped to local structural/synthetic scenarios, with no compatibility
+certificate. Full production role/workflow conformance, VS Code, native OS
+execution and pilot acceptance remain unresolved. No Phase G implementation.</p>
+<h2 id="delivered">Delivered</h2>
+<p>The <a href="README.html">runbook</a> documents the host runner,
+container recipe, effective configuration (<code>../../../_tests/harness_runtime/config.json</code>; source-only reference, not supplied),
+version lock (<code>../../../_tests/harness_runtime/versions.lock.json</code>; source-only reference, not supplied), credentials,
+resource/time/cost boundaries, replay, cleanup and remaining scenario coverage.
+The runner reuses canonical workflow preparation, existing eval assertions,
+deterministic gate/resume commands and the F.2 deployment fixtures. No production
+capability profile was promoted, no existing assertion was changed, and no
+Phase G implementation began.</p>
+<p>Both latest-stable package releases were resolved from their official npm
+registry entries at 19:30 UTC and their integrity hashes recorded:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Recorded value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host Python</td>
+<td>3.13.14; standard library only, no new host dependencies</td>
+</tr>
+<tr>
+<td>Docker client/server</td>
+<td>27.3.1, desktop-linux</td>
+</tr>
+<tr>
+<td>Container platform</td>
+<td>linux/arm64</td>
+</tr>
+<tr>
+<td>Claude Code</td>
+<td>2.1.311</td>
+</tr>
+<tr>
+<td>Copilot CLI</td>
+<td>1.0.104</td>
+</tr>
+<tr>
+<td>Container Python</td>
+<td>3.11.2</td>
+</tr>
+<tr>
+<td>Container pytest</td>
+<td>9.1.1</td>
+</tr>
+<tr>
+<td>Claude model</td>
+<td>claude-sonnet-5-5, listed by authenticated model API</td>
+</tr>
+<tr>
+<td>Copilot model</td>
+<td>Unselected; token unavailable</td>
+</tr>
+<tr>
+<td>Per-container resources</td>
+<td>2 CPUs, 2 GiB memory, 128 processes</td>
+</tr>
+<tr>
+<td>Time/budget</td>
+<td>300 seconds per CLI invocation; Claude USD 2 per invocation; Copilot account-side spending policy required</td>
+</tr>
+</tbody>
+</table>
+<p>The standalone host Claude installation remains separate from these images.
+Docker Desktop was started; no global CLI or Python packages were installed.
+The initial VS Code task creation timed out; the task was subsequently created
+and successfully used for both image builds. Expanded-suite orchestration used
+host Python 3.14.6; the build task uses Python 3.13.14. Both use only the standard
+library. The frozen deterministic bootstrap and its 21 unit tests were retained.</p>
+<h2 id="final-offline-verification">Final offline verification</h2>
+<p>Host runner tests: <strong>14 passed</strong> using <code>python3.13 _tests/test_harness_runtime.py -v</code>.
+VS Code had no discovered tests for the new file, so its direct standard-library
+unittest entrypoint was used. Editor diagnostics were clean for all three new
+Python files. No full 1,123-test framework rerun is claimed by this increment.</p>
+<p>Both final containers passed <strong>8/8 checks</strong>: exact CLI startup version, scaffold,
+incomplete Gate 1 rejection, absent successful checkpoint, resume after rejection,
+spec preservation, existing F.2 greenfield/brownfield deployment regression
+(<strong>2 pytest cases per target</strong>) and canonical Phase 1 context preparation.
+Networking was disabled for this check. It is deterministic local evidence,
+not live model or native discovery evidence.</p>
+<p>Final local report: <code>20261027T194000Z-21af9245.json</code> under the runbook's ignored
+<code>runs/</code> directory. See <a href="../original/runtime-lab-record.json">machine-readable replay record</a>
+for the image/source identifiers and report hashes.</p>
+<h2 id="live-attempt-and-blockers">Live attempt and blockers</h2>
+<p>The Claude request used the pinned model and reached Anthropic, which returned
+HTTP 400, <code>is_error: true</code>, and <strong>Credit balance is too low</strong>. It reported
+<strong>USD 0 cost</strong>, zero input/output tokens and no model-generated artifact. The
+provider also returned <code>subtype: success</code>; the runner correctly rejected the
+explicit error instead of treating this field as success. No reviewer request
+followed the failed builder request. No retry was made after observing the credit
+blocker. The final runner additionally classifies that known provider error as
+BLOCKED; a regression test covers the observed event shape.</p>
+<p>The preserved first live report is <code>20261027T193830Z-86e9e2b4.json</code> (overall FAIL,
+Claude FAIL at the then-current adapter, Copilot BLOCKED). Historical records are
+not rewritten to match later classification improvements. Claude's operational
+blocker is insufficient API credit. Copilot has no <code>COPILOT_GITHUB_TOKEN</code> in this
+session and no selected model; its final explicit prerequisite report is
+<code>20261027T193957Z-99f6feff.json</code>, target status BLOCKED and overall nonzero exit.</p>
+<p>At that cloud checkpoint the successful builder/reviewer path was unobserved.
+The subsequent Ollama runs below exercise it locally. Distinct observed session IDs and observed model
+pins are mandatory checks; imported runtime transcripts still cannot certify a
+host. Container access and version checks alone do not complete F.3 or F.4.</p>
+<h2 id="failures-retained-and-corrections">Failures retained and corrections</h2>
+<ol>
+<li>First Claude offline run (<code>20261027T193534Z-ead28176.json</code>): fixture copy
+preserved immutable image permissions and Git initialization failed. The
+disposable copy now becomes writable; source permissions stay unchanged.
+Added a focused regression test.</li>
+<li>Copilot help initially failed to load a native addon from a non-executable
+tmpfs cache. Its isolated home now permits executable cache files. Host
+mounts remain absent; the system image remains read-only.</li>
+<li>Copilot offline run (<code>20261027T193829Z-d834df16.json</code>): all scenario checks
+passed except exact-version parsing, which rejected the CLI's trailing full
+stop in <code>1.0.104.</code>. The parser now permits punctuation while rejecting
+different versions/prereleases; added a regression test.</li>
+<li>Claude provider credit rejection described above. Preserved as an external
+prerequisite failure; no gate, permission or artifact check was relaxed.</li>
+</ol>
+<h2 id="replay-and-next-action">Replay and next action</h2>
+<p>The selected framework source is commit <code>b84792036f58eaf30c3f515c9b08d74eda59b186</code>
+with actual selected bytes hashed as
+<code>d965f366c973d1b1b389e4adc4a69e14e981c3a87ebe9091a6bda9853b434a30</code>.
+The runner includes its own new uncommitted files explicitly, hashed in each
+build record. Subsequent runs reject source, runner or lock drift until rebuilt.
+Use the exact local image IDs for replay; apt/npm rebuilds are not guaranteed
+byte-identical. Images/cache are retained, and every lab scenario container was
+removed. No unrelated Docker container or volume was removed.</p>
+<p>For the optional cloud profile: fund the Anthropic API account associated with the selected key,
+provide a Copilot token with Copilot Requests permission to the invoking process,
+and select an available exact Copilot model ID in the config. Never put credentials
+in tracked files or chat. Then invoke <code>lab.py run</code> as documented. Successful live
+smokes are the next checkpoint, followed by the remaining native/lifecycle/MCP/
+adversarial/repetition matrix. F.5, VS Code and native operating-system checks
+remain separate obligations.</p>
+<h2 id="native-ollama--metal-continuation">Native Ollama / Metal continuation</h2>
+<p>The user requested local inference on the Mac while preserving disposable CLI
+environments. The existing native Ollama <strong>0.40.11</strong> service and installed
+<code>qwen3.5:9b-q4_K_M</code> weights were reused. No model download, host CLI installation,
+global Python/npm package installation or host CLI authentication/configuration
+change was needed. Only <code>sdd-w30-qwen35:9b-64k</code> was added to Ollama; it shares the
+base weight blobs. Its creation parameters and both manifest digests are pinned
+in the local configuration. The runbook documents setup, repeat execution,
+unloading/removing only this alias, and restoration prerequisites.</p>
+<p>The native server log showed <code>ggml_metal_init: found device: Apple M2 Max</code> and
+selection of that device. API <code>/api/ps</code> and <code>ollama ps</code> reported <strong>100% GPU</strong>,
+<strong>65,536 context tokens</strong>, with approximately <strong>7.5 GB</strong> resident for this model.
+The Mac has <strong>64 GiB</strong> unified memory. Docker's 2 GiB limit bounds each CLI, not
+the separate native GPU process. Calls run sequentially. The initial base-model
+probe was unloaded after use; no unrelated model or service was stopped.</p>
+<p>Both official CLI packages route to <code>host.docker.internal:11434</code>: Claude uses
+the Anthropic API and Copilot uses OpenAI chat completions with BYOK/offline
+mode. No paid credentials are forwarded. CLI versions remain <strong>2.1.311</strong> and
+<strong>1.0.104</strong>. Model defaults are temperature 0 and 8,192 output tokens; the final
+runner also configures each CLI's context/output limits. API requests can
+override sampling defaults; this is not a deterministic-output guarantee.</p>
+<p>Preserved attempts and corrections:</p>
+<ol>
+<li><code>20261027T204227Z-ad503fbc.json</code>: both targets BLOCKED before model work because
+Ollama reused the shared-weight runner from the initial base-model probe and
+reported its base identity. Stopping that probe-owned runner allowed the lab
+alias to load with its pinned identity. No identity check was bypassed.</li>
+<li><code>20261027T204948Z-39f05c39.json</code>: Claude <strong>22/22 PASS</strong>; Copilot <strong>21/22</strong>.
+Copilot's artifact correctly said “Security review is still required before
+ship”, but the original lowercase-only word check rejected it. The corrected
+oracle is case-insensitive and requires the complete missing-review statement;
+a bare heading or a waived review does not satisfy it.</li>
+<li>The same Copilot transcript exposed that echoed user prompts/reasoning/tool
+output were included in parsed reply text. The parser now accepts only
+<code>assistant.message</code> content for reviewer assertions, with an explicit
+prompt-echo false-positive regression test. Provider session/model IDs still
+come from observed events. Failed tool attempts are retained separately;
+that run attempted unavailable <code>bash</code> and creation of an existing file,
+recovered, and changed only the specification. A smoke PASS does not certify
+prompt obedience or every permission-denial route.</li>
+<li>An independent code review found that existing alias parameters needed
+comparison with the recorded configuration, and Claude needed explicit
+context/output settings. Both are implemented, with focused regression cases.</li>
+</ol>
+<p>The original full-suite container attempt had <strong>1,114 passed, 9 failed, 20
+skipped</strong>: eight failures were missing parent-repository instruction/agent inputs
+in the temporary test export, and one was missing <code>jq</code> in the regression image.
+The corrected regression container includes those inputs plus <code>jq</code>, with
+<code>pytest-asyncio 1.4.1</code> and <code>mcp 1.30.0</code>; its dependency snapshot is retained.
+The standalone runner suite now has <strong>22 passing tests</strong>. No host packages were
+installed. Final execution and regression identifiers are recorded in the
+<a href="../original/runtime-lab-record.json">machine-readable record</a>.</p>
+<p>Final live run on the corrected adapters:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th style="text-align:right">Checks</th>
+<th style="text-align:right">Builder</th>
+<th style="text-align:right">Independent reviewer</th>
+<th style="text-align:right">Observed tool failures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code 2.1.311</td>
+<td style="text-align:right">22/22 PASS</td>
+<td style="text-align:right">64.039 s</td>
+<td style="text-align:right">42.864 s</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td>Copilot CLI 1.0.104</td>
+<td style="text-align:right">22/22 PASS</td>
+<td style="text-align:right">122.134 s</td>
+<td style="text-align:right">28.790 s</td>
+<td style="text-align:right">0</td>
+</tr>
+</tbody>
+</table>
+<p>Both runs observed the pinned model, changed only the intended specification,
+preserved a read-only reviewer workspace, bound the review reply to the artifact
+digest and received a deterministic Gate 4 rejection. The final offline report
+<code>20261027T205139Z-053ec7b3.json</code> also passes <strong>8/8 checks per CLI</strong>. Timing values
+are single observations, not performance guarantees. All scenario containers
+were removed. The lab-owned model was stopped after testing; <code>ollama ps</code> was
+empty. The native service, base weights, lab alias and replay images remain.</p>
+<p>The corrected full Linux regression run passed <strong>1,126 tests and 4 subtests</strong>
+in <strong>269.04 seconds</strong>, with <strong>20 PowerShell cases skipped</strong> because PowerShell
+is unavailable in this container, and one existing pytest fixture deprecation
+warning. No failures remain. The regression container was also removed. Its
+image ID, complete extra dependency lock, log hash and outcome are retained in
+the machine-readable record. This Linux result does not replace the earlier
+macOS/PowerShell checkpoint or certify Windows parity.</p>
+<p>Rebuildability means retaining the source revision <strong>and these uncommitted lab
+additions</strong>, config, lock, Ollama version and the pinned model cache. A future
+registry tag with changed bytes is rejected. Byte-exact container replay needs
+saved images; apt/transitive dependency resolution remains a rebuild variable.
+This continuation is within F.3/F.4: native discovery, successful full Gate 1–4
+lifecycle, controlled MCP/adversarial cases, repeated negative scenarios, VS Code
+and native operating-system certification still remain. F.5 is not closed.</p>
+<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="runtime-lab.md">Markdown source</a></footer></main></body></html>

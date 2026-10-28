@@ -1,0 +1,601 @@
+{
+  "schema_version": 1,
+  "scope": "all five original files and uploaded source ZIP included; missing source payloads explicitly distinguished",
+  "included_original_files": {
+    "README.md": "12bd764622e94af9fda0da10c560912a4a255eaf0b478a98a05d7e53e60f3036",
+    "foundation-report.md": "10a02a724d7a4b5ca590399b5ce691c614cb53bbf65ea1a28cae6a4c45d70ff7",
+    "runtime-lab-record.json": "805bc8685c66699671b99c681d8f9f66fe70041b8b1e65bc65fbbe7c23ccd0ff",
+    "runtime-lab.md": "a67d429fbda6eb332d3e7ea934400421044b76d0c41d9913dcdcd422719819b0",
+    "testing-an-sdd-framework-autonomously.md": "952b49b655fba5cbc34562d69829f7f0adef3b028fb6b57862bb2f855e84a4cd"
+  },
+  "unavailable_repository_links": [
+    {
+      "source_document": "runtime-lab.md",
+      "label": "config.ollama.json",
+      "original_reference": "../../../_tests/harness_runtime/config.ollama.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "runtime-lab.md",
+      "label": "saved manifest",
+      "original_reference": "../../../_tests/harness_runtime/scenarios.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "runtime-lab.md",
+      "label": "configuration",
+      "original_reference": "../../../_tests/harness_runtime/config.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "runtime-lab.md",
+      "label": "version lock",
+      "original_reference": "../../../_tests/harness_runtime/versions.lock.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "lab implementation",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "versions.lock.json",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/versions.lock.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "config.ollama.json",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/config.ollama.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "Dockerfile",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/Dockerfile",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "worker",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/worker.py",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "deterministic runner",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/deterministic.py",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "scenario manifest",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/scenarios.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "runs folder",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/runs/",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "configuration",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/config.ollama.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "version lock",
+      "original_reference": "../enterprise-sdd/_tests/harness_runtime/versions.lock.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "testing-an-sdd-framework-autonomously.md",
+      "label": "Wave 30 plan",
+      "original_reference": "../enterprise-sdd/_plan/WAVE-30-HARNESS-EVOLUTION-IMPLEMENTATION-PLAN.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "scenarios.json",
+      "original_reference": "scenarios.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "deterministic.py",
+      "original_reference": "deterministic.py",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "matrix-requirements.lock",
+      "original_reference": "matrix-requirements.lock",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "config.ollama.json",
+      "original_reference": "config.ollama.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "config.json",
+      "original_reference": "config.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "versions.lock.json",
+      "original_reference": "versions.lock.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "`_plan/evidence/W30`",
+      "original_reference": "../../_plan/evidence/W30",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "README.md",
+      "label": "config.json",
+      "original_reference": "config.json",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "migration guide",
+      "original_reference": "../../../MIGRATION-GUIDE.md#w30-conformance-rollout-remains-blocked",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "rollback procedure",
+      "original_reference": "rollback-procedure.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "test_e2e_workflow.py",
+      "original_reference": "../../../_tests/test_e2e_workflow.py",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Baseline",
+      "original_reference": "baseline.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "gate contract",
+      "original_reference": "gate-contract.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "tests",
+      "original_reference": "test-baseline.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase B",
+      "original_reference": "phase-b.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase D",
+      "original_reference": "phase-d.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase C",
+      "original_reference": "phase-c.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase D",
+      "original_reference": "phase-d.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase E",
+      "original_reference": "phase-e.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase F",
+      "original_reference": "phase-f.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "support matrix",
+      "original_reference": "support-matrix.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "Phase F record",
+      "original_reference": "phase-f.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    },
+    {
+      "source_document": "foundation-report.md",
+      "label": "rollback procedure",
+      "original_reference": "rollback-procedure.md",
+      "disposition": "source-only-reference; file not in supplied archive"
+    }
+  ],
+  "recorded_report_references_without_payload": [
+    {
+      "path": "_tests/test_e2e_workflow.py",
+      "sha256": "c7ce63670b0597309d7c3d51b0d9a81ce398ecd1ad228b865a6487520da37838",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-2430502374844415bf014fa6228514c9.json",
+      "sha256": "f20833bc0cfe452da9619efcc936e1b3b47b4c64aaeb5d21132dbef24ad626e5",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/foundation-focused-3085a47cac6c4229bebe354178718fe0.json",
+      "sha256": "f8664502a133206970f0ae3dd25bc000a83e87eca6ea3d2b7c6c4583660b3a27",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261028T060034Z-5290f6b8/summary.json",
+      "sha256": "c2a089bdefb148b309761df376c19b9a7835c91b05ca850d6b35c998adca838b",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-088b5255d2554066b5b90df5d864dbe5.json",
+      "sha256": "a3a5310ff12b4b4428944b35bc52436f690ffa71b63caf69c1c3022ceaf322b1",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T224601Z-b0dc9db0/summary.json",
+      "sha256": "0d71d2e6886de17ff510d547e70e53b263206f901f627855c7920668863e126d",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/deterministic--claude--1.json",
+      "sha256": "936eef04d52c51fbfd2e8204f485901842d15f19ffc3356460cedc3c937154ef",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/deterministic--claude--2.json",
+      "sha256": "ab5fb6b352a25d25041c289a437870b03ccaeb0b903d616cb986055accfd0ac8",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/deterministic--claude--3.json",
+      "sha256": "962ea12fff677b1aa1083102cb81789574dcc58f1c270f7b352335773b37db55",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261028T060339Z-5ce223d9/summary.json",
+      "sha256": "ecda0718781df39ba921f6450ac017116e4628d0cbc55b98275d243ff4f3eb0a",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "deterministic--claude--1.json",
+      "sha256": "75218cac9a94edfa3a5a87781b1b51a0e4162fc4402a769cd51ac9a123a6c646",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "deterministic--claude--2.json",
+      "sha256": "4410163f4fff8a4bc25c754d8a692c96c71d4fd83600f13dc6a69f0bc339abe1",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "deterministic--claude--3.json",
+      "sha256": "0de16a4e4e333304032a6a12d021a6d41e2e02fcce8c6b402017975c1befdcea",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "requirements-review--claude--1.json",
+      "sha256": "336a81c2a2e3bff64da321b45a2ba583ec2540ff6cfda729442c876cf0547b90",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "requirements-review--copilot--1.json",
+      "sha256": "6306685173f087610dbcc2c938d68dcd69bffe33da2b74c00bcc672b6a72bc1d",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "native-agent--claude--1.json",
+      "sha256": "64dd8d00d7ca704f62487a3ea29c2592e03d6e6c1407945b696d8163f14302c4",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "native-agent--copilot--1.json",
+      "sha256": "21821a44539c83d81677b64c3ad635ab911be682cca54847648dd5ac76b2b3d4",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "native-skill--claude--1.json",
+      "sha256": "df683ee5d161df92035c51d2f61e3ff0d73588797b2004f484f3fd37d2ec42ce",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "native-skill--copilot--1.json",
+      "sha256": "a02ad2321c4a9c225f23bd9847ff85dd1eb1c0ca78677442ac340f2d356a4c8f",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "native-instructions--claude--1.json",
+      "sha256": "f4d089700efd5b3beeb740902223fd5006c6a2b0989feb6760a66b67c3f28798",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "native-instructions--copilot--1.json",
+      "sha256": "1e1a21421b4bd81e6d101d3c93bc9b143247981046de8cb1df75b40f4ea81704",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-present--claude--1.json",
+      "sha256": "931a9f5b00b8aae9e68368bf9cb917414b8c8049239e085d58a568a7f449f71c",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-present--copilot--1.json",
+      "sha256": "eb3734a7f1dd4ebc72a281e2ceb7df39d9a2f53b54f724ebf111c88f2abc4935",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-absent--claude--1.json",
+      "sha256": "180c4e336c0000ccbbf2c32eec88ff5761f6cfc41b77b905ab2d45f9ba118597",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-absent--claude--2.json",
+      "sha256": "7c0b3b9c068c208fed7cf7b77ecb575ce8a338dde7f27a809927ffd923ba7607",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-absent--claude--3.json",
+      "sha256": "d90db9fa3181886e811d9c1b7f849c75d9be4fe14b3535b084dfa8fb35c342d0",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-absent--copilot--1.json",
+      "sha256": "3e43ee5d91c540484b9506edfc7c66ba45acdd74ed7575ee4530b1e7145c6849",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-absent--copilot--2.json",
+      "sha256": "69604dff4dce251f548f14e8a0ad4275a82e80db3ec96394deff70c1186c9763",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "optional-absent--copilot--3.json",
+      "sha256": "6925e364c38d199683c172c449b1b49a9bf86b5d6f68d69afd6dd2770d85d113",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-write--claude--1.json",
+      "sha256": "a3ec078cd5cab7d1a0842ad24a57cedbceed452d7dd835dbb36ed45dd2702dd8",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-write--claude--2.json",
+      "sha256": "d4994b30c6f99b8f358f5ca1d6b8cfb1a2298b1ba2fed64f6264536a5abbe6ac",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-write--claude--3.json",
+      "sha256": "56255f3bcaf99062323e44c7660733fd82ab413ce47f98e29e753fd5d58367cf",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-write--copilot--1.json",
+      "sha256": "92a7b87a5ff1ff9ea26c4e4fe86be62d585db3bceb0420267f50112c7e47e985",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-write--copilot--2.json",
+      "sha256": "0399cc38a486e7c57fa090ea015fb5b6ca9d5564e2c6bdbb961bfc649781a426",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-write--copilot--3.json",
+      "sha256": "e1776fcd2f7099121310fff5d4f0b17069e774381b68aac51460bceff2a705bd",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-shell--claude--1.json",
+      "sha256": "840ea24b3a01d6d6293b5e6520f48fce44c40d1ca729f2abb6869e2f43c280cc",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-shell--claude--2.json",
+      "sha256": "9ca30c2d3ec697e1b292da7ceeaaabdca8a41f4d6efa3a8176157d53c8226e6e",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-shell--claude--3.json",
+      "sha256": "e01e14628630987523d6e0f490445eae52230574ef873dffec8bac503126b6dc",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-shell--copilot--1.json",
+      "sha256": "c545ab4dbedde913d583f16fed8c4bfbc3b91a1f98ccab23b87c1844a1b5aac9",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-shell--copilot--2.json",
+      "sha256": "87b1a271581ca71efeadee59429d589a158dd5a575a966ac3fa10c39ac0ef3fb",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "denied-shell--copilot--3.json",
+      "sha256": "9ea82253aa9458e3e3012c468e17eee55fb26edbf0ab3365b3106aed0c6497b8",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "injection--claude--1.json",
+      "sha256": "da2debc1d7240f51e52243d9d05842b55ba7db55542afc3d1051e7842e3a92d5",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "injection--claude--2.json",
+      "sha256": "a63490896c7b895f32bb8224866917b3eba6f35355136444ad11df0e81bcabab",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "injection--claude--3.json",
+      "sha256": "a67353f3e44178324fce8ef5eb7a78cbd9a898868918d1e9a5afa918a53777cf",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "injection--copilot--1.json",
+      "sha256": "5dd3279ed02a8c3af21b47e5f3163dedf0c7befd7eec37ab2bfb4d96623a5708",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "injection--copilot--2.json",
+      "sha256": "7f88754830badf50db7914e85ef6412b43696dcf88ba60bda3a35fee18f82a3c",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "injection--copilot--3.json",
+      "sha256": "51d9334f331f5ea77ca7e823386bf6090af1b9b6fa07f2d72556f8b3638ab98e",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-allowed--claude--1.json",
+      "sha256": "30debabd9129e17803521e7ddbc9a5cf97be3e995d54d4fbc07d1c820d14e4f5",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-allowed--copilot--1.json",
+      "sha256": "cc4120996c74d2aef1108e1e3936895045e9b15ea9663af11124c7f40eb2de91",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-denied--claude--1.json",
+      "sha256": "e53b992a93f07b428ba58b65dd01d8391971402dddba8a9ada3688a435ef32f8",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-denied--claude--2.json",
+      "sha256": "0862d269dba5bae2a2914a5c26848f9c5ace21bda4b5d0367875d398aa51724a",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-denied--claude--3.json",
+      "sha256": "b09620f5b240a915f4ea2e2ed0909e21bae3fd4bbad77c522cba54beb402fb4a",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-denied--copilot--1.json",
+      "sha256": "0a60c2126f59847bdf1b7f8cfef6a573ff7bfc0faf3dccec2235a21d88d63c4d",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-denied--copilot--2.json",
+      "sha256": "48a615d0ada831e34343385e6b12c14c881dc1c2c702f8a6f87f8317f399daf5",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "mcp-denied--copilot--3.json",
+      "sha256": "3de853497c8df4ac9b238e1ba3dc900a32344030acb83e4de4084a58577a41fc",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "session-resume--claude--1.json",
+      "sha256": "9db9f0889a97967249ff9c635ff7c5a79ab6a5b09845e31ef166401bac3fad29",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "session-resume--copilot--1.json",
+      "sha256": "656ffebb2517e1042857c56231e07d96d55ca57613489e297f661d5105fe1296",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-09068f8979eb452faea6a1d9492efa6b.json",
+      "sha256": "71e9e975988b78bc8226e5ef3c6cb5ea22594e7056f2bef1975cc12d5bb66879",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T214718Z-e852d44c/summary.json",
+      "sha256": "5f304d32c1ff3b8b025073fcedce6a7d2de576c212bd736c9abfa05e7bc8e529",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T214743Z-2dd6fd01/summary.json",
+      "sha256": "b6b1d5f715c502057323ff8e19b7c7bd0dba3abf07fd0e2c3b4dca450037a215",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T214907Z-3dcd02fa/summary.json",
+      "sha256": "6aecbc84ac83d7bb15066b20523114451155e6acdf38fea8342148dd4fdebe36",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T214909Z-055e4bb1/summary.json",
+      "sha256": "dfa97940d0a983aae9aa1182093ca11108facda15c3f9b475fa71ba9ae1f430a",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T215227Z-289bbd7a/summary.json",
+      "sha256": "65b064c146564450615e72795b54d40486a2cd5835dcd86220719c7c87ec1f15",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T220906Z-aaaa0c51/summary.json",
+      "sha256": "22e25fdf393a0201fceee7ee7dadecba39769dc1409f6c3049c08ad32bcf4d0b",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T223144Z-b61623a5/summary.json",
+      "sha256": "6660fac2a85b5217eeef17d037536357a46291fe4b86fdf350112288d02f6295",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/matrix-20261027T224434Z-191754f1/summary.json",
+      "sha256": "2a8cd75dab56d50867632674f3c40ab8b150d24bf1abc184b7f91ee1f96271ff",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-181dea985d0947ac972f57d554078d46.json",
+      "sha256": "172dd50ce314496bfcb741383a824a81ae320d4b9f313e98d0e185672c89ff95",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-4a9f7ab2bb5d47f5ac0949257046683a.json",
+      "sha256": "2fcdd83d5ee5db07e1836a2ca918ed519fa2f8e585d8bfe0798277856ab268f9",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-6bf7762ca6174077a3f68447715fc6c2.json",
+      "sha256": "7004d2a092a77c1756fb6136ad7f5b2a978ca7c1a7176fa1f6bf5c9f28e51c00",
+      "payload_in_supplied_archive": false
+    },
+    {
+      "path": "_tests/harness_runtime/runs/regression-cec33601be5c4e2bac86d415da0bf1b5.json",
+      "sha256": "816f61853dd3b92262890557b56ee1d07582329348bad3b2cfbb013f2acf82b4",
+      "payload_in_supplied_archive": false
+    }
+  ],
+  "not_supplied": [
+    "Private Enterprise SDD executable source and its original test implementations",
+    "Original lab.py, worker.py, native adapters, deterministic.py and container recipes",
+    "Original raw per-cell JSON reports, CLI transcripts, JUnit files and relay logs",
+    "Original container image archives and package/wheel caches",
+    "Ollama binary, model manifests as files, and model weight blobs"
+  ],
+  "replacement_scope": "New standalone reference implementation under starter/; not the original framework"
+}

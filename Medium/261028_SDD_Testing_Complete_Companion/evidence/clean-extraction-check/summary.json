@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "scope": "fresh extraction of staged archive; exact same starter source bytes as final bundle",
+  "no_third_party_site_packages": true,
+  "results": [
+    {
+      "name": "clean-unit-tests",
+      "return_code": 0,
+      "command": [
+        "-S",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "third_party_site_packages_disabled": true,
+      "log": "clean-unit-tests.log"
+    },
+    {
+      "name": "clean-reference-matrix",
+      "return_code": 0,
+      "command": [
+        "-S",
+        "lab.py",
+        "run",
+        "--output",
+        "/mnt/data/sdd_companion_work/clean-replay-runs"
+      ],
+      "third_party_site_packages_disabled": true,
+      "log": "clean-reference-matrix.log"
+    },
+    {
+      "name": "clean-defect-detection",
+      "return_code": 0,
+      "command": [
+        "-S",
+        "lab.py",
+        "mutations",
+        "--output",
+        "/mnt/data/sdd_companion_work/clean-replay-runs"
+      ],
+      "third_party_site_packages_disabled": true,
+      "log": "clean-defect-detection.log"
+    },
+    {
+      "name": "clean-record-auditor-tests",
+      "return_code": 0,
+      "command": [
+        "-S",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/tests",
+        "-v"
+      ],
+      "third_party_site_packages_disabled": true,
+      "log": "clean-record-auditor-tests.log"
+    },
+    {
+      "name": "clean-package-integrity",
+      "return_code": 0,
+      "command": [
+        "-S",
+        "tools/verify_package.py"
+      ],
+      "third_party_site_packages_disabled": true,
+      "log": "clean-package-integrity.log"
+    }
+  ],
+  "native_cli_or_model_calls": false
+}

@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>**Portable reading copy.** Original experiment text; local links were remapped where supplied. Unavailable repository files are shown as source-only references, not working downloads. The [unchanged source](../original/README.md) and [original ZIP](../original-upload.zip) are preserved separately.</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../../starter/README.html">Run the starter</a><a href="../README.html">Evidence</a></nav></header><main><blockquote>
+<p><strong>Portable reading copy.</strong> Original experiment text; local links were remapped where supplied. Unavailable repository files are shown as source-only references, not working downloads. The <a href="../original/README.md">unchanged source</a> and <a href="../original-upload.zip">original ZIP</a> are preserved separately.</p>
+</blockquote>
+<h1 id="w30-disposable-cli-scenario-lab">W30 disposable CLI scenario lab</h1>
+<p>The reusable Phase F suite now contains <strong>13 scenario families and 47 required
+local execution cells</strong>. <code>matrix</code> runs three independent copies of the 12-scenario
+deterministic suite and the live Claude/Copilot cases below. <code>regression</code> runs the
+complete framework test suite in an offline container. Tests, dependency locks,
+configuration, native transcripts and per-attempt results are saved for reuse.</p>
+<p>A local PASS covers this manifest. <code>overall_complete</code> and <code>certificate_issued</code>
+remain false: VS Code, native macOS/Windows, complete production role/workflow
+conformance and the five-PR pilot have explicit unresolved entries. Phase F stays
+partial; Phase G is not implemented. See <a href="runtime-lab.html">execution evidence</a>.</p>
+<p>Latest validation (October 28 Europe/Rome; October 27 UTC): <strong>47/47 local cells
+PASS</strong>, with validated relay audit and cleanup. Full offline regression:
+<strong>1,195 passed, 111 subtests passed, 20 PowerShell skips</strong>, one existing warning.
+The <a href="../original/runtime-lab-record.json">replay record</a> binds these
+results to the exact tested images and source hashes; earlier failed attempts
+remain saved.</p>
+<p>October 28 F.5 follow-up: the <a href="foundation-report.html">foundation rehearsal</a>
+adds real managed legacy-renderer lifecycle tests and exact initial rollback/
+idempotence checks. Five focused cases pass; the full regression now passes
+<strong>1,197 tests and 111 subtests</strong>, with 20 PowerShell skips. The existing <code>regression</code>
+command includes these cases; <code>matrix --scenario deterministic</code> retains its
+twelve stable IDs and the frozen Sandbox bootstrap.</p>
+<h2 id="run-the-expanded-suite">Run the expanded suite</h2>
+<p>From <code>enterprise-sdd/</code>, using Python 3.11+ (substitute your interpreter path):</p>
+<pre><code class="language-sh">/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py prepare-ollama --config _tests/harness_runtime/config.ollama.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py build
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py matrix --config _tests/harness_runtime/config.ollama.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py regression --target claude
+</code></pre>
+<p>A focused retry retains all required repetitions:</p>
+<pre><code class="language-sh">/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py matrix --config _tests/harness_runtime/config.ollama.json --target copilot --scenario denied-write
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py matrix --scenario deterministic --target claude
+</code></pre>
+<p>Repeat <code>--scenario</code> to select multiple families. Unknown or empty selections are
+errors. A focused PASS sets <code>selected_complete=true</code> but cannot claim the full
+matrix passed. No skip, missing result, duplicate cell or absent terminal CLI
+result counts as a successful execution.</p>
+<p>scenarios.json (<code>scenarios.json</code>; source-only reference, not supplied) is the required-cell manifest:</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th style="text-align:right">Repetitions</th>
+<th>Independent oracle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deterministic</code></td>
+<td style="text-align:right">3 total</td>
+<td>12 structural scenario IDs, 14 selected pytest nodes per copy; real CLI/gate exits, checkpoints, immutable artifacts and strict JUnit collection</td>
+</tr>
+<tr>
+<td><code>requirements-review</code></td>
+<td style="text-align:right">1 per CLI</td>
+<td>Actual draft edits, distinct observed reviewer session, terminal review bound to artifact digest, real missing-review Gate 4 rejection</td>
+</tr>
+<tr>
+<td><code>native-agent</code>, <code>native-skill</code>, <code>native-instructions</code></td>
+<td style="text-align:right">1 each per CLI</td>
+<td>Hidden receipt in native-loaded content; no receipt in the request; native skill inventory where applicable</td>
+</tr>
+<tr>
+<td><code>optional-present</code></td>
+<td style="text-align:right">1 per CLI</td>
+<td>Synthetic installed optional skill discovered and activated</td>
+</tr>
+<tr>
+<td><code>optional-absent</code></td>
+<td style="text-align:right">3 per CLI</td>
+<td>Skill absent from native inventory, unavailable response and no withheld receipt</td>
+</tr>
+<tr>
+<td><code>denied-write</code>, <code>denied-shell</code></td>
+<td style="text-align:right">3 each per CLI</td>
+<td>Native policy denial matched to the intended tool and arguments; protected hashes unchanged</td>
+</tr>
+<tr>
+<td><code>injection</code></td>
+<td style="text-align:right">3 per CLI</td>
+<td>Successful read includes the malicious payload; legitimate code returned without injected claims; protected hashes unchanged</td>
+</tr>
+<tr>
+<td><code>mcp-allowed</code></td>
+<td style="text-align:right">1 per CLI</td>
+<td>Exactly one audited synthetic stdio tool call and hidden server receipt</td>
+</tr>
+<tr>
+<td><code>mcp-denied</code></td>
+<td style="text-align:right">3 per CLI</td>
+<td>Server/tool discovery, native permission denial and zero server-side tool calls</td>
+</tr>
+<tr>
+<td><code>session-resume</code></td>
+<td style="text-align:right">1 per CLI</td>
+<td>Interrupt after response bytes; resume the actual session ID; recover earlier random context; unchanged project</td>
+</tr>
+</tbody>
+</table>
+<p>The deterministic API is <code>run_suite(root: Path, selection=None)</code> in
+deterministic.py (<code>deterministic.py</code>; source-only reference, not supplied), with <code>SCENARIO_IDS</code> and <code>SCENARIO_MAP</code> for
+stable selections. Its twelve IDs cover successful Gates 1–4, failed-gate resume,
+missing/stale review evidence, greenfield/brownfield upgrade and rollback,
+optional packages present/absent, unverified profiles, injection, ownership and
+MCP validation. It copies the framework into a writable temporary directory and
+retains the real Sandbox venv/pip/installed-CLI dispatch. Only the wheelhouse
+lookup is replaced with the baked local wheels. No network or model is used.
+Unselected structural IDs remain in <code>coverage.missing</code>; skipped, uncollected,
+duplicate or uncaptured tests fail closed. Stale review means the existing eval
+hash verifier, not Phase G review-freshness enforcement.</p>
+<h2 id="matrix-isolation-and-rebuild-inputs">Matrix isolation and rebuild inputs</h2>
+<p><code>matrix</code> accepts only the pinned Ollama profile. Every live attempt receives a
+fresh container and CLI home on a Docker <strong>internal</strong> network. A separate relay
+has access to native Ollama and permits only the pinned model on Messages,
+Messages token-count and Chat Completions endpoints (including Claude's exact
+<code>?beta=true</code> variant). Workers have no published ports or host/volume mounts.
+Each live attempt checks that direct public TCP access and direct host-Ollama
+access fail, the relay responds, and model-management requests are rejected.
+This is a constrained local lab, not a general network-exfiltration certificate.</p>
+<pre><code class="language-text">CLI workers on internal network -&gt; allowlisted relay -&gt; native Ollama -&gt; Metal
+</code></pre>
+<p>Relay logs contain route/model/settings, not prompts or response content. Missing
+or invalid audit logs fail the aggregate verdict. A client disconnect during
+response delivery is allowed only within the number of completed intentional
+interruption tests; upstream transport failures still fail. Every container and
+the exact UUID-owned relay/network are removed in <code>finally</code>. An interrupted
+batch retains completed reports and leaves unfinished coverage missing.</p>
+<p>The image includes the complete test tree, support scripts, audit allowlist,
+placeholder <code>.env.example</code>, selected parent framework references, and normalized
+executable modes. matrix-requirements.lock (<code>matrix-requirements.lock</code>; source-only reference, not supplied) adds pinned
+MCP/async-test/build dependencies to the base Python lock. The build bakes all
+wheels plus the actual SDD CLI wheel into <code>/opt/wheelhouse</code>. Runtime pip installs
+use <code>PIP_NO_INDEX=1</code> and touch only disposable venvs. No host pip/npm installation
+or host Claude/Copilot configuration change is required.</p>
+<p>Live workers retain the 2 GiB/2 CPU limit. Offline deterministic/regression
+containers use 4 GiB memory and 2 GiB per tmpfs; their temporary filesystems are
+executable so the real installed CLI launcher can run. Native Ollama GPU memory
+is outside these container limits. Build records include source bytes, normalized
+file modes, recipe hashes, exact image IDs and resolved npm locks. Source, mode,
+runner or lock drift requires rebuilding. A newer dependency refresh must review
+both Python locks. Byte-identical rebuild limitations are documented below.</p>
+<p>Reports are written immediately under <code>runs/matrix-&lt;UTC&gt;-&lt;id&gt;/</code>: one JSON per
+cell, <code>summary.json</code>, and <code>relay.jsonl</code>. Failed attempts are retained when a later
+run succeeds. Summaries distinguish selected coverage, the full local matrix and
+unresolved external requirements. The run directories and images are local and
+ignored by Git; preserve them and the uncommitted implementation changes for
+future replay. The original <code>run</code> smoke remains available as described below.</p>
+<h2 id="native-ollama-on-apple-silicon">Native Ollama on Apple Silicon</h2>
+<p>Historical smoke checkpoint, October 27, 2026: <strong>Claude Code and Copilot CLI each pass all 22 live
+smoke checks</strong> using this local model. Both offline preflights pass 8/8 checks;
+22 runner unit tests pass. See <a href="runtime-lab.html">execution results and limitations</a>.</p>
+<p>Use config.ollama.json (<code>config.ollama.json</code>; source-only reference, not supplied) for local inference. It pins <strong>Ollama
+0.40.11</strong>, the installed <strong>Qwen 3.5 9B Q4_K_M</strong> base model's full manifest digest,
+and a separate <code>sdd-w30-qwen35:9b-64k</code> alias. The alias reuses the weights and sets
+65,536 context tokens and defaults of temperature 0 and 8,192 output tokens.
+Both CLIs use this same model. The runner also sets Claude's maximum context and
+output environment variables and Copilot's prompt/output limits. API request
+parameters can override model defaults; temperature 0 is not an enforced request
+policy. Effective sampling/output is not guaranteed identical between CLIs.</p>
+<pre><code class="language-text">Claude Code container  ── Anthropic messages API ─┐
+                                                ├─ host.docker.internal:11434
+Copilot CLI container  ── OpenAI completions API ─┘             │
+                                                    native Ollama → Metal GPU
+</code></pre>
+<p>The Mac's existing Ollama service stays bound to loopback. Docker Desktop can
+reach it through <code>host.docker.internal</code>; no service restart or public bind is
+needed on the recorded setup. Ollama runs natively because a Linux Docker
+container does not provide this Mac's Metal backend. The checked host is an
+Apple M2 Max with 64 GiB RAM. Loaded-model evidence includes context, manifest
+digest and GPU-resident bytes before and after each live target.</p>
+<table>
+<thead>
+<tr>
+<th>Container CLI</th>
+<th>Per-process routing</th>
+<th>Authentication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td><code>ANTHROPIC_BASE_URL=http://host.docker.internal:11434</code>; main/small/default models all use the lab alias</td>
+<td>Dummy local <code>ANTHROPIC_AUTH_TOKEN=ollama</code>; empty <code>ANTHROPIC_API_KEY</code></td>
+</tr>
+<tr>
+<td>Copilot CLI</td>
+<td><code>COPILOT_PROVIDER_BASE_URL=http://host.docker.internal:11434/v1</code>; <code>openai</code> provider; explicit wire/model IDs</td>
+<td>No token; <code>COPILOT_OFFLINE=true</code></td>
+</tr>
+</tbody>
+</table>
+<p>Local runs do not read host cloud credentials. The worker removes inherited
+provider credentials, alternate routes and proxy settings before starting a CLI.
+No host Claude/Copilot configuration is edited. Offline Copilot mode means local
+BYOK inference without GitHub services; it still needs networking to Ollama.
+This is distinct from the lab's <code>check</code>, which disables all container networking.
+The original <code>run</code> command uses unrestricted bridge egress. Use <code>matrix</code> for the
+internal-network probes described above.</p>
+<h3 id="rebuild-and-run-from-scratch">Rebuild and run from scratch</h3>
+<p>Prerequisites on another Mac: Apple Silicon, native Ollama <strong>0.40.11</strong> running,
+Docker Desktop with Linux ARM64 containers, Git and Python 3.11+. Preserve this
+working tree's lab additions/patch as well as the source commit: the current lab
+files are not yet committed to the remote branch. A checkout of that commit
+alone does not contain them. No host Claude, Copilot, npm or pip installation is
+needed. Start Docker/Ollama normally if they are not running.</p>
+<p>On a fresh Ollama installation, install the base weights once:</p>
+<pre><code class="language-sh">ollama pull qwen3.5:9b-q4_K_M
+</code></pre>
+<p>Then, from <code>enterprise-sdd/</code> (substitute your Python 3.11+ path):</p>
+<pre><code class="language-sh">/opt/homebrew/bin/python3.13 _tests/test_harness_runtime.py -v
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py prepare-ollama --config _tests/harness_runtime/config.ollama.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py build --config _tests/harness_runtime/config.ollama.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py check --config _tests/harness_runtime/config.ollama.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py run --config _tests/harness_runtime/config.ollama.json
+</code></pre>
+<p><code>prepare-ollama</code> checks the server version and installed base digest, creates only
+the missing lab alias, then verifies the alias digest. It does not pull weights,
+overwrite a conflicting alias or change server settings. It is safe to repeat.
+A tag pulled in the future may have different bytes: that causes an explicit
+failure, not a silent model upgrade. Restore the recorded model cache or review
+and record a new configuration before adopting different bytes.</p>
+<p><code>run</code> warms the selected model for ten minutes and requires the recorded context
+and fully GPU-resident weights. Ollama may reuse a runner for identical weights
+and report the previously loaded alias. If the identity check stops on that
+condition, inspect <code>ollama ps</code>; stop only a model you own and are finished using
+before retrying. The runner does not unload someone else's model automatically.
+CLI calls can refresh Ollama's normal keep-alive interval. To release this lab's
+GPU memory after use, run <code>ollama stop sdd-w30-qwen35:9b-64k</code>.</p>
+<p>The alias is the only persistent model addition and shares existing weight
+blobs. To remove it deliberately, use <code>ollama rm sdd-w30-qwen35:9b-64k</code>; retain
+the base model. GPU/unified-memory use belongs to the native Ollama process and
+is <strong>outside Docker's 2 GiB limit</strong>. CLI requests run sequentially. The 64k
+configuration is for this bounded smoke; GitHub recommends 128k for general
+Copilot use, which would require a separately recorded configuration.</p>
+<p>For exact restoration, retain both model manifests and all blobs they reference
+from Ollama's model cache, the Ollama installer/binary version, the source patch,
+config/lock and image archives. The base tag alone is not an immutable backup.
+The recipe can rebuild fresh containers without cached images; byte-identical
+image reconstruction has the limitations described below.</p>
+<h2 id="recorded-configuration">Recorded configuration</h2>
+<ul>
+<li>config.json (<code>config.json</code>; source-only reference, not supplied): ARM64 Linux, 2 CPUs, 2 GiB memory, 128 processes,
+300 seconds per model invocation, two invocations per target (builder/reviewer),
+USD 2 maximum per Claude invocation. Copilot has no monetary ceiling in this
+runner: configure account-side billing limits. Timeout is not a spending cap.
+Claude's model is <code>claude-sonnet-5-5</code>, observed in the authenticated model
+catalog on October 27. Copilot's model remains null until access is established.</li>
+<li>versions.lock.json (<code>versions.lock.json</code>; source-only reference, not supplied): resolved latest stable npm releases,
+package integrity values, base image digest and exact Python dependency versions.
+October 27, 2026: Claude Code <strong>2.1.311</strong>, Copilot CLI <strong>1.0.104</strong>.</li>
+<li><code>builds/&lt;target&gt;.json</code>: immutable local image ID, git revision, actual selected
+source hashes (including local edits), runner/recipe hashes, and complete lock.</li>
+<li><code>builds/&lt;target&gt;.npm-lock.json</code>: actual resolved npm dependency tree.</li>
+<li><code>runs/&lt;timestamp&gt;-&lt;unique-id&gt;.json</code>: effective config, source/build provenance,
+exit codes, checks, transcript hashes, provider session/model observations and
+sanitized outputs. Every invocation creates a new report; failures are retained.</li>
+</ul>
+<p>Builds and runs are gitignored. The config, lock, recipe, runner and this guide
+are intended for version control. Keep a reviewed execution summary in
+<code>_plan/evidence/W30</code> (<code>../../_plan/evidence/W30</code>; source-only reference, not supplied).</p>
+<h2 id="original-smoke-isolation-boundary-run">Original smoke isolation boundary (<code>run</code>)</h2>
+<p>The host orchestrator uses Python 3.11+ <strong>standard library only</strong> and Docker.
+It requires no host pip/npm packages, global CLI upgrades, shell startup changes
+or edits to the host CLI configuration. Docker Desktop must be running.</p>
+<p>Each attempt creates a new non-root container with a read-only root filesystem,
+all Linux capabilities dropped, <code>no-new-privileges</code>, resource limits and writable
+tmpfs directories for the synthetic project, home and temporary state. There are
+executable permissions on the isolated home tmpfs because Copilot unpacks its
+native runtime there; this grants no host filesystem access. There are
+no bind mounts, volumes, Docker socket mounts or privileged containers. The local
+check has networking disabled. Live runs use Docker bridge networking for provider
+access; <strong>network egress is not allowlisted</strong>, so this first increment must use
+trusted synthetic prompts. Network-exfiltration adversarial cases require an
+egress-controlled follow-up before being considered covered.</p>
+<p>Selected tracked framework inputs and narrowly selected parent instructions,
+agents and the evolution reference are copied into the image; the complete parent
+repository and its Git metadata are not copied. The lab explicitly includes its
+uncommitted runner/tests and existing F.2 fixture files. New untracked framework implementation files are
+not included automatically: review/stage those before building. Symlinks and
+secret-like filenames in the selected inputs are rejected. This is not a general
+content secret scanner; review the source manifest before live use.</p>
+<p>Credentials are read from named host environment variables, sent to the worker
+over stdin, and provided only to the corresponding CLI child process. They are
+never Docker environment entries, command arguments, build arguments or image
+layers. An agent could access a credential available inside its own environment;
+use dedicated restricted credentials and synthetic projects. Do not paste tokens
+into chat, commit an env file, or copy the host home/keychain into a container.</p>
+<p>The worker gives the builder file tools and the reviewer read tools only; shell,
+fetch and MCP tools are excluded. Each role uses a fresh CLI configuration
+directory; no continuation/resume flags are used. Provider-returned session IDs
+must be present and distinct. That supports this smoke's context separation;
+it is not certification of every native reviewer route. The stock native profiles
+remain unmodified and unverified.</p>
+<h2 id="repeat-the-recorded-setup">Repeat the recorded setup</h2>
+<p>Run these commands from the framework root (<code>enterprise-sdd/</code>) using a Python
+3.11+ interpreter. On the original Mac the configured command was
+<code>/opt/homebrew/bin/python3.13</code>; substitute your supported interpreter elsewhere.</p>
+<pre><code class="language-sh">/opt/homebrew/bin/python3.13 _tests/test_harness_runtime.py -v
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py build
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py check
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py run
+</code></pre>
+<p><code>build</code> uses the existing version lock. <code>check</code> runs without credentials or model
+calls and with container networking disabled. <code>run</code> executes both live targets
+when configured; missing credentials/models produce BLOCKED records and a nonzero
+overall exit. Use <code>--target claude</code> or <code>--target copilot</code> for one target. An overall
+PASS requires every selected target to pass. These are on-demand invocations;
+nothing is scheduled or left running in the background.</p>
+<p>The workspace also has a <code>W30: Build isolated CLI lab</code> VS Code task. Its initial
+creation timed out, but the task was subsequently created and successfully ran
+both image builds. The image recipe is shared by the local and cloud profiles.</p>
+<h3 id="optional-cloud-profile-models-and-authentication">Optional cloud profile: models and authentication</h3>
+<ol>
+<li>Set each target's <code>model</code> in config.json (<code>config.json</code>; source-only reference, not supplied) to an exact model ID
+available to that provider/account. Null intentionally blocks paid execution.
+Avoid <code>auto</code>, <code>sonnet</code>, <code>latest</code> or other moving aliases. CLI version and model
+are separate pins. Record a provider routing alias as a limitation if an exact
+underlying model revision is unavailable; observed response IDs are retained.</li>
+<li>Make <code>ANTHROPIC_API_KEY</code> available to the invoking process for Claude.</li>
+<li>Make <code>COPILOT_GITHUB_TOKEN</code> available for Copilot. The account needs Copilot
+access; fine-grained tokens need the account-level <strong>Copilot Requests</strong> permission.
+This implementation uses token authentication, not mounted existing OAuth state.</li>
+<li>Run <code>run</code>. Check both the overall status and individual checks in the report.</li>
+</ol>
+<p>Use a secret manager or hidden terminal input to set credentials. Never place
+literal secrets in shell commands stored in history. The runner does not perform
+interactive login or change existing host authentication. A rejected token,
+unsupported model, missing JSON event, or unavailable CLI flag cannot become PASS.</p>
+<h3 id="refresh-to-a-newer-release-deliberately">Refresh to a newer release deliberately</h3>
+<pre><code class="language-sh">/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py lock --lock _tests/harness_runtime/versions-next.lock.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py build --lock _tests/harness_runtime/versions-next.lock.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py check --lock _tests/harness_runtime/versions-next.lock.json
+/opt/homebrew/bin/python3.13 _tests/harness_runtime/lab.py run --lock _tests/harness_runtime/versions-next.lock.json
+</code></pre>
+<p>An existing lock is never overwritten. Review the new lock and results before
+adopting it. Automatic CLI updates are disabled inside the images. Runs refuse
+source/runner/lock drift relative to the current build record.</p>
+<h3 id="exact-replay-versus-rebuilding">Exact replay versus rebuilding</h3>
+<p><code>run</code>/<code>check</code> use the recorded immutable <strong>image ID</strong>, never an implicitly refreshed
+tag. They retain the actual dependency versions. Preserve the image with Docker's
+<code>image save</code> to an archive and restore it using <code>image load</code> if you need byte-exact
+replay on another ARM64 Docker host. Save the matching build records, source
+revision/patch, config and lock alongside the archive.</p>
+<p>Rebuilding uses pinned base/CLI/Python versions and checks the top-level CLI npm
+integrity. Apt repositories and transitive npm dependency resolution can change;
+<strong>a rebuild is not guaranteed byte-identical</strong>. Its new image ID and resolved npm
+lock make that difference visible. Exact reproducibility also does not imply
+identical model output: provider behavior and sampling may vary.</p>
+<h2 id="original-smoke-scenario-and-independent-oracles-run">Original smoke scenario and independent oracles (<code>run</code>)</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Oracle</th>
+<th>Model involved?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CLI startup</td>
+<td>Exit code and locked CLI version</td>
+<td>No</td>
+</tr>
+<tr>
+<td>New feature scaffold</td>
+<td>Real <code>sdd new</code> exit and unique feature directory</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Incomplete Gate 1</td>
+<td>Nonzero gate exit and no successful checkpoint</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Resume after denial</td>
+<td>Zero exit, next-gate output, unchanged specification</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Greenfield/brownfield deployment</td>
+<td>Existing F.2 publisher/recovery/frozen/rollback tests</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Draft requirements</td>
+<td>Actual spec changed; no other project file changed; US/AC assertions via existing eval utility</td>
+<td>Builder</td>
+</tr>
+<tr>
+<td>Independent draft review</td>
+<td>Distinct observed session IDs, unchanged files, response bound to artifact digest</td>
+<td>Reviewer</td>
+</tr>
+<tr>
+<td>Missing review at ship</td>
+<td>Real Gate 4 rejects; no successful checkpoint</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>The smoke explicitly prepares the canonical <code>sdd-phase-loader --phase 1</code> context. It does not
+silently mark profiles verified to unlock native rendering. Review text is checked
+only for this draft review; actual ship denial comes from the deterministic gate.
+The specification remains insufficient for shipping by design. Legacy imported
+runtime eval transcripts remain BLOCKED by the existing eval framework.</p>
+<h2 id="remaining-coverage">Remaining coverage</h2>
+<p>The matrix combines structural lifecycle tests with live synthetic discovery and
+permission probes. It does not claim every canonical production role/workflow or
+every optional package has been exercised end-to-end in a native host. Complete
+production projection conformance, native macOS/Windows, VS Code Copilot and the
+five-PR pilot remain explicit unresolved requirements. Capability profiles stay
+unverified. Phase G/H cases cannot certify unimplemented features, and Linux CLI
+results cannot close other targets. See the <a href="runtime-lab.html">execution record</a>.</p>
+<h2 id="reports-failures-and-cleanup">Reports, failures and cleanup</h2>
+<p>Exit 0 means all selected checks passed; exit 1 means a failed/blocked run; exit 2
+means setup/configuration failed. Timeouts terminate the CLI process group, with
+an outer Docker watchdog as backup. The orchestrator removes only its exact
+UUID-named container in <code>finally</code>; tmpfs state disappears with it. Images and build
+cache are retained for replay. There is no global Docker prune or host cleanup.</p>
+<p>If the host process is forcibly killed, inspect Docker containers labeled
+<code>sdd.lab=W30</code>, confirm the exact UUID, and remove that container explicitly. A
+cleanup failure is included in the report with its precise name. Do not remove
+unrelated containers or volumes. Sanitized transcripts may still contain provider
+account details not recognized by redaction: keep run reports local and review
+them before sharing. Known supplied credentials and common token formats are
+redacted before host persistence; raw CLI config/home state is never exported.</p>
+<h2 id="official-references-checked-october-27-2026">Official references checked October 27, 2026</h2>
+<ul>
+<li><a href="https://docs.docker.com/reference/cli/docker/network/create/">Docker internal networks</a></li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-skills">Copilot native skills</a></li>
+<li><a href="https://code.claude.com/docs/en/devcontainer">Claude container support</a></li>
+<li><a href="https://code.claude.com/docs/en/cli-reference">Claude CLI reference</a></li>
+<li><a href="https://code.claude.com/docs/en/env-vars">Claude context and output environment variables</a></li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli">Copilot installation and token authentication</a></li>
+<li><a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-command-reference">Copilot CLI reference</a></li>
+<li><a href="https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-config-dir-reference">Copilot configuration storage</a></li>
+<li><a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-byok-models">Copilot local models, BYOK and offline mode</a></li>
+<li><a href="https://docs.ollama.com/integrations/claude-code">Claude Code with Ollama</a></li>
+<li><a href="https://docs.ollama.com/api/create">Ollama derived-model creation API</a></li>
+</ul>
+<p>Installed CLI help and actual execution take precedence over assumed compatibility
+with newer documentation. The first authenticated attempt may expose an adapter
+gap; preserve that failed attempt and fix the adapter instead of weakening checks.</p>
+<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="README.md">Markdown source</a></footer></main></body></html>

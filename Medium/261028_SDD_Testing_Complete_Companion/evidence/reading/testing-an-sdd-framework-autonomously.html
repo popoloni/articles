@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>**Portable reading copy.** Original experiment text; local links were remapped where supplied. Unavailable repository files are shown as source-only references, not working downloads. The [unchanged source](../original/testing-an-sdd-framework-autonomously.md) and [original ZIP](../original-upload.zip) are preserved separately.</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../../starter/README.html">Run the starter</a><a href="../README.html">Evidence</a></nav></header><main><blockquote>
+<p><strong>Portable reading copy.</strong> Original experiment text; local links were remapped where supplied. Unavailable repository files are shown as source-only references, not working downloads. The <a href="../original/testing-an-sdd-framework-autonomously.md">unchanged source</a> and <a href="../original-upload.zip">original ZIP</a> are preserved separately.</p>
+</blockquote>
+<h1 id="how-to-test-an-sdd-framework-autonomously-on-your-mac">How to Test an SDD Framework Autonomously on Your Mac</h1>
+<p><em>A practical lab with Claude Code, GitHub Copilot CLI, native Ollama on Metal, disposable containers, and evidence you can replay.</em></p>
+<p>An agent says it respected your project rules. It says it loaded the right skill, completed the review, and left protected files untouched. How do you verify those statements?</p>
+<p>That is the central testing problem for a spec-driven development framework. The framework coordinates specifications, agents, quality gates, tools, and generated configuration. A successful conversation can conceal a missing review, a bypassed gate, or an instruction that the CLI never loaded.</p>
+<p>The Enterprise SDD harness lab makes those behaviors observable. Its recorded local matrix passed <strong>47 execution cells</strong> across structural tests and live Claude Code and GitHub Copilot CLI scenarios. A subsequent framework regression passed <strong>1,197 tests and 111 subtests</strong>, with explicitly reported platform skips.</p>
+<p>This article explains how that lab works, how to run it locally, and how to preserve enough evidence to repeat the experiment. The configuration and results below are a dated baseline from <strong>October 27–28, 2026</strong>. The commands assume a checkout containing the companion lab implementation (<code>../enterprise-sdd/_tests/harness_runtime/</code>; source-only reference, not supplied); they are repository commands, not commands supplied by either CLI vendor.</p>
+<h2 id="start-with-an-observable-contract">Start with an observable contract</h2>
+<p>An SDD framework maintains relationships between requirements, acceptance criteria, tests, implementation tasks, and code. Its gates decide when work can proceed. Its adapters translate canonical agents and instructions into files that individual coding tools understand.</p>
+<p>Each of those responsibilities needs an observable contract. For example:</p>
+<table>
+<thead>
+<tr>
+<th>Framework promise</th>
+<th>Evidence the test must collect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A failed gate blocks progress</td>
+<td>Actual CLI exit status, checkpoint, and unchanged downstream artifacts</td>
+</tr>
+<tr>
+<td>A review belongs to the current artifact</td>
+<td>Separate reviewer session and the digest of the reviewed bytes</td>
+</tr>
+<tr>
+<td>The CLI loaded a native skill</td>
+<td>A fresh hidden receipt available only inside that skill, plus native discovery evidence where available</td>
+</tr>
+<tr>
+<td>A prohibited write was denied</td>
+<td>A native permission event matching the tool and arguments, plus unchanged protected-file hashes</td>
+</tr>
+<tr>
+<td>Rollback preserves existing work</td>
+<td>Restored original content and ownership records; unrelated files remain unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>The test runner evaluates these conditions independently of the model's account of what happened. A missing result fails coverage. A skipped required scenario cannot become a pass.</p>
+<p>Keep three scopes explicit: deterministic framework behavior, live CLI behavior, and release acceptance. A passing local experiment supports the first two within its declared coverage. Wider compatibility and pilot acceptance require their own evidence.</p>
+<h2 id="put-the-clis-in-containers-and-inference-on-metal">Put the CLIs in containers and inference on Metal</h2>
+<p>The lab uses this topology:</p>
+<pre><code class="language-text">Mac: Python orchestrator
+    │
+    ├── offline test containers: network disabled
+    │
+    └── live CLI containers: Docker internal network
+               │
+               ▼
+         allowlisted relay at http://llm:11434
+               │
+               ▼
+         host.docker.internal:11434
+               │
+               ▼
+         native Ollama → local model → Metal GPU
+</code></pre>
+<p>Claude Code and Copilot CLI run as Linux ARM64 programs in separate images. Ollama runs natively on macOS, using the Mac's Metal backend. This arrangement keeps CLI dependencies and project mutations inside disposable environments while retaining native GPU inference.</p>
+<p>Each live attempt receives a fresh container, project, and CLI home. Workers run as a non-root user with a read-only root filesystem, dropped Linux capabilities, and limits of two CPUs, 2 GiB of memory, and 128 processes. Writable temporary filesystems hold the project and session state. Workers receive no host directory mounts, Docker socket, or published ports.</p>
+<p>Offline structural and regression containers have larger limits: 4 GiB of memory and 2 GiB per temporary filesystem. Those filesystems permit execution because the tests create virtual environments and run the real installed SDD launcher.</p>
+<p>The network boundary matters just as much. Docker's normal bridge provides external connectivity; an internal network removes that route for workers attached only to it. The relay connects to both networks and exposes a restricted inference interface. See Docker's <a href="https://docs.docker.com/compose/how-tos/networking/#internal-networks">internal network documentation</a>.</p>
+<p>The relay accepts only the pinned model and specific inference routes. It rejects model-management requests. Every live cell probes that direct public TCP access and direct access to host Ollama fail, while the relay remains reachable. These are concrete isolation checks with bounded coverage, rather than a comprehensive security certification.</p>
+<p>Native Ollama's GPU and unified-memory consumption remain outside Docker's memory limits. Container isolation does not make inference resource usage disappear.</p>
+<h2 id="1-establish-the-recorded-baseline">1. Establish the recorded baseline</h2>
+<p>The tested host was an Apple M2 Max with 64 GiB of memory. That is the observed configuration, not a measured minimum requirement.</p>
+<p>Provision these host prerequisites through their normal installation procedures:</p>
+<ul>
+<li>Docker Desktop, running Linux ARM64 containers.</li>
+<li>Python 3.11 or later and Git.</li>
+<li>Native Ollama, running locally, with the version required by the chosen profile.</li>
+<li>The framework checkout, including the lab files and any uncommitted implementation changes needed for replay.</li>
+</ul>
+<p>The host Python orchestrator uses the standard library. CLI packages and test dependencies are installed inside the images. Host Claude/Copilot installations, provider credentials, and global npm or pip installations are unnecessary for this profile.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Recorded value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td><code>2.1.311</code></td>
+</tr>
+<tr>
+<td>GitHub Copilot CLI</td>
+<td><code>1.0.104</code></td>
+</tr>
+<tr>
+<td>Ollama</td>
+<td><code>0.40.11</code></td>
+</tr>
+<tr>
+<td>Base model</td>
+<td><code>qwen3.5:9b-q4_K_M</code></td>
+</tr>
+<tr>
+<td>Lab model alias</td>
+<td><code>sdd-w30-qwen35:9b-64k</code></td>
+</tr>
+<tr>
+<td>Context / output defaults</td>
+<td>65,536 / 8,192 tokens</td>
+</tr>
+<tr>
+<td>Temperature default</td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>Exact CLI versions, package integrity values, and the Node base-image digest live in versions.lock.json (<code>../enterprise-sdd/_tests/harness_runtime/versions.lock.json</code>; source-only reference, not supplied). Ollama versions, model digests, and resource settings live in config.ollama.json (<code>../enterprise-sdd/_tests/harness_runtime/config.ollama.json</code>; source-only reference, not supplied).</p>
+<p>For reproduction, retain those pins. Resolving “latest” again creates a new experiment that needs a new build and validation record.</p>
+<p>From the repository root, enter the framework directory:</p>
+<pre><code class="language-sh">cd enterprise-sdd
+</code></pre>
+<p>All remaining shell examples run from this directory. Substitute the path to your Python 3.11+ interpreter if <code>python3</code> selects an older version.</p>
+<h2 id="2-prepare-a-dedicated-local-model">2. Prepare a dedicated local model</h2>
+<p>On a fresh installation, download the base weights once:</p>
+<pre><code class="language-sh">ollama pull qwen3.5:9b-q4_K_M
+</code></pre>
+<p>Then prepare the lab alias:</p>
+<pre><code class="language-sh">python3 _tests/harness_runtime/lab.py prepare-ollama \
+  --config _tests/harness_runtime/config.ollama.json
+</code></pre>
+<p>This command checks the server version and the installed base-model digest, creates the lab alias if it is missing, and verifies the resulting alias and parameters. It does not overwrite a conflicting alias or change the Ollama service configuration. The alias shares the base weights.</p>
+<p>A model tag can resolve to different bytes in the future. If the digest differs, restore the preserved model cache or deliberately adopt and record a new configuration. A mismatched model should stop the experiment.</p>
+<p>The recorded setup kept Ollama bound to loopback. Docker Desktop reached it through <code>host.docker.internal</code>; no public bind was needed. Treat that as a verified property of this setup, and verify connectivity on a different host before changing service exposure.</p>
+<p>The 64k profile supports these bounded scenarios. GitHub recommends at least 128k context for general Copilot CLI use, and requires streaming and tool calling. Larger workloads therefore need a separately validated profile. See GitHub's <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-byok-models#model-requirements">model requirements</a>.</p>
+<p>Temperature zero is a model default, and requests can override defaults. The lab does not promise identical sampling between clients or identical model output on repeated runs.</p>
+<h2 id="3-install-both-clis-inside-the-lab-images">3. Install both CLIs inside the lab images</h2>
+<p>Build the two images:</p>
+<pre><code class="language-sh">python3 _tests/harness_runtime/lab.py build \
+  --config _tests/harness_runtime/config.ollama.json
+</code></pre>
+<p>The builder reads the lock, installs the exact official npm package for each target, and checks its installed version and integrity. The relevant installation step in the Dockerfile (<code>../enterprise-sdd/_tests/harness_runtime/Dockerfile</code>; source-only reference, not supplied) is:</p>
+<pre><code class="language-dockerfile">ARG CLI_PACKAGE
+ARG CLI_VERSION
+RUN npm install --prefix /opt/runtime --save-exact &quot;${CLI_PACKAGE}@${CLI_VERSION}&quot; \
+    &amp;&amp; npm cache clean --force
+</code></pre>
+<p>The builder supplies <code>@anthropic-ai/claude-code</code> or <code>@github/copilot</code> and the corresponding pinned version. Automatic CLI updates are disabled in the lab.</p>
+<p>The image also contains the selected framework source, complete test tree, support scripts, and a local wheelhouse. The wheelhouse includes the actual SDD CLI wheel. During testing, <code>PIP_NO_INDEX=1</code> forces installation from those baked wheels into disposable virtual environments. The existing production command dispatch and Sandbox lifecycle remain under test.</p>
+<p>Image construction and the initial model download require network access. Offline regression execution requires neither a package index nor a model service.</p>
+<h3 id="how-each-cli-reaches-the-local-model">How each CLI reaches the local model</h3>
+<p>The worker (<code>../enterprise-sdd/_tests/harness_runtime/worker.py</code>; source-only reference, not supplied) configures child processes directly. These are the effective routing values during a live matrix cell:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Claude Code</th>
+<th>Copilot CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base URL</td>
+<td><code>ANTHROPIC_BASE_URL=http://llm:11434</code></td>
+<td><code>COPILOT_PROVIDER_BASE_URL=http://llm:11434/v1</code></td>
+</tr>
+<tr>
+<td>Local authentication</td>
+<td><code>ANTHROPIC_AUTH_TOKEN=ollama</code>, empty <code>ANTHROPIC_API_KEY</code></td>
+<td>No provider API key</td>
+</tr>
+<tr>
+<td>Model</td>
+<td><code>ANTHROPIC_MODEL=sdd-w30-qwen35:9b-64k</code></td>
+<td><code>COPILOT_MODEL=sdd-w30-qwen35:9b-64k</code></td>
+</tr>
+<tr>
+<td>Additional routing</td>
+<td>Small/default model aliases use the same model</td>
+<td>Provider <code>openai</code>, wire API <code>completions</code>, explicit wire/model IDs</td>
+</tr>
+<tr>
+<td>Token limits</td>
+<td>Context 65,536; output 8,192</td>
+<td>Prompt 57,344; output 8,192</td>
+</tr>
+<tr>
+<td>Background traffic controls</td>
+<td>Nonessential traffic and updater disabled</td>
+<td><code>COPILOT_OFFLINE=true</code>, updater disabled</td>
+</tr>
+</tbody>
+</table>
+<p>The matrix replaces the profile's host-facing URL with the relay address before invoking the worker. Ollama documents the <a href="https://docs.ollama.com/integrations/claude-code">Anthropic-compatible connection used by Claude Code</a>; GitHub documents <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-byok-models">custom providers and offline mode</a>.</p>
+<p>The runner removes inherited provider credentials, alternate provider routes, and proxy settings. It uses isolated CLI configuration directories. There is no need to put these values into your shell startup files or change your everyday coding environment.</p>
+<p>Copilot's offline mode still permits requests to its configured provider. Here, the provider is local and the container network supplies the additional boundary. Native tool permissions remain enabled: scenarios receive narrowly scoped rules so permission-denial behavior can itself be tested.</p>
+<h2 id="4-prove-the-framework-works-offline">4. Prove the framework works offline</h2>
+<p>Start with preflight:</p>
+<pre><code class="language-sh">python3 _tests/harness_runtime/lab.py check \
+  --config _tests/harness_runtime/config.ollama.json
+</code></pre>
+<p>The recorded preflight passed eight checks for each CLI. Then exercise the structural matrix and full regression:</p>
+<pre><code class="language-sh">python3 _tests/harness_runtime/lab.py matrix \
+  --config _tests/harness_runtime/config.ollama.json \
+  --scenario deterministic --target claude
+
+python3 _tests/harness_runtime/lab.py regression \
+  --config _tests/harness_runtime/config.ollama.json \
+  --target claude
+</code></pre>
+<p>In these commands, <code>claude</code> selects the image. Neither command invokes a model.</p>
+<p>The deterministic runner (<code>../enterprise-sdd/_tests/harness_runtime/deterministic.py</code>; source-only reference, not supplied) covers twelve stable scenario IDs through fourteen selected pytest nodes. It exercises gate success and failure/resume, missing and stale review evidence, greenfield and brownfield deployment, optional packages, profile rejection, injection, ownership, and MCP validation. The matrix runs this suite in three independent containers.</p>
+<p>Its collection checks are deliberately strict. Missing, skipped, duplicate, or uncaptured required tests fail coverage. Stale-review checks use the existing artifact-hash verifier; they do not claim that planned future review-freshness features already exist.</p>
+<p>Run the full regression as well: later renderer and rollback tests can live outside the stable twelve-ID selection.</p>
+<h2 id="5-run-the-complete-local-scenario-matrix">5. Run the complete local scenario matrix</h2>
+<p>With Ollama prepared and the images built:</p>
+<pre><code class="language-sh">python3 _tests/harness_runtime/lab.py matrix \
+  --config _tests/harness_runtime/config.ollama.json
+</code></pre>
+<p>The scenario manifest (<code>../enterprise-sdd/_tests/harness_runtime/scenarios.json</code>; source-only reference, not supplied) expands thirteen families into <strong>47 cells</strong>: three offline suite executions, twenty-two live Claude cells, and twenty-two live Copilot cells.</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th style="text-align:right">Executions</th>
+<th>What determines success</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deterministic framework suite</td>
+<td style="text-align:right">3 total</td>
+<td>Real exits, checkpoints, artifacts, and complete collection</td>
+</tr>
+<tr>
+<td>Requirements and review</td>
+<td style="text-align:right">1 per CLI</td>
+<td>Actual draft edit, separate observed reviewer session, digest binding, missing-review gate rejection</td>
+</tr>
+<tr>
+<td>Native agent, skill, instructions</td>
+<td style="text-align:right">1 each per CLI</td>
+<td>Hidden receipts from content loaded through native mechanisms</td>
+</tr>
+<tr>
+<td>Optional skill present / absent</td>
+<td style="text-align:right">1 / 3 per CLI</td>
+<td>Discovery and activation, or verified absence without the withheld receipt</td>
+</tr>
+<tr>
+<td>Denied write / denied shell</td>
+<td style="text-align:right">3 each per CLI</td>
+<td>Operation-specific native denial and unchanged protected state</td>
+</tr>
+<tr>
+<td>Prompt injection</td>
+<td style="text-align:right">3 per CLI</td>
+<td>Successful read of the malicious input, legitimate result, protected files unchanged</td>
+</tr>
+<tr>
+<td>MCP allowed / denied</td>
+<td style="text-align:right">1 / 3 per CLI</td>
+<td>Exactly one audited tool call, or native denial with zero server-side calls</td>
+</tr>
+<tr>
+<td>Interrupted session resume</td>
+<td style="text-align:right">1 per CLI</td>
+<td>Real process interruption and recovery of earlier random context through the actual session ID</td>
+</tr>
+</tbody>
+</table>
+<p>The strongest oracles combine independent observations. A tool error alone cannot prove native permission enforcement. For MCP denial, the client must discover the server and report the relevant permission refusal, while the server audit records zero tool calls.</p>
+<p>Likewise, an injection test must prove the agent encountered the malicious text. Otherwise, an unchanged project could simply mean the document was never read.</p>
+<p>Critical negative cases use three fresh environments. This helps expose state contamination and some variable behavior; it is too small a sample to establish a statistical reliability guarantee.</p>
+<p>Use <code>matrix</code> for this network boundary. The older <code>run</code> smoke command uses ordinary bridge egress and does not provide the same isolation checks.</p>
+<h2 id="6-give-autonomous-repair-a-bounded-loop">6. Give autonomous repair a bounded loop</h2>
+<p>The suite automates execution, observation, reporting, and cleanup. An engineering agent can operate it and repair failures, provided the repair loop preserves the test contract:</p>
+<ol>
+<li>Read the failed cell's command, transcript, assertions, and protected-state differences.</li>
+<li>Identify whether the cause belongs to the framework, fixture, CLI integration, or lab infrastructure.</li>
+<li>Apply a narrow fix in the source checkout, preserving the acceptance condition.</li>
+<li>Rebuild images when source, runner, modes, or locks change.</li>
+<li>Rerun the failed family, retaining its required repetitions.</li>
+<li>Run the relevant regression and full matrix before making a new full-coverage claim.</li>
+</ol>
+<p>For example:</p>
+<pre><code class="language-sh">python3 _tests/harness_runtime/lab.py build \
+  --config _tests/harness_runtime/config.ollama.json
+
+python3 _tests/harness_runtime/lab.py matrix \
+  --config _tests/harness_runtime/config.ollama.json \
+  --target copilot --scenario denied-write
+</code></pre>
+<p>A focused pass establishes selected coverage only. Failed attempts remain saved. Do not retry until green and discard the failures, or accept a model's proposed change to the success criteria without reviewing the underlying contract.</p>
+<p>The existing runner executes finite, on-demand batches. It does not implement an unattended repair scheduler. For a surrounding agent or CI controller, set an explicit attempt/time budget and retain an unresolved failure when that budget expires. Keep image inputs stable during a batch.</p>
+<h3 id="three-failures-that-improved-the-lab">Three failures that improved the lab</h3>
+<p><strong>The temporary filesystem prevented execution.</strong> A restrictive mount blocked the real virtual-environment launcher. The fix allowed execution on the disposable test filesystems while retaining installed-CLI dispatch.</p>
+<p><strong>Claude used an additional exact API route.</strong> Its Messages request included <code>?beta=true</code>, which the relay rejected. The fix added that observed route to the allowlist while keeping arbitrary routes and model-management operations blocked.</p>
+<p><strong>All cells passed, but the aggregate failed.</strong> Intentional session interruption produced client disconnects while the relay was delivering responses. The aggregate initially classified those as transport failures. The fix distinguished downstream disconnects and bounded their allowance by completed interruption cases. Upstream failures continued to fail the run.</p>
+<p>These failures are documented in the <a href="runtime-lab.html">execution evidence</a>. They illustrate why the evidence collector and its aggregate verdict need testing too.</p>
+<h2 id="7-preserve-the-experiment-including-its-limits">7. Preserve the experiment, including its limits</h2>
+<p>Each matrix writes a unique directory under the lab's runs folder (<code>../enterprise-sdd/_tests/harness_runtime/runs/</code>; source-only reference, not supplied), containing one report per cell, a summary, and a relay audit. Reports include commands, exit codes, timeouts, transcripts, artifact hashes, observed sessions, and model evidence. Live cells check the pinned loaded model, context, and GPU residency before and after execution.</p>
+<p>A successful full local summary contains these distinct claims:</p>
+<pre><code class="language-json">{
+  &quot;status&quot;: &quot;PASS&quot;,
+  &quot;selected_complete&quot;: true,
+  &quot;local_matrix_complete&quot;: true,
+  &quot;overall_complete&quot;: false,
+  &quot;certificate_issued&quot;: false
+}
+</code></pre>
+<p>Retain the full report, including unresolved requirements and cleanup results. Relay audit logs omit prompt content, but CLI transcripts can contain fixture or project content; review them before publication.</p>
+<p>Rebuilding the recipe and restoring the exact tested binaries are different operations. The builder records source hashes, executable modes, image IDs, recipe hashes, and resolved npm dependency trees. Nevertheless, package repositories and transitive dependencies can change. Version pins alone do not guarantee byte-identical image reconstruction.</p>
+<p>For durable replay, preserve:</p>
+<ul>
+<li>The source revision <strong>and all required local changes</strong>, including untracked lab files. A commit hash alone is insufficient for this recorded working tree.</li>
+<li>The configuration (<code>../enterprise-sdd/_tests/harness_runtime/config.ollama.json</code>; source-only reference, not supplied), version lock (<code>../enterprise-sdd/_tests/harness_runtime/versions.lock.json</code>; source-only reference, not supplied), both Python dependency locks, build records, and resolved npm locks.</li>
+<li>The exact tested container images as archives.</li>
+<li>The Ollama binary/version and both model manifests with every referenced weight blob.</li>
+<li>The complete successful and failed reports, plus the <a href="../original/runtime-lab-record.json">replay record</a> linking evidence to tested inputs.</li>
+</ul>
+<p>For example, after a build, archive the images named by the current build records:</p>
+<pre><code class="language-sh">python3 - &lt;&lt;'PY'
+import json
+import subprocess
+import tempfile
+from pathlib import Path
+
+builds = Path(&quot;_tests/harness_runtime/builds&quot;)
+archive_dir = Path(tempfile.mkdtemp(prefix=&quot;image-archive-&quot;, dir=builds))
+images = [
+    json.loads((builds / f&quot;{target}.json&quot;).read_text())[&quot;image_id&quot;]
+    for target in (&quot;claude&quot;, &quot;copilot&quot;)
+]
+archive = archive_dir / &quot;cli-images.tar&quot;
+subprocess.run([&quot;docker&quot;, &quot;image&quot;, &quot;save&quot;, &quot;--output&quot;, str(archive), *images], check=True)
+print(archive)
+PY
+</code></pre>
+<p>Retain those build records alongside the archive; historical test reports may refer to earlier images. Docker can restore an archive with <code>docker image load --input PATH_TO_ARCHIVE</code>. Restoring images also requires restoring their matching source/configuration and build records for the runner's drift checks. Move the replay bundle into durable storage: build and run outputs are ignored by Git.</p>
+<p>After execution, the runner attempts cleanup of its own containers, relay, and uniquely named network and reports any failure. Images and reports remain available. To release the lab model's GPU memory when you have finished using it:</p>
+<pre><code class="language-sh">ollama stop sdd-w30-qwen35:9b-64k
+</code></pre>
+<p>This leaves the model weights available for the next run.</p>
+<h2 id="what-the-recorded-results-establish">What the recorded results establish</h2>
+<p>The October 27 UTC / October 28 local run passed <strong>47 of 47 cells</strong>, validated the relay audit, and completed cleanup. It took approximately nineteen minutes on the recorded machine; that is one observation, not a performance guarantee.</p>
+<p>The subsequent foundation increment added real managed-renderer lifecycle tests and stronger original-baseline rollback checks. Five focused cases passed. The full offline regression then passed <strong>1,197 tests and 111 subtests</strong>, with <strong>20 PowerShell skips</strong> and one existing warning. Those skips remain visible coverage limitations. The <a href="foundation-report.html">foundation report</a> records the exact scope and timings.</p>
+<p>These runs belong to their respective image and source hashes. Earlier live evidence does not automatically validate later changes.</p>
+<p>The remaining work includes actual generated production role/workflow coverage, VS Code execution evidence, and foundation review acceptance. Native macOS and Windows CLI behavior also requires separate evidence: the CLIs in this lab ran on Linux. Synthetic native-loading fixtures and legacy adapter generation cover useful mechanisms without establishing every production workflow or application runtime.</p>
+<p>The Wave 30 plan (<code>../enterprise-sdd/_plan/WAVE-30-HARNESS-EVOLUTION-IMPLEMENTATION-PLAN.md</code>; source-only reference, not supplied) consequently keeps foundation acceptance open. The next engineering task is concrete: turn each unresolved workflow into a fixture with an independent oracle, execute it in the required host, and attach its evidence to the same repeatable process.</p>
+<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="testing-an-sdd-framework-autonomously.md">Markdown source</a></footer></main></body></html>

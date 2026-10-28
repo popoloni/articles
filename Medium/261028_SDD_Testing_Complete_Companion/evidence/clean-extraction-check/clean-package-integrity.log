@@ -1,0 +1,17 @@
+{
+  "links": {
+    "status": "PASS",
+    "documents_checked": 42,
+    "local_links_checked": 465,
+    "external_links_not_fetched": 46,
+    "errors": [],
+    "excluded_scope": "Verbatim evidence/original sources and generated fixture content; source-only references inventoried separately."
+  },
+  "integrity": {
+    "status": "PASS",
+    "files_checked": 285,
+    "errors": [],
+    "note": "Checks distributed manifest entries; newly generated user runs are not part of the original manifest. Hashes are not signatures."
+  },
+  "status": "PASS"
+}
