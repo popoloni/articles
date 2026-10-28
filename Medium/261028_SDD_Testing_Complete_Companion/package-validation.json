@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "checked_at_utc": "2026-10-28T10:05:58Z",
+  "checks": [
+    {
+      "name": "all_five_supplied_files_preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "original_upload_contents_match_extracted_sources",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "seven_individual_figures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "seven_article_image_embeddings",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no_font_or_credentials_files",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unit_suite_pass",
+      "passed": true,
+      "detail": {
+        "tests": 81,
+        "subtests": 58
+      }
+    },
+    {
+      "name": "reference_matrix_pass",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "six_deliberate_defects_detected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source_identity_matches_packaged_code",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source_identity_matches_packaged_code",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "executed_source_identity_matches_packaged_code",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "gate-pass/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "gate-block-and-resume/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "review-freshness/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "greenfield-rollback/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "brownfield-recovery/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "denied-write/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "denied-write/reference-fixture/2"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "denied-write/reference-fixture/3"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "skill-present/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "skill-absent/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "skill-absent/reference-fixture/2"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "skill-absent/reference-fixture/3"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "injection-exposure/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "injection-exposure/reference-fixture/2"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "injection-exposure/reference-fixture/3"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "tool-allowed/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "tool-denied/reference-fixture/1"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "tool-denied/reference-fixture/2"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "tool-denied/reference-fixture/3"
+    },
+    {
+      "name": "matrix_cell_report_hash_matches",
+      "passed": true,
+      "detail": "session-resume/reference-fixture/1"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/tool-denied--reference-fixture--2/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/skill-absent--reference-fixture--2/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/denied-write--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/skill-present--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/tool-allowed--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/greenfield-rollback--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/gate-pass--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/denied-write--reference-fixture--2/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/skill-absent--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/denied-write--reference-fixture--3/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/tool-denied--reference-fixture--3/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/gate-block-and-resume--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/session-resume--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/injection-exposure--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/injection-exposure--reference-fixture--2/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/tool-denied--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/review-freshness--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/brownfield-recovery--reference-fixture--1/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/skill-absent--reference-fixture--3/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/matrix-20261028T095947Z-559ba564b5/cells/injection-exposure--reference-fixture--3/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/mutations-295a33bcee/allow-protected-write/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/mutations-295a33bcee/rollback-does-nothing/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/mutations-295a33bcee/accept-stale-and-self-review/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/mutations-295a33bcee/bypass-tool-policy/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/mutations-295a33bcee/silence-policy-denial/report.json"
+    },
+    {
+      "name": "cell_evidence_hashes_match",
+      "passed": true,
+      "detail": "evidence/starter-validation/mutations-295a33bcee/omit-exposure-evidence/report.json"
+    },
+    {
+      "name": "reader_facing_links_and_anchors_resolve",
+      "passed": true,
+      "detail": {
+        "status": "PASS",
+        "documents_checked": 42,
+        "local_links_checked": 465,
+        "external_links_not_fetched": 46,
+        "errors": [],
+        "excluded_scope": "Verbatim evidence/original sources and generated fixture content; source-only references inventoried separately."
+      }
+    },
+    {
+      "name": "zip_crc_check",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "original_native_runs_reexecuted": false,
+  "real_models_invoked_for_new_validation": false,
+  "original_source_files": 5,
+  "figure_count": 7,
+  "unit_tests": 81,
+  "unit_subtests": 58,
+  "reference_cells": 20,
+  "matrix_assertions": 78,
+  "detected_deliberate_defects": 6,
+  "reader_links": {
+    "status": "PASS",
+    "documents_checked": 42,
+    "local_links_checked": 465,
+    "external_links_not_fetched": 46,
+    "errors": [],
+    "excluded_scope": "Verbatim evidence/original sources and generated fixture content; source-only references inventoried separately."
+  },
+  "clean_extraction_check": {
+    "status": "PASS",
+    "report": "evidence/clean-extraction-check/summary.json",
+    "interpretation": "All five commands passed from a freshly extracted archive with Python -S; no third-party site packages were available."
+  }
+}

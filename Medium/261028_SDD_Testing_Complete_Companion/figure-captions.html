@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Figure pack: captions, alt text, and placement</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="index.html">Companion home</a><a href="preview.html">Article</a><a href="starter/README.html">Run the starter</a><a href="evidence/README.html">Evidence</a></nav></header><main><h1 id="figure-pack-captions-alt-text-and-placement">Figure pack: captions, alt text, and placement</h1>
+<p>Seven separate PNGs, in article order. The images retain the supplied covers’ dark navy, orange, white, and cyan scheme. Each is one panel, not a collage.</p>
+<h2 id="figure-1">Figure 1</h2>
+<p><strong>File:</strong> <code>figures/01-testing-the-sdd-framework.png</code></p>
+<p><strong>Placement:</strong> 1. Test the framework, not just the application</p>
+<p><strong>Caption:</strong> Figure 1. A correct application does not, by itself, prove that the development process was followed. Framework and runtime behavior need their own tests.</p>
+<p><strong>Alt text:</strong> Three testing scopes: application correctness, SDD framework conformance, and agent runtime behavior.</p>
+<h2 id="figure-2">Figure 2</h2>
+<p><strong>File:</strong> <code>figures/02-test-laboratory-architecture.png</code></p>
+<p><strong>Placement:</strong> 2. Put real agents inside a disposable boundary</p>
+<p><strong>Caption:</strong> Figure 2. Disposable Linux CLI workers use a restricted relay to reach native Ollama. The orchestrator controls the experiment; the relay restricts and audits inference requests. Direct worker access to Ollama is not the intended route.</p>
+<p><strong>Alt text:</strong> The host orchestrator manages isolated Claude Code and Copilot CLI containers. Inference traffic passes through a restricted relay to native Ollama on macOS.</p>
+<h2 id="figure-3">Figure 3</h2>
+<p><strong>File:</strong> <code>figures/03-sdd-lifecycle-under-test.png</code></p>
+<p><strong>Placement:</strong> 3. Test the deterministic lifecycle before involving a model</p>
+<p><strong>Caption:</strong> Figure 3. Exercise the real lifecycle, including failure in the middle. Verify both the resulting files and the ownership records used by later operations.</p>
+<p><strong>Alt text:</strong> SDD lifecycle under test: specification, generation, publication, change, interruption, recovery, and rollback.</p>
+<h2 id="figure-4">Figure 4</h2>
+<p><strong>File:</strong> <code>figures/04-coding-agent-test-scenarios.png</code></p>
+<p><strong>Placement:</strong> 4. Test both cooperation and resistance</p>
+<p><strong>Caption:</strong> Figure 4. Pair successful behavior with negative cases. A useful test establishes what the agent encountered, which operation occurred or was denied, and what state remained afterward.</p>
+<p><strong>Alt text:</strong> Runtime scenario families covering instructions, skills, denied operations, prompt injection, MCP tools, and interrupted sessions.</p>
+<h2 id="figure-5">Figure 5</h2>
+<p><strong>File:</strong> <code>figures/05-bounded-repair-loop.png</code></p>
+<p><strong>Placement:</strong> 5. Automate execution; put boundaries around repair</p>
+<p><strong>Caption:</strong> Figure 5. Automated test execution can support an agent-assisted repair loop. Keep acceptance criteria under separate control, preserve failed attempts, and require revalidation after every change.</p>
+<p><strong>Alt text:</strong> A bounded repair cycle: prepare an isolated environment, execute tests, observe evidence, diagnose failures, and apply controlled repairs before revalidation.</p>
+<h2 id="figure-6">Figure 6</h2>
+<p><strong>File:</strong> <code>figures/06-independent-test-evidence.png</code></p>
+<p><strong>Placement:</strong> 6. Keep the evidence outside the model's story</p>
+<p><strong>Caption:</strong> Figure 6. The agent's response is an observation, not the final verdict. Evaluate the relevant independent evidence for each contract; no single signal proves every kind of compliance.</p>
+<p><strong>Alt text:</strong> Independent evidence includes protected-file hashes, native permission events, tool-access logs, skill receipts, and gate results rather than the agent's claim that it followed the rules.</p>
+<h2 id="figure-7">Figure 7</h2>
+<p><strong>File:</strong> <code>figures/07-recorded-results.png</code></p>
+<p><strong>Placement:</strong> 7. Read the results without overstating them</p>
+<p><strong>Caption:</strong> Figure 7. Two dated scopes: the 47-cell live/structural matrix and a subsequent offline framework regression. The later regression had zero failures, 20 PowerShell skips, and one existing warning. Earlier live evidence does not automatically validate later source changes.</p>
+<p><strong>Alt text:</strong> Recorded results: 22 of 22 live cells for each CLI and three of three structural executions, totaling 47 of 47 local cells; a later regression passed 1,197 tests and 111 subtests with 20 PowerShell skips.</p>
+<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="figure-captions.md">Markdown source</a></footer></main></body></html>

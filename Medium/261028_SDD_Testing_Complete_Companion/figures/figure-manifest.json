@@ -1,0 +1,141 @@
+[
+  {
+    "file": "01-testing-the-sdd-framework.png",
+    "source_crop": [
+      6,
+      4,
+      768,
+      430
+    ],
+    "native_crop_pixels": [
+      762,
+      426
+    ],
+    "output_pixels": [
+      2286,
+      1278
+    ],
+    "scale": 3,
+    "corrections": []
+  },
+  {
+    "file": "02-test-laboratory-architecture.png",
+    "source_crop": [
+      767,
+      4,
+      1529,
+      430
+    ],
+    "native_crop_pixels": [
+      762,
+      426
+    ],
+    "output_pixels": [
+      2286,
+      1278
+    ],
+    "scale": 3,
+    "corrections": [
+      "Removed direct worker-to-Ollama arrow and connected restricted relay to Ollama."
+    ]
+  },
+  {
+    "file": "03-sdd-lifecycle-under-test.png",
+    "source_crop": [
+      6,
+      429,
+      768,
+      695
+    ],
+    "native_crop_pixels": [
+      762,
+      266
+    ],
+    "output_pixels": [
+      2286,
+      798
+    ],
+    "scale": 3,
+    "corrections": []
+  },
+  {
+    "file": "04-coding-agent-test-scenarios.png",
+    "source_crop": [
+      767,
+      429,
+      1529,
+      695
+    ],
+    "native_crop_pixels": [
+      762,
+      266
+    ],
+    "output_pixels": [
+      2286,
+      798
+    ],
+    "scale": 3,
+    "corrections": []
+  },
+  {
+    "file": "05-bounded-repair-loop.png",
+    "source_crop": [
+      6,
+      693,
+      535,
+      1019
+    ],
+    "native_crop_pixels": [
+      529,
+      326
+    ],
+    "output_pixels": [
+      1587,
+      978
+    ],
+    "scale": 3,
+    "corrections": [
+      "Renamed panel to distinguish automated execution from the agent-assisted repair workflow."
+    ]
+  },
+  {
+    "file": "06-independent-test-evidence.png",
+    "source_crop": [
+      533,
+      693,
+      1078,
+      1019
+    ],
+    "native_crop_pixels": [
+      545,
+      326
+    ],
+    "output_pixels": [
+      1635,
+      978
+    ],
+    "scale": 3,
+    "corrections": []
+  },
+  {
+    "file": "07-recorded-results.png",
+    "source_crop": [
+      1075,
+      693,
+      1529,
+      1019
+    ],
+    "native_crop_pixels": [
+      454,
+      326
+    ],
+    "output_pixels": [
+      1362,
+      978
+    ],
+    "scale": 3,
+    "corrections": [
+      "Restored 47/47; labeled 22/22 as live cells, separated the later regression, and specified PowerShell skips; removed the misleading two-group brace and stated 44 live + 3 structural."
+    ]
+  }
+]
