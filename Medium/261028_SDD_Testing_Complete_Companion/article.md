@@ -18,7 +18,7 @@ The result was a local laboratory using Claude Code, GitHub Copilot CLI, Ollama,
 
 The numbers are useful. The more transferable lesson is the testing method: make a framework's promises observable, collect evidence independently, and never let a convincing conversation substitute for verification.
 
-**Try it yourself:** the companion includes the [seven figures](figure-captions.md), [all five supplied experiment records](evidence/README.md), and a [runnable Python starter](starter/README.md) with its own tests and retained execution evidence. Historical results and newly executed reference tests are clearly separated.
+**Try it yourself:** the companion includes a [runnable Python starter](starter/README.md) with its own tests and retained execution evidence.
 
 ## 1. Test the framework, not just the application
 
