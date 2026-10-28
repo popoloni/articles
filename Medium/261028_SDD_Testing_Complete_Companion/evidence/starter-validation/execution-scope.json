@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "real_ollama_model_execution": "NOT_RUN",
+  "claude_code_native_cli": "NOT_RUN",
+  "copilot_native_cli": "NOT_RUN",
+  "docker_build_and_container_execution": "NOT_RUN",
+  "optional_ollama_protocol_tests": "EXECUTED_WITH_MOCKED_HTTP_RESPONSES",
+  "original_enterprise_sdd_47_cell_matrix": "HISTORICAL_AUTHOR_RECORD_ONLY",
+  "original_enterprise_sdd_1197_test_regression": "HISTORICAL_AUTHOR_RECORD_ONLY",
+  "new_reference_unit_tests": "EXECUTED",
+  "new_reference_matrix": "EXECUTED",
+  "new_mutation_demonstration": "EXECUTED",
+  "host": {
+    "machine": "x86_64",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  }
+}

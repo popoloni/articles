@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Newly executed companion validation</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../../starter/README.html">Run the starter</a><a href="../README.html">Evidence</a></nav></header><main><h1 id="newly-executed-companion-validation">Newly executed companion validation</h1>
+<p>These results were produced while building this companion on <strong>October 28, 2026</strong>. They test the <strong>included reference implementation</strong>, not the author's original Enterprise SDD runtime. The original live-model and 1,197-test results remain historical and separately attributed.</p>
+<h2 id="results">Results</h2>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Observed result</th>
+<th>Retained evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reference regression suite</td>
+<td><strong>81/81 tests PASS</strong>, 58 successful subtests, zero failures/errors/skips</td>
+<td><a href="unit-tests.json">JSON</a>, <a href="unit-tests.xml">JUnit XML</a>, <a href="unit-tests.log">full log</a></td>
+</tr>
+<tr>
+<td>Offline reference scenario matrix</td>
+<td><strong>20/20 cells PASS</strong>, 78 passing assertions across 12 families</td>
+<td><a href="matrix-20261028T095947Z-559ba564b5/summary.json">Summary</a>, <a href="matrix-20261028T095947Z-559ba564b5/junit.xml">JUnit XML</a>, <a href="matrix-console.log">console</a></td>
+</tr>
+<tr>
+<td>Deliberately broken implementations</td>
+<td><strong>6/6 detected by failed assertions</strong>, not crashes</td>
+<td><a href="mutations-295a33bcee/summary.json">Summary</a>, <a href="mutations-console.log">console</a></td>
+</tr>
+<tr>
+<td>Historical-summary auditor regression</td>
+<td><strong>6/6 tests PASS</strong></td>
+<td><a href="../../tools/tests/test_record_audit.py">Test source</a>, <a href="../record-audit/auditor-tests.log">log</a></td>
+</tr>
+<tr>
+<td>Original record consistency</td>
+<td><strong>16/16 checks PASS</strong></td>
+<td><a href="../record-audit/record-audit.json">Audit result</a></td>
+</tr>
+</tbody>
+</table>
+<p>Execution host: <strong>Python 3.13.5, Linux x86_64</strong>. The full platform identifier and executed source fingerprints are in each machine-readable report. No real model was called for these newly executed results. Optional Ollama behavior is tested using mocked HTTP responses; the reference permission gateway itself executes normally. See the <a href="execution-scope.json">execution-scope declaration</a>.</p>
+<p>The original matrix ran on a different, author-recorded Apple Silicon environment. Do not present these Linux results as new native macOS/Windows, Claude, Copilot, MCP or GPU evidence.</p>
+<h2 id="inspect-the-proof-not-just-the-totals">Inspect the proof, not just the totals</h2>
+<p>For every matrix cell, the summary links to <code>cells/&lt;id&gt;/report.json</code>. That report retains explicit assertions and SHA-256 hashes of its evidence: <code>events.jsonl</code>, before/after workspace snapshots, final fixture files, and controller state. Tool scenarios also retain a separate synthetic service audit. These are small generated fixtures, not withheld production transcripts.</p>
+<p>A file hash does not authenticate an unavailable original report. The original record audit can check count consistency and hash syntax, but it cannot verify the historical payloads whose bytes were never supplied.</p>
+<p>The <a href="../PROOF_WALKTHROUGH.html">proof walkthrough</a> follows one denied-write claim to its actual events, file hashes and deliberately broken counterexample.</p>
+<h2 id="why-the-mutation-reports-are-red">Why the mutation reports are red</h2>
+<p>The mutation suite patches one implementation at a time without modifying the source files. The matrix oracle must reject each defective behavior. Its reports intentionally contain <code>FAIL</code>; the mutation summary is <code>PASS</code> because those violations were detected. <code>ERROR</code> would not count as detection.</p>
+<table>
+<thead>
+<tr>
+<th>Deliberate defect</th>
+<th>Scenario outcome</th>
+<th>Failed assertions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allow-protected-write</code></td>
+<td>FAIL</td>
+<td><code>operation_bound_policy_denial</code>, <code>protected_bytes_unchanged</code></td>
+</tr>
+<tr>
+<td><code>silence-policy-denial</code></td>
+<td>FAIL</td>
+<td><code>operation_bound_policy_denial</code></td>
+</tr>
+<tr>
+<td><code>accept-stale-and-self-review</code></td>
+<td>FAIL</td>
+<td><code>stale_artifact_review_rejected</code>, <code>old_checkpoint_invalidated</code>, <code>builder_cannot_self_approve</code>, <code>stale_spec_review_rejected</code></td>
+</tr>
+<tr>
+<td><code>rollback-does-nothing</code></td>
+<td>FAIL</td>
+<td><code>rollback_restores_complete_workspace</code>, <code>rollback_restores_ledger_bytes</code></td>
+</tr>
+<tr>
+<td><code>omit-exposure-evidence</code></td>
+<td>FAIL</td>
+<td><code>injection_payload_was_read</code></td>
+</tr>
+<tr>
+<td><code>bypass-tool-policy</code></td>
+<td>FAIL</td>
+<td><code>native_like_gateway_denial_bound_to_attempt</code>, <code>zero_server_side_calls</code>, <code>no_tool_result_returned</code></td>
+</tr>
+</tbody>
+</table>
+<p>This six-defect demonstration does not measure the fraction of all possible defects the harness detects.</p>
+<h2 id="repeat-the-new-validation">Repeat the new validation</h2>
+<p>From the extracted package root:</p>
+<pre><code class="language-sh">cd starter
+python3 tools/run_unit_tests.py --output test-results/new-run
+python3 lab.py run
+python3 lab.py mutations
+cd ..
+python3 -m unittest discover -s tools/tests -v
+python3 tools/audit_original_record.py
+python3 tools/verify_package.py
+</code></pre>
+<p>Choose a new unit-test output directory for each run: existing evidence is not overwritten. Re-running changes timestamps, random receipts and run identifiers; it should reproduce the contracts and verdicts, not identical report bytes.</p>
+<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="README.md">Markdown source</a></footer></main></body></html>
