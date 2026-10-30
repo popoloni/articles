@@ -1,0 +1,210 @@
+{
+  "ollama_before": {
+    "host": {
+      "chip": "Apple M2 Max",
+      "machine": "arm64",
+      "macos": "27.2",
+      "memory_bytes": 68719476736,
+      "system": "Darwin"
+    },
+    "loaded": {
+      "context_length": 65536,
+      "details": {
+        "families": [
+          "qwen35"
+        ],
+        "family": "qwen35",
+        "format": "gguf",
+        "parameter_size": "9.0B",
+        "parent_model": "",
+        "quantization_level": "Q4_K_M"
+      },
+      "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+      "expires_at": "2026-10-29T22:21:41.644851+01:00",
+      "model": "sdd-w30-qwen35:9b-64k",
+      "name": "sdd-w30-qwen35:9b-64k",
+      "runner": "llamacpp",
+      "size": 7462274989,
+      "size_vram": 7462274989
+    },
+    "models": {
+      "base_model": {
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ],
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "9.0B",
+          "parent_model": "model.gguf",
+          "quantization_level": "Q4_K_M",
+          "runner": "llamacpp"
+        },
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "name": "qwen3.5:9b-q4_K_M",
+        "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+      },
+      "model": {
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ],
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "9.0B",
+          "parent_model": "qwen3.5:9b-q4_K_M",
+          "quantization_level": "Q4_K_M",
+          "runner": "llamacpp"
+        },
+        "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+        "name": "sdd-w30-qwen35:9b-64k",
+        "parameters": "num_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95\nnum_ctx                        65536"
+      }
+    },
+    "server_version": "0.40.12"
+  },
+  "ollama_after": {
+    "host": {
+      "chip": "Apple M2 Max",
+      "machine": "arm64",
+      "macos": "27.2",
+      "memory_bytes": 68719476736,
+      "system": "Darwin"
+    },
+    "loaded": {
+      "context_length": 65536,
+      "details": {
+        "families": [
+          "qwen35"
+        ],
+        "family": "qwen35",
+        "format": "gguf",
+        "parameter_size": "9.0B",
+        "parent_model": "",
+        "quantization_level": "Q4_K_M"
+      },
+      "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+      "expires_at": "2026-10-29T22:23:42.779394+01:00",
+      "model": "sdd-w30-qwen35:9b-64k",
+      "name": "sdd-w30-qwen35:9b-64k",
+      "runner": "llamacpp",
+      "size": 7462274989,
+      "size_vram": 7462274989
+    },
+    "models": {
+      "base_model": {
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ],
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "9.0B",
+          "parent_model": "model.gguf",
+          "quantization_level": "Q4_K_M",
+          "runner": "llamacpp"
+        },
+        "digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+        "name": "qwen3.5:9b-q4_K_M",
+        "parameters": "top_k                          20\ntop_p                          0.95\npresence_penalty               1.5\ntemperature                    1"
+      },
+      "model": {
+        "capabilities": [
+          "completion",
+          "vision",
+          "tools",
+          "thinking"
+        ],
+        "details": {
+          "families": [
+            "qwen35"
+          ],
+          "family": "qwen35",
+          "format": "gguf",
+          "parameter_size": "9.0B",
+          "parent_model": "qwen3.5:9b-q4_K_M",
+          "quantization_level": "Q4_K_M",
+          "runner": "llamacpp"
+        },
+        "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+        "name": "sdd-w30-qwen35:9b-64k",
+        "parameters": "num_predict                    8192\npresence_penalty               1.5\ntemperature                    0\ntop_k                          20\ntop_p                          0.95\nnum_ctx                        65536"
+      }
+    },
+    "server_version": "0.40.12"
+  },
+  "effective_config": {
+    "base_image": "node:22-bookworm-slim",
+    "claude_max_budget_usd": 2,
+    "container_command": [
+      "docker"
+    ],
+    "cpus": "2",
+    "memory": "2g",
+    "ollama": {
+      "base_model": "qwen3.5:9b-q4_K_M",
+      "base_model_digest": "56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90",
+      "container_url": "http://llm:11434",
+      "host_url": "http://127.0.0.1:11434",
+      "model": "sdd-w30-qwen35:9b-64k",
+      "model_digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+      "parameters": {
+        "num_ctx": 65536,
+        "num_predict": 8192,
+        "temperature": 0
+      },
+      "version": "0.40.12"
+    },
+    "pids_limit": 128,
+    "platform": "linux/arm64",
+    "provider": "ollama",
+    "schema_version": 1,
+    "targets": {
+      "claude": {
+        "model": "sdd-w30-qwen35:9b-64k",
+        "package": "@anthropic-ai/claude-code"
+      },
+      "copilot": {
+        "model": "sdd-w30-qwen35:9b-64k",
+        "package": "@github/copilot"
+      }
+    },
+    "timeout_seconds": 300
+  },
+  "versions": {
+    "cli": "2.1.311 (Claude Code)",
+    "dependencies": "annotated-types==0.8.0\nanyio==4.15.1\nattrs==26.1.0\ncertifi==2026.10.23\ncffi==2.1.1\nclick==8.5.0\ncryptography==50.0.2\nh11==0.16.0\nhttpcore==1.0.9\nhttpx==0.28.1\nhttpx-sse==0.4.3\nidna==3.20\niniconfig==2.3.1\njsonschema==4.26.0\njsonschema-specifications==2025.9.1\nmcp==1.30.0\npackaging==26.3\npluggy==1.7.0\npycparser==3.12\npydantic==2.14.1\npydantic-settings==2.16.1\npydantic_core==2.50.1\nPygments==2.21.0\nPyJWT==2.15.1\npytest==9.1.1\npytest-asyncio==1.4.1\npython-dotenv==1.2.4\npython-multipart==0.0.32\nPyYAML==6.0.3\nreferencing==0.37.0\nrpds-py==2026.9.1\nsse-starlette==3.6.0\nstarlette==1.10.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\nuvicorn==0.54.0\n",
+    "python": "3.11.2 (main, Oct  7 2026, 12:35:07) [GCC 12.2.0]"
+  },
+  "projection": {
+    "kind": "privacy_reviewed_derivative",
+    "original_input_label": "native-runtime-sample.json",
+    "original_input_sha256": "1b637aa1ea0d5365b94e3930a8195a3cddf20b206cbdb773dc619e7081a28376",
+    "original_input_included": false,
+    "changes": [
+      "Removed the private source report location; runtime values are preserved."
+    ],
+    "hash_interpretation": "The original input SHA-256 identifies the unmodified source. It is not a checksum of this derivative; exported-file checksums are recorded separately."
+  },
+  "unpublished_source_report": "requirements-review--claude--1.json",
+  "original_source_report_sha256": "e9f6dfc9a64e0cb3d2440d1c08c212d7a82a9e3df0048904b7e00fcc96fa18cf",
+  "public_matrix_summary": "native-matrix-summary.json"
+}

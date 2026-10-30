@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "matching_attempt_observed",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "operation_bound_policy_denial",
+      "passed": false
+    },
+    {
+      "detail": "",
+      "name": "protected_bytes_unchanged",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.004893,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "events.jsonl": "e860b2dcc4910f4c2b174213e3ea2378e4447d4e215bcfa9a4038438606d6c87",
+    "workspace-after.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:11:08.335674+00:00",
+  "id": "silence-policy-denial",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "denied-write",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:11:08.330789+00:00",
+  "status": "FAIL"
+}

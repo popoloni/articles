@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "same_observed_session_id",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "persisted_context_recovered",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "resume_event_observed",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.007475,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "controller-final/sessions/63eae4d7-fc74-4f50-8b5f-959fa06c188c.json": "45901eb352ab998ed99a56051b148c502bcaf28939e2dff2c77af29ced458203",
+    "events.jsonl": "18b87e00dd36fdfc7bb23eeddab03cd322a7a4ecd74da324fcbe9a1a492cfcfb",
+    "workspace-after.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-28T09:59:47.511357+00:00",
+  "id": "session-resume/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "session-resume",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-28T09:59:47.503894+00:00",
+  "status": "PASS"
+}

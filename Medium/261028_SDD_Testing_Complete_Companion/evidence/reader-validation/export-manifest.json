@@ -1,0 +1,1562 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-10-29",
+  "scope": "Public reader workflow executions after runner, reporter and macOS assertion corrections",
+  "raw_copy_policy": "Every raw file below was copied unchanged and its exported SHA-256 compared with the original source file. The full container run and complete inner live evidence directory are included.",
+  "derivative_policy": "Projection input hashes identify original, unpublished source bytes; exported derivative hashes identify rewritten public files. These hash sets are not interchangeable.",
+  "groups": {
+    "container-run": {
+      "original_run_id": "validation-20261029T215342Z-009440095d",
+      "raw_file_count": 201,
+      "scope": "Complete offline container run"
+    },
+    "live-probe": {
+      "original_host_run_id": "validation-20261029T215440Z-f89dfa0b7c",
+      "original_live_run_id": "ollama-1c2606711b",
+      "raw_file_count": 7,
+      "scope": "Complete seven-file inner live evidence directory; outer host console log excluded"
+    },
+    "reader-tooling": {
+      "raw_file_count": 1,
+      "scope": "24-test reader-tooling unittest log"
+    }
+  },
+  "raw_files": [
+    {
+      "path": "live-probe/summary.json",
+      "sha256": "f7f0372070ce73d6beff1620734c52ff9a377ab9dcaeeb71298d1f0059a7596c",
+      "origin": "live-probe",
+      "original_relative_path": "summary.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "live-probe/request.json",
+      "sha256": "688603c4b01aca0f54aeecb9bc16e59e3b7859039b44d9bf865528c1cfe21f6c",
+      "origin": "live-probe",
+      "original_relative_path": "request.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "live-probe/protected-hashes.json",
+      "sha256": "76ec145cf337f3956b96d88b51d79fe07cfd14fbdad0740c59f77f09927422db",
+      "origin": "live-probe",
+      "original_relative_path": "protected-hashes.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "live-probe/assistant-output.json",
+      "sha256": "e78e26f7dc74e9da48876e10c3f1bfb61d4c30af3becea748ea2e752a77afa71",
+      "origin": "live-probe",
+      "original_relative_path": "assistant-output.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "live-probe/observed-model.json",
+      "sha256": "c31a579bb4c5f979ad82ab58d6d7da9ada1c279d7090135455675c716ea324d4",
+      "origin": "live-probe",
+      "original_relative_path": "observed-model.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "live-probe/events.jsonl",
+      "sha256": "be4eac9bd34ba471f33cfd61c1fed5480167be5317c469fcf0ee299c798c6f6f",
+      "origin": "live-probe",
+      "original_relative_path": "events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "live-probe/gateway-result.json",
+      "sha256": "f9d65530ae576540465b813b745e5b8650c5a8b0799d309d3195322299ff35d5",
+      "origin": "live-probe",
+      "original_relative_path": "gateway-result.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/summary.json",
+      "sha256": "4f217b39ffb04750d1945ea301ff4916c81ce9d3aae3a38fc669345874cae424",
+      "origin": "container-run",
+      "original_relative_path": "summary.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/console.log",
+      "sha256": "64cccec3d1e45b4c160af5cd11e926ebeb397b8b9bcd9a302f3fec75925ad79e",
+      "origin": "container-run",
+      "original_relative_path": "matrix/console.log",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/unit/unit-tests.xml",
+      "sha256": "5ad9f4b78d13b8c150f394d24ddfc1da11563eb87bac44da4848c48f0e59dc74",
+      "origin": "container-run",
+      "original_relative_path": "unit/unit-tests.xml",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/unit/unit-tests.json",
+      "sha256": "a0953a6e9e06b6d08e92b07ef39bc27f5886c31908c1a16b1b275c4536e6f48d",
+      "origin": "container-run",
+      "original_relative_path": "unit/unit-tests.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/unit/unit-tests.log",
+      "sha256": "48056b7c0b5fdcfe9ddff9b58ab492acd72e4d4f32240b740fc814263fc67f45",
+      "origin": "container-run",
+      "original_relative_path": "unit/unit-tests.log",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/unit/console.log",
+      "sha256": "415810d66bd1b7d05300570c553ba44d0f33a3f84e1d81642bfe17795e4c0e57",
+      "origin": "container-run",
+      "original_relative_path": "unit/console.log",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/console.log",
+      "sha256": "1dd4e9ca1bd4c7dd1e09342ee11b4713caa3dbbbf68bd318f940358ad02a1602",
+      "origin": "container-run",
+      "original_relative_path": "mutations/console.log",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/junit.xml",
+      "sha256": "0d6a7d3ebc6c9dfa5dd91fd2929acc056cf7bedf9141b6d4623316728ece50fd",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/junit.xml",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/manifest.json",
+      "sha256": "954f266b6533b72525602e465701725184e1daa4069c09d669ef9a33724ba2c6",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/manifest.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/allow-protected-write/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/allow-protected-write/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/allow-protected-write/workspace-final/protected/config.txt",
+      "sha256": "fbcb4afdb43566d82ef7e48fb334289cabefc4f81ab601fb529ca4ca7b9361f0",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/allow-protected-write/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/allow-protected-write/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/allow-protected-write/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/allow-protected-write/events.jsonl",
+      "sha256": "9763832139699e5fb6e4bcb4edfb619a75857c27f1362a447c00e99e63c44232",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/allow-protected-write/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/allow-protected-write/workspace-after.json",
+      "sha256": "53c57436b6773e7f8b401750925656b3130e806f8b5138094f707d87948cd01e",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/allow-protected-write/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/allow-protected-write/report.json",
+      "sha256": "e80abf1d18c36462a7e9677ec8ed6b9805a7175025e6221acdc9b4f9f24714df",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/allow-protected-write/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/untrusted.md",
+      "sha256": "29f725b5e431318f9d3d4add7d6afe0a5bcca1f44c8aa1926292d0a5d3f78cb9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/untrusted.md",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/result.txt",
+      "sha256": "07b1c96587fdb354fac02b448efa7962f35a5faf08f75a743ad5e84ee1c36d8c",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/events.jsonl",
+      "sha256": "75c397fb962e613593841f9485675b22811c554140728bbefa8485dbf2f43589",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-after.json",
+      "sha256": "7381345a24d0c2c6580eac8b24bf92513cf789bfd91b7edcc9663d88d318fca1",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/report.json",
+      "sha256": "0945d04c6e4ffd7b766288e725368c8ad796524c77bff8f014c3e5216dc00b56",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/silence-policy-denial/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/silence-policy-denial/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/silence-policy-denial/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/silence-policy-denial/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/silence-policy-denial/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/silence-policy-denial/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/silence-policy-denial/events.jsonl",
+      "sha256": "8e18297efb1d6a0ecefc270f189bc76c765b4890750b8dfe62bdd9dffd8db248",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/silence-policy-denial/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/silence-policy-denial/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/silence-policy-denial/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/silence-policy-denial/report.json",
+      "sha256": "d5fca48ac6869b92f862177e1001aad7ba8fff486ba9b95081393b828764ad72",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/silence-policy-denial/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/events.jsonl",
+      "sha256": "ac401b70c76ffb4e6494d701b71400c7d3c4db4878fb2edbf5feb5610668dca8",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/challenge.json",
+      "sha256": "652b5fdcfa9d258d288126dc67ca68038b545a675018c18c00746b9eb8144fe1",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/challenge.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/report.json",
+      "sha256": "a8f5a4637f45741bf2b8654d8c7ff061da696018cb100bdfe715e0ea1d9e85ac",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--3/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/events.jsonl",
+      "sha256": "2f4ee72d92b3767dbed3e53b40dc5ea6fcd3a624e4d533cb6722baead368e6b2",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/server-audit.json",
+      "sha256": "5617dd35b07a62c3a030eca265ed4c3269609f748b89e5b3b9952872b4ee3a85",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/server-audit.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/bypass-tool-policy/report.json",
+      "sha256": "23ee2036025a7b4f2767d070dbafef215ba2fddc109233e491807e3126664b09",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/bypass-tool-policy/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/controller-final/gate-checkpoint.json",
+      "sha256": "088ee565c467d087be74f2e0cd3aa77953ef7e27d436c3fbd4f16302a85d0baf",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/controller-final/gate-checkpoint.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-final/result.txt",
+      "sha256": "1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/events.jsonl",
+      "sha256": "dad57c8460ad24f4f83226430fe71024028ab23704358c6ef417478217f0743c",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-after.json",
+      "sha256": "ffc871afc0ec86e00c34e227c9f8f74edd61b776fab1ec2a962c34fea3c1211f",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/report.json",
+      "sha256": "ccad2ae4d08031681bd792590323764b4fe93515c8f740b2246ea3c5404b1521",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-block-and-resume--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/controller-final/publisher/history.json",
+      "sha256": "d086a8798449c1b9ebb7866158606344603c457362c7a5be2ff9a8b153aebeaf",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/controller-final/publisher/history.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/controller-final/publisher/ownership.json",
+      "sha256": "39001f42001d89b5f68a43c3cdbbb1065135cd65b11722630c84bbca198ff445",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/controller-final/publisher/ownership.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/workspace-final/generated/agent.json",
+      "sha256": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/workspace-final/generated/agent.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/events.jsonl",
+      "sha256": "026e46f6c6f8091746d29a8aa55e573be6fa4c4b998699bb33676406b789e04a",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/workspace-after.json",
+      "sha256": "2dc799348015d4b685efce08e6ed2cf825d972e92522b6507e37f3aa538caf3d",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/rollback-does-nothing/report.json",
+      "sha256": "89d4e7f3509dfc49f7b1240aa2e1440e40657ca4e6f524a72c3e51192bd91837",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/rollback-does-nothing/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/events.jsonl",
+      "sha256": "265f5a683f7e675269fcdf124a6f742f8bbf6409949928f35afb49966fe1829b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/challenge.json",
+      "sha256": "841acd054150913a07e9f5c624915b7c340845afb6e7d1b8529ff5a651175118",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/challenge.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/report.json",
+      "sha256": "34a89ef0d8e8a2ea8ce9eaaf1b7a028adf857b0de7b7164cbedb614b53cd458b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--2/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/untrusted.md",
+      "sha256": "29f725b5e431318f9d3d4add7d6afe0a5bcca1f44c8aa1926292d0a5d3f78cb9",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/untrusted.md",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/result.txt",
+      "sha256": "07b1c96587fdb354fac02b448efa7962f35a5faf08f75a743ad5e84ee1c36d8c",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/events.jsonl",
+      "sha256": "1df4fc32821e8b8b62fdc7edddc7156e4f7ed96e9e10c20ebc0fae1279696c0a",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-after.json",
+      "sha256": "7381345a24d0c2c6580eac8b24bf92513cf789bfd91b7edcc9663d88d318fca1",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/omit-exposure-evidence/report.json",
+      "sha256": "7e3b3d3a0ab2dbf0376f9a38258ab8f97d211578317d6f00b9708cc73a58f1fc",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/omit-exposure-evidence/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/events.jsonl",
+      "sha256": "1f4b9862c90b52b6391fa18ee399f7a07d0d38d4230194c718e353a47f7fa03a",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/server-audit.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/server-audit.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/report.json",
+      "sha256": "38ce69269b1dd6c13637181fe22f691a9df625a553cb5f8ef2316615c3e0e4ab",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/controller-final/gate-checkpoint.json",
+      "sha256": "c9e59995ab8d313ba347a4edfd86efe4eb5bb698ee8bede092c0a26970d6ccc8",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/controller-final/gate-checkpoint.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/controller-final/gate-checkpoint.json",
+      "sha256": "8b384c7abaee2f8feffa1e5995416a15fc8cb3ffd376c84c1b2b752d7286fca1",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/controller-final/gate-checkpoint.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-final/result.txt",
+      "sha256": "fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/events.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-after.json",
+      "sha256": "13cd7dd4b473f6355dbe06c6c992c984e5290c4bf36d46ff68b95087b0f5f73a",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/accept-stale-and-self-review/report.json",
+      "sha256": "062fd336d9da932d4d5d4ba1bc37a78dc7b913feb53cf512150c0b1bf258199b",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/accept-stale-and-self-review/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/mutations/mutations-5ecff50875/summary.json",
+      "sha256": "b6a1feb9c539865dda9a5dfa307e25b53505472c1298b9488d28a7f5e7cfbaf2",
+      "origin": "container-run",
+      "original_relative_path": "mutations/mutations-5ecff50875/summary.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-final/result.txt",
+      "sha256": "084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/events.jsonl",
+      "sha256": "0fee33142a771e0e664998851dc85b92d4142f0b0b10c8ef9227d0d2a16c2f3e",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-after.json",
+      "sha256": "c567ddf8565821d8f9c698de53618614f2e26e993e6b499934a0e06e3c413be7",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/report.json",
+      "sha256": "e613b2301ac30ba0f4f84c68cca0550efc4069f409bed4667d426c5233d1ec61",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/gate-pass--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/untrusted.md",
+      "sha256": "29f725b5e431318f9d3d4add7d6afe0a5bcca1f44c8aa1926292d0a5d3f78cb9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/untrusted.md",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/result.txt",
+      "sha256": "07b1c96587fdb354fac02b448efa7962f35a5faf08f75a743ad5e84ee1c36d8c",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/events.jsonl",
+      "sha256": "ac379c2fe0e78dc08fa2ddb0e3a772ff7edaf88715759f291976cae3a9ee5bd5",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-after.json",
+      "sha256": "7381345a24d0c2c6580eac8b24bf92513cf789bfd91b7edcc9663d88d318fca1",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/report.json",
+      "sha256": "06b012e0b08cab76b8532bf4bc74be0ae9475829c8feabd0ffed04702d311e2f",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--2/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/events.jsonl",
+      "sha256": "5d0fb61bc8f736599949c1d3336d4923d249af535882f6a745f51f9040b43d19",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/report.json",
+      "sha256": "5590e1cdddb2ac60ac2487d519d61befdbc2d719ffbbe6766caa6eebd74703bd",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--2/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/untrusted.md",
+      "sha256": "29f725b5e431318f9d3d4add7d6afe0a5bcca1f44c8aa1926292d0a5d3f78cb9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/untrusted.md",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/result.txt",
+      "sha256": "07b1c96587fdb354fac02b448efa7962f35a5faf08f75a743ad5e84ee1c36d8c",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/events.jsonl",
+      "sha256": "1d6fc19880a5a32622a8d8e81a16184f58a17b525d4baaf811bb9b2e5c2f1155",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-after.json",
+      "sha256": "7381345a24d0c2c6580eac8b24bf92513cf789bfd91b7edcc9663d88d318fca1",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/report.json",
+      "sha256": "03c19e403fe37123fe8b8ad65b96d020ef7375a3f8d87c0beb2d9617f4d63062",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/injection-exposure--reference-fixture--3/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/events.jsonl",
+      "sha256": "1c1a6b557a33ce3b2876e366a90c8a0c71e6b2a710ddc38b84c504a1d7301968",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/report.json",
+      "sha256": "ebc34e4f6bd76ce1785abc32988b7d1b97ae7fca70f5516f084b7ca11dc0c7f2",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--3/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/controller-final/sessions/c531a7ca-f650-45ff-8852-f9418daec2f8.json",
+      "sha256": "facf654b95afe0bbb6faa7ceeabb6b181033b01a354f2d6f669d8d446393f87a",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/controller-final/sessions/c531a7ca-f650-45ff-8852-f9418daec2f8.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-final/result.txt",
+      "sha256": "fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-final/result.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/events.jsonl",
+      "sha256": "c294911284479428caca45fd1483273c36c8bebd12da093d32f3a6b1caf4ad2f",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-after.json",
+      "sha256": "13cd7dd4b473f6355dbe06c6c992c984e5290c4bf36d46ff68b95087b0f5f73a",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/report.json",
+      "sha256": "5b904bc342b2615090e7d04e7d2f8e403013b418288014770e454d372ec0d3a8",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/review-freshness--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/events.jsonl",
+      "sha256": "67269db8fddedb1874809954c2f85614adee39ecb855c61611898b13bcd6a91f",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/report.json",
+      "sha256": "97cc0ec28e940f41baf7b56f4c3e5661de8afe5a229c0bb8dfc9a4af9b2144bc",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/session-resume--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/controller-final/publisher/history.json",
+      "sha256": "69d033c6646591221e7616aafaed0e45d552e5c35d14d989ca0d93893fe278f5",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/controller-final/publisher/history.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/controller-final/publisher/ownership.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/controller-final/publisher/ownership.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-after.json",
+      "sha256": "0d72110c67e838919ac463724544d90fe45c759197581452129be9515db09294",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/report.json",
+      "sha256": "8f17ba598f594e6f3368ccb5c47d84517d22be27c0e1732e8c24d82e4b3dbe44",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/summary.json",
+      "sha256": "2316c455e7a246d0b479a79f2bbd214b41d17bc8c9484157092e8ac1ea54fbf0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/summary.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/report.json",
+      "sha256": "48e6a647ad63c8af30bbc6e247b931b7bd4dbe17b1b35220e4df1023af02cc5c",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/events.jsonl",
+      "sha256": "5369ba7a4999bd14f5cddcacf2dc41ccc5db5938a95385d17a2fc7a4986cfff1",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/events.jsonl",
+      "sha256": "1ea479f6ec1619a1c295a316c1d37d4e4427fcfbe444bfd3c29880a912988eb9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/challenge.json",
+      "sha256": "228fd4afc870073ae45e672fde1eb1508284a57abb5b94ed766a6cfbb8f81354",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/challenge.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/greenfield-rollback--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-final/skills/security.md",
+      "sha256": "719af51dace2fd815754c883ad2c6139608a367d127e5c754b25b206f7e49b67",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-present--reference-fixture--1/workspace-final/skills/security.md",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/server-audit.json",
+      "sha256": "e797df25449dbb8b209685062ca396d3a4b0fd52b32a41e467ab5ae1d36b17dc",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/server-audit.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/report.json",
+      "sha256": "99cce24b469802099a81504fd9b51f75ebb4c3f1d26c1652dbf00142512a9c5a",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/events.jsonl",
+      "sha256": "76c8146f7ee696b3cec2f7c4969b7b0a348db9705d0a02e7ed73350b06972ca9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-after.json",
+      "sha256": "2dc799348015d4b685efce08e6ed2cf825d972e92522b6507e37f3aa538caf3d",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/report.json",
+      "sha256": "79c71ab49f4fd5b8af698d6357564f875cc61a24fb2b1fdf7da6562638442084",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/controller-final/publisher/history.json",
+      "sha256": "7671b9dacb592f39064dbb5e83e3dd924c5e00471a882dc0a9cdbee6464b30c0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/controller-final/publisher/history.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/controller-final/publisher/ownership.json",
+      "sha256": "39001f42001d89b5f68a43c3cdbbb1065135cd65b11722630c84bbca198ff445",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/controller-final/publisher/ownership.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/report.json",
+      "sha256": "3a2a32cb87e3ffbc30343056963114f1f76fa56d6c8d0c15a72f5e9798c5e5c9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/challenge.json",
+      "sha256": "99f72dd40e0423751c4236b4c203e1b131f09a511ca8739934da9123cdb1eb58",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/challenge.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/events.jsonl",
+      "sha256": "1d317c218389a1a033e6e8c9a6c533bf1f0541dc26602525a4cb53d2a6bc716b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/report.json",
+      "sha256": "c1a460e7cb61412134aefc6460e3cfe1764ca10c4c47efede20d62c38d951733",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/server-audit.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/server-audit.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/events.jsonl",
+      "sha256": "7c3c8cd6997b61615f82c21b7f7a82915f67373b944bb319c8abdb38e60a4d54",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/server-audit.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/server-audit.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/report.json",
+      "sha256": "afc10c18e94ef784d84a26298ac9f21ed8249765c7d0666a72bebe0e2e437853",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/events.jsonl",
+      "sha256": "fd831f158adc437623dfa376f8605d2f5eee55d6a605a98e3ed4c86914ea9583",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/events.jsonl",
+      "sha256": "e087adbc6e80a8807bb3dc88bd81602d3df2ad7eeab911df19c8e759bd11757a",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-after.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-after.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/report.json",
+      "sha256": "0a010158f72f48d193517605cc98b71b7d79588f0f57e12b21a94dbe77072300",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/report.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-before.json",
+      "sha256": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-before.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/events.jsonl",
+      "sha256": "2b17c0e671a608fd7289ae6f7ddfb694c070df866dd93bc73b8657bf86589892",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/events.jsonl",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--3/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-allowed--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-final/user-notes.txt",
+      "sha256": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-final/user-notes.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/tool-denied--reference-fixture--2/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/skill-absent--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-final/generated/agent.json",
+      "sha256": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-final/generated/agent.json",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/brownfield-recovery--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "container-run/matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-final/protected/config.txt",
+      "sha256": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+      "origin": "container-run",
+      "original_relative_path": "matrix/matrix-20261029T215343Z-0f67c31124/cells/denied-write--reference-fixture--1/workspace-final/protected/config.txt",
+      "unchanged_copy_verified": true
+    },
+    {
+      "path": "reader-tooling-tests.log",
+      "sha256": "c59c72e3413867ddddf8fef129ab27b90ec3db8f496adc56d0c8ecdea79fe8b6",
+      "origin": "reader-tooling",
+      "original_relative_path": "reader-tooling-tests.log",
+      "unchanged_copy_verified": true
+    }
+  ],
+  "derived_files": [
+    {
+      "path": "README.md",
+      "exported_sha256": "d820c5bac1ebfc3d8d623cd4040320dc0a0215bf5c668d8c4e8ef64cbb127200",
+      "kind": "navigation"
+    },
+    {
+      "path": "host-summary.json",
+      "exported_sha256": "a2afaf7cc416f524509bc12860c52714fe19918d121fcab14d016e8b615e6f73",
+      "kind": "exported_derivative",
+      "original_input_sha256": {
+        "host": "7cdcf51592b496b8f02825ff3a86d2b12506e189aa4d06b760a16c82074ccbca",
+        "final_unit": "7d907d7b1986a2dc1b7488d6677028ccc72764f954cbd06e1cdaaedb40cc7684"
+      }
+    },
+    {
+      "path": "initial-host-failure.json",
+      "exported_sha256": "8b8b38a380a561a09b4accbd800f66bc2ad631cc0dfc6e4475c0f916618ffae1",
+      "kind": "exported_derivative",
+      "original_input_sha256": {
+        "initial": "730aec2a8702193a87e180b27804c374afc2fb1288921be0e3d9b6990240136c",
+        "initial_unit": "8f6556bc4f4be06de2333d1a59d79d4ad51b5e3cfb0ce7f796e6c00ffbee0f89"
+      }
+    },
+    {
+      "path": "container-execution.json",
+      "exported_sha256": "aef403b14b4b49b0caa35a8d6fdc7d5a8ca9da19744144d02847c3aac32e98e0",
+      "kind": "exported_derivative",
+      "original_input_sha256": {
+        "image": "52924ba199fd5f2196722b688fffe16d2bb5be0d2d1725adfb0a6dc7a34c04c5"
+      }
+    },
+    {
+      "path": "tooling-validation.json",
+      "exported_sha256": "bffcd33fcf97f3b5098754120a7cac24f61b95e6426f0b16135ef253dff43b15",
+      "kind": "exported_derivative"
+    }
+  ],
+  "original_inputs": {
+    "host": {
+      "sha256": "7cdcf51592b496b8f02825ff3a86d2b12506e189aa4d06b760a16c82074ccbca",
+      "raw_input_exported": false
+    },
+    "final_unit": {
+      "sha256": "7d907d7b1986a2dc1b7488d6677028ccc72764f954cbd06e1cdaaedb40cc7684",
+      "raw_input_exported": false
+    },
+    "initial": {
+      "sha256": "730aec2a8702193a87e180b27804c374afc2fb1288921be0e3d9b6990240136c",
+      "raw_input_exported": false
+    },
+    "initial_unit": {
+      "sha256": "8f6556bc4f4be06de2333d1a59d79d4ad51b5e3cfb0ce7f796e6c00ffbee0f89",
+      "raw_input_exported": false
+    },
+    "image": {
+      "sha256": "52924ba199fd5f2196722b688fffe16d2bb5be0d2d1725adfb0a6dc7a34c04c5",
+      "raw_input_exported": false
+    }
+  },
+  "omissions": [
+    "Absolute host paths and private temporary path identifiers",
+    "Host outer console logs and host offline raw reports",
+    "Unrelated image-storage and layer details",
+    "Package-tooling raw log (none retained)"
+  ],
+  "limitations": [
+    "Checksums establish byte consistency, not authorship.",
+    "Controller-supplied container invocation parameters are not proven by image inspection.",
+    "The package-tooling count of 17 is controller-reported only.",
+    "Native-agent matrix runs are outside this snapshot.",
+    "Generated HTML and the enclosing package inventory are maintained separately and are not listed here."
+  ]
+}

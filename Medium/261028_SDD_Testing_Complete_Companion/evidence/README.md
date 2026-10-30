@@ -1,6 +1,14 @@
 # Evidence index: what is included and what is not
 
-This directory separates **author-supplied historical records**, **newly executed reference tests**, and **unexecuted optional integrations**. These are different kinds of evidence and must not be combined into one success rate.
+Start with the [October 29 results and audit](local-validation/README.md). This directory separates historical records, fresh public reference executions, and reviewed native-matrix metadata. These are different kinds of evidence and must not be combined into one success rate.
+
+## October 29 rerun
+
+The [latest evidence](local-validation/README.md) includes complete raw public unit, matrix, mutation, and live Ollama results. Native metadata records 47/47 implemented checks passing, plus a finding that five denied-shell cells retried despite a single-attempt instruction. Full native source and private raw transcripts are not redistributed. Public projections explicitly identify omissions and original source digests.
+
+The [reproduction guide](../starter/docs/REPRODUCE.md) shows exactly which public tests readers can execute without the private framework. The previously missing archived evidence below is now unpacked; no nested extraction step is needed.
+
+The new [reader workflow validation](reader-validation/README.md) exercises the single-command entry point on macOS and in the offline ARM64 container. It retains the initial macOS path-assertion failure, the corrected results, and regression tests for orchestration and error reporting. These later checks validate the revised public tooling; they do not rerun the native matrix again.
 
 ## Original experiment: complete supplied material
 
@@ -24,9 +32,9 @@ The [audit result](record-audit/record-audit.json) checks 16 properties: expecte
 
 **A consistent summary is not proof that absent raw executions occurred.** This audit does not rerun the original framework and does not authenticate raw payloads by inspecting their hashes alone.
 
-## Newly executed proof
+## October 28 public reference proof
 
-The [starter validation index](starter-validation/README.md) contains the executed unit tests, reference matrix, six deliberate-defect demonstrations, JSON/JUnit outputs and per-cell observations. These runs exercise the complete [reusable starter](../starter/README.md), not the private production implementation.
+The [starter validation index](starter-validation/README.md) preserves the earlier Linux x86_64/Python 3.13.5 unit tests, reference matrix, six deliberate-defect demonstrations, JSON/JUnit outputs and per-cell observations. These runs exercise the [reusable starter](../starter/README.md), not the private production implementation. Their original execution-scope file describes that earlier date; the October 29 container and real-model runs have their own evidence.
 
 For a concrete example, the [proof walkthrough](PROOF_WALKTHROUGH.md) links a denied-write verdict to its actual observations and a corresponding defective implementation.
 
@@ -40,4 +48,4 @@ The new starter is included so readers can run and extend the method immediately
 
 ## Publication review
 
-The complete archival sources contain provenance metadata, including local paths and a private-repository identifier. Review these before publishing the entire ZIP publicly. No additional private repository was accessed and no credentials, font files, raw original CLI transcripts, container images or model weights were added. Preserve evidence limitations if producing a public redacted copy; do not silently edit the exact originals while retaining their original hashes.
+The archival sources contain provenance metadata, including local paths and a private-repository identifier. Review them before public distribution. The October 29 rerun accessed the matching local private checkout; only labeled result projections are included here. No private source, raw native CLI transcripts, credentials, container archives, model weights, or font files were added. Preserve evidence limitations in public derivatives; do not silently edit exact originals while retaining their hashes.

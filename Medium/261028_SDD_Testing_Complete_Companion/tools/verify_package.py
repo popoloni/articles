@@ -36,7 +36,7 @@ class Links(HTMLParser):
 def reader_documents(root: Path):
     for path in sorted(root.rglob('*')):
         parts = path.relative_to(root).parts
-        if parts[:2] == ('evidence', 'original') or any(p in ('workspace-final', 'controller-final', '__pycache__', 'runs', 'test-results') for p in parts):
+        if parts[:2] == ('evidence', 'original') or any(p in ('workspace-final', 'controller-final', '__pycache__', 'runs', 'test-results', 'validation-runs', 'validation-container', '.venv') for p in parts):
             continue
         if path.suffix in ('.md', '.html') and path.is_file():
             yield path

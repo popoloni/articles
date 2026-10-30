@@ -68,6 +68,6 @@ Seven separate PNGs, in article order. The images retain the supplied covers’ 
 
 **Placement:** 7. Read the results without overstating them
 
-**Caption:** Figure 7. Two dated scopes: the 47-cell live/structural matrix and a subsequent offline framework regression. The later regression had zero failures, 20 PowerShell skips, and one existing warning. Earlier live evidence does not automatically validate later source changes.
+**Caption:** Figure 7. Historical October 27–28 evidence, retained for comparison. The 1,197-test regression was not rerun on October 29. The fresh native matrix and its audit finding are reported in the article text.
 
-**Alt text:** Recorded results: 22 of 22 live cells for each CLI and three of three structural executions, totaling 47 of 47 local cells; a later regression passed 1,197 tests and 111 subtests with 20 PowerShell skips.
+**Alt text:** Historical October 27–28 results: 22 live cells per CLI and three structural executions; a separate regression passed 1,197 tests and 111 subtests with 20 PowerShell skips. These are not the October 29 validation totals.

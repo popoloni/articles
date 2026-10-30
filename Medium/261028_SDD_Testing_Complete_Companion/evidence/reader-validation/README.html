@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Reader workflow validation — October 29, 2026</title><style>
+:root{--navy:#041923;--orange:#ed8306;--cyan:#176b84;--ink:#1a2932;--muted:#596d79}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:var(--ink);font:18px/1.7 Georgia,serif}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--orange);padding:28px max(22px,calc((100vw - 1080px)/2))}
+header .brand{font:700 13px/1.4 Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:#ffab43}
+nav{display:flex;gap:22px;flex-wrap:wrap;margin-top:13px;font:14px/1.4 Arial,sans-serif}nav a{color:#c9ebf5;text-decoration:none}
+main{max-width:1080px;margin:24px auto 60px;padding:42px 62px;background:#fff;box-shadow:0 4px 25px #08223410;border-radius:10px}
+h1,h2,h3{font-family:Arial,sans-serif;line-height:1.2;letter-spacing:-.02em;color:var(--navy)}h1{font-size:42px;margin:0 0 26px}h2{font-size:29px;margin-top:52px;border-top:1px solid #e2e9ed;padding-top:25px}h3{font-size:22px;margin-top:30px}
+p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offset:3px}strong{font-weight:700}img{display:block;max-width:100%;height:auto;margin:28px auto 12px;border-radius:5px}
+p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
+blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
+@media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+.contents{display:block;background:#f1f7f9;padding:18px 24px;border-radius:7px;margin:24px 0;font:15px/1.6 Arial,sans-serif}.contents a{color:#126d87;text-decoration:underline}.contents ol{padding-left:22px;margin:8px 0}.contents li{margin:4px 0}a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media print{body{background:white}main{box-shadow:none;margin:0;max-width:none;padding:0}header,.contents{display:none}pre{white-space:pre-wrap}a{color:inherit}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../../starter/docs/REPRODUCE.html">Run it yourself</a><a href="../local-validation/README.html">Latest evidence</a></nav></header><main><h1 id="reader-workflow-validation--october-29-2026">Reader workflow validation — October 29, 2026</h1>
+<p>These are fresh executions of the public reader workflow after adding the single-command runner and fixing its reporter and a macOS path assertion. They are separate from the <a href="../local-validation/README.html">earlier local validation</a> and do not rerun the private native-agent matrix.</p>
+<table>
+<thead>
+<tr>
+<th>Execution</th>
+<th>Recorded result</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Complete offline reader run, Linux ARM64 / Python 3.12.15</td>
+<td>PASS: 81 tests, 58 subtests; 20 matrix cells, 78 assertions; six deliberate defects detected</td>
+<td><a href="container-run/summary.json">Unchanged aggregate</a>, <a href="container-run/unit/unit-tests.json">unit report</a>, <a href="container-run/matrix/matrix-20261029T215343Z-0f67c31124/summary.json">matrix</a>, <a href="container-run/mutations/mutations-5ecff50875/summary.json">mutations</a></td>
+</tr>
+<tr>
+<td>Combined host reader run, macOS ARM64 / Python 3.14.6</td>
+<td>PASS: all four requested stages, including the live gateway probe</td>
+<td><a href="host-summary.json">Host summary projection</a>, <a href="live-probe/summary.json">unchanged live summary</a></td>
+</tr>
+<tr>
+<td>Reader orchestration and reporter regressions</td>
+<td>24 tests passed</td>
+<td><a href="reader-tooling-tests.log">Unchanged test log</a></td>
+</tr>
+<tr>
+<td>Package tooling regressions</td>
+<td>17 tests passed, reported by the controller; no raw log retained</td>
+<td><a href="tooling-validation.json">Tooling scope</a></td>
+</tr>
+<tr>
+<td>Initial host attempt</td>
+<td>FAIL: 80/81 unit tests passed; matrix and mutations passed</td>
+<td><a href="initial-host-failure.json">Failure projection and correction</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-was-executed">What was executed</h2>
+<p>The container aggregate was recorded at <strong>21:53:42–21:53:43 UTC</strong>, and the final combined host aggregate at <strong>21:54:40–21:54:43 UTC</strong>. Both used the final reader runner and unit reporter identified by their retained SHA-256 values. The container's live step is explicitly <code>NOT_REQUESTED</code>; the separate host run explicitly requested the exact installed model name and digest.</p>
+<p>The <a href="container-execution.json">container execution projection</a> records immutable image ID <code>sha256:f33bad86270ff0bbeb40473c9a87bbb129f0cb6762f63fca86fc85d8dc256a77</code> and distinguishes image inspection from controller-supplied runtime configuration. The invocation used host UID:GID <strong>501:20</strong>, overriding the image's <strong>10001:10001</strong> default, with network disabled, a read-only root filesystem, dropped capabilities, bounded resources and one dedicated evidence bind mount. Image inspection alone does not prove those invocation flags.</p>
+<p>The host live probe used <code>sdd-w30-qwen35:9b-64k</code>, digest <code>2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e</code>. Inspect the retained <a href="live-probe/request.json">request</a>, <a href="live-probe/assistant-output.json">assistant tool request</a>, <a href="live-probe/events.jsonl">operation and denial events</a>, and <a href="live-probe/protected-hashes.json">protected hashes</a>. All three gateway checks passed. The probe itself does not measure GPU use; the earlier <a href="../local-validation/ollama-metal-evidence.json">Metal observations</a> belong to a separate execution.</p>
+<h2 id="retained-failure-and-corrections">Retained failure and corrections</h2>
+<p>The first host run failed <code>test_contracts.PathTests.test_path_is_contained</code>: on macOS, <code>/var</code> aliases <code>/private/var</code>, while the assertion compared a resolved path against an unresolved expected path. The correction resolves the expected path. The runtime implementation was unchanged; the <a href="initial-host-failure.json">failure projection</a> preserves the failed count, test identity and before/after test-source hashes.</p>
+<p>The unit reporter also now retains class/module fixture failures and skips separately from executed test methods. Its JSON <code>fixture_outcomes</code> list preserves these diagnostics, and JUnit includes synthetic fixture cases. This keeps the original <strong>81-test</strong> baseline separate from the <strong>24</strong> reader-tooling regressions. Both final unit reports have no fixture outcomes, skips, errors or failures.</p>
+<h2 id="how-this-evidence-was-shared">How this evidence was shared</h2>
+<p>The complete <a href="container-run/summary.json">container run</a>, complete seven-file <a href="live-probe/summary.json">live probe</a>, and reader-tooling log were copied byte for byte. Their embedded evidence hashes were not rewritten. Original container commands retain their synthetic <code>/work</code> and <code>/evidence</code> paths as execution history; public report links remain relative within the copied run.</p>
+<p>The host aggregate, initial failure and image inspection are explicitly labeled <strong>exported derivatives</strong>. They omit absolute user paths, private temporary identifiers and unrelated image-storage details. Original source hashes identify the unpublished input bytes; they are distinct from hashes of these rewritten summaries. The host's outer console log was excluded because it contained an absolute user path. Host offline reports are not exported; the complete independent container run supplies the raw offline evidence.</p>
+<p>The <a href="export-manifest.json">export manifest</a> separates unchanged copies from derived files and records their hashes. It does not attest authorship, reproduce omitted inputs, or establish native-agent conformance. No private source or native transcripts are required to open these public files.</p>
+<p>For another execution, follow the <a href="../../starter/docs/REPRODUCE.html">reproduction guide</a>.</p>
+<footer>Reader rerun edition · October 29, 2026. Public executions, native metadata and historical records have separate scopes. <a href="README.md">Markdown source</a></footer></main></body></html>

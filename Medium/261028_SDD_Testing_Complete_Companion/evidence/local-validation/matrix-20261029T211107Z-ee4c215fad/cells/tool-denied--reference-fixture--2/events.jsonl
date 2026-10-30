@@ -1,0 +1,3 @@
+{"kind":"tools.discovered","origin":"runtime","sequence":1,"time":"2026-10-29T21:11:07.994720+00:00","tools":["echo_receipt","admin_reset"]}
+{"arguments":{},"kind":"tool.attempt","operation_id":"9bfd23c2-90d7-4382-8e62-0a39f05ac0b7","origin":"runtime","sequence":2,"time":"2026-10-29T21:11:07.994899+00:00","tool":"admin_reset"}
+{"arguments":{},"kind":"policy.denied","operation_id":"9bfd23c2-90d7-4382-8e62-0a39f05ac0b7","origin":"policy","sequence":3,"time":"2026-10-29T21:11:07.995006+00:00","tool":"admin_reset"}

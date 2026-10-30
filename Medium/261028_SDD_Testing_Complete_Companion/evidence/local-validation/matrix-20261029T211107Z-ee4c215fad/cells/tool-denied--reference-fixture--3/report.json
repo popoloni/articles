@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "denied_tool_was_discovered",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "native_like_gateway_denial_bound_to_attempt",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "zero_server_side_calls",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "no_tool_result_returned",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.005001,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "events.jsonl": "5e1f8f0264adda0da38754918f63e480549ce793856d9e1ab0dba8f071d6e81c",
+    "server-audit.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "workspace-after.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:11:08.006359+00:00",
+  "id": "tool-denied/reference-fixture/3",
+  "native_cli_observed": false,
+  "repetition": 3,
+  "scenario": "tool-denied",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:11:08.001365+00:00",
+  "status": "PASS"
+}

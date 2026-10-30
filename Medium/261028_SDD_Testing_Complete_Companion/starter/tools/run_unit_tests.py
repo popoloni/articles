@@ -19,6 +19,7 @@ class EvidenceResult(unittest.TextTestResult):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.records = []
+        self.fixture_outcomes = []
         self.subtests_passed = 0
         self.current = None
 
@@ -26,32 +27,42 @@ class EvidenceResult(unittest.TextTestResult):
         super().startTest(test)
         self.current = {'id': test.id(), 'status': 'PASS', 'details': [], '_started': time.perf_counter()}
 
+    def record_outcome(self, test, status, detail):
+        # unittest reports class/module fixture outcomes without startTest/stopTest.
+        # Keep those separate from executed test methods and their testsRun count.
+        if self.current is None:
+            self.fixture_outcomes.append({'id': test.id(), 'status': status,
+                                          'details': [detail], 'elapsed_seconds': 0.0})
+            return
+        priority = {'PASS': 0, 'SKIP': 1, 'FAIL': 2, 'ERROR': 3}
+        if priority[status] > priority[self.current['status']]:
+            self.current['status'] = status
+        self.current['details'].append(detail)
+
     def addFailure(self, test, err):
         super().addFailure(test, err)
-        self.current['status'] = 'FAIL'
-        self.current['details'].append(self._exc_info_to_string(err, test))
+        self.record_outcome(test, 'FAIL', self._exc_info_to_string(err, test))
 
     def addError(self, test, err):
         super().addError(test, err)
-        self.current['status'] = 'ERROR'
-        self.current['details'].append(self._exc_info_to_string(err, test))
+        self.record_outcome(test, 'ERROR', self._exc_info_to_string(err, test))
 
     def addSkip(self, test, reason):
         super().addSkip(test, reason)
-        self.current['status'] = 'SKIP'
-        self.current['details'].append(reason)
+        self.record_outcome(test, 'SKIP', reason)
 
     def addSubTest(self, test, subtest, err):
         super().addSubTest(test, subtest, err)
         if err is None:
             self.subtests_passed += 1
         else:
-            self.current['status'] = 'FAIL'
-            self.current['details'].append(subtest.id() + '\n' + self._exc_info_to_string(err, test))
+            status = 'FAIL' if issubclass(err[0], test.failureException) else 'ERROR'
+            self.record_outcome(test, status, subtest.id() + '\n' + self._exc_info_to_string(err, test))
 
     def stopTest(self, test):
         self.current['elapsed_seconds'] = round(time.perf_counter() - self.current.pop('_started'), 6)
         self.records.append(self.current)
+        self.current = None
         super().stopTest(test)
 
 
@@ -67,22 +78,27 @@ def main() -> int:
     suite = unittest.defaultTestLoader.discover(str(ROOT / 'tests'))
     runner = unittest.TextTestRunner(stream=stream, verbosity=2, resultclass=EvidenceResult)
     start = time.perf_counter()
-    result = runner.run(suite)
-    text = stream.getvalue()
-    (args.output / 'unit-tests.log').write_text(text, encoding='utf-8')
+    try:
+        result = runner.run(suite)
+    finally:
+        text = stream.getvalue()
+        (args.output / 'unit-tests.log').write_text(text, encoding='utf-8')
     good = result.wasSuccessful() and result.testsRun > 0 and not result.skipped and not result.expectedFailures
     report = {'schema_version': 1, 'created_at': now(), 'status': 'PASS' if good else 'FAIL',
               'evidence_kind': 'executed-reference-unit-tests', 'environment': environment(),
               'tests_run': result.testsRun, 'passed': sum(r['status'] == 'PASS' for r in result.records),
               'failures': len(result.failures), 'errors': len(result.errors), 'skipped': len(result.skipped),
               'subtests_passed': result.subtests_passed, 'elapsed_seconds': round(time.perf_counter() - start, 6),
-              'test_cases': result.records, 'source_identity': source_identity(),
+              'test_cases': result.records, 'fixture_outcomes': result.fixture_outcomes,
+              'source_identity': source_identity(),
               'test_source_sha256': {p.relative_to(ROOT).as_posix(): digest(p.read_bytes()) for p in sorted((ROOT / 'tests').glob('*.py'))},
               'log_sha256': digest(text), 'native_cli_observed': False, 'real_model_invocations': 0}
     write_json(args.output / 'unit-tests.json', report)
-    tree = ET.Element('testsuite', name='sdd-reference-unit-tests', tests=str(result.testsRun),
+    # JUnit has no separate fixture-outcome element; retain them as synthetic cases.
+    junit_records = result.records + result.fixture_outcomes
+    tree = ET.Element('testsuite', name='sdd-reference-unit-tests', tests=str(len(junit_records)),
                       failures=str(len(result.failures)), errors=str(len(result.errors)), skipped=str(len(result.skipped)))
-    for rec in result.records:
+    for rec in junit_records:
         case = ET.SubElement(tree, 'testcase', name=rec['id'], time=str(rec['elapsed_seconds']))
         if rec['status'] != 'PASS':
             child = ET.SubElement(case, {'FAIL': 'failure', 'ERROR': 'error', 'SKIP': 'skipped'}[rec['status']])

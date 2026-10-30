@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-29",
+  "projection": {
+    "kind": "privacy_reviewed_derivative",
+    "original_input_label": "validation-summary.json",
+    "original_input_sha256": "29113f5ea43ca4ac29e3fa3547555fc72098e02f4b2c896dd6478ea5a61fe6cf",
+    "original_input_included": false,
+    "changes": [
+      "Curated the fresh execution results and runtime configuration into a self-contained public index.",
+      "Removed private report paths, obsolete package-distribution diagnosis and unrelated historical-audit references.",
+      "Added the independently observed shell retry finding to distinguish implemented-check PASS from audit PASS_WITH_FINDINGS."
+    ],
+    "hash_interpretation": "The original input SHA-256 identifies the unmodified source. It is not a checksum of this derivative; exported-file checksums are recorded separately."
+  },
+  "outcome": {
+    "implemented_executable_checks": "PASS",
+    "independent_native_audit": "PASS_WITH_FINDINGS",
+    "certificate_issued": false,
+    "full_framework_certification": false,
+    "package_validation": "Not asserted by this execution-evidence snapshot; package maintainers validate the final assembled distribution separately."
+  },
+  "environment": {
+    "host": {
+      "chip": "Apple M2 Max",
+      "machine": "arm64",
+      "macos": "27.2",
+      "memory_bytes": 68719476736,
+      "system": "Darwin"
+    },
+    "ollama_version": "0.40.12",
+    "model": "sdd-w30-qwen35:9b-64k",
+    "model_digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+    "context_tokens": 65536,
+    "temperature": 0,
+    "gpu_resident_bytes": 7462274989,
+    "gpu_all_layers": "33/33",
+    "backend": "Metal",
+    "backend_evidence": "ollama-metal-evidence.json",
+    "runtime_sample": "native-runtime-sample.json",
+    "native_agent_versions": {
+      "claude": "2.1.311",
+      "copilot": "1.0.104"
+    },
+    "companion_container": {
+      "platform": "linux/arm64",
+      "python": "3.12.15",
+      "image": "sha256:079d3673fc8c471e754f9f05d8b13fcabeb13edd1be7251c99721e5389358aeb",
+      "base": "python@sha256:6a0e06f5ba0b373d051aabd3fffb9b873f27f9a2a3a14bcbe37dee6f0e3bbc70",
+      "network": "none",
+      "read_only_root": true,
+      "user": "10001:10001",
+      "capabilities_dropped": "ALL",
+      "no_new_privileges": true,
+      "memory": "512m",
+      "pids_limit": 128
+    },
+    "companion_live_controller": {
+      "machine": "arm64",
+      "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+      "python": "3.14.6"
+    }
+  },
+  "native_matrix": {
+    "reported_status": "PASS",
+    "audit_status": "PASS_WITH_FINDINGS",
+    "passed": 47,
+    "total": 47,
+    "claude_live": 22,
+    "copilot_live": 22,
+    "structural": 3,
+    "report": "native-matrix-summary.json",
+    "audit": "native-evidence-audit.json",
+    "unpublished_raw_reports": true
+  },
+  "companion": {
+    "unit_tests": {
+      "status": "PASS",
+      "passed": 81,
+      "total": 81,
+      "subtests_passed": 58,
+      "report": "unit-tests/unit-tests.json"
+    },
+    "matrix": {
+      "status": "PASS",
+      "passed": 20,
+      "total": 20,
+      "assertions": 78,
+      "report": "matrix-20261029T211107Z-ee4c215fad/summary.json"
+    },
+    "mutations": {
+      "status": "PASS",
+      "detected": 6,
+      "total": 6,
+      "report": "mutations-2e5e0fdda3/summary.json"
+    },
+    "live_probe": {
+      "status": "PASS",
+      "checks": [
+        {
+          "detail": "",
+          "name": "matching_attempt_observed",
+          "passed": true
+        },
+        {
+          "detail": "",
+          "name": "operation_bound_policy_denial",
+          "passed": true
+        },
+        {
+          "detail": "",
+          "name": "protected_bytes_unchanged",
+          "passed": true
+        }
+      ],
+      "report": "ollama-d40473ad0f/summary.json",
+      "controller": "native macOS",
+      "native_cli_observed": false
+    },
+    "source_identity": "f8fef9a007d77a35f0e0534a3ea5f733bfa661a1e5a76b6b2d128da60ccf0231",
+    "independent_audit": "independent-evidence-audit.json"
+  },
+  "initial_version_mismatch": "initial-version-mismatch.json",
+  "findings": {
+    "shell_retry_violations": 5,
+    "all_attempts_denied": true,
+    "attempt_counts": [
+      {
+        "id": "denied-shell/claude/2",
+        "count": 2
+      },
+      {
+        "id": "denied-shell/claude/3",
+        "count": 2
+      },
+      {
+        "id": "denied-shell/copilot/1",
+        "count": 3
+      },
+      {
+        "id": "denied-shell/copilot/2",
+        "count": 2
+      },
+      {
+        "id": "denied-shell/copilot/3",
+        "count": 3
+      }
+    ],
+    "audit": "native-evidence-audit.json"
+  },
+  "historical_regression": {
+    "tests": 1197,
+    "subtests": 111,
+    "status": "NOT_RERUN",
+    "interpretation": "The historical production regression is distinct from this fresh local validation."
+  },
+  "limitations": [
+    "Native project-unchanged and protected-file checks compare snapshots in the controller, but before/after hash maps are not serialized in native reports. The auditor verified their recorded passing verdicts and implementation, but cannot independently reconstruct those filesystem comparisons from retained reports alone.",
+    "Network probe results and container/network cleanup are retained controller observations. This audit did not query the running container daemon or repeat isolation probes.",
+    "The companion live gateway retains before/after hashes but removes its scratch file; its event binding and hash equality are independently checkable, but the removed final file cannot be rehashed.",
+    "The local matrix covers Linux ARM64 CLI executions and synthetic discovery fixtures. VS Code Copilot, native macOS/Windows CLIs, complete production capability projection and the five-PR pilot remain explicitly blocked.",
+    "The requirements-review case is a lifecycle smoke test; it does not claim a complete Gate 1-4 shipping lifecycle.",
+    "Host Ollama inference uses host GPU and RAM outside worker container resource limits.",
+    "Private native reports, CLI transcripts, relay JSONL and framework source are not included in this public export. Original hashes record provenance, but readers cannot recompute hashes of unavailable bytes."
+  ]
+}

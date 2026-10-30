@@ -21,7 +21,7 @@ def documents() -> list[Path]:
     result = []
     for p in sorted(ROOT.rglob('*.md')):
         relative = p.relative_to(ROOT).parts
-        if relative[:2] == ('evidence', 'original') or any(part in ('workspace-final', 'controller-final', '__pycache__', 'runs', 'test-results') for part in relative):
+        if relative[:2] == ('evidence', 'original') or any(part in ('workspace-final', 'controller-final', '__pycache__', 'runs', 'test-results', 'validation-runs', 'validation-container', '.venv') for part in relative):
             continue
         result.append(p)
     return result
@@ -39,6 +39,8 @@ p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offs
 p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
 blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
 @media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
+.contents{display:block;background:#f1f7f9;padding:18px 24px;border-radius:7px;margin:24px 0;font:15px/1.6 Arial,sans-serif}.contents a{color:#126d87;text-decoration:underline}.contents ol{padding-left:22px;margin:8px 0}.contents li{margin:4px 0}a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media print{body{background:white}main{box-shadow:none;margin:0;max-width:none;padding:0}header,.contents{display:none}pre{white-space:pre-wrap}a{color:inherit}}
 '''
 
 
@@ -78,13 +80,20 @@ def main() -> int:
                 if attr == 'src' and embedded and resolved.is_file() and resolved.suffix == '.png':
                     child.attrSet(attr, 'data:image/png;base64,' + base64.b64encode(resolved.read_bytes()).decode())
         rendered = md.renderer.render(tokens, md.options, {})
+        if source.name == 'article.md':
+            entries = [(token.attrGet('id'), tokens[idx + 1].content) for idx, token in enumerate(tokens)
+                       if token.type == 'heading_open' and token.tag == 'h2']
+            contents = '<nav class="contents" aria-label="Article contents"><strong>In this article</strong><ol>' + ''.join(
+                f'<li><a href="#{html.escape(anchor)}">{html.escape(label)}</a></li>' for anchor, label in entries) + '</ol></nav>'
+            # Keep the title and opening visible before navigation, then introduce the first section.
+            rendered = rendered.replace('<h2 ', contents + '<h2 ', 1)
         title = next((t.content for t in tokens if t.type == 'inline'), source.stem)
         nav = [(ROOT / 'index.html', 'Companion home'), (ROOT / 'preview.html', 'Article'),
-               (ROOT / 'starter/README.html', 'Run the starter'), (ROOT / 'evidence/README.html', 'Evidence')]
+               (ROOT / 'starter/docs/REPRODUCE.html', 'Run it yourself'), (ROOT / 'evidence/local-validation/README.html', 'Latest evidence')]
         navigation = ''.join(f'<a href="{html.escape(os.path.relpath(p, source.parent).replace(os.sep,"/"))}">{label}</a>' for p, label in nav)
         return (f'<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
                 f'<title>{html.escape(title)}</title><style>{CSS}</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav>{navigation}</nav></header>'
-                f'<main>{rendered}<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. '
+                f'<main>{rendered}<footer>Reader rerun edition · October 29, 2026. Public executions, native metadata and historical records have separate scopes. '
                 f'<a href="{html.escape(source.name)}">Markdown source</a></footer></main></body></html>\n')
     for source in files:
         source.with_suffix('.html').write_text(render(source), encoding='utf-8')

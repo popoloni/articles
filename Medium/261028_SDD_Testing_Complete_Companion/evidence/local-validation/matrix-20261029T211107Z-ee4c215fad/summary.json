@@ -1,0 +1,210 @@
+{
+  "assertion_count": 78,
+  "cells": [
+    {
+      "id": "gate-pass/reference-fixture/1",
+      "report": "cells/gate-pass--reference-fixture--1/report.json",
+      "sha256": "a248ab512e8db6cfdf7cadc6ab987fb60e613affd805861c5247fcac339210da",
+      "status": "PASS"
+    },
+    {
+      "id": "gate-block-and-resume/reference-fixture/1",
+      "report": "cells/gate-block-and-resume--reference-fixture--1/report.json",
+      "sha256": "b2280d7fb03fe3c0db66ea3039a898ae4ab35ae1d39f463a1a8ba4c5d9911a24",
+      "status": "PASS"
+    },
+    {
+      "id": "review-freshness/reference-fixture/1",
+      "report": "cells/review-freshness--reference-fixture--1/report.json",
+      "sha256": "96ef94853362c9cd3eb5caedcfc2e30b015151de9b5c789d0388b3f9907bd450",
+      "status": "PASS"
+    },
+    {
+      "id": "greenfield-rollback/reference-fixture/1",
+      "report": "cells/greenfield-rollback--reference-fixture--1/report.json",
+      "sha256": "4eafe961797e7159277a9176dcb76d4f3bf64895dff9712485dfd79284761cfa",
+      "status": "PASS"
+    },
+    {
+      "id": "brownfield-recovery/reference-fixture/1",
+      "report": "cells/brownfield-recovery--reference-fixture--1/report.json",
+      "sha256": "7340da906287be0062baf8d38310a83339b16ee93ebdf3f400c7a2027fdffd59",
+      "status": "PASS"
+    },
+    {
+      "id": "denied-write/reference-fixture/1",
+      "report": "cells/denied-write--reference-fixture--1/report.json",
+      "sha256": "30b47f6207b675ca0b8272c96b5cd57e1b83f881df53f6ba83dfb85698d1e27c",
+      "status": "PASS"
+    },
+    {
+      "id": "denied-write/reference-fixture/2",
+      "report": "cells/denied-write--reference-fixture--2/report.json",
+      "sha256": "da4c850308c99a588e2800ed64674989eca62cbbd55b2937071e40646ec54189",
+      "status": "PASS"
+    },
+    {
+      "id": "denied-write/reference-fixture/3",
+      "report": "cells/denied-write--reference-fixture--3/report.json",
+      "sha256": "183d629215c9222319d5c0dec3bca3a9e5390be1c90587b3b6f84193b59e51d4",
+      "status": "PASS"
+    },
+    {
+      "id": "skill-present/reference-fixture/1",
+      "report": "cells/skill-present--reference-fixture--1/report.json",
+      "sha256": "574e47eb217de96adb55618eff4e72331821173cd88d69176c7fad57d06cdc02",
+      "status": "PASS"
+    },
+    {
+      "id": "skill-absent/reference-fixture/1",
+      "report": "cells/skill-absent--reference-fixture--1/report.json",
+      "sha256": "f5b525e2f3120fbe5f7189b910e9a572b5f8d7afdb420b8e16f828bcc52c8381",
+      "status": "PASS"
+    },
+    {
+      "id": "skill-absent/reference-fixture/2",
+      "report": "cells/skill-absent--reference-fixture--2/report.json",
+      "sha256": "b7aac75792d22ec659ababe48deb37ff0035cda49fd0a420b0fcd52d6a5c9b4f",
+      "status": "PASS"
+    },
+    {
+      "id": "skill-absent/reference-fixture/3",
+      "report": "cells/skill-absent--reference-fixture--3/report.json",
+      "sha256": "d201e66e9505c4de2705b6113c9d34081453fa6d8c600687dfc7d4a4bef60e4e",
+      "status": "PASS"
+    },
+    {
+      "id": "injection-exposure/reference-fixture/1",
+      "report": "cells/injection-exposure--reference-fixture--1/report.json",
+      "sha256": "c514e59f8f25be2cee78767d6180ae88592e4c35846f35166c625dc000b5a3de",
+      "status": "PASS"
+    },
+    {
+      "id": "injection-exposure/reference-fixture/2",
+      "report": "cells/injection-exposure--reference-fixture--2/report.json",
+      "sha256": "bd0512bb6ece77b804f53635254b297294b254659f15622a3387d9ebc5b8a173",
+      "status": "PASS"
+    },
+    {
+      "id": "injection-exposure/reference-fixture/3",
+      "report": "cells/injection-exposure--reference-fixture--3/report.json",
+      "sha256": "6c2c53155b3f5cfcc04d58089a9181adde383ff88a1abf9ce19984ac574cf2ee",
+      "status": "PASS"
+    },
+    {
+      "id": "tool-allowed/reference-fixture/1",
+      "report": "cells/tool-allowed--reference-fixture--1/report.json",
+      "sha256": "c03359c40e1a03647a1e087258e138482532af136f128a4826c54e3cae32e35b",
+      "status": "PASS"
+    },
+    {
+      "id": "tool-denied/reference-fixture/1",
+      "report": "cells/tool-denied--reference-fixture--1/report.json",
+      "sha256": "897a77a41e845d940a878a5cec02138a50014cb57dc8757ac0213b5c0c2f686f",
+      "status": "PASS"
+    },
+    {
+      "id": "tool-denied/reference-fixture/2",
+      "report": "cells/tool-denied--reference-fixture--2/report.json",
+      "sha256": "c381c701d9af1b64ff6c3365b827c1284152ed9673796b4ac68b83884b26ad46",
+      "status": "PASS"
+    },
+    {
+      "id": "tool-denied/reference-fixture/3",
+      "report": "cells/tool-denied--reference-fixture--3/report.json",
+      "sha256": "1a5df649b5cb85acc5d812a862c5eab2af6cf4ef217cf3ad7046ca5b5094a9a2",
+      "status": "PASS"
+    },
+    {
+      "id": "session-resume/reference-fixture/1",
+      "report": "cells/session-resume--reference-fixture--1/report.json",
+      "sha256": "e44ca53f0f148eacc1eac3d32d2816e581b2e0ee7f7d456a81824773da61cc8c",
+      "status": "PASS"
+    }
+  ],
+  "certificate_issued": false,
+  "completed_cells": 20,
+  "coverage": {
+    "duplicates": [],
+    "full_matrix_not_selected": [],
+    "missing": [],
+    "nonpassing": [],
+    "passed": [
+      "brownfield-recovery/reference-fixture/1",
+      "denied-write/reference-fixture/1",
+      "denied-write/reference-fixture/2",
+      "denied-write/reference-fixture/3",
+      "gate-block-and-resume/reference-fixture/1",
+      "gate-pass/reference-fixture/1",
+      "greenfield-rollback/reference-fixture/1",
+      "injection-exposure/reference-fixture/1",
+      "injection-exposure/reference-fixture/2",
+      "injection-exposure/reference-fixture/3",
+      "review-freshness/reference-fixture/1",
+      "session-resume/reference-fixture/1",
+      "skill-absent/reference-fixture/1",
+      "skill-absent/reference-fixture/2",
+      "skill-absent/reference-fixture/3",
+      "skill-present/reference-fixture/1",
+      "tool-allowed/reference-fixture/1",
+      "tool-denied/reference-fixture/1",
+      "tool-denied/reference-fixture/2",
+      "tool-denied/reference-fixture/3"
+    ],
+    "required": [
+      "gate-pass/reference-fixture/1",
+      "gate-block-and-resume/reference-fixture/1",
+      "review-freshness/reference-fixture/1",
+      "greenfield-rollback/reference-fixture/1",
+      "brownfield-recovery/reference-fixture/1",
+      "denied-write/reference-fixture/1",
+      "denied-write/reference-fixture/2",
+      "denied-write/reference-fixture/3",
+      "skill-present/reference-fixture/1",
+      "skill-absent/reference-fixture/1",
+      "skill-absent/reference-fixture/2",
+      "skill-absent/reference-fixture/3",
+      "injection-exposure/reference-fixture/1",
+      "injection-exposure/reference-fixture/2",
+      "injection-exposure/reference-fixture/3",
+      "tool-allowed/reference-fixture/1",
+      "tool-denied/reference-fixture/1",
+      "tool-denied/reference-fixture/2",
+      "tool-denied/reference-fixture/3",
+      "session-resume/reference-fixture/1"
+    ],
+    "unexpected": []
+  },
+  "created_at": "2026-10-29T21:11:08.033614+00:00",
+  "environment": {
+    "machine": "aarch64",
+    "platform": "Linux-6.10.11-linuxkit-aarch64-with-glibc2.36",
+    "python": "3.12.15"
+  },
+  "evidence_kind": "executed-reference-fixture",
+  "interrupted": false,
+  "model_invocations": 0,
+  "native_cli_observed": false,
+  "overall_complete": false,
+  "passed_cells": 20,
+  "planned_cells": 20,
+  "reference_matrix_complete": true,
+  "schema_version": 1,
+  "selected_complete": true,
+  "source_identity": {
+    "files": {
+      "lab.py": "0e1267ad26dfbe1c23cf836b5c5c90f9e0898c0ace057df7bd711ef0514b158e",
+      "scenarios.json": "954f266b6533b72525602e465701725184e1daa4069c09d669ef9a33724ba2c6",
+      "sdd_lab/__init__.py": "9ec260a7f6fe9c348d757a56983e45d8c060930f01a2ccc01a5a4d66c2c4b38f",
+      "sdd_lab/common.py": "6e6d88b89d809082d417dcd7cc0198e737b4861bcdffa5f82a4bc672af70bf69",
+      "sdd_lab/core.py": "39727c1ea9d9c07a1f46b712c5e5a85f282e810f8a785911879619c1913d6fce",
+      "sdd_lab/live.py": "d3b29b00b2fadfef1c3a6bf91db248af260349a9376f1c1f325e2dde29615721",
+      "sdd_lab/mutations.py": "a7d079e0b1cfc57caf3bfd73b394a7e184c7491eecf5f5626a9207fe62466095",
+      "sdd_lab/oracles.py": "4c63cf9b4528bc125e4fc71ebdd9599d5ebfcd50057aee432a95fa67fe1adea5",
+      "sdd_lab/runner.py": "a4ff54167143307fcab0acb5edb4cd995c1b36be2ae1479b7b582c7b92a1b214",
+      "sdd_lab/scenarios.py": "99d30e0e7cacd32ccdf9828f8a6e9d69444e2bc40c0e5a5b7e12ab1052fb1914"
+    },
+    "sha256": "f8fef9a007d77a35f0e0534a3ea5f733bfa661a1e5a76b6b2d128da60ccf0231"
+  },
+  "status": "PASS"
+}

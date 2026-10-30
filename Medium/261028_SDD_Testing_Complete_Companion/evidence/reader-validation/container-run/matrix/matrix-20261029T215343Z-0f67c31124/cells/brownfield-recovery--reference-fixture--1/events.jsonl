@@ -1,0 +1,5 @@
+{"kind":"publication.committed","origin":"publisher","sequence":1,"time":"2026-10-29T21:53:43.261418+00:00","transaction_id":"bf33256a-4dbc-47ac-b5dd-d5442fb991c4"}
+{"kind":"publication.interrupted","origin":"publisher","sequence":2,"time":"2026-10-29T21:53:43.262110+00:00","transaction_id":"9c18c66f-0ff3-4a50-9625-ec64f703e5d5"}
+{"kind":"publication.recovered","origin":"publisher","sequence":3,"time":"2026-10-29T21:53:43.262666+00:00","transaction_id":"9c18c66f-0ff3-4a50-9625-ec64f703e5d5"}
+{"kind":"publication.committed","origin":"publisher","sequence":4,"time":"2026-10-29T21:53:43.263599+00:00","transaction_id":"5c8e178f-1db2-4c8a-8e08-0d2caf133159"}
+{"kind":"publication.rolled_back","origin":"publisher","sequence":5,"time":"2026-10-29T21:53:43.264354+00:00","transaction_id":"5c8e178f-1db2-4c8a-8e08-0d2caf133159"}

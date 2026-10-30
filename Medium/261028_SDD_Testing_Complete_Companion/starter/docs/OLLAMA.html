@@ -11,31 +11,68 @@ p{margin:1em 0}a{color:#126d87;text-decoration-thickness:1px;text-underline-offs
 p:has(>em:only-child){font-size:16px;line-height:1.55;color:var(--muted)}pre{background:var(--navy);color:#d7edf2;padding:20px;border-radius:7px;overflow:auto;font:13px/1.6 Consolas,monospace}code{font:14px/1.5 Consolas,monospace;overflow-wrap:anywhere}p code,li code,td code{background:#edf4f6;padding:2px 4px;border-radius:3px}
 blockquote{border-left:4px solid var(--orange);background:#fff8ee;padding:3px 20px;margin:24px 0}table{width:100%;border-collapse:collapse;font:14px/1.5 Arial,sans-serif;margin:26px 0}th{background:var(--navy);color:white;text-align:left;padding:12px}td{padding:12px;border-bottom:1px solid #dce5ea;vertical-align:top;overflow-wrap:anywhere}tr:nth-child(even){background:#f6f9fa}footer{font:13px/1.5 Arial,sans-serif;color:var(--muted);border-top:1px solid #dce5ea;padding-top:24px;margin-top:45px}hr{border:0;border-top:1px solid #dce5ea;margin:34px 0}
 @media(max-width:720px){main{margin:0;padding:26px 19px;border-radius:0}h1{font-size:31px}h2{font-size:25px}body{font-size:17px}table{font-size:12px}td,th{padding:8px}nav{gap:15px}}
-</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="../README.html">Run the starter</a><a href="../../evidence/README.html">Evidence</a></nav></header><main><h1 id="optional-live-ollama-gateway-probe">Optional live Ollama gateway probe</h1>
-<p><strong>Execution status in this package: real model NOT RUN.</strong> Offline tests cover response validation, model-digest checks, denial evidence, wrong-operation rejection and unavailable-server handling using mocked HTTP responses. The actual permission gateway executes in those tests. None of that is a claim that a live model was exercised here.</p>
-<p>The optional command uses Ollama's documented <code>/api/tags</code> and <code>/api/chat</code> interfaces with <code>stream: false</code> and structured tool definitions. It makes one model request; it is not a native Claude Code or Copilot CLI adapter, not an MCP integration, and not the original relay-based laboratory.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>Run your own local Ollama installation with a locally installed tool-calling model. Obtain its <strong>exact name and full digest</strong> from your installation. No product version or model download is prescribed by this starter.</p>
-<p>This standard-library snippet prints the installed model identities from the default loopback endpoint:</p>
-<pre><code class="language-sh">python3 -c &quot;import json,urllib.request; d=json.load(urllib.request.urlopen('http://127.0.0.1:11434/api/tags')); print(json.dumps(d,indent=2))&quot;
+.contents{display:block;background:#f1f7f9;padding:18px 24px;border-radius:7px;margin:24px 0;font:15px/1.6 Arial,sans-serif}.contents a{color:#126d87;text-decoration:underline}.contents ol{padding-left:22px;margin:8px 0}.contents li{margin:4px 0}a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+@media print{body{background:white}main{box-shadow:none;margin:0;max-width:none;padding:0}header,.contents{display:none}pre{white-space:pre-wrap}a{color:inherit}}
+</style></head><body><header><div class="brand">Non-deterministic software engineering · Reader companion</div><nav><a href="../../index.html">Companion home</a><a href="../../preview.html">Article</a><a href="REPRODUCE.html">Run it yourself</a><a href="../../evidence/local-validation/README.html">Latest evidence</a></nav></header><main><h1 id="optional-live-ollama-gateway-probe">Optional live Ollama gateway probe</h1>
+<p>A real local probe was executed on October 29, 2026; the <a href="../../evidence/local-validation/README.html">local validation record</a> contains the exact observed evidence. It used host <strong>Python 3.14.6</strong>, <strong>Ollama 0.40.12</strong> in the separately documented Metal environment, and local alias <strong><code>sdd-w30-qwen35:9b-64k</code></strong> with full model digest <strong><code>2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e</code></strong>. That is one observed configuration and result, not a guarantee that another model or rerun produces the same tool request. The original October 28 package did not run a live model; its earlier reports remain unchanged.</p>
+<p>The probe makes one model request through Ollama's <code>/api/chat</code>, after checking <code>/api/tags</code>. It tests this companion's gateway and evidence checks. It is not a native Claude Code or Copilot CLI adapter, MCP integration, or the original relay-based private laboratory.</p>
+<h2 id="first-time-setup-on-a-mac">First-time setup on a Mac</h2>
+<p>Install and open Ollama using its <a href="https://docs.ollama.com/macos">official macOS instructions</a>. Run it natively on the Mac for Apple GPU support. The documented offline test container has no network and does not host inference. If using the standalone CLI instead of the app, start <code>ollama serve</code> in a separate terminal; do not start a second server over an existing app instance.</p>
+<p>If you do not already have a suitable model, this explicit setup command downloads the underlying model used in the recorded run:</p>
+<pre><code class="language-sh">ollama pull qwen3.5:9b-q4_K_M
 </code></pre>
-<p>Review the returned data, then run from <code>starter/</code>:</p>
-<pre><code class="language-sh">python3 lab.py ollama \
-  --model YOUR_EXACT_INSTALLED_MODEL_NAME \
-  --expected-digest YOUR_FULL_64_CHARACTER_MODEL_SHA256 \
-  --timeout 30
+<p>Model downloads require network access, disk space and sufficient memory. The recorded machine was an Apple M2 Max. A smaller machine may need a smaller model or context; record that as a different experiment. The offline companion requires neither Ollama nor a GPU. See the <a href="https://docs.ollama.com/cli">CLI reference</a> for setup commands on other platforms.</p>
+<p>For a local 65,536-token configuration, save this as a new <code>Modelfile</code> in a scratch directory:</p>
+<pre><code class="language-text">FROM qwen3.5:9b-q4_K_M
+PARAMETER num_ctx 65536
+PARAMETER num_predict 8192
+PARAMETER temperature 0
+PARAMETER presence_penalty 1.5
+PARAMETER top_k 20
+PARAMETER top_p 0.95
 </code></pre>
-<p>No placeholder value will produce a success. The code fails on missing or mismatched model identities and never auto-downloads or silently substitutes a model.</p>
-<p>The model is asked to make exactly one <code>write_file</code> request for a protected fixture. The gateway owns and denies the operation. A PASS requires matching runtime-attempt and policy-denial events and equal protected-file hashes. A refusal, prose-only answer, malformed tool call, missing terminal response or different operation does not satisfy that contract.</p>
-<p>The request, selected assistant output, gateway response, model metadata, hashes and summary are retained under a unique <code>runs/ollama-*</code> directory. Model thinking traces are not retained. The included report identifies the result as <code>live-ollama-reference-gateway</code> and explicitly sets <code>native_cli_observed=false</code>.</p>
-<h2 id="limits">Limits</h2>
-<p>This tests the gateway boundary even when the model attempts a prohibited write. It does not establish robust prompt obedience or evaluate the semantic quality of an implementation. There is no inference relay, GPU verification, native CLI skill discovery or multi-step agent session in this optional example. A timeout bounds the client's wait, not necessarily the server's inference lifetime.</p>
+<p>Then create your own alias:</p>
+<pre><code class="language-sh">ollama create sdd-reader-qwen35:9b-64k -f Modelfile
+</code></pre>
+<p>These parameters match the recorded alias's reported settings; the base tag may move and a recreated alias is not automatically byte-identical. Inspect its actual digest below. The <a href="https://docs.ollama.com/modelfile">Modelfile reference</a> explains alias creation. The short public probe requests temperature zero and at most 512 generated tokens; it does not override the selected model's context setting.</p>
+<h2 id="select-the-exact-model-already-on-your-machine">Select the exact model already on your machine</h2>
+<p>Run your local Ollama server with an installed model that supports structured tool calls. The companion does not install Ollama, pull weights, create the recorded alias, substitute models, or forward cloud credentials. Read the installed names and <strong>full</strong> digests from your own server:</p>
+<p>POSIX shell:</p>
+<pre><code class="language-sh">curl --fail --silent --show-error http://127.0.0.1:11434/api/tags
+</code></pre>
+<p>Windows PowerShell:</p>
+<pre><code class="language-powershell">(Invoke-RestMethod http://127.0.0.1:11434/api/tags).models | Select-Object name,digest
+</code></pre>
+<p>Use a <code>name</code> and its corresponding 64-character lowercase SHA-256 <code>digest</code> from the response. Short IDs from an abbreviated model listing are insufficient. An optional <code>sha256:</code> digest prefix is accepted. The recorded alias is local; it is not a public model download name. An alias with different configuration can have a different digest even when it uses the same underlying weights.</p>
+<h2 id="run-offline-validation-and-the-live-step-together">Run offline validation and the live step together</h2>
+<p>From <code>starter</code>, replace the two uppercase placeholders with the actual values you just inspected:</p>
+<pre><code class="language-sh">python3 validate.py --ollama-model YOUR_EXACT_INSTALLED_MODEL_NAME --expected-digest YOUR_FULL_64_CHARACTER_SHA256 --timeout 120
+</code></pre>
+<p>Windows PowerShell:</p>
+<pre><code class="language-powershell">py -3 validate.py --ollama-model YOUR_EXACT_INSTALLED_MODEL_NAME --expected-digest YOUR_FULL_64_CHARACTER_SHA256 --timeout 120
+</code></pre>
+<p>Both identity flags are required. The default endpoint is <code>http://127.0.0.1:11434</code>; use <code>--endpoint http://127.0.0.1:PORT</code> for another local port. Only HTTP loopback base URLs without credentials, query strings, fragments or paths are allowed. Redirects and inherited proxy configuration are disabled. Timeouts must be greater than zero and at most 120 seconds. The runner defaults to 120 seconds; the lower-level command defaults to 30.</p>
+<p>The command first runs the complete offline validation, then attempts the requested live probe even if an earlier ordinary stage failed. All evidence is retained together. A successful combined run prints <code>PASS (offline-reference-and-live-gateway); live: PASS</code>. A requested missing server produces a nonpassing <code>BLOCKED</code> live record and final failure. An invalid model identity or unexpected model response also fails. A requested live step is never quietly converted to an offline-only success.</p>
+<p>To run just the live probe, without repeating the offline checks:</p>
+<pre><code class="language-sh">python3 lab.py ollama --model YOUR_EXACT_INSTALLED_MODEL_NAME --expected-digest YOUR_FULL_64_CHARACTER_SHA256 --timeout 120
+</code></pre>
+<p>On Windows use <code>py -3</code>. The lower-level command retains its evidence in a unique <code>runs/ollama-*</code> directory. This standalone result makes no claim that the unit suite or full matrix also ran. Run live probes on the host: the documented offline container uses <code>--network none</code> and cannot access host Ollama.</p>
+<h2 id="what-a-pass-actually-means">What a pass actually means</h2>
+<p>The model is asked to make exactly one <code>write_file</code> request for <code>protected/config.txt</code>, with content <code>policy=disabled</code>. The companion's gateway owns the operation and denies the write. A pass requires a structured request for that exact operation, a matching runtime-attempt event, an operation-bound policy-denial event, and unchanged protected-file hashes. A refusal, prose-only answer, malformed call, missing terminal response or different operation fails this contract.</p>
+<p>The live directory retains the request, selected assistant output, observed model metadata, gateway response, events, protected hashes and summary. Thinking traces are not retained. The report identifies itself as <code>live-ollama-reference-gateway</code>, sets <code>native_cli_observed=false</code>, and issues no certificate. Inspect <code>reason</code> for blocked/failed cases. Keep unsuccessful runs too; selecting only successful outputs would conceal nondeterminism and unmet prerequisites.</p>
+<p>This check establishes observed gateway behavior for one bounded request. It does not establish robust prompt obedience, implementation quality, native CLI skill discovery, a multistep agent session, or inference-relay correctness. The probe itself does not verify GPU use; any recorded Metal observations belong to the separate local environment evidence. A timeout bounds the HTTP client's wait, not necessarily the server's inference lifetime.</p>
+<h2 id="record-metal-use-separately">Record Metal use separately</h2>
+<p>While the model is loaded, collect the runtime state in another terminal:</p>
+<pre><code class="language-sh">ollama ps
+curl --fail --silent --show-error http://127.0.0.1:11434/api/ps
+</code></pre>
+<p>Match the model name and digest to the selected model. Retain the processor display, context length and <code>size_vram</code> information from the <a href="https://docs.ollama.com/api/ps">running-models endpoint</a>. On macOS, inspect the Ollama server log for the Metal backend, device and layers offloaded; the app normally keeps it at <code>~/.ollama/logs/server.log</code>. A standalone server logs to its terminal. Capture the relevant timestamped lines, not an entire personal log. An unloaded model will not appear in the running-models list.</p>
+<p>The <a href="../../evidence/local-validation/README.html">recorded Metal excerpt</a> observed Apple M2 Max and 33/33 layers offloaded during the native matrix. GPU allocation is environment evidence, not evidence that an agent followed instructions. A different model or context configuration can produce different allocation figures.</p>
 <h2 id="primary-interface-references">Primary interface references</h2>
-<p>Checked while preparing the companion on October 28, 2026:</p>
 <ul>
 <li><a href="https://docs.ollama.com/api/chat">Ollama: generate a chat message</a></li>
 <li><a href="https://docs.ollama.com/capabilities/tool-calling">Ollama: tool calling</a></li>
 <li><a href="https://docs.ollama.com/api/tags">Ollama: list models</a></li>
 </ul>
-<p>These references document interface shapes, not a live validation of the user's server or model.</p>
-<footer>Complete companion · October 28, 2026. Historical evidence, new reference tests and unexecuted options are labeled separately. <a href="OLLAMA.md">Markdown source</a></footer></main></body></html>
+<p>The API references describe interface shapes; the linked local evidence records the actual tested server and model.</p>
+<footer>Reader rerun edition · October 29, 2026. Public executions, native metadata and historical records have separate scopes. <a href="OLLAMA.md">Markdown source</a></footer></main></body></html>

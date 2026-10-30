@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "initial_review_accepted",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "stale_artifact_review_rejected",
+      "passed": false
+    },
+    {
+      "detail": "",
+      "name": "old_checkpoint_invalidated",
+      "passed": false
+    },
+    {
+      "detail": "",
+      "name": "builder_cannot_self_approve",
+      "passed": false
+    },
+    {
+      "detail": "",
+      "name": "stale_spec_review_rejected",
+      "passed": false
+    }
+  ],
+  "elapsed_seconds": 0.011841,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "controller-final/gate-checkpoint.json": "c9e59995ab8d313ba347a4edfd86efe4eb5bb698ee8bede092c0a26970d6ccc8",
+    "events.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "workspace-after.json": "13cd7dd4b473f6355dbe06c6c992c984e5290c4bf36d46ff68b95087b0f5f73a",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/result.txt": "fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-28T09:59:48.322732+00:00",
+  "id": "accept-stale-and-self-review",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "review-freshness",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-28T09:59:48.310905+00:00",
+  "status": "FAIL"
+}

@@ -1,0 +1,2 @@
+{"kind":"file.read","origin":"runtime","path":"skills/security.md","sequence":1,"sha256":"ffb3aa40aaaa8b0499c2777f40f49d8ac420aab7db3239d16f05740c73958a40","time":"2026-10-29T21:11:07.913227+00:00"}
+{"kind":"skill.loaded","name":"security","origin":"runtime","sequence":2,"sha256":"ffb3aa40aaaa8b0499c2777f40f49d8ac420aab7db3239d16f05740c73958a40","time":"2026-10-29T21:11:07.913538+00:00"}

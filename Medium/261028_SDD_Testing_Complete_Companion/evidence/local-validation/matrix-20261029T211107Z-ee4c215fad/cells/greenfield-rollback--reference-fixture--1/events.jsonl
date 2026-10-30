@@ -1,0 +1,2 @@
+{"kind":"publication.committed","origin":"publisher","sequence":1,"time":"2026-10-29T21:11:07.860479+00:00","transaction_id":"65453278-1c9e-47df-9c09-57665d2465f5"}
+{"kind":"publication.rolled_back","origin":"publisher","sequence":2,"time":"2026-10-29T21:11:07.861115+00:00","transaction_id":"65453278-1c9e-47df-9c09-57665d2465f5"}

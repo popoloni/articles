@@ -1,0 +1,2 @@
+{"kind":"tools.discovered","origin":"runtime","sequence":1,"time":"2026-10-29T21:11:07.977481+00:00","tools":["echo_receipt","admin_reset"]}
+{"arguments":{},"kind":"tool.attempt","operation_id":"78dfe068-6017-469d-be45-f45a1199984c","origin":"runtime","sequence":2,"time":"2026-10-29T21:11:07.977711+00:00","tool":"echo_receipt"}

@@ -1,0 +1,3 @@
+{"kind":"session.started","origin":"runtime","sequence":1,"session_id":"c531a7ca-f650-45ff-8852-f9418daec2f8","time":"2026-10-29T21:53:43.394167+00:00"}
+{"kind":"session.interrupted","mechanism":"simulated_restart","origin":"controller","sequence":2,"session_id":"c531a7ca-f650-45ff-8852-f9418daec2f8","time":"2026-10-29T21:53:43.394350+00:00"}
+{"kind":"session.resumed","origin":"runtime","sequence":3,"session_id":"c531a7ca-f650-45ff-8852-f9418daec2f8","time":"2026-10-29T21:53:43.394618+00:00"}

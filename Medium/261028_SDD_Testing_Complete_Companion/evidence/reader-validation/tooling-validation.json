@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "reader_tooling": {
+    "status": "PASS",
+    "tests_run": 24,
+    "raw_log": "reader-tooling-tests.log",
+    "evidence": "Retained unittest output",
+    "scope": "Reader orchestration and unit-reporter fixture error/skip regressions; separate from the 81-test reference suite."
+  },
+  "package_tooling": {
+    "status": "PASS",
+    "tests_run": 17,
+    "evidence": "Controller-reported result only; no raw test log retained.",
+    "raw_log_exported": false
+  },
+  "limitations": [
+    "The raw reader-tooling log does not record interpreter identity.",
+    "Package tooling counts are a controller statement, not independently reconstructable test evidence."
+  ]
+}

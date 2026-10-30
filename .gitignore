@@ -1,0 +1,6 @@
+# Local runs and publishing environments; shared evidence is curated in the companion.
+/validation/
+/dist/
+**/__pycache__/
+*.pyc
+.DS_Store

@@ -1,11 +1,9 @@
-# Revision notes: complete companion
+# October 29 edition changes
 
-The earlier ZIP was an editorial pack: article, figures and an extract of the experiment record. This revision adds all five original source documents, the unchanged original archive, portable reading copies, explicit missing-artifact inventory, a historical-summary consistency checker, and a new runnable reader implementation.
+The opening and results sections include the fresh native run, public container run, and real Ollama gateway probe. The 1,197-test regression and Figure 7 remain dated historical evidence. Five denied-shell retry violations appear beside the 47/47 implemented-check result, with the missing attempt-count assertion explained as a coverage gap.
 
-Article sections 8–9 now distinguish commands that work in the included starter from historical commands requiring the author's matching framework checkout. The article links directly to supporting material shipped with this package. The title and seven corrected figures are retained.
+Readers can start with [one command](starter/README.md), follow the [reproduction guide](starter/docs/REPRODUCE.md), inspect [latest evidence](evidence/local-validation/README.md), and build a self-contained ZIP. The public fixture and gateway scopes remain distinct from the unavailable private native harness.
 
-New proof consists of executed reference-unit tests, a 20-cell reference matrix, six deliberately defective implementations detected by assertions, and auditor regression tests. Original 47-cell and 1,197-test results remain explicitly historical. No original raw transcript, private source, container archive or model weight was reconstructed or invented.
+Distribution repairs restore 194 exact archived evidence files, provide new ignore files, rebuild reading copies, and issue a new checksum manifest. The [old manifest and package record](evidence/distribution-history/README.md) are retained. Historical evidence is not rewritten to conceal original distribution failures.
 
-The optional direct-Ollama client follows documented interface shapes and has mocked-transport regression tests. It is not a native coding-CLI adapter or a recreation of the original relay architecture. It was not run against a real model in this environment. The Docker recipe also remains unexecuted.
-
-Integrity checking and link validation are included. Archived originals retain source-only links; these are inventoried and excluded from navigational link validation. Portable reading copies expose unavailable references as text rather than broken links.
+The runner has separate negative tests. Release validation covers reader commands and navigation from a fresh extraction. These tools do not publish to an external service.

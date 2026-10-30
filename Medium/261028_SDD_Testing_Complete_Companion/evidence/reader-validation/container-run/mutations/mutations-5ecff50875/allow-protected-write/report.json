@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "matching_attempt_observed",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "operation_bound_policy_denial",
+      "passed": false
+    },
+    {
+      "detail": "",
+      "name": "protected_bytes_unchanged",
+      "passed": false
+    }
+  ],
+  "elapsed_seconds": 0.006325,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "events.jsonl": "9763832139699e5fb6e4bcb4edfb619a75857c27f1362a447c00e99e63c44232",
+    "workspace-after.json": "53c57436b6773e7f8b401750925656b3130e806f8b5138094f707d87948cd01e",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fbcb4afdb43566d82ef7e48fb334289cabefc4f81ab601fb529ca4ca7b9361f0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:53:43.718341+00:00",
+  "id": "allow-protected-write",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "denied-write",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:53:43.712032+00:00",
+  "status": "FAIL"
+}

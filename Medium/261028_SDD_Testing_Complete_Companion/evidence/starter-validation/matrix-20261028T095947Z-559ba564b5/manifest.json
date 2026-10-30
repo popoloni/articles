@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "target": "reference-fixture",
+  "scope": "educational-contract-tests-not-native-cli-conformance",
+  "scenarios": [
+    {
+      "id": "gate-pass",
+      "repetitions": 1
+    },
+    {
+      "id": "gate-block-and-resume",
+      "repetitions": 1
+    },
+    {
+      "id": "review-freshness",
+      "repetitions": 1
+    },
+    {
+      "id": "greenfield-rollback",
+      "repetitions": 1
+    },
+    {
+      "id": "brownfield-recovery",
+      "repetitions": 1
+    },
+    {
+      "id": "denied-write",
+      "repetitions": 3
+    },
+    {
+      "id": "skill-present",
+      "repetitions": 1
+    },
+    {
+      "id": "skill-absent",
+      "repetitions": 3
+    },
+    {
+      "id": "injection-exposure",
+      "repetitions": 3
+    },
+    {
+      "id": "tool-allowed",
+      "repetitions": 1
+    },
+    {
+      "id": "tool-denied",
+      "repetitions": 3
+    },
+    {
+      "id": "session-resume",
+      "repetitions": 1
+    }
+  ]
+}

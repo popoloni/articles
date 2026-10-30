@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "skill_file_absent",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "unavailable_recorded",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "no_withheld_receipt_returned",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.005226,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "challenge.json": "d27884c46e1e2dfa85d3cf2bee8c3e067e2613a962c51c78d0dcfec9a533dce8",
+    "events.jsonl": "87c56cc39971e5b76539ed52239c32d7d8bdf173260503c3731ce2d4d5c3e345",
+    "workspace-after.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-28T09:59:47.428054+00:00",
+  "id": "skill-absent/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "skill-absent",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-28T09:59:47.422837+00:00",
+  "status": "PASS"
+}

@@ -1,0 +1,26 @@
+{
+  "capabilities": [
+    "completion",
+    "vision",
+    "tools",
+    "thinking"
+  ],
+  "details": {
+    "context_length": 262144,
+    "embedding_length": 4096,
+    "families": [
+      "qwen35"
+    ],
+    "family": "qwen35",
+    "format": "gguf",
+    "parameter_size": "9.0B",
+    "parent_model": "qwen3.5:9b-q4_K_M",
+    "quantization_level": "Q4_K_M",
+    "runner": "llamacpp"
+  },
+  "digest": "2de0531475f0ecfe815dde919b206d02eb3d343ac95fa26d9f6427ad0b27e20e",
+  "model": "sdd-w30-qwen35:9b-64k",
+  "modified_at": "2026-10-27T21:40:07.801503599+01:00",
+  "name": "sdd-w30-qwen35:9b-64k",
+  "size": 6550825585
+}

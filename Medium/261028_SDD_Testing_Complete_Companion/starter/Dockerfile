@@ -1,4 +1,4 @@
-# Optional offline unit-test smoke. Not built or executed in the supplied validation.
+# Optional offline unit-test smoke; override CMD with validate.py for the full reader run.
 # For byte-pinned builds, pass --build-arg PYTHON_IMAGE=python@sha256:<verified digest>.
 ARG PYTHON_IMAGE=python:3.11-slim
 FROM ${PYTHON_IMAGE}

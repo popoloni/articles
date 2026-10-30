@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "interruption_observed",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "journal_retained",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "explicit_recovery_completed",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "recovery_restores_workspace",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "recovery_restores_ledger_bytes",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "retry_publishes_new_version",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "rollback_restores_managed_baseline",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "rollback_restores_managed_ledger",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "repeat_rollback_is_noop",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.011757,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "controller-final/publisher/history.json": "1b0b040405a54b1a06e125a0697aa9e224d97d547ad6e60a97042d28003a06a7",
+    "controller-final/publisher/ownership.json": "39001f42001d89b5f68a43c3cdbbb1065135cd65b11722630c84bbca198ff445",
+    "events.jsonl": "2d766696dd7ba8fc249f587f834c4bd91227b54db630179ab8413adb9436c0da",
+    "workspace-after.json": "2dc799348015d4b685efce08e6ed2cf825d972e92522b6507e37f3aa538caf3d",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:11:07.883623+00:00",
+  "id": "brownfield-recovery/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "brownfield-recovery",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:11:07.871875+00:00",
+  "status": "PASS"
+}

@@ -1,0 +1,10 @@
+DETECTED allow-protected-write
+DETECTED silence-policy-denial
+DETECTED accept-stale-and-self-review
+DETECTED rollback-does-nothing
+DETECTED omit-exposure-evidence
+DETECTED bypass-tool-policy
+{
+  "status": "PASS",
+  "report": "/evidence/validation-20261029T215342Z-009440095d/mutations/mutations-5ecff50875/summary.json"
+}

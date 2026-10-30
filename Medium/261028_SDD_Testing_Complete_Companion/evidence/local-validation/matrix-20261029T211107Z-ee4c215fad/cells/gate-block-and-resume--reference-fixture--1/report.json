@@ -1,0 +1,49 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "missing_review_rejected",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "failed_gate_has_no_success_checkpoint",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "spec_unchanged",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "resume_accepts_fresh_review",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "checkpoint_after_resume",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.007814,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "controller-final/gate-checkpoint.json": "088ee565c467d087be74f2e0cd3aa77953ef7e27d436c3fbd4f16302a85d0baf",
+    "events.jsonl": "5a72c7793a48e607647ba721a10a3667499aa991436c49792a5036654706a6fb",
+    "workspace-after.json": "ffc871afc0ec86e00c34e227c9f8f74edd61b776fab1ec2a962c34fea3c1211f",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/result.txt": "1e81270f1a47dce22a2e4985250c74b2e3374443734f1492b03ea2cd2af4ec48",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:11:07.844594+00:00",
+  "id": "gate-block-and-resume/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "gate-block-and-resume",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:11:07.836790+00:00",
+  "status": "PASS"
+}

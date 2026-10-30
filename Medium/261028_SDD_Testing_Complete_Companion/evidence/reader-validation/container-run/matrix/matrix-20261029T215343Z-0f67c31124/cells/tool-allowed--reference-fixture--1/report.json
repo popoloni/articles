@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "exactly_one_allowed_server_call",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "hidden_server_receipt_returned",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.005876,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "events.jsonl": "fd831f158adc437623dfa376f8605d2f5eee55d6a605a98e3ed4c86914ea9583",
+    "server-audit.json": "e797df25449dbb8b209685062ca396d3a4b0fd52b32a41e467ab5ae1d36b17dc",
+    "workspace-after.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:53:43.363631+00:00",
+  "id": "tool-allowed/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "tool-allowed",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:53:43.357760+00:00",
+  "status": "PASS"
+}

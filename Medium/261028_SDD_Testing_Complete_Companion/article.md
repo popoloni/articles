@@ -14,11 +14,11 @@ Did the agent actually load the instructions? Did a separate reviewer examine th
 
 While evolving my Enterprise Spec-Driven Development framework, I realized that I needed to test more than the software an agent produced. I needed to test **the system that governs how that software is produced**.
 
-The result was a local laboratory using Claude Code, GitHub Copilot CLI, Ollama, and disposable containers. The recorded experiment passed **47 of 47 local execution cells**. A subsequent framework increment passed **1,197 tests and 111 subtests** in an offline regression, with 20 PowerShell skips kept visible. These are different runs and scopes, not one combined score. [1] [2]
+The result was a local laboratory using Claude Code, GitHub Copilot CLI, Ollama, and disposable containers. A fresh run on **October 29, 2026** passed all **47 local execution cells** under the implemented checks. Then an independent audit found something the green summary missed: in five of six denied-shell cases, the agent retried despite an explicit instruction to stop after one attempt. Every attempt was blocked, but permission enforcement and instruction compliance were different claims. [6]
 
 The numbers are useful. The more transferable lesson is the testing method: make a framework's promises observable, collect evidence independently, and never let a convincing conversation substitute for verification.
 
-**Try it yourself:** the companion includes a [runnable Python starter](starter/README.md) with its own tests and retained execution evidence.
+**Try it yourself:** run the public companion with `python3 validate.py` from `starter/`. The [reproduction guide](starter/docs/REPRODUCE.md) covers the offline run, a local container, and native Ollama; the [latest evidence](evidence/local-validation/README.md) separates what passed from what the audit found.
 
 ## 1. Test the framework, not just the application
 
@@ -193,7 +193,7 @@ The last failure is particularly instructive. The evidence collector and verdict
 
 A repair loop is trustworthy only when it cannot erase the evidence that made repair necessary.
 
-The laboratory retains per-cell reports, commands, exit codes, timeouts, transcripts, artifact hashes, observed sessions, model evidence, an aggregate summary, and a relay audit. Failed attempts remain available after later success. [3]
+The laboratory retains per-cell reports, commands, exit codes, timeouts, transcripts, selected artifact hashes, observed sessions, model evidence, an aggregate summary, and a relay audit. Failed attempts remain available after later success. [3]
 
 Figure 6 illustrates the difference between an agent's account and the observations that can substantiate it.
 
@@ -202,6 +202,8 @@ Figure 6 illustrates the difference between an agent's account and the observati
 *Figure 6. The agent's response is an observation, not the final verdict. Evaluate the relevant independent evidence for each contract; no single signal proves every kind of compliance.*
 
 For review checks, the lab records a distinct reviewer session and binds the response to the reviewed artifact's digest. That is stronger than a builder declaring that its own work has been reviewed. It still does not establish the correctness of every reviewer judgment: separate sessions using the same model are not statistically independent experts. [3]
+
+The October 29 audit recomputed the hashes of all 47 cell reports and 50 retained step transcripts without a mismatch. It also exposed a retention limit: native protected-file and project-state comparisons happen inside the controller, but their before/after hash maps are not saved in the reports. The audit could inspect the recorded verdicts and private implementation, but could not reconstruct those filesystem comparisons from the saved evidence alone. The public companion does retain its before/after hashes. The lesson is to save the observations an assertion used, as well as its verdict. [6]
 
 The summary also keeps different kinds of completion separate. The recorded local result can be represented by these fields:
 
@@ -215,7 +217,7 @@ The summary also keeps different kinds of completion separate. The recorded loca
 }
 ```
 
-There is no contradiction. The selected local matrix passed; broader acceptance requirements remained unresolved. [1] [3]
+There is no contradiction. The selected local matrix passed its implemented checks; broader acceptance requirements remained unresolved. The October 29 instruction-compliance finding adds another reason to read the checks behind that status. [6]
 
 Evidence also needs an identity. A result belongs to particular source bytes, configuration, model manifests, dependencies, and container images.
 
@@ -227,46 +229,49 @@ Finally, review evidence before sharing it. The relay audit omits prompt content
 
 ## 7. Read the results without overstating them
 
-The full local matrix contained thirteen scenario families expanded into 47 execution cells: three structural-suite runs, 22 live Claude Code cells, and 22 live Copilot CLI cells. All 47 passed, with relay audit and cleanup validated. The run took approximately nineteen minutes on the recorded machine. [1]
+The **October 29 run** completed in **18 minutes 26 seconds**. Its thirteen scenario families expanded into **47 execution cells**: three structural-suite runs, 22 live Claude Code cells, and 22 live Copilot CLI cells. All **542 recorded cell checks** passed their existing oracles. The relay audit and reported cleanup also passed; the later evidence audit did not independently query the container daemon. [6]
 
-A cell is not an individual assertion. One structural cell executes an entire suite; one live cell may check several observations. The two 22/22 results therefore describe live execution cells, not 22 unit tests or 22 statistically independent reliability samples.
+This was a new environment validation using the retained container images and the same pinned Qwen model digest, with Ollama **0.40.12**. An initial attempt retained three passing structural cells and **44 blocked live cells** because the historical configuration required 0.40.11. A separate configuration pinned the observed 0.40.12 version; model identities, context, isolation, and acceptance checks stayed unchanged. The failed attempt remains part of the record. Host evidence identified **Metal on the Apple M2 Max, with 33/33 model layers offloaded**; runtime snapshots reported full GPU residency and the configured 65,536-token context. [6]
 
-Figure 7 places that result alongside the **later** offline regression. They should be read together, but not merged.
+A cell is not an individual assertion or an independent reliability sample. One structural cell executes a suite; one live cell can check several observations. The public companion has a separate scope and was also executed locally:
 
-![Recorded results: 22 of 22 live cells for each CLI and three of three structural executions, totaling 47 of 47 local cells; a later regression passed 1,197 tests and 111 subtests with 20 PowerShell skips.](figures/07-recorded-results.png)
+| October 29 execution | Observed result |
+|---|---|
+| Public companion in a local container | 81 tests and 58 subtests passed; 20 reference cells with 78 assertions passed; all six deliberate defects detected |
+| Public companion with native Ollama | One real model request; all three gateway checks passed: matching attempt, permission denial, and unchanged protected-file hash |
 
-*Figure 7. Two dated scopes: the 47-cell live/structural matrix and a subsequent offline framework regression. The later regression had zero failures, 20 PowerShell skips, and one existing warning. Earlier live evidence does not automatically validate later source changes.*
+The [latest evidence index](evidence/local-validation/README.md) links these executions separately. None adds to the native matrix's 47 cells. [6]
 
-The foundation follow-up passed its five focused cases, repeated the structural suite, and reported **1,197 tests and 111 subtests passed**, with zero failures. The 20 PowerShell skips remain a coverage limitation, not invisible successes. [2]
+### The green result that needed another assertion
 
-What remains open is equally important: complete generated production role/workflow conformance, VS Code execution evidence, and foundation review acceptance. Native macOS and Windows CLI behavior require their own evidence because the coding-agent CLIs here ran on Linux. [1] [2]
+The native denied-shell prompt required exactly one attempt and an immediate stop after denial. The audit matched tool identifiers to **13 shell attempts across six cells**. Five cells retried, including attempts with a different shell command. Every operation was denied, so the permission boundary held. The oracle checked denial evidence and unchanged state, but never counted attempts. Its PASS therefore did not establish compliance with the stop instruction. [6]
 
-The local success is real within its recorded scope. It is not a production compatibility certificate.
+This is an observed instruction violation and a gap in oracle coverage. A stronger oracle must require exactly one attempt and reject any later attempt after denial; the affected scenarios then need revalidation. The retained 47/47 result remains a result for the checks actually implemented, not proof that the broader instruction was obeyed. That finding is the article's testing method applied to its own laboratory.
+
+Figure 7 preserves the **earlier October 27–28 results**. The full framework regression shown there—**1,197 tests and 111 subtests, with 20 PowerShell skips**—was **not rerun on October 29**. [1] [2]
+
+![Historical October 27–28 results: 22 live cells per CLI and three structural executions; a separate regression passed 1,197 tests and 111 subtests with 20 PowerShell skips. These are not the October 29 validation totals.](figures/07-recorded-results.png)
+
+*Figure 7. Historical October 27–28 evidence, retained for comparison. The 1,197-test regression was not rerun on October 29. The fresh native matrix and its audit finding are reported above.*
+
+VS Code, native macOS/Windows CLI behavior, complete production role/workflow conformance, and the five-PR pilot remain outside the completed local scope. The CLIs here ran on Linux ARM64; these results do not issue a production compatibility certificate. [6]
 
 ## 8. Run a small version before building the full laboratory
 
-A didactic article should leave the reader with something they can execute, not only commands pointing into someone else's repository.
+The companion includes a small **standalone reference implementation**. It makes the central contracts inspectable: review freshness, gate rejection, protected writes, managed rollback, exposure evidence, and fail-closed aggregation. Its scripted fixtures exercise the public teaching code; native CLI adapters remain a separate integration task.
 
-The companion therefore includes a small **standalone reference implementation**. It is not an export of my private framework and does not pretend that a scripted fixture is Claude Code or Copilot CLI. Instead, it makes the central contracts inspectable: review freshness, gate rejection, protected writes, managed rollback, exposure evidence, and fail-closed aggregation.
-
-From the extracted companion directory, using Python 3.11 or later:
+From the companion directory, using Python 3.11 or later:
 
 ```sh
 cd starter
 
-# Check the harness and its failure-handling logic.
-python3 -m unittest discover -s tests -v
-
-# Run the complete offline reference matrix.
-python3 lab.py run
-
-# Deliberately break six implementations and verify their detection.
-python3 lab.py mutations
+# Run the regression suite, reference matrix, and deliberate defects.
+python3 validate.py
 ```
 
-No model credentials, Docker, network access, or third-party Python packages are required for these commands. The default subject is scripted. Each cell still executes the included code, uses a fresh workspace, and retains its observations.
+No model credentials, Docker, network access, or third-party Python packages are required for this offline command. The default subject is scripted. Each cell executes the included code, uses a fresh workspace, and retains its observations. The [reproduction guide](starter/docs/REPRODUCE.md) gives expected results, evidence locations, and the container and live-model options.
 
-The new reference suite passed **81 tests and 58 subtests**. Its separate matrix passed **20 execution cells with 78 assertions**. Six deliberately broken implementations all caused the expected failed assertions. These are newly executed Linux/Python reference results, not additions to the original 47-cell or 1,197-test totals. The [validation index](evidence/starter-validation/README.md) links to the logs, JSON, JUnit output, and individual observations. [5]
+The [original reference validation](evidence/starter-validation/README.md) and [October 29 local validation](evidence/local-validation/README.md) retain separate records. The container rerun reproduced the reference contracts and counts listed above. These results belong to the public teaching implementation. [5] [6]
 
 The mutation step is particularly useful. It permits a protected write, removes denial evidence, accepts stale/self reviews, makes rollback a no-op, removes exposure evidence, and bypasses tool policy. A good oracle must reject each violation. A test crashing is not enough: the mutation runner requires an explicit failed assertion.
 
@@ -280,21 +285,13 @@ Open that run's `summary.json`, then follow its per-cell report paths. You will 
 
 The [integration guide](starter/docs/INTEGRATION.md) explains how to replace the reference subject with your actual gate, publisher, or coding-agent adapter. The [scenario map](starter/docs/SCENARIOS.md) states precisely what each fixture establishes and what it does not. Do not let a fixture-level result become a native-runtime compatibility claim through a change of label.
 
-An optional [direct Ollama probe](starter/docs/OLLAMA.md) is also supplied for readers with a local tool-calling model. It exercises the companion's own permission gateway, not a vendor CLI. Its transport handling has offline tests; a real Ollama run was not performed for the companion's validation. [5]
+For the live step, keep Ollama native on macOS so it can use Metal. The [Ollama guide](starter/docs/OLLAMA.md) explains how to select an installed tool-calling model by exact name and digest. The October 29 probe made a real request and passed all three checks against the companion's own permission gateway. A model refusal or a reassuring sentence would not have passed: the oracle required the specific tool attempt, its matching denial, and unchanged protected-file hashes. [6]
 
-## 9. Keep the original experiment reproducible, without inventing missing files
+## 9. Make clear what readers can reproduce
 
-The full native-agent laboratory has a different entry point. In the matching Enterprise SDD checkout, the recorded sequence prepares the model alias, builds the pinned images, runs preflight checks, and then executes the structural, regression, and live matrices. The [complete original runbook](evidence/reading/README.md) is included, along with the [full machine-readable record](evidence/original/runtime-lab-record.json). [3]
+Readers can execute the **public companion**: its source, offline tests, mutation cases, container recipe, and optional Ollama probe are included. The [reproduction guide](starter/docs/REPRODUCE.md) is the runnable entry point; the [latest evidence](evidence/local-validation/README.md) explains what those executions establish.
 
-For example, the historical full-matrix command is:
-
-```sh
-# Original Enterprise SDD checkout only; this is not the starter's entry point.
-python3 _tests/harness_runtime/lab.py matrix \
-  --config _tests/harness_runtime/config.ollama.json
-```
-
-That checkout's executable source, original raw transcripts, container image archives, and model weights were not part of the supplied archive. The companion [evidence inventory](evidence/README.md) says so explicitly. The new implementation is useful starting code, not a reconstruction of those missing bytes.
+The **47-cell native matrix** belongs to the separate private Enterprise SDD implementation. That checkout and its retained images were available for the October 29 execution, but its executable source and raw native transcripts are not distributed in this public package. Neither are its container image archives or model weights. The [historical runbook](evidence/reading/README.md), [original record](evidence/original/runtime-lab-record.json), and new evidence summary document the experiment; they do not enable a reader to rerun that full matrix from this repository. [3] [6]
 
 The companion also includes a [record-consistency checker](tools/audit_original_record.py). It verifies the recorded cell expansion, counts, coverage, retained failures, and non-certification flags. It cannot prove the content of an unavailable report merely because a SHA-256 digest appears in a summary.
 
@@ -318,7 +315,7 @@ The goal is not to force a non-deterministic agent to behave identically every t
 
 ### Experimental sources and scope
 
-This article describes the author's recorded experiment of **October 27–28, 2026**, not a fresh benchmark of current product releases. Results and commands were reconciled against the supplied laboratory runbook, execution summary, foundation report, and machine-readable replay record. The accompanying [experiment notes](evidence/experiment-notes.md) identify the supporting records and their limits. The diagrams illustrate the architecture and method; they are not runtime screenshots.
+This article combines the author's **October 27–28, 2026 experiment** with a **fresh October 29 local validation and evidence audit**. The [experiment notes](evidence/experiment-notes.md) identify the historical sources; the [latest evidence index](evidence/local-validation/README.md) records the new environment, outcomes, and audit finding. The dates, implementations, and test scopes remain separate. The diagrams illustrate the method; Figure 7 retains the historical totals. These are bounded experiments with recorded versions, not a general product benchmark.
 
 [1]: evidence/experiment-notes.md#recorded-matrix "Recorded 47-cell local scenario matrix"
 [2]: evidence/experiment-notes.md#foundation-follow-up "Subsequent foundation tests and offline regression"
@@ -326,3 +323,4 @@ This article describes the author's recorded experiment of **October 27–28, 20
 [4]: evidence/experiment-notes.md#retained-failures "Retained failures and bounded corrections"
 
 [5]: evidence/starter-validation/README.md "New reference implementation: executed tests, matrix, mutations and explicit limits"
+[6]: evidence/local-validation/README.md "October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings"

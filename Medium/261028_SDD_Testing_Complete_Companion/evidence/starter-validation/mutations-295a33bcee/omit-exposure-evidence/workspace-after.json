@@ -1,0 +1,11 @@
+{
+  "directories": [
+    "protected"
+  ],
+  "files": {
+    "protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "result.txt": "07b1c96587fdb354fac02b448efa7962f35a5faf08f75a743ad5e84ee1c36d8c",
+    "untrusted.md": "29f725b5e431318f9d3d4add7d6afe0a5bcca1f44c8aa1926292d0a5d3f78cb9",
+    "user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  }
+}

@@ -31,7 +31,7 @@ class Fixture(unittest.TestCase):
 
 class PathTests(Fixture):
     def test_path_is_contained(self):
-        self.assertEqual(safe_path(self.root, 'a/b.txt'), self.root / 'a/b.txt')
+        self.assertEqual(safe_path(self.root, 'a/b.txt'), self.root.resolve() / 'a/b.txt')
 
     def test_unsafe_paths_rejected(self):
         for value in ['', '../secret', '/etc/passwd', 'a/../secret', 'a//b', 'a/./b', 'a\\b', 'C:/secret', '\x00']:

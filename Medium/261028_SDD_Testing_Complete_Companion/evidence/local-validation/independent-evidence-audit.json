@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "audit_date": "2026-10-29",
+  "scope": "Fresh offline companion reference-fixture evidence only; excludes the ongoing native live matrix and historical packaged evidence.",
+  "method": {
+    "independent_read_only_audit": true,
+    "tests_reexecuted": false,
+    "tools": [
+      "jq",
+      "cat",
+      "rg",
+      "JavaScript comparison of tool outputs",
+      "/usr/bin/openssl dgst -sha256"
+    ],
+    "checks": [
+      "Compared unique JSON test IDs and statuses with JUnit testcase IDs and failure/error/skip nodes.",
+      "Recounted matrix cell reports and their individual checks.",
+      "Compared mutation summary claims with each retained mutation report and event evidence.",
+      "Recomputed recorded source, report, evidence, log and workspace snapshot SHA-256 hashes.",
+      "Inspected runtime events, operation IDs, policy denials, tool service audits, read exposure, publication recovery/rollback and session lineage."
+    ]
+  },
+  "inputs": {
+    "unit_tests": "unit-tests/unit-tests.json",
+    "unit_junit": "unit-tests/unit-tests.xml",
+    "unit_log": "unit-tests/unit-tests.log",
+    "matrix": "matrix-20261029T211107Z-ee4c215fad/summary.json",
+    "matrix_junit": "matrix-20261029T211107Z-ee4c215fad/junit.xml",
+    "mutations": "mutations-2e5e0fdda3/summary.json",
+    "source_root": "../../starter"
+  },
+  "counts": {
+    "unit_tests": {
+      "json_unique_cases": 81,
+      "junit_cases": 81,
+      "passed": 81,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "json_and_junit_ids_match": true
+    },
+    "subtests": {
+      "reported_successful": 58,
+      "source_enumeration_expected": 58,
+      "source_loop_cardinalities": [
+        9,
+        6,
+        3,
+        5,
+        5,
+        12,
+        7,
+        3,
+        3,
+        5
+      ],
+      "limitation": "Successful subtests are retained as an aggregate count, not individual execution records; the reported count agrees with source loop enumeration."
+    },
+    "matrix": {
+      "reports": 20,
+      "junit_cases": 20,
+      "passed_cells": 20,
+      "checks": 78,
+      "passed_checks": 78,
+      "json_and_junit_ids_match": true
+    },
+    "mutations": {
+      "selected": 6,
+      "detected": 6,
+      "assertion_failure_reports": 6,
+      "error_reports": 0,
+      "interpretation": "All six selected defects were detected; this is not a general mutation coverage score."
+    }
+  },
+  "hash_verification": {
+    "algorithm": "SHA-256",
+    "source_files_against_current_starter": 10,
+    "test_files_against_current_starter": 2,
+    "source_identity_equal_across_unit_matrix_mutations": true,
+    "aggregate_source_identity_recomputed": true,
+    "aggregate_source_sha256": "f8fef9a007d77a35f0e0534a3ea5f733bfa661a1e5a76b6b2d128da60ccf0231",
+    "matrix_report_hashes": 20,
+    "referenced_evidence_hashes": 164,
+    "unit_log_hashes": 1,
+    "workspace_final_files_against_after_snapshots": 67,
+    "mismatches": 0,
+    "note": "Hash categories overlap where retained files are referenced by more than one layer of evidence."
+  },
+  "scope_assertions": {
+    "native_cli_observed": false,
+    "real_model_invocations": 0,
+    "fixture_validation_only": true,
+    "native_live_matrix_audited": false,
+    "native_conformance_certified": false
+  },
+  "discrepancies": [],
+  "projection": {
+    "kind": "privacy_reviewed_derivative",
+    "original_input_label": "independent-evidence-audit.json",
+    "original_input_sha256": "0f44864af7539e46883fde1c2822146f0387d7ddc10b957a948656ceb1d7f76e",
+    "original_input_included": false,
+    "changes": [
+      "Rebased the starter source reference to the public companion's relative location. Raw companion evidence is copied unchanged."
+    ],
+    "hash_interpretation": "The original input SHA-256 identifies the unmodified source. It is not a checksum of this derivative; exported-file checksums are recorded separately."
+  }
+}

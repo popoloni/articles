@@ -1,0 +1,19 @@
+[
+  {
+    "after": {
+      "generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9"
+    },
+    "before": {
+      "generated/agent.json": null
+    },
+    "before_dirs": [
+      "protected"
+    ],
+    "id": "9baf2885-5d2c-44c9-90d6-d14f28854a00",
+    "ledger_after": {
+      "generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9"
+    },
+    "ledger_before": {},
+    "rolled_back": false
+  }
+]

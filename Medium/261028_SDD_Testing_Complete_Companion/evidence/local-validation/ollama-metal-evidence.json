@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source": "Ollama server log; local user path omitted",
+  "selection": "Last 3000 log lines filtered for Metal initialization and GPU offload; selected lines below.",
+  "observed_lines": [
+    "time=2026-10-29T22:11:37.873+01:00 level=INFO source=sched.go:665 msg=\"gpu memory\" id=0 library=Metal available=\"51.3 GiB\" free=\"51.8 GiB\" minimum=\"512.0 MiB\" overhead=\"0 B\"",
+    "ggml_metal_library_init: using embedded metal library",
+    "ggml_metal_device_init: GPU name:   MTL0 (Apple M2 Max)",
+    "ggml_metal_device_init: GPU family: MTLGPUFamilyMetal4  (5002)",
+    "load_tensors: offloaded 33/33 layers to GPU",
+    "ggml_metal_init: found device: Apple M2 Max",
+    "ggml_metal_init: picking default device: Apple M2 Max"
+  ],
+  "cross_check": "native-runtime-sample.json records the pinned model digest, context_length 65536, and size_vram == size == 7462274989 before and after the first live cell.",
+  "status": "PASS",
+  "projection": {
+    "kind": "privacy_reviewed_derivative",
+    "original_input_label": "ollama-metal-evidence.json",
+    "original_input_sha256": "d923b80db90365f6ced4c85b109b0973734a18b3c4cded65b801ad514f6b8a5b",
+    "original_input_included": false,
+    "changes": [
+      "Removed the local user path from source metadata; selected log lines are preserved verbatim."
+    ],
+    "hash_interpretation": "The original input SHA-256 identifies the unmodified source. It is not a checksum of this derivative; exported-file checksums are recorded separately."
+  }
+}

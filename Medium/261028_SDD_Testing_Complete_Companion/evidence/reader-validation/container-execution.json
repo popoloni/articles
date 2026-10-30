@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "projection": {
+    "kind": "exported_derivative",
+    "original_input_sha256": {
+      "image": "52924ba199fd5f2196722b688fffe16d2bb5be0d2d1725adfb0a6dc7a34c04c5"
+    },
+    "sanitization": [
+      "Kept image identity, architecture, working directory and Python metadata.",
+      "Removed image filesystem storage paths, layer inventory and unrelated image configuration."
+    ],
+    "hash_scope": "Original input hashes identify the pre-export source bytes; they are not hashes of this rewritten projection."
+  },
+  "observed_image": {
+    "image_id": "sha256:f33bad86270ff0bbeb40473c9a87bbb129f0cb6762f63fca86fc85d8dc256a77",
+    "created_at": "2026-10-29T21:53:24.761462426Z",
+    "os": "linux",
+    "architecture": "arm64",
+    "python_version": "3.12.15",
+    "working_directory": "/work",
+    "default_user": "10001:10001"
+  },
+  "controller_supplied_execution_configuration": {
+    "evidence_source": "Controller-reported invocation; image inspection alone does not establish these runtime flags.",
+    "platform": "linux/arm64",
+    "user": "501:20",
+    "user_selection": "Invoking host user's UID:GID, overriding image default 10001:10001.",
+    "network": "none",
+    "read_only_root_filesystem": true,
+    "capabilities_dropped": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "pids_limit": 128,
+    "memory_limit": "512m",
+    "temporary_filesystem": {
+      "destination": "/tmp",
+      "options": [
+        "rw",
+        "nosuid",
+        "nodev"
+      ],
+      "size": "256m"
+    },
+    "host_mounts": [
+      {
+        "purpose": "Dedicated writable evidence output only",
+        "destination": "/evidence",
+        "host_path_exported": false
+      }
+    ],
+    "automatic_container_removal": true,
+    "pull_policy": "never",
+    "command_override": [
+      "python",
+      "validate.py",
+      "--output",
+      "/evidence"
+    ]
+  },
+  "observed_execution_result": "container-run/summary.json",
+  "limitations": [
+    "Runtime isolation parameters are supplied by the controller, not independently proven by image inspection.",
+    "The raw run records Python/platform/source identity; it is not an isolation attestation."
+  ]
+}

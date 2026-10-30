@@ -1,43 +1,54 @@
 # Your AI Agent Says It Followed the Rules. Make It Prove It.
 
-## Complete article, evidence and reusable implementation
+Read the [illustrated article](preview.html), then run the public reference example on your own machine. This **October 29, 2026 edition** adds fresh container and Ollama results, a single-command runner, complete evidence links, and an audit finding that explains why passing tests are only as strong as their assertions.
 
-Start with the [illustrated HTML article](preview.html) or [Markdown article](article.md). The article embeds seven separate figures in the navy, orange, white and cyan book-cover style and links to the supporting records and runnable code included here.
+## Start here
 
-| What you need | Open |
+| Your goal | Open |
 |---|---|
-| Medium-ready article | [article.md](article.md) or [preview.html](preview.html) |
-| Seven individual figures and captions | [Figure guide](figure-captions.md) |
-| Complete supplied historical records | [Evidence index](evidence/README.md) |
-| Reusable, standard-library Python implementation | [Starter quickstart](starter/README.md) |
-| Newly executed tests and proof | [Validation index](evidence/starter-validation/README.md) |
-| Original-record consistency audit | [Audit result](evidence/record-audit/record-audit.json) |
-| Publication and provenance notes | [Publication checklist](PUBLICATION_CHECKLIST.md) and [provenance](PROVENANCE.md) |
+| Understand the method | [Article](preview.html) · [Markdown source](article.md) |
+| Run the example now | [Reproduction guide](starter/docs/REPRODUCE.md) |
+| Check the new reader workflow | [Host and container validation](evidence/reader-validation/README.md) |
+| Inspect the latest results and their limits | [October 29 evidence](evidence/local-validation/README.md) |
+| Follow a verdict back to its observations | [Proof walkthrough](evidence/PROOF_WALKTHROUGH.md) |
+| Replace the fixture with your implementation | [Integration guide](starter/docs/INTEGRATION.md) |
+| Verify or build the distributable | [Maintenance tools](tools/README.md) |
 
-## Execute the starter
+## A first run with no account or model
 
-Python 3.11+ is sufficient for the default offline tests; no paid account or model is required.
+Install Python **3.11 or later**. From a clone of the repository:
 
 ```sh
-cd starter
-python3 -m unittest discover -s tests -v
-python3 lab.py run
-python3 lab.py mutations
+git clone https://github.com/popoloni/articles.git
+cd articles/Medium/261028_SDD_Testing_Complete_Companion/starter
+python3 validate.py
 ```
 
-The prepared package records **81/81 regression tests**, **58 successful subtests**, **20/20 reference cells**, and **six detected deliberate defects**. Reports, logs, individual cell evidence, and executable sources are included. These are new reference results on Linux/Python, not reruns of the original author's native-agent experiment.
+From an extracted companion ZIP, open its `starter` directory and run the same command. On Windows, use `py -3` instead of `python3` and ensure it selects Python 3.11 or later. The default run needs no third-party Python packages, Docker, network access, API key, or model download.
 
-From the package root, check original-summary consistency and distribution integrity:
+The command runs **81 unit tests with 58 subtests**, the **20-cell reference matrix with 78 assertions**, and **six deliberate defects** that must be detected by assertion failures. It prints the path to a fresh aggregate report and preserves each stage's logs and reports. An unrequested live step is labeled explicitly; an offline pass does not claim model validation. See the [guide](starter/docs/REPRODUCE.md) for expected output, file navigation, troubleshooting, container commands, and an opt-in Ollama run.
+
+## What the new evidence establishes
+
+| Scope | October 29 result | Reader availability |
+|---|---|---|
+| Public reference tests in an ARM64 container | 81 tests / 58 subtests; 20 cells / 78 checks; six defects detected | Included code and raw evidence |
+| Public live Ollama gateway probe | One real model request, three checks passed | Included code, request, events and hashes |
+| Private framework's native CLI matrix | 47/47 cells passed the implemented checks | Reviewed metadata; full harness and raw private transcripts not included |
+| Audit of native shell denials | Five of six cells retried despite a single-attempt instruction; every attempt was blocked | Finding and per-cell attempt counts included |
+| Earlier full framework regression | Historical 1,197 tests / 111 subtests; **not rerun on October 29** | Original dated records |
+
+The [latest evidence index](evidence/local-validation/README.md) keeps these scopes separate. The native rerun used Ollama 0.40.12, the pinned Qwen 3.5 9B alias, and verified Apple Metal inference. The original 0.40.11 configuration failed closed before live execution; both outcomes are described. The audit finding means **47/47 does not establish compliance with every instruction**.
+
+## Verify the files you received
+
+From the companion root:
 
 ```sh
-python3 tools/audit_original_record.py
 python3 tools/verify_package.py
+python3 tools/audit_original_record.py
 ```
 
-## Three boundaries that matter
+The first command checks this edition's file hashes and local navigation. Historical evidence is already unpacked: no nested ZIP extraction is needed. The second checks consistency of the historical summary; it does not rerun the native matrix. Checksums detect changed bytes, not authorship.
 
-The original **47/47 local cells** and **1,197-test/111-subtest follow-up** are historical author-supplied results. All five supplied records and the original archive are included. The original private executable framework, raw per-cell payloads, image archives and weights were not supplied; their absence is listed explicitly rather than filled with invented proof.
-
-The new **reference starter** is fully included and was executed here. Its default agent is scripted; it teaches observable contracts, not native Claude/Copilot conformance. A direct Ollama probe and an optional Docker recipe are provided, but real-model and Docker executions were not performed during this validation.
-
-The entire ZIP is self-contained for reading the article and running the offline starter. Re-executing the original native-agent laboratory still requires the missing original inputs. New starter code is MIT-licensed; the archive does not relicense artwork or historical documents.
+The original five records remain unchanged. The [evidence index](evidence/README.md), [provenance](PROVENANCE.md), and [publication notes](PUBLICATION_CHECKLIST.md) identify historical material, new executions, public projections, and unavailable private inputs. The [figure captions](figure-captions.md) distinguish the historical results graphic from the latest table. The included starter and its documentation carry the [MIT license](starter/LICENSE).

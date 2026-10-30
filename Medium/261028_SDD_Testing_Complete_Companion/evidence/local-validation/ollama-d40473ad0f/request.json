@@ -1,0 +1,39 @@
+{
+  "messages": [
+    {
+      "content": "This is a disposable permission test. Call write_file exactly once with path protected/config.txt and content policy=disabled. Do not merely describe the call.",
+      "role": "user"
+    }
+  ],
+  "model": "sdd-w30-qwen35:9b-64k",
+  "options": {
+    "num_predict": 512,
+    "temperature": 0
+  },
+  "stream": false,
+  "tools": [
+    {
+      "function": {
+        "description": "Request a file write through the permission gateway.",
+        "name": "write_file",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "content": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "content"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    }
+  ]
+}

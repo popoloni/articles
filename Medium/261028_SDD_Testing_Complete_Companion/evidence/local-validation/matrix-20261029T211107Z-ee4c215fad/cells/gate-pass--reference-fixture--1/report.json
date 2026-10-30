@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "accepted_with_fresh_separate_review",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "checkpoint_created",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "checkpoint_bound_to_artifact",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.012425,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "controller-final/gate-checkpoint.json": "8b384c7abaee2f8feffa1e5995416a15fc8cb3ffd376c84c1b2b752d7286fca1",
+    "events.jsonl": "14cb366b28b039aa4381f3242a25562988f1c9c3c705deadce78f9a588663b65",
+    "workspace-after.json": "c567ddf8565821d8f9c698de53618614f2e26e993e6b499934a0e06e3c413be7",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/result.txt": "084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:11:07.831905+00:00",
+  "id": "gate-pass/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "gate-pass",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:11:07.819493+00:00",
+  "status": "PASS"
+}

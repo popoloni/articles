@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "generated_output_exists",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "rollback_restores_complete_workspace",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "rollback_restores_ledger_bytes",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "rollback_is_idempotent",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.008473,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "controller-final/publisher/history.json": "cc3a68effd792ca467ceb4f45ee6479564eb596a66b0cfbdddcbf4429768018d",
+    "controller-final/publisher/ownership.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "events.jsonl": "1c624fd70338ea805e822635c73d232aeefac89fbe5088d208749c0313d1d35d",
+    "workspace-after.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-29T21:11:07.866991+00:00",
+  "id": "greenfield-rollback/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "greenfield-rollback",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-29T21:11:07.858525+00:00",
+  "status": "PASS"
+}

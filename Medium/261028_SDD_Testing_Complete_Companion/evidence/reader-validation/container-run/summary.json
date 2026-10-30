@@ -1,0 +1,102 @@
+{
+  "certificate_issued": false,
+  "created_at": "2026-10-29T21:53:42.282326+00:00",
+  "environment": {
+    "machine": "aarch64",
+    "platform": "Linux-6.10.11-linuxkit-aarch64-with-glibc2.36",
+    "python": "3.12.15"
+  },
+  "evidence_kind": "public-companion-validation",
+  "finished_at": "2026-10-29T21:53:43.782478+00:00",
+  "live_requested": false,
+  "live_status": "NOT_REQUESTED",
+  "native_cli_observed": false,
+  "offline_complete": true,
+  "private_native_matrix_reproduced": false,
+  "runner_sha256": "3c1f28a12ace329834414446eb78fb76f74b6888a88ee1b469ede24b00bb7e02",
+  "schema_version": 1,
+  "scope": "offline-reference-only",
+  "source_identity": {
+    "files": {
+      "lab.py": "0e1267ad26dfbe1c23cf836b5c5c90f9e0898c0ace057df7bd711ef0514b158e",
+      "scenarios.json": "954f266b6533b72525602e465701725184e1daa4069c09d669ef9a33724ba2c6",
+      "sdd_lab/__init__.py": "9ec260a7f6fe9c348d757a56983e45d8c060930f01a2ccc01a5a4d66c2c4b38f",
+      "sdd_lab/common.py": "6e6d88b89d809082d417dcd7cc0198e737b4861bcdffa5f82a4bc672af70bf69",
+      "sdd_lab/core.py": "39727c1ea9d9c07a1f46b712c5e5a85f282e810f8a785911879619c1913d6fce",
+      "sdd_lab/live.py": "d3b29b00b2fadfef1c3a6bf91db248af260349a9376f1c1f325e2dde29615721",
+      "sdd_lab/mutations.py": "a7d079e0b1cfc57caf3bfd73b394a7e184c7491eecf5f5626a9207fe62466095",
+      "sdd_lab/oracles.py": "4c63cf9b4528bc125e4fc71ebdd9599d5ebfcd50057aee432a95fa67fe1adea5",
+      "sdd_lab/runner.py": "a4ff54167143307fcab0acb5edb4cd995c1b36be2ae1479b7b582c7b92a1b214",
+      "sdd_lab/scenarios.py": "99d30e0e7cacd32ccdf9828f8a6e9d69444e2bc40c0e5a5b7e12ab1052fb1914"
+    },
+    "sha256": "f8fef9a007d77a35f0e0534a3ea5f733bfa661a1e5a76b6b2d128da60ccf0231"
+  },
+  "status": "PASS",
+  "steps": [
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "/work/tools/run_unit_tests.py",
+        "--output",
+        "/evidence/validation-20261029T215342Z-009440095d/unit"
+      ],
+      "console_log": "unit/console.log",
+      "elapsed_seconds": 0.758362,
+      "exit_code": 0,
+      "finished_at": "2026-10-29T21:53:43.043777+00:00",
+      "issues": [],
+      "report": "unit/unit-tests.json",
+      "report_sha256": "a0953a6e9e06b6d08e92b07ef39bc27f5886c31908c1a16b1b275c4536e6f48d",
+      "reported_status": "PASS",
+      "stage": "unit",
+      "started_at": "2026-10-29T21:53:42.285414+00:00",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "/work/lab.py",
+        "run",
+        "--output",
+        "/evidence/validation-20261029T215342Z-009440095d/matrix"
+      ],
+      "console_log": "matrix/console.log",
+      "elapsed_seconds": 0.386151,
+      "exit_code": 0,
+      "finished_at": "2026-10-29T21:53:43.430978+00:00",
+      "issues": [],
+      "report": "matrix/matrix-20261029T215343Z-0f67c31124/summary.json",
+      "report_sha256": "2316c455e7a246d0b479a79f2bbd214b41d17bc8c9484157092e8ac1ea54fbf0",
+      "reported_status": "PASS",
+      "stage": "matrix",
+      "started_at": "2026-10-29T21:53:43.044833+00:00",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "/usr/local/bin/python",
+        "/work/lab.py",
+        "mutations",
+        "--output",
+        "/evidence/validation-20261029T215342Z-009440095d/mutations"
+      ],
+      "console_log": "mutations/console.log",
+      "elapsed_seconds": 0.349718,
+      "exit_code": 0,
+      "finished_at": "2026-10-29T21:53:43.781627+00:00",
+      "issues": [],
+      "report": "mutations/mutations-5ecff50875/summary.json",
+      "report_sha256": "b6a1feb9c539865dda9a5dfa307e25b53505472c1298b9488d28a7f5e7cfbaf2",
+      "reported_status": "PASS",
+      "stage": "mutations",
+      "started_at": "2026-10-29T21:53:43.431912+00:00",
+      "status": "PASS"
+    },
+    {
+      "reason": "Offline run; no live model invocation requested or performed",
+      "stage": "ollama",
+      "status": "NOT_REQUESTED"
+    }
+  ],
+  "unit_reporter_sha256": "3d16a73bcce1f8fb8abbc017b58f41f87ebcf5faac97589a79e6923043fa97b8"
+}

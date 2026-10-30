@@ -1,0 +1,529 @@
+{
+  "created_at": "2026-10-29T21:53:43.029157+00:00",
+  "elapsed_seconds": 0.426073,
+  "environment": {
+    "machine": "aarch64",
+    "platform": "Linux-6.10.11-linuxkit-aarch64-with-glibc2.36",
+    "python": "3.12.15"
+  },
+  "errors": 0,
+  "evidence_kind": "executed-reference-unit-tests",
+  "failures": 0,
+  "fixture_outcomes": [],
+  "log_sha256": "48056b7c0b5fdcfe9ddff9b58ab492acd72e4d4f32240b740fc814263fc67f45",
+  "native_cli_observed": false,
+  "passed": 81,
+  "real_model_invocations": 0,
+  "schema_version": 1,
+  "skipped": 0,
+  "source_identity": {
+    "files": {
+      "lab.py": "0e1267ad26dfbe1c23cf836b5c5c90f9e0898c0ace057df7bd711ef0514b158e",
+      "scenarios.json": "954f266b6533b72525602e465701725184e1daa4069c09d669ef9a33724ba2c6",
+      "sdd_lab/__init__.py": "9ec260a7f6fe9c348d757a56983e45d8c060930f01a2ccc01a5a4d66c2c4b38f",
+      "sdd_lab/common.py": "6e6d88b89d809082d417dcd7cc0198e737b4861bcdffa5f82a4bc672af70bf69",
+      "sdd_lab/core.py": "39727c1ea9d9c07a1f46b712c5e5a85f282e810f8a785911879619c1913d6fce",
+      "sdd_lab/live.py": "d3b29b00b2fadfef1c3a6bf91db248af260349a9376f1c1f325e2dde29615721",
+      "sdd_lab/mutations.py": "a7d079e0b1cfc57caf3bfd73b394a7e184c7491eecf5f5626a9207fe62466095",
+      "sdd_lab/oracles.py": "4c63cf9b4528bc125e4fc71ebdd9599d5ebfcd50057aee432a95fa67fe1adea5",
+      "sdd_lab/runner.py": "a4ff54167143307fcab0acb5edb4cd995c1b36be2ae1479b7b582c7b92a1b214",
+      "sdd_lab/scenarios.py": "99d30e0e7cacd32ccdf9828f8a6e9d69444e2bc40c0e5a5b7e12ab1052fb1914"
+    },
+    "sha256": "f8fef9a007d77a35f0e0534a3ea5f733bfa661a1e5a76b6b2d128da60ccf0231"
+  },
+  "status": "PASS",
+  "subtests_passed": 58,
+  "test_cases": [
+    {
+      "details": [],
+      "elapsed_seconds": 0.016679,
+      "id": "test_contracts.CoverageTests.test_all_scenarios_have_assertions_and_pass",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.178501,
+      "id": "test_contracts.CoverageTests.test_cli_rejects_unknown_selection",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.192481,
+      "id": "test_contracts.CoverageTests.test_cli_smoke",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000126,
+      "id": "test_contracts.CoverageTests.test_duplicate_cell_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000261,
+      "id": "test_contracts.CoverageTests.test_duplicate_manifest_scenario_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000612,
+      "id": "test_contracts.CoverageTests.test_invalid_repetition_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000161,
+      "id": "test_contracts.CoverageTests.test_invalid_selection_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000169,
+      "id": "test_contracts.CoverageTests.test_manifest_has_twenty_cells",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.004833,
+      "id": "test_contracts.CoverageTests.test_matrix_report_hashes_and_junit",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 6.8e-05,
+      "id": "test_contracts.CoverageTests.test_missing_cell_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.007632,
+      "id": "test_contracts.CoverageTests.test_mutations_are_detected_by_assertions_not_errors",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000102,
+      "id": "test_contracts.CoverageTests.test_skip_error_unknown_and_blocked_are_not_pass",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 5.7e-05,
+      "id": "test_contracts.CoverageTests.test_subset_cannot_claim_full_matrix",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 8.8e-05,
+      "id": "test_contracts.CoverageTests.test_targeted_selection_keeps_repetitions",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 5.4e-05,
+      "id": "test_contracts.CoverageTests.test_unexpected_cell_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000156,
+      "id": "test_contracts.CoverageTests.test_unknown_manifest_scenario_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000131,
+      "id": "test_contracts.GateTests.test_empty_builder_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000116,
+      "id": "test_contracts.GateTests.test_empty_reviewer_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000172,
+      "id": "test_contracts.GateTests.test_failed_recheck_invalidates_old_checkpoint",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000153,
+      "id": "test_contracts.GateTests.test_fresh_review_accepted",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000408,
+      "id": "test_contracts.GateTests.test_malformed_criteria_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.00018,
+      "id": "test_contracts.GateTests.test_missing_artifact_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000131,
+      "id": "test_contracts.GateTests.test_missing_criteria_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000137,
+      "id": "test_contracts.GateTests.test_missing_review_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000135,
+      "id": "test_contracts.GateTests.test_nonapproval_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000186,
+      "id": "test_contracts.GateTests.test_resume_after_review",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000118,
+      "id": "test_contracts.GateTests.test_self_review_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000135,
+      "id": "test_contracts.GateTests.test_stale_artifact_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000125,
+      "id": "test_contracts.GateTests.test_stale_spec_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000192,
+      "id": "test_contracts.LiveAdapterTests.test_digest_must_be_full",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.00015,
+      "id": "test_contracts.LiveAdapterTests.test_invalid_timeouts_rejected_before_network",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 8.5e-05,
+      "id": "test_contracts.LiveAdapterTests.test_missing_duplicate_and_remote_models_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.001792,
+      "id": "test_contracts.LiveAdapterTests.test_mocked_live_response_executes_real_gateway",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 7.1e-05,
+      "id": "test_contracts.LiveAdapterTests.test_model_identity_is_verified",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.001043,
+      "id": "test_contracts.LiveAdapterTests.test_model_prose_alone_does_not_pass",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 7.8e-05,
+      "id": "test_contracts.LiveAdapterTests.test_nonallowlisted_routes_rejected_before_network",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.001076,
+      "id": "test_contracts.LiveAdapterTests.test_nonterminal_response_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000148,
+      "id": "test_contracts.LiveAdapterTests.test_only_loopback_base_urls_allowed",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000764,
+      "id": "test_contracts.LiveAdapterTests.test_unavailable_server_is_blocked_not_pass",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000933,
+      "id": "test_contracts.LiveAdapterTests.test_wrong_requested_operation_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.001401,
+      "id": "test_contracts.LiveAdapterTests.test_wrong_returned_model_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000144,
+      "id": "test_contracts.PathTests.test_atomic_replacement_and_no_temporary_leak",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 8.2e-05,
+      "id": "test_contracts.PathTests.test_event_log_cannot_be_overwritten",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000131,
+      "id": "test_contracts.PathTests.test_path_is_contained",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000206,
+      "id": "test_contracts.PathTests.test_snapshot_includes_directories",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000225,
+      "id": "test_contracts.PathTests.test_symlink_parent_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000107,
+      "id": "test_contracts.PathTests.test_unsafe_paths_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000113,
+      "id": "test_contracts.PolicyTests.test_absent_before_and_after_is_not_protection_evidence",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000181,
+      "id": "test_contracts.PolicyTests.test_absent_skill_is_explicit",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 9.5e-05,
+      "id": "test_contracts.PolicyTests.test_agent_claim_does_not_prove_denial",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000184,
+      "id": "test_contracts.PolicyTests.test_allowed_tool_has_independent_audit",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000186,
+      "id": "test_contracts.PolicyTests.test_allowed_write",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000156,
+      "id": "test_contracts.PolicyTests.test_changed_file_after_denial_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.00014,
+      "id": "test_contracts.PolicyTests.test_denied_tool_never_reaches_service",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000145,
+      "id": "test_contracts.PolicyTests.test_explicit_empty_allowlist_denies_all",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.00012,
+      "id": "test_contracts.PolicyTests.test_oversize_write_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000161,
+      "id": "test_contracts.PolicyTests.test_protected_write_denied",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000217,
+      "id": "test_contracts.PolicyTests.test_skill_loading_records_read",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 8.5e-05,
+      "id": "test_contracts.PolicyTests.test_traversal_rejected_before_write",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000142,
+      "id": "test_contracts.PolicyTests.test_wrong_operation_id_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 8.2e-05,
+      "id": "test_contracts.PolicyTests.test_wrong_origin_does_not_prove_denial",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000142,
+      "id": "test_contracts.PolicyTests.test_wrong_target_denial_rejected",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.001475,
+      "id": "test_contracts.PublisherTests.test_brownfield_exact_restore",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000941,
+      "id": "test_contracts.PublisherTests.test_cannot_rollback_older_active_transaction",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000219,
+      "id": "test_contracts.PublisherTests.test_directory_cannot_be_adopted_as_file",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000616,
+      "id": "test_contracts.PublisherTests.test_drift_prevents_recovery",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000544,
+      "id": "test_contracts.PublisherTests.test_drift_prevents_rollback",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000557,
+      "id": "test_contracts.PublisherTests.test_drift_prevents_upgrade",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000159,
+      "id": "test_contracts.PublisherTests.test_empty_publication_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000221,
+      "id": "test_contracts.PublisherTests.test_foreign_file_is_not_adopted",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000904,
+      "id": "test_contracts.PublisherTests.test_greenfield_restore_and_repeat",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000446,
+      "id": "test_contracts.PublisherTests.test_interruption_requires_recovery",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000458,
+      "id": "test_contracts.PublisherTests.test_ledger_drift_stops_rollback",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.00047,
+      "id": "test_contracts.PublisherTests.test_missing_owned_file_is_drift",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000936,
+      "id": "test_contracts.PublisherTests.test_recovery_reconstructs_from_disk",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000338,
+      "id": "test_contracts.PublisherTests.test_unknown_rollback_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000924,
+      "id": "test_contracts.PublisherTests.test_unrelated_file_in_generated_dir_survives",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000194,
+      "id": "test_contracts.SessionTests.test_restart_restores_context",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 0.000172,
+      "id": "test_contracts.SessionTests.test_session_identity_mismatch_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 7.3e-05,
+      "id": "test_contracts.SessionTests.test_session_path_traversal_fails",
+      "status": "PASS"
+    },
+    {
+      "details": [],
+      "elapsed_seconds": 7.9e-05,
+      "id": "test_contracts.SessionTests.test_unknown_session_fails",
+      "status": "PASS"
+    }
+  ],
+  "test_source_sha256": {
+    "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/test_contracts.py": "0f6170018f6e5db7d284a86339ccf679b6cdd59527552075b4330b29ac2c6b5b"
+  },
+  "tests_run": 81
+}

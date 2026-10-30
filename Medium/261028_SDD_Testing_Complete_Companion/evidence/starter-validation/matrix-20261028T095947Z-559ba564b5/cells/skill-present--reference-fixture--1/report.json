@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "detail": "",
+      "name": "skill_content_read_observed",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "hidden_receipt_returned",
+      "passed": true
+    }
+  ],
+  "elapsed_seconds": 0.006824,
+  "evidence_kind": "executed-reference-fixture",
+  "evidence_sha256": {
+    "challenge.json": "f7bdbbcd78a0ad5d3ce5262c7711e57a97b87296e4eedecd8f7ddbb3128807f6",
+    "events.jsonl": "9708848873aba7008d708708329df1ca45dab61a1ad168e1c1c652b014d0b0a8",
+    "workspace-after.json": "6b4b565d8614d1d4ec61e749584fe1fdda797f38c57f5509dcb4ec2b8f5b2ace",
+    "workspace-before.json": "4f9fd1f1eb566b2faa67434c6efc41603a87f2dcddb488745d0f0fcbaac0d505",
+    "workspace-final/protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "workspace-final/skills/security.md": "ccfd577cd9c22c3b4a67d1767051502cc744eca403311133baef1f13d16b969e",
+    "workspace-final/user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  },
+  "finished_at": "2026-10-28T09:59:47.421555+00:00",
+  "id": "skill-present/reference-fixture/1",
+  "native_cli_observed": false,
+  "repetition": 1,
+  "scenario": "skill-present",
+  "schema_version": 1,
+  "scratch_removed": true,
+  "started_at": "2026-10-28T09:59:47.414740+00:00",
+  "status": "PASS"
+}

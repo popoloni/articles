@@ -1,0 +1,11 @@
+{
+  "directories": [
+    "generated",
+    "protected"
+  ],
+  "files": {
+    "generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9",
+    "protected/config.txt": "fdc3c90bab51d8aa958c5f1c7d480d43d697d36918559ccc2e43ffc2cb6bbfc0",
+    "user-notes.txt": "c250ca20a0a4fe1d1baa2e803520eae3bb0d038af64d59248f28f8238722591b"
+  }
+}

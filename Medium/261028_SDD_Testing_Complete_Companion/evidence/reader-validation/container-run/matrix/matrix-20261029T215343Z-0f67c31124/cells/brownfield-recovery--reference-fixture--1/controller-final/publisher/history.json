@@ -1,0 +1,42 @@
+[
+  {
+    "after": {
+      "generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9"
+    },
+    "before": {
+      "generated/agent.json": null
+    },
+    "before_dirs": [
+      "protected"
+    ],
+    "id": "bf33256a-4dbc-47ac-b5dd-d5442fb991c4",
+    "ledger_after": {
+      "generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9"
+    },
+    "ledger_before": {},
+    "rolled_back": false
+  },
+  {
+    "after": {
+      "generated/agent.json": "667bf2cbcfd57752c5f34a8f0725cd3c08ce8c093fc25eda30a869475c4c50d3",
+      "generated/new.txt": "11507a0e2f5e69d5dfa40a62a1bd7b6ee57e6bcd85c67c9b8431b36fff21c437"
+    },
+    "before": {
+      "generated/agent.json": "eyJ2ZXJzaW9uIjogMX0K",
+      "generated/new.txt": null
+    },
+    "before_dirs": [
+      "generated",
+      "protected"
+    ],
+    "id": "5c8e178f-1db2-4c8a-8e08-0d2caf133159",
+    "ledger_after": {
+      "generated/agent.json": "667bf2cbcfd57752c5f34a8f0725cd3c08ce8c093fc25eda30a869475c4c50d3",
+      "generated/new.txt": "11507a0e2f5e69d5dfa40a62a1bd7b6ee57e6bcd85c67c9b8431b36fff21c437"
+    },
+    "ledger_before": {
+      "generated/agent.json": "cedb60dfefb0ead1fa5a3ccb3c68e0ceaf4bb3415df80c79863092f362bd5ab9"
+    },
+    "rolled_back": true
+  }
+]

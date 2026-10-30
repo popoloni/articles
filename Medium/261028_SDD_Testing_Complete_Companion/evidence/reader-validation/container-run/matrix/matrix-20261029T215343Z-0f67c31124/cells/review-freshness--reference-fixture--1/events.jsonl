@@ -1,0 +1,4 @@
+{"artifact_sha256":"3bfc269594ef649228e9a74bab00f042efc91d5acc6fbee31a382e80d42388fe","kind":"gate.accepted","origin":"gate","sequence":1,"spec_sha256":"8d00d5bda3224e47d18e593e7bb3b74d67d52d8ae54ddd611238ee8cea674386","time":"2026-10-29T21:53:43.241906+00:00"}
+{"artifact_sha256":"fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990","kind":"gate.rejected","origin":"gate","reasons":["stale_artifact_review"],"sequence":2,"time":"2026-10-29T21:53:43.242222+00:00"}
+{"artifact_sha256":"fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990","kind":"gate.rejected","origin":"gate","reasons":["reviewer_not_separate"],"sequence":3,"time":"2026-10-29T21:53:43.242491+00:00"}
+{"artifact_sha256":"fb04dcb6970e4c3d1873de51fd5a50d7bb46b3383113602665c350ec40b5f990","kind":"gate.rejected","origin":"gate","reasons":["stale_spec_review"],"sequence":4,"time":"2026-10-29T21:53:43.242633+00:00"}
