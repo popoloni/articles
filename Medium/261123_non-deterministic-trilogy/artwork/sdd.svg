@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 790" width="1000" height="790" role="img" aria-labelledby="title desc">
+  <defs><pattern id="crayon-blue" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/blue.png"/></pattern><pattern id="crayon-green" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/green.png"/></pattern><pattern id="crayon-purple" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/purple.png"/></pattern><pattern id="crayon-yellow" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/yellow.png"/></pattern></defs><title id="title">The artefact chain</title>
+  <desc id="desc">Read across the rows in alternating directions. The chain starts at constitution.md and ends with a dashed arrow from the ship checklist to the security packet.</desc>
+  <rect width="1000" height="790" fill="white"/>
+  <g id="connectors">
+    <g id="constitution-to-business-context">
+      <polyline points="309.0,64.5 320.1,64.3 331.6,64.3 343.0,64.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 352.0,64.5 L 339.0,59.6 340.0,68.8 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="business-context-to-spec">
+      <polyline points="645.0,64.5 656.9,64.2 668.4,64.4 680.0,64.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 689.0,64.5 L 676.0,59.6 677.0,68.8 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="spec-to-clarifications">
+      <polyline points="836.5,113.0 836.7,131.8 836.4,150.9 836.5,170.0" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 836.5,179.0 L 841.4,166.0 832.2,167.0 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="clarifications-to-plan">
+      <polyline points="691.0,229.5 679.2,229.2 667.6,229.3 656.0,229.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 647.0,229.5 L 660.0,234.4 659.0,225.2 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="plan-to-openapi">
+      <polyline points="354.0,229.5 342.7,229.2 331.2,229.5 320.0,229.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 311.0,229.5 L 324.0,234.4 323.0,225.2 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="openapi-to-test-cases">
+      <polyline points="163.5,278.0 163.7,296.8 163.3,316.2 163.5,335.0" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 163.5,344.0 L 168.4,331.0 159.2,332.0 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="test-cases-to-tasks">
+      <polyline points="309.0,394.5 320.0,394.7 331.7,394.4 343.0,394.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 352.0,394.5 L 339.0,389.6 340.0,398.8 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="tasks-to-analysis-report">
+      <polyline points="645.0,394.5 656.9,394.7 668.2,394.7 680.0,394.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 689.0,394.5 L 676.0,389.6 677.0,398.8 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="analysis-report-to-tests">
+      <polyline points="836.5,443.0 836.3,462.1 836.5,481.2 836.5,500.0" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 836.5,509.0 L 841.4,496.0 832.2,497.0 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="tests-to-source">
+      <polyline points="691.0,559.5 679.2,559.4 667.8,559.5 656.0,559.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 647.0,559.5 L 660.0,564.4 659.0,555.2 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="source-to-ship-checklist">
+      <polyline points="354.0,559.5 342.8,559.6 331.4,559.7 320.0,559.5" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M 311.0,559.5 L 324.0,564.4 323.0,555.2 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+    <g id="ship-checklist-to-security-packet">
+      <polyline points="163.5,608.0 163.5,627.1 163.4,645.7 163.5,665.0" stroke="#1f2830" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="7 6"/>
+      <path d="M 163.5,674.0 L 168.4,661.0 159.2,662.0 Z" fill="#1f2830" stroke="#1f2830" stroke-width=".8" stroke-linejoin="round"/>
+    </g>
+  </g>
+  <g id="constitution">
+    <path d="M 18.4,15.6 L 76.0,15.7 L 134.9,15.8 L 192.6,15.6 L 251.4,15.7 L 309.4,16.6 L 309.2,48.2 L 309.3,80.8 L 309.2,112.5 L 251.5,112.8 L 193.3,113.3 L 134.5,112.4 L 76.0,112.4 L 17.8,112.8 L 18.6,80.3 L 18.5,47.4 Z" fill="url(#crayon-blue)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="14.9,15.1 87.5,15.4 156.6,15.8" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="312.7,112.4 234.8,112.5 160.4,112.1" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="163.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="163.5" y="73.8">constitution.md</tspan>
+    </text>
+  </g>
+  <g id="business-context">
+    <path d="M 353.4,15.8 L 411.5,16.4 L 469.5,15.8 L 528.3,15.6 L 586.0,16.1 L 644.4,15.9 L 645.0,48.8 L 644.2,81.0 L 644.3,113.1 L 586.4,112.9 L 527.6,112.6 L 470.3,112.6 L 411.6,113.3 L 353.4,113.3 L 352.9,81.0 L 353.9,48.6 Z" fill="url(#crayon-blue)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="349.9,15.2 432.1,16.6 510.9,15.9" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="647.8,113.5 556.5,112.9 468.7,112.5" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="499.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="499.5" y="56.0">business-</tspan>
+      <tspan x="499.5" y="91.6">context.md</tspan>
+    </text>
+  </g>
+  <g id="spec">
+    <path d="M 690.5,16.2 L 749.1,15.7 L 807.0,16.8 L 865.3,15.9 L 923.5,16.5 L 981.8,16.5 L 981.8,49.4 L 981.9,81.0 L 982.3,113.7 L 924.1,113.1 L 865.7,113.2 L 808.2,112.6 L 749.1,112.5 L 691.2,112.7 L 691.6,81.1 L 690.3,48.5 Z" fill="url(#crayon-yellow)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="687.0,15.9 757.8,16.0 825.1,16.4" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="985.8,114.2 883.1,113.4 783.9,113.5" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="836.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="836.5" y="56.0">spec.md</tspan>
+      <tspan x="836.5" y="91.6">(US, AC, NFR)</tspan>
+    </text>
+  </g>
+  <g id="clarifications">
+    <path d="M 691.0,181.3 L 748.9,181.2 L 807.1,181.2 L 866.3,181.3 L 924.2,180.8 L 982.4,180.7 L 982.7,212.7 L 981.9,246.1 L 982.5,278.1 L 924.0,278.3 L 865.8,277.8 L 807.9,277.8 L 749.6,278.3 L 691.0,277.9 L 690.6,246.3 L 690.4,213.4 Z" fill="url(#crayon-blue)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="687.5,181.8 774.0,180.6 857.1,181.0" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="986.0,278.8 904.4,277.4 826.3,277.6" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="836.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="29" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="836.5" y="238.5">clarifications.md</tspan>
+    </text>
+  </g>
+  <g id="plan">
+    <path d="M 354.4,180.8 L 412.5,180.9 L 470.6,180.5 L 529.2,180.2 L 587.6,180.4 L 645.6,180.4 L 645.9,212.4 L 645.7,244.7 L 644.8,277.5 L 586.1,277.9 L 528.9,277.9 L 469.8,278.8 L 411.8,278.9 L 354.1,278.6 L 354.7,245.7 L 354.8,213.3 Z" fill="url(#crayon-yellow)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="351.0,181.4 452.6,181.1 550.7,180.2" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="648.3,278.2 559.0,277.5 473.1,278.0" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="499.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="32" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="499.5" y="239.4">plan.md</tspan>
+    </text>
+  </g>
+  <g id="openapi">
+    <path d="M 18.3,180.4 L 75.9,179.8 L 134.5,180.8 L 193.1,180.9 L 250.3,181.0 L 308.7,180.5 L 308.7,212.7 L 308.3,245.4 L 308.9,277.9 L 250.8,277.6 L 192.2,278.5 L 133.9,278.5 L 76.2,278.4 L 18.1,278.0 L 17.7,245.6 L 18.6,212.8 Z" fill="url(#crayon-yellow)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="14.8,180.4 95.6,179.9 172.9,180.0" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="312.4,277.2 235.8,278.6 162.7,277.3" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="163.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="31" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="163.5" y="239.1">openapi.yaml</tspan>
+    </text>
+  </g>
+  <g id="test-cases">
+    <path d="M 18.6,345.3 L 76.6,345.2 L 134.4,345.1 L 193.2,346.2 L 250.7,345.3 L 309.2,346.1 L 308.8,378.1 L 308.3,410.7 L 308.4,443.6 L 250.6,443.5 L 192.4,443.4 L 135.0,443.6 L 75.7,443.1 L 18.3,443.5 L 18.7,411.3 L 18.0,378.0 Z" fill="url(#crayon-yellow)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="15.1,345.4 115.1,344.8 211.6,345.8" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="311.8,443.2 233.7,444.3 159.0,442.9" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="163.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="163.5" y="386.0">test-cases.md</tspan>
+      <tspan x="163.5" y="421.6">(TC-XXX)</tspan>
+    </text>
+  </g>
+  <g id="tasks">
+    <path d="M 354.5,346.4 L 412.1,346.2 L 471.2,345.5 L 529.2,345.5 L 586.4,345.4 L 645.1,345.8 L 644.8,378.8 L 644.9,410.2 L 644.4,443.2 L 586.0,443.0 L 528.0,443.2 L 470.4,443.4 L 413.0,443.1 L 354.6,442.6 L 354.2,410.4 L 354.7,377.9 Z" fill="url(#crayon-yellow)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="351.0,346.1 418.8,346.1 483.1,346.5" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="647.9,442.5 550.0,442.3 455.5,443.5" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="499.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="499.5" y="386.0">tasks.md</tspan>
+      <tspan x="499.5" y="421.6">(T-XXX)</tspan>
+    </text>
+  </g>
+  <g id="analysis-report">
+    <path d="M 690.7,345.5 L 748.7,345.6 L 808.0,345.7 L 865.9,346.5 L 924.6,346.3 L 982.4,346.4 L 982.1,379.0 L 981.6,410.9 L 982.1,443.4 L 924.4,443.6 L 865.3,443.7 L 807.9,443.4 L 749.1,443.6 L 691.5,443.5 L 691.6,410.4 L 691.1,377.6 Z" fill="url(#crayon-green)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="687.2,345.2 762.7,346.1 834.6,345.6" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="985.6,444.1 884.6,442.9 787.0,442.7" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="836.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="836.5" y="386.0">analysis-</tspan>
+      <tspan x="836.5" y="421.6">report.md</tspan>
+    </text>
+  </g>
+  <g id="tests">
+    <path d="M 691.3,511.4 L 749.7,511.0 L 808.3,510.8 L 865.5,511.0 L 923.8,511.2 L 982.6,511.2 L 982.7,543.5 L 982.5,575.1 L 982.4,607.8 L 924.0,608.6 L 865.4,608.6 L 807.4,608.7 L 749.0,608.4 L 690.4,608.7 L 690.4,575.7 L 690.5,543.3 Z" fill="url(#crayon-green)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="687.8,511.9 784.4,511.8 877.6,511.9" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="985.9,608.1 904.5,608.6 826.7,607.7" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="836.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="34" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="836.5" y="570.0">tests/</tspan>
+    </text>
+  </g>
+  <g id="source">
+    <path d="M 353.3,510.6 L 411.3,511.3 L 470.6,510.4 L 528.1,511.5 L 587.0,511.4 L 645.6,511.4 L 645.4,543.8 L 644.4,575.9 L 644.5,608.5 L 586.4,608.7 L 527.9,607.5 L 469.5,607.7 L 412.3,607.7 L 353.5,607.7 L 353.5,575.2 L 353.9,543.3 Z" fill="url(#crayon-green)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="349.8,510.9 423.5,510.9 493.6,511.6" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="648.0,608.6 578.1,607.8 511.7,608.2" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="499.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="34" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="499.5" y="570.0">src/</tspan>
+    </text>
+  </g>
+  <g id="ship-checklist">
+    <path d="M 18.4,510.9 L 76.6,510.6 L 134.1,511.1 L 192.4,511.0 L 250.4,511.1 L 309.0,510.8 L 309.7,543.8 L 309.9,576.1 L 309.6,608.5 L 251.0,607.9 L 192.9,608.7 L 134.5,607.3 L 75.3,607.1 L 17.4,607.4 L 18.2,574.7 L 18.4,543.2 Z" fill="url(#crayon-blue)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="15.0,510.8 96.2,510.5 173.9,510.7" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="313.1,608.6 238.3,608.5 167.1,608.0" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="163.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="29" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="163.5" y="568.5">ship-checklist.md</tspan>
+    </text>
+  </g>
+  <g id="security-packet">
+    <path d="M 18.7,676.6 L 76.8,676.7 L 135.2,676.8 L 193.2,676.2 L 251.8,676.2 L 309.5,676.1 L 309.4,708.3 L 308.9,741.0 L 308.5,773.4 L 250.6,773.7 L 192.3,772.8 L 134.4,773.3 L 76.6,773.0 L 18.6,773.1 L 18.5,740.5 L 18.2,709.0 Z" fill="url(#crayon-purple)" stroke="#1f2830" stroke-linejoin="round" stroke-width="2.25"/>
+    <polyline points="15.2,676.7 85.4,677.3 152.2,676.4" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="312.0,773.8 217.9,773.3 127.2,773.3" stroke="#1f2830" fill="none" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"/>
+    <text x="163.5" text-anchor="middle" font-family="SketchHand" fill="#1f2830" font-size="30" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">
+      <tspan x="163.5" y="716.0">SECURITY</tspan>
+      <tspan x="163.5" y="751.6">PACKET</tspan>
+    </text>
+  </g>
+</svg>

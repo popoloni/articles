@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="616" viewBox="0 0 1000 616" role="img" aria-labelledby="title desc">
+  <defs><pattern id="crayon-blue" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/blue.png"/></pattern><pattern id="crayon-green" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/green.png"/></pattern><pattern id="crayon-yellow" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><image xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/yellow.png"/></pattern></defs><title id="title">What each book contributes to the next decision</title>
+  <desc id="desc">A two-column reading guide. Software engineering gives a reason to trust or challenge the evidence. Spec-driven development gives a behavioral contract with examples and an owner. Engineering with agents gives an observed result and a reason to accept, correct, or stop.</desc>
+  <rect width="1000" height="616" fill="#fff"/>
+  <g>
+    <path d="M20 123 L356 122 L357 278 L19 277 Z" fill="url(#crayon-blue)"/>
+    <path d="M19 277 L357 278 L356 431 L20 432 Z" fill="url(#crayon-yellow)"/>
+    <path d="M20 432 L356 431 L357 594 L18 595 Z" fill="url(#crayon-green)"/>
+  </g>
+  <g fill="none" stroke="#20242a" stroke-linejoin="round" stroke-linecap="round">
+    <g stroke-width="2.9">
+      <path d="M16 19 Q145 18 266 19 L491 17.8 Q704 17 979 19"/>
+      <path d="M20 16 L19 121.5 Q18.5 192 19.5 276.4 L19 429 Q20 518 18.5 599"/>
+      <path d="M980 16 Q979.2 105 980.5 201.5 L979.5 395.7 Q980.7 523 979.7 597"/>
+      <path d="M15.7 595.5 Q131 593.8 279 595 L553 593.4 Q778 594.4 983 595.2"/>
+    </g>
+    <g stroke-width="2.3">
+      <path d="M356 16.5 Q357.2 97 355.8 163.8 L357 277.7 Q355.8 378 356.5 471 L356.7 597"/>
+      <path d="M16 123.4 Q145 122 283 123 L530 122 Q741 121.7 982.5 123"/>
+      <path d="M16.5 277.1 Q185 278.5 361 277.2 L612 276.6 Q820 277 983.5 277.7"/>
+      <path d="M17 432 Q188 430.8 351 431.1 L587 431.5 Q781 430.9 982.8 432"/>
+    </g>
+    <g stroke-width="0.75" opacity="0.68">
+      <path d="M18 20.5 Q67 18.2 120 18.1 M877 18 Q934 19.7 983 18.9"/>
+      <path d="M21.6 18 L20.8 61.5 M18 546.6 L20.4 598"/>
+      <path d="M18.7 594 Q88 595.6 161 594.3 M923 593.7 L984 596.2"/>
+      <path d="M979 16.4 L981 69 M978.7 499 L981 595.5"/>
+      <path d="M264 122 L440 124 M337 430.4 L433.5 432"/>
+    </g>
+  </g>
+  <g font-family="SketchHand" fill="#192026">
+    <g font-size="35.5" stroke="#192026" stroke-width=".24" paint-order="stroke fill">
+      <text x="48" y="84" transform="rotate(-.65 48 84)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">Book</text>
+      <text x="383" y="57" transform="rotate(-.15 383 57)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">What you take into</text>
+      <text x="385" y="101" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">the next decision</text>
+    </g>
+    <g font-size="36">
+      <text x="46" y="189" transform="rotate(-.45 46 189)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">1 · Software</text>
+      <text x="49" y="238" transform="rotate(-.3 49 238)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">engineering</text>
+      <text x="47" y="342" transform="rotate(-.35 47 342)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">2 · Spec-driven</text>
+      <text x="49" y="390" transform="rotate(.22 49 390)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">development</text>
+      <text x="47" y="501" transform="rotate(-.36 47 501)" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">3 · Engineering</text>
+      <text x="48" y="549" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">with agents</text>
+    </g>
+    <g font-size="34.5">
+      <text x="384" y="189" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">A reason to trust or challenge</text>
+      <text x="386" y="238" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">the evidence.</text>
+      <text x="384" y="342" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">A behavioral contract with</text>
+      <text x="385" y="390" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">examples and an owner.</text>
+      <text x="384" y="472" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">An observed result and a</text>
+      <text x="385" y="519" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">reason to accept, correct,</text>
+      <text x="384" y="566" stroke="#20252b" stroke-width=".48" stroke-linejoin="round" paint-order="stroke">or stop.</text>
+    </g>
+  </g>
+</svg>

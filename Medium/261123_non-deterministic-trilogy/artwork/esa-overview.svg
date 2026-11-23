@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1020" height="906" viewBox="0 0 1020 906" role="img" aria-labelledby="map-title map-description">
+  <title id="map-title">How to use Engineering Software with Agentic AI</title>
+  <desc id="map-description">Each of twelve chapters uses Expect, Delegate, Observe, Decide. Four parts cover defining a change, preparing the work, delivering with evidence, and preserving and learning. Part V follows one candidate through four workshop reservation missions or four Treasury missions.</desc>
+  <defs>
+    <pattern id="crayon-blue" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/blue.png"/>
+    </pattern>
+    <pattern id="crayon-yellow" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/yellow.png"/>
+    </pattern>
+    <pattern id="crayon-green" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/green.png"/>
+    </pattern>
+    <pattern id="crayon-purple" patternUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000">
+      <image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/purple.png"/>
+    </pattern>
+  </defs>
+  <rect width="1020" height="906" fill="white"/>
+  <g id="edod">
+    <path d="M16.31 9.52 Q391.4 9.31 1003.56 9.34 L1003.55 54.32 Q559.4 53.78 15.69 54.19 Z" fill="white" fill-opacity="1" stroke="#20252b" stroke-width="2.1" stroke-linejoin="round"/>
+    <path d="M14.2 9.4 Q33.0 8.5 272.9 9.3 M776.8 54.3 L1005.5 53.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="35" y="38" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Every chapter</text>
+    <text x="293" y="39" font-family="SketchHand" font-size="29" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Expect</text>
+    <text x="493" y="39" font-family="SketchHand" font-size="29" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Delegate</text>
+    <text x="697" y="39" font-family="SketchHand" font-size="29" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Observe</text>
+    <text x="908" y="39" font-family="SketchHand" font-size="29" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Decide</text>
+    <path d="M364 31 Q389.0 30.5 413 31" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+    <path d="M414 31 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+    <path d="M578 31 Q601.5 30.5 624 31" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+    <path d="M625 31 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+    <path d="M775 31 Q805.5 30.5 835 31" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+    <path d="M836 31 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+  </g>
+  <g id="part-1">
+    <path d="M16.49 69.90 Q50.4 69.54 104.49 70.33 L104.76 97.97 Q65.4 97.65 17.45 98.31 Z" fill="url(#crayon-blue)" fill-opacity="1" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="61" y="91" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Part I</text>
+    <text x="119" y="92" font-family="SketchHand" font-size="27" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Define the change</text>
+    <path d="M15.46 106.42 Q139.1 106.51 340.63 105.67 L340.43 188.98 Q194.2 188.23 16.14 189.36 Z" fill="url(#crayon-blue)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M14.2 106.4 Q33.0 105.5 100.2 106.3 M265.5 189.3 L341.5 188.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="27" y="132" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">1. Accountable change</text>
+    <text x="27" y="157" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Work order</text>
+    <text x="27" y="179" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">ACCEPT, REJECT, ASK</text>
+    <path d="M347.89 105.83 Q471.1 106.77 672.20 105.91 L672.25 189.03 Q526.2 189.66 348.02 188.77 Z" fill="url(#crayon-blue)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M346.2 106.4 Q365.0 105.5 432.2 106.3 M597.5 189.3 L673.5 188.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="359" y="132" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">2. Verifiable outcome</text>
+    <text x="359" y="157" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Claims</text>
+    <text x="359" y="179" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Discovery work order</text>
+    <path d="M679.55 105.78 Q803.1 105.79 1004.22 106.23 L1003.74 189.27 Q858.2 189.75 680.13 189.00 Z" fill="url(#crayon-blue)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M678.2 106.4 Q697.0 105.5 764.2 106.3 M929.5 189.3 L1005.5 188.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="691" y="132" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">3. Specify behavior</text>
+    <text x="691" y="157" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Contract</text>
+    <text x="691" y="179" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Discriminating examples</text>
+  </g>
+  <g id="part-2">
+    <path d="M17.05 200.74 Q50.4 200.37 105.17 201.45 L104.94 229.18 Q65.4 229.27 16.67 228.89 Z" fill="url(#crayon-yellow)" fill-opacity="1" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="61" y="222" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Part II</text>
+    <text x="119" y="223" font-family="SketchHand" font-size="27" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Prepare the work</text>
+    <path d="M16.27 236.51 Q139.1 236.52 339.51 237.52 L340.03 319.86 Q194.2 320.43 16.14 319.70 Z" fill="url(#crayon-yellow)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M14.2 237.4 Q33.0 236.5 100.2 237.3 M265.5 320.3 L341.5 319.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="27" y="263" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">4. Context and tools</text>
+    <text x="27" y="288" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Source authority</text>
+    <text x="27" y="310" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Memory lifecycle</text>
+    <path d="M348.45 236.78 Q471.1 236.37 672.05 236.79 L671.68 320.11 Q526.2 319.81 347.54 320.40 Z" fill="url(#crayon-yellow)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M346.2 237.4 Q365.0 236.5 432.2 237.3 M597.5 320.3 L673.5 319.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="359" y="263" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">5. Design alternatives</text>
+    <text x="359" y="288" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Paying scenario</text>
+    <text x="359" y="310" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Decision record</text>
+    <path d="M679.48 236.47 Q803.1 236.66 1003.86 236.71 L1003.67 319.73 Q858.2 319.50 679.90 319.71 Z" fill="url(#crayon-yellow)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M678.2 237.4 Q697.0 236.5 764.2 237.3 M929.5 320.3 L1005.5 319.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="691" y="263" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">6. Plan and delegate</text>
+    <text x="691" y="288" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Dependency graph</text>
+    <text x="691" y="310" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Attempt and verdict</text>
+  </g>
+  <g id="part-3">
+    <path d="M17.13 331.70 Q50.4 332.68 104.78 331.84 L105.33 359.96 Q65.4 360.19 17.05 359.86 Z" fill="url(#crayon-green)" fill-opacity="1" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="61" y="353" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Part III</text>
+    <text x="119" y="354" font-family="SketchHand" font-size="27" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Deliver with evidence</text>
+    <path d="M16.10 368.08 Q139.1 367.19 339.88 368.00 L339.54 450.83 Q194.2 450.24 15.83 450.79 Z" fill="url(#crayon-green)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M14.2 368.4 Q33.0 367.5 100.2 368.4 M265.5 451.3 L341.5 450.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="27" y="394" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">7. Implement, debug</text>
+    <text x="27" y="419" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Boundary trace</text>
+    <text x="27" y="441" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Atomic transition</text>
+    <path d="M348.12 368.09 Q471.1 367.64 671.47 368.54 L671.48 451.16 Q526.2 451.06 348.18 450.51 Z" fill="url(#crayon-green)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M346.2 368.4 Q365.0 367.5 432.2 368.4 M597.5 451.3 L673.5 450.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="359" y="394" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">8. Verify independently</text>
+    <text x="359" y="419" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Independence</text>
+    <text x="359" y="441" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Verification stages</text>
+    <path d="M680.54 367.91 Q803.1 368.53 1004.37 368.47 L1003.57 451.15 Q858.2 450.78 680.32 451.52 Z" fill="url(#crayon-green)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M678.2 368.4 Q697.0 367.5 764.2 368.4 M929.5 451.3 L1005.5 450.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="691" y="394" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">9. Review and release</text>
+    <text x="691" y="419" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Dossier</text>
+    <text x="691" y="441" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Artifact identity</text>
+  </g>
+  <g id="part-4">
+    <path d="M17.50 463.63 Q50.4 462.56 105.33 463.30 L105.06 490.67 Q65.4 491.89 16.77 491.44 Z" fill="url(#crayon-purple)" fill-opacity="1" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="61" y="484" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Part IV</text>
+    <text x="119" y="485" font-family="SketchHand" font-size="27" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Preserve and learn</text>
+    <path d="M15.93 499.48 Q139.1 499.97 340.17 498.84 L340.09 582.22 Q194.2 581.51 15.80 581.79 Z" fill="url(#crayon-purple)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M14.2 499.4 Q33.0 498.5 100.2 499.4 M265.5 582.3 L341.5 581.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="27" y="525" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">10. Compatible history</text>
+    <text x="27" y="550" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Replay versus reevaluation</text>
+    <path d="M347.88 499.19 Q471.1 499.21 672.27 498.72 L671.74 581.90 Q526.2 582.91 347.59 581.62 Z" fill="url(#crayon-purple)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M346.2 499.4 Q365.0 498.5 432.2 499.4 M597.5 582.3 L673.5 581.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="359" y="525" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">11. Diagnose, recover</text>
+    <text x="359" y="550" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Competing predictions</text>
+    <text x="359" y="572" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Reconciliation</text>
+    <path d="M680.49 498.50 Q803.1 498.31 1004.23 499.41 L1004.21 581.91 Q858.2 582.45 680.25 582.57 Z" fill="url(#crayon-purple)" fill-opacity="0.21" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M678.2 499.4 Q697.0 498.5 764.2 499.4 M929.5 582.3 L1005.5 581.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+    <text x="691" y="525" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">12. Learn, adopt, cost</text>
+    <text x="691" y="550" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Learning sequence</text>
+    <text x="691" y="572" font-family="SketchHand" font-size="19.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Cost per outcome</text>
+  </g>
+  <g id="part-5">
+    <path d="M17.03 592.93 Q50.4 593.74 105.48 592.64 L105.24 620.55 Q65.4 620.06 16.99 620.56 Z" fill="url(#crayon-blue)" fill-opacity="1" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+    <text x="61" y="614" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Part V</text>
+    <text x="119" y="615" font-family="SketchHand" font-size="27" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Practice</text>
+    <text x="248" y="615" font-family="SketchHand" font-size="22" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">—  carry your own candidate through one route</text>
+    <g id="route-greenfield">
+      <text x="20" y="654" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Greenfield · Reservation</text>
+      <path d="M16.80 665.07 Q106.3 664.07 251.41 664.71 L251.64 726.24 Q146.2 726.46 17.16 726.57 Z" fill="url(#crayon-green)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M15.2 665.4 Q34.0 664.5 78.1 665.4 M198.0 726.3 L253.5 725.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="27" y="688" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">G1</text>
+      <text x="27" y="713" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Durable record</text>
+      <path d="M253 696 Q259.5 695.5 265 696" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M266 696 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+      <path d="M266.91 664.69 Q356.3 664.79 502.39 664.87 L502.28 726.10 Q396.2 726.60 267.18 725.54 Z" fill="url(#crayon-green)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M265.2 665.4 Q284.0 664.5 328.1 665.4 M448.0 726.3 L503.5 725.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="277" y="688" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">G2</text>
+      <text x="277" y="713" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Rules and migration</text>
+      <path d="M503 696 Q509.5 695.5 515 696" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M516 696 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+      <path d="M516.58 665.19 Q606.3 665.40 751.83 665.08 L751.82 726.03 Q646.2 726.84 517.35 725.99 Z" fill="url(#crayon-green)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M515.2 665.4 Q534.0 664.5 578.1 665.4 M698.0 726.3 L753.5 725.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="527" y="688" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">G3</text>
+      <text x="527" y="713" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Cancel and integrate</text>
+      <path d="M753 696 Q759.5 695.5 765 696" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M766 696 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+      <path d="M767.56 665.31 Q856.3 665.28 1002.49 664.54 L1001.65 725.60 Q896.2 725.92 767.34 725.74 Z" fill="url(#crayon-green)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M765.2 665.4 Q784.0 664.5 828.1 665.4 M948.0 726.3 L1003.5 725.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="777" y="688" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">G4</text>
+      <text x="777" y="713" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Diagnose and cost</text>
+    </g>
+    <g id="route-brownfield">
+      <text x="20" y="764" font-family="SketchHand" font-size="24" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Brownfield · Treasury</text>
+      <path d="M16.47 775.27 Q106.3 774.77 251.85 774.51 L251.75 836.19 Q146.2 835.85 17.38 836.36 Z" fill="url(#crayon-purple)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M15.2 775.4 Q34.0 774.5 78.1 775.4 M198.0 836.3 L253.5 835.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="27" y="798" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">B1</text>
+      <text x="27" y="823" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Boundary repair</text>
+      <path d="M253 806 Q259.5 805.5 265 806" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M266 806 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+      <path d="M267.09 774.72 Q356.3 775.32 501.76 774.97 L502.38 836.25 Q396.2 836.66 267.44 836.40 Z" fill="url(#crayon-purple)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M265.2 775.4 Q284.0 774.5 328.1 775.4 M448.0 836.3 L503.5 835.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="277" y="798" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">B2</text>
+      <text x="277" y="823" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Bounded provider</text>
+      <path d="M503 806 Q509.5 805.5 515 806" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M516 806 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+      <path d="M516.69 775.14 Q606.3 775.27 752.43 775.19 L752.43 835.73 Q646.2 836.09 517.29 836.14 Z" fill="url(#crayon-purple)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M515.2 775.4 Q534.0 774.5 578.1 775.4 M698.0 836.3 L753.5 835.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="527" y="798" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">B3</text>
+      <text x="527" y="823" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Policy change</text>
+      <path d="M753 806 Q759.5 805.5 765 806" fill="none" stroke="#20252b" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M766 806 l-7 -3.3 l1.5 3.3 l-1.5 3.2 z" fill="#20252b"/>
+      <path d="M766.59 774.46 Q856.3 775.67 1002.54 775.01 L1001.78 835.87 Q896.2 835.34 766.52 835.44 Z" fill="url(#crayon-purple)" fill-opacity="0.49" stroke="#20252b" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M765.2 775.4 Q784.0 774.5 828.1 775.4 M948.0 836.3 L1003.5 835.7" fill="none" stroke="#20252b" stroke-width="0.6" stroke-linecap="round" opacity="0.75"/>
+      <text x="777" y="798" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">B4</text>
+      <text x="777" y="823" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Wrong state</text>
+    </g>
+  </g>
+  <g id="appendices">
+    <path d="M16 853 Q490 851.9 1004 853" fill="none" stroke="#20252b" stroke-width="1.25"/>
+    <text x="18" y="874" font-family="SketchHand" font-size="19.5" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.65" stroke-linejoin="round" paint-order="stroke">Appendices</text>
+    <text x="158" y="874" font-family="SketchHand" font-size="20" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">A · Chapter answers</text>
+    <text x="413" y="874" font-family="SketchHand" font-size="20" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">B · Mission solutions</text>
+    <text x="680" y="874" font-family="SketchHand" font-size="20" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">C · EDOD field card</text>
+    <text x="158" y="897" font-family="SketchHand" font-size="18.7" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.23" stroke-linejoin="round" paint-order="stroke">Glossary and sources</text>
+  </g>
+</svg>
