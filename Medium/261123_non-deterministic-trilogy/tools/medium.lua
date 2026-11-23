@@ -3,6 +3,7 @@ local alt = {
   ['assets/esa.jpg'] = 'Two requests both read the machine as free before either writes. Both then commit overlapping reservations.',
   ['assets/ndse.jpg'] = 'The authorized contract leads separately to a candidate implementation and an independent test oracle. Both feed the reviewer’s decision.',
   ['assets/sdd.jpg'] = 'A chain connects project rules and business context to the specification, clarifications, plan, API contract, tests, tasks, source code, release checklist, and security packet.',
+  ['assets/esa-cover.jpg'] = 'Cover of Engineering Software with Agentic AI: Reliable Change with Coding Agents, by Enrico Papalini, in the Non-Deterministic series. A network of AI agents surrounds a central AI chip on a dark blue background.',
   ['assets/esa-overview.jpg'] = 'Book map. Expect, Delegate, Observe, Decide recurs throughout. Chapters 1–3 define the change, 4–6 prepare it, 7–9 implement, verify and release it, and 10–12 cover compatibility, recovery and cost. Part V offers four linked workshop reservation missions or four linked Treasury missions. The appendices contain worked answers, mission solutions and a field card.',
   ['assets/reading-guide.jpg'] = 'Reading guide. Software engineering gives the reviewer a reason to trust or challenge evidence. Spec-driven development yields a behavioral contract with examples and an owner. Engineering with agents yields an observed result and a reason to accept, correct, or stop.',
 }
