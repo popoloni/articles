@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+<title id="title">Expect, Delegate, Observe, Decide</title>
+<desc id="desc">Four responsibilities in a clockwise loop. The rule owner states approved expectations. The engineer and agent work within limits. An independent check runner checks the identified candidate. The accountable reviewer accepts, rejects or asks the owner. A work order keeps one identified candidate at the center.</desc>
+<defs>
+<pattern id="crayon-blue" patternUnits="userSpaceOnUse" width="1000" height="1000"><image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/blue.png"/></pattern>
+<pattern id="crayon-yellow" patternUnits="userSpaceOnUse" width="1000" height="1000"><image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/yellow.png"/></pattern>
+<pattern id="crayon-green" patternUnits="userSpaceOnUse" width="1000" height="1000"><image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/green.png"/></pattern>
+<pattern id="crayon-purple" patternUnits="userSpaceOnUse" width="1000" height="1000"><image width="1000" height="1000" preserveAspectRatio="none" xlink:href="media/purple.png"/></pattern>
+</defs><rect width="1000" height="650" fill="white"/>
+<text x="500" y="45" font-family="SketchHand" font-size="35" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">Expect · Delegate · Observe · Decide</text>
+<text x="500" y="80" font-family="SketchHand" font-size="23" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Keep the rule, the candidate and the evidence connected.</text>
+<path d="M44.6 120.3 Q202.5 118.9 395.5 120.4 L394.7 300.3 Q202.5 299.3 44.5 300.2 Z" fill="url(#crayon-blue)" fill-opacity=".34" stroke="#20252b" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M41 121 L143.0 119 M290.0 301 L400 299" fill="none" stroke="#20252b" stroke-width=".7" stroke-linecap="round" opacity=".75"/>
+<text x="65" y="163" font-family="SketchHand" font-size="36" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">1  Expect</text>
+<text x="65" y="201" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">Rule owner</text>
+<text x="65" y="241" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Approved rule + authority</text>
+<text x="65" y="275" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Expected results</text>
+<path d="M604.6 120.3 Q762.5 118.9 955.5 120.4 L954.7 300.3 Q762.5 299.3 604.5 300.2 Z" fill="url(#crayon-yellow)" fill-opacity=".34" stroke="#20252b" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M601 121 L703.0 119 M850.0 301 L960 299" fill="none" stroke="#20252b" stroke-width=".7" stroke-linecap="round" opacity=".75"/>
+<text x="625" y="163" font-family="SketchHand" font-size="36" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">2  Delegate</text>
+<text x="625" y="201" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">Engineer + agent</text>
+<text x="625" y="241" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Bounded task + budget</text>
+<text x="625" y="275" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Protected files + stop rules</text>
+<path d="M604.6 420.3 Q762.5 418.9 955.5 420.4 L954.7 600.3 Q762.5 599.3 604.5 600.2 Z" fill="url(#crayon-green)" fill-opacity=".34" stroke="#20252b" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M601 421 L703.0 419 M850.0 601 L960 599" fill="none" stroke="#20252b" stroke-width=".7" stroke-linecap="round" opacity=".75"/>
+<text x="625" y="463" font-family="SketchHand" font-size="36" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">3  Observe</text>
+<text x="625" y="501" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">Independent check runner</text>
+<text x="625" y="541" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Check this exact candidate</text>
+<text x="625" y="575" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Keep the result + receipt</text>
+<path d="M44.6 420.3 Q202.5 418.9 395.5 420.4 L394.7 600.3 Q202.5 599.3 44.5 600.2 Z" fill="url(#crayon-purple)" fill-opacity=".34" stroke="#20252b" stroke-width="2.2" stroke-linejoin="round"/>
+<path d="M41 421 L143.0 419 M290.0 601 L400 599" fill="none" stroke="#20252b" stroke-width=".7" stroke-linecap="round" opacity=".75"/>
+<text x="65" y="463" font-family="SketchHand" font-size="36" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">4  Decide</text>
+<text x="65" y="501" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">Accountable reviewer</text>
+<text x="65" y="541" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">ACCEPT / REJECT / ASK</text>
+<text x="65" y="575" font-family="SketchHand" font-size="23" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">Evidence for this scope</text>
+<path d="M410 206 Q495 203 589 206" fill="none" stroke="#20252b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M592 206 l-12 -6 l2 6 l-2 6 z" fill="#20252b"/>
+<text x="500" y="183" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">expected answer</text>
+<path d="M780 314 Q782 360 780 404" fill="none" stroke="#20252b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M780 408 l-6 -13 l6 2 l6 -2 z" fill="#20252b"/>
+<text x="798" y="365" font-family="SketchHand" font-size="21" text-anchor="start" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">candidate</text>
+<path d="M590 507 Q504 509 410 507" fill="none" stroke="#20252b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M406 507 l13 -6 l-2 6 l2 6 z" fill="#20252b"/>
+<text x="500" y="485" font-family="SketchHand" font-size="21" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">receipt</text>
+<path d="M220 405 Q218 360 220 316" fill="none" stroke="#20252b" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M220 312 l-6 13 l6 -2 l6 2 z" fill="#20252b"/>
+<text x="201" y="348" font-family="SketchHand" font-size="21" text-anchor="end" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">decision /</text>
+<text x="201" y="375" font-family="SketchHand" font-size="21" text-anchor="end" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">question</text>
+<path d="M409 318 Q500 317 592 319 L591 399 Q495 400 409 398 Z" fill="white" stroke="#20252b" stroke-width="1.4" stroke-linejoin="round"/>
+<text x="500" y="344" font-family="SketchHand" font-size="25" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.6" stroke-linejoin="round" paint-order="stroke">Work order</text>
+<text x="500" y="369" font-family="SketchHand" font-size="20" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">one identified</text>
+<text x="500" y="391" font-family="SketchHand" font-size="23" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">candidate</text>
+<text x="500" y="635" font-family="SketchHand" font-size="22" text-anchor="middle" fill="#20252b" stroke="#20252b" stroke-width="0.22" stroke-linejoin="round" paint-order="stroke">One engineer may perform several of these responsibilities.</text>
+</svg>

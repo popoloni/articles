@@ -1,0 +1,7 @@
+# $title$
+
+$if(abstract)$$abstract$
+
+$endif$By $for(author)$$author$$sep$, $endfor$
+
+$body$
