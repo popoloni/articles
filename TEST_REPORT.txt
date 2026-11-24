@@ -1,0 +1,8 @@
+PASS: 44 HTTP requests returned 200, including both root and /articles/ and 30 reader URLs; nonexistent URL returned 404.
+PASS: missing docs detected before server startup.
+PASS: unrelated docs content preserved.
+PASS: original Markdown and assets unchanged.
+PASS: installation and preview work from a different directory and a checkout path with spaces.
+
+Scope: synthetic fixtures only; actual repository content not rendered in this environment.
+Remote inspection: docs/ absent; latest Pages build failed; no remote modifications.

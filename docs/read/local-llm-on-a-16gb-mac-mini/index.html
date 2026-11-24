@@ -1,0 +1,1267 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ten tested configurations for a 16 GB Mac mini."><title>Which Local LLM Should You Run on a 16 GB Mac mini? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/local-llm-on-a-16gb-mac-mini/"><meta property="og:title" content="Which Local LLM Should You Run on a 16 GB Mac mini?"><meta property="og:description" content="Ten tested configurations for a 16 GB Mac mini."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Which Local LLM Should You Run on a 16 GB Mac mini?</h1><p class="meta">Enrico Papalini · 2026-10-11 · 33 min read</p><p class="lede">Ten tested configurations for a 16 GB Mac mini.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
+id="bonsai-quantized-qwen3.6-and-qwen3.8-the-models-the-servers-the-installation-stepsand-what-ten-tested-configurations-actually-taught-us">Bonsai,
+quantized Qwen3.6 and Qwen3.8: the models, the servers, the installation
+steps—and what ten tested configurations actually taught us</h2>
+<p><em>Enrico Papalini · 6 October 2026</em></p>
+<p>The first surprise was that a 27-billion-parameter model could answer
+on a small Mac. The more useful surprise came later: two models
+described as “two-bit” could behave completely differently. One returned
+the requested data. Another spent almost a minute generating unusable
+text.</p>
+<p>That is where a local-AI experiment stops being a screenshot and
+starts becoming engineering.</p>
+<p>I wanted a model that could eventually support coding and agentic
+work on a <strong>base M4 Mac mini with 16 GB of unified
+memory</strong>. Not an M4 Pro. Not a Studio whose memory happens to fit
+the model several times over. The machine also has to remain a computer:
+there must be room for an editor, test processes and the operating
+system.</p>
+<p>This article brings the experiment together: what the models are, why
+their compressed representations differ, which servers can execute them,
+how to install and run every text-model branch, and what the saved
+results support. It covers the measured language-model laboratory, not a
+ranking of the image, speech and translation workflows from the earlier
+workstation guide.</p>
+<p><strong>My practical choice, at this stage, is packed ternary Bonsai
+through MLX-LM when 16 GB headroom is the priority. My preferred Qwen
+alternative is Qwen3.8 IQ2_S through llama.cpp/Metal.</strong> Those are
+deployment choices for the next stage, not claims that either has won a
+repository-coding benchmark. The reasoning—and the qualifications—matter
+as much as the names. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e1-scope">Results
+and measurement scope</a></p>
+<h2 id="the-constraint-is-the-working-set-not-the-download">1. The
+constraint is the working set, not the download</h2>
+<p>Apple specifies <strong>120 GB/s memory bandwidth</strong> for the
+base M4 and <strong>16 GB unified memory</strong> in this configuration.
+Unified memory avoids treating CPU RAM and GPU memory as two wholly
+separate pools, but it does not give the model a private 16 GB graphics
+card. <a href="https://support.apple.com/en-us/121555">Apple
+specifications</a></p>
+<p>My budgeting model is simple:</p>
+<pre class="text"><code>Working memory ≈ resident weights + active context + temporary workspace
+                 + retained caches + macOS + development tools</code></pre>
+<p>This is an accounting model, not permission to add overlapping
+Activity Monitor counters. A file-backed allocation, a Metal allocation
+and a process-memory figure may describe overlapping parts of the same
+physical memory.</p>
+<p>For idealized weight payload alone, a 27B model at four bits is about
+<strong>13.5 decimal GB</strong>, before scales, metadata, differently
+represented tensors and runtime state. That arithmetic explains the
+appeal of lower precision. It does not tell us whether the resulting
+model will follow an instruction.</p>
+<p>Three distinctions govern the experiment. <strong>Installed is not
+resident:</strong> several downloaded checkpoints can share an SSD while
+only one runs. <strong>A listening server is not a functioning
+generator:</strong> an HTTP endpoint can remain alive after its
+generation worker dies. <strong>A generated answer is not a passed
+task:</strong> it may be truncated, incorrectly formatted or simply
+wrong. All three distinctions appeared during this laboratory. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Recorded
+setup incidents and gaps</a></p>
+<p>The operating policy is therefore one heavy model, one active request
+and short prompts first. A nominal 4K context is an initial setting, not
+a claim that the supplied logs exercised 4,096 input tokens. Their test
+prompts were much shorter.</p>
+<h2 id="the-modelsand-what-quantized-actually-means">2. The models—and
+what “quantized” actually means</h2>
+<p>A quantization name is part of a model’s identity. It is not a
+universal quality grade and it is not a promise that every server can
+load the file.</p>
+<h3 id="bonsai-binary-and-ternary-are-separate-checkpoints">Bonsai:
+binary and ternary are separate checkpoints</h3>
+<p>The binary reference is <strong>Bonsai 27B
+<code>Q1_0</code></strong>, distributed as
+<code>Bonsai-27B-Q1_0.gguf</code>. The chosen file is about <strong>3.8
+GB</strong>. The laboratory uses the PrismML-distributed llama.cpp
+runtime; it does not let a generic installer silently select a different
+Bonsai generation. This is a particular compressed model, not a switch
+that converts every downloaded model to one bit. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Original
+standalone procedure</a> · <a
+href="https://raw.githubusercontent.com/PrismML-Eng/Bonsai-demo/74fab33d81d81a535525bd98c7a676b22d4dca46/Bonsai1_README.md">Bonsai
+1 runtime guide</a></p>
+<p>The more interesting memory experiment is
+<strong><code>inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw</code></strong>.
+Ternary weights use three values, conventionally represented as scaled
+versions of −1, 0 and +1. This checkpoint repacks already-ternary
+weights more densely and executes them with custom Metal kernels.
+“Lossless” describes that repacking; it does <strong>not</strong> mean
+the original full-precision model became ternary without any change in
+capability. The published package is approximately <strong>5.89
+GB</strong>, and the custom Python/Metal implementation travels with it.
+<a
+href="https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw">Packed
+ternary model card</a></p>
+<p>This explains an otherwise confusing comparison: a ternary model can
+have a two-bit storage variant and a denser packed variant without those
+becoming two unrelated quantizations. The representation and the kernels
+matter. A generic application that declines checkpoint-supplied code may
+not run this pack at all.</p>
+<h3
+id="qwen3.6-a-mixture-of-experts-with-two-ways-to-reduce-residency">Qwen3.6:
+a mixture of experts, with two ways to reduce residency</h3>
+<p>The Qwen3.6 branch is <strong>35B-A3B</strong>, a mixture-of-experts
+model. A subset of its experts participates in each token’s routed
+computation. That reduces active computation, but the full model still
+has to be stored somewhere. “A3B” does not turn the checkpoint into a 3B
+download. <a href="https://huggingface.co/Qwen/Qwen3.6-35B-A3B">Qwen3.6
+model card</a></p>
+<p>The <strong>resident asymmetric</strong> conversion is
+<code>manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64</code>, about
+<strong>12.6 GB</strong>. It uses three-bit attention, ternary expert
+up/gate projections and four-bit expert down projections. Allocating
+different precision to different projections is the method, not an
+inconsistency in the label. It needs the TurboQuant-aware loader. <a
+href="https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3a-tqTe-down4-g64">Asymmetric
+checkpoint</a></p>
+<p>The <strong>streaming</strong> experiment uses a different
+conversion: <code>manjunathshiva/Qwen3.6-35B-A3B-tq3-g32</code>. Its
+selected download was approximately <strong>16.945 GB</strong> in the
+supplied run. The whole checkpoint lives on storage, while the runtime
+uses a <strong>4 GB expert-cache budget</strong>. That budget is not
+total model RAM. Shared components, active state and other allocations
+remain. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/checkpoint-provenance.csv">Checkpoint
+provenance</a> · <a
+href="https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3-g32">Streaming
+checkpoint</a></p>
+<p><strong>Expert streaming is not expert pruning.</strong> The
+laboratory retains the native router’s choice with
+<code>--max-active-experts 0</code>. Omitting that explicit setting
+would leave the reviewed wrapper’s reduced-expert default in effect. A
+speedup achieved by changing which experts participate is a different
+experiment from caching the experts selected by the original router. <a
+href="https://raw.githubusercontent.com/manjunathshiva/turboquant-mlx/v0.28.0/serve.py">TurboQuant
+0.28.0 wrapper</a></p>
+<h3
+id="qwen3.8-the-format-matters-more-than-the-bit-count-shorthand">Qwen3.8:
+the format matters more than the bit-count shorthand</h3>
+<p>Here Qwen3.8 means the <strong>dense 27B model</strong>, not “Qwen3,
+8B” and not a much larger MoE sibling. There are no routed experts to
+stream in this dense-model recipe. The selected trials are text-only: no
+vision projector and no speculative draft are required. <a
+href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen3.8 model
+card</a></p>
+<p>The principal choices were:</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 40%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr>
+<th>Checkpoint or representation</th>
+<th style="text-align: right;">Approximate published/selected
+payload</th>
+<th>Intended runtime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bonsai 27B binary <code>Q1_0</code></td>
+<td style="text-align: right;">3.8 GB</td>
+<td>Prism llama.cpp / Metal</td>
+</tr>
+<tr>
+<td>Bonsai 27B packed ternary, 1.75 bpw</td>
+<td style="text-align: right;">5.89 GB</td>
+<td>MLX-LM with checkpoint code</td>
+</tr>
+<tr>
+<td>Qwen3.6 35B-A3B asymmetric</td>
+<td style="text-align: right;">12.6 GB</td>
+<td>TurboQuant resident loader</td>
+</tr>
+<tr>
+<td>Qwen3.6 35B-A3B <code>tq3-g32</code></td>
+<td style="text-align: right;">16.945 GB selected in the run</td>
+<td>TurboQuant expert streaming</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B GGUF <code>UD-IQ2_S</code></td>
+<td style="text-align: right;">8.37 GB</td>
+<td>llama.cpp; optional Ollama import</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B GGUF <code>UD-Q2_K_XL</code></td>
+<td style="text-align: right;">9.83 GB</td>
+<td>llama.cpp</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B GGUF <code>UD-IQ3_XXS</code></td>
+<td style="text-align: right;">10.935 GB selected in the run</td>
+<td>llama.cpp</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B ordinary 2-bit MLX TextOnly</td>
+<td style="text-align: right;">8.43 GB</td>
+<td>MLX-LM; optional oMLX</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B ordinary 3-bit MLX TextOnly</td>
+<td style="text-align: right;">11.8 GB</td>
+<td>MLX-LM; optional oMLX</td>
+</tr>
+<tr>
+<td>Qwen3.8 27B TurboQuant <code>tq3-mini-g64</code></td>
+<td style="text-align: right;">12.40 GB</td>
+<td>Separate VLM diagnostic runtime</td>
+</tr>
+</tbody>
+</table>
+<p>These are <strong>file/package sizes, not peak-memory
+measurements</strong>. GGUF importance-aware and mixed-precision
+formats, ordinary affine MLX quantization, TurboQuant codebooks and
+packed ternary storage are different representations. The suffix
+<code>IQ2_S</code> does not mean “the same thing as any MLX model
+labelled 2-bit.” <a
+href="https://huggingface.co/unsloth/Qwen3.8-27B-GGUF">GGUF
+artifacts</a> · <a
+href="https://huggingface.co/lukaskremla/Qwen3.8-27B-2bit-MLX-TextOnly">MLX
+2-bit</a> · <a
+href="https://huggingface.co/lukaskremla/Qwen3.8-27B-3bit-MLX-TextOnly">MLX
+3-bit</a> · <a
+href="https://huggingface.co/manjunathshiva/Qwen3.8-27B-tq3-mini-g64">Diagnostic
+checkpoint</a></p>
+<p>Two other optimizations act on different objects. <strong>KV-cache
+quantization</strong> compresses eligible attention state; it does not
+compress weights. <strong>Prefix reuse</strong> avoids recomputing an
+unchanged beginning of a request; it does not provide unlimited active
+context. Smaller prefill chunks can reduce temporary allocation peaks,
+but may cost time. The correct memory budget cannot be obtained by
+multiplying these techniques’ advertised savings.</p>
+<h2 id="the-server-is-part-of-the-model-you-are-evaluating">3. The
+server is part of the model you are evaluating</h2>
+<p>I used four serving approaches, plus an Ollama import and a CLI-only
+diagnostic. They are not interchangeable front ends around a guaranteed
+identical computation.</p>
+<p><strong>llama.cpp/Metal</strong> executes the GGUF branches. The
+three Qwen3.8 runs identify build
+<strong><code>b11429-d81235049</code></strong>; binary Bonsai identifies
+Prism build <strong><code>b10743-adfffbe41</code></strong>. The choice
+of binary, its kernels and its chat-template handling belong in the
+result. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Recorded
+runtime evidence</a></p>
+<p><strong>MLX-LM</strong> serves ordinary MLX checkpoints and the
+custom packed Bonsai loader. The successful standalone records identify
+<strong>MLX-LM 0.31.3 and MLX 0.32.0</strong>. Its development server
+exposes the local API, but its command-line options differ from its
+generation command. In particular, the pinned server’s
+<code>--max-tokens</code> is an output default, not a hard input-context
+ceiling. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Runtime
+fingerprints</a> · <a
+href="https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.31.3/mlx_lm/server.py">Pinned
+server implementation</a></p>
+<p><strong>TurboQuant-MLX</strong> wraps MLX-LM with its own weight
+loader, KV handling and optional expert streaming. The working
+text-server combination in the logs is <strong>TurboQuant 0.28.0, MLX-LM
+0.31.3 and MLX 0.32.3</strong>. An earlier installation died because a
+newer server passed <code>trust_remote_code</code> to a wrapper that did
+not accept it. The HTTP listener still came up. This is why model
+discovery alone is not readiness. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Loader
+incident and recovered environment</a></p>
+<p><strong>oMLX</strong> adds model management, scheduling and tiered
+prefix caching around MLX inference. The original installation procedure
+referenced <strong>0.7.0</strong>, but the uploaded oMLX results do not
+contain an exact server version, complete settings export or checkpoint
+digest. Those missing fields prevent a clean causal comparison with
+standalone MLX-LM. oMLX’s support for a TurboQuant <strong>KV
+cache</strong> also does not establish support for arbitrary TurboQuant
+<strong>weight checkpoints</strong>. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0/README.md">oMLX
+installation documentation</a> · <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e7-omlx">oMLX
+evidence limits</a></p>
+<p><strong>Ollama</strong> is a convenient local model manager and API
+server. It can import a supported GGUF through a Modelfile. The
+conversation established import and residency under
+<strong>0.35.1</strong>, followed by an output-limit problem, but the
+uploaded archive lacks the native-Ollama response files. There is
+therefore no Ollama speed row in this comparison. Its absence is missing
+evidence, not a zero score. <a
+href="https://docs.ollama.com/import">Ollama import</a> · <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Missing
+native records</a></p>
+<h2 id="what-was-actually-measured">4. What was actually measured</h2>
+<p>The archive contains <strong>64 files, 66 smoke-test responses, one
+separate readiness response and three nonempty standalone-generation
+logs</strong>. The smoke tests cover ten model/runtime configurations
+and eleven six-request suites: packed ternary Bonsai has two suites. The
+reported machine is the base M4 mini with 16 GB; runtime fingerprints
+identify macOS 26.5.1 and Apple-GPU paths, but the archive does not
+independently inventory physical RAM. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e1-scope">Archive
+audit</a></p>
+<p>Every smoke request asks one of two fixed questions. The first
+requires exactly three JSON fields, including a numeric amount. The
+second asks for the current approved code, <code>harbor-mint-47</code>,
+from a short synthetic passage. Each suite repeats both questions three
+times with requested temperature <strong>0.7</strong>, a
+<strong>512-token output ceiling</strong> and non-streaming
+responses.</p>
+<p>A pass means a completed response satisfied that exact contract.
+Markdown fences are not removed to improve a score after the fact.
+Truncated output fails. Repetition creates more observations, not more
+distinct problems. There are <strong>no tool-format cases, repository
+edits, executed tests, long-context trials or multimodal
+benchmarks</strong> in this upload. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e3-method">Method
+and complete response ledger</a></p>
+<p>Recomputing the verdicts from the saved answers reproduces all
+recorded results: <strong>53 passed, 13 failed</strong>, with five
+truncations. That is an audit of this small workload, not an estimate of
+general model accuracy.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/01-contract-outcomes.png"
+alt="Recorded passes, completed contract failures and output-budget truncations across ten model/runtime configurations." />
+<figcaption aria-hidden="true">Recorded passes, completed contract
+failures and output-budget truncations across ten model/runtime
+configurations.</figcaption>
+</figure>
+<p><em>Figure 1. Counts of recorded outcomes, not a broad benchmark
+accuracy score. Packed ternary Bonsai has twice as many observations
+because two suites were saved.</em></p>
+<h3
+id="the-comparison-that-matters-first-correct-answers-and-elapsed-time">The
+comparison that matters first: correct answers and elapsed time</h3>
+<p>The table includes failed attempts in its latency medians. Each task
+has three observations per configuration, except packed ternary Bonsai,
+which has six. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Recomputed
+profile summary</a></p>
+<table>
+<thead>
+<tr>
+<th>Model / runtime</th>
+<th style="text-align: right;">Checks passed</th>
+<th style="text-align: right;">JSON median</th>
+<th style="text-align: right;">Recall median</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bonsai binary · llama.cpp</td>
+<td style="text-align: right;">5/6</td>
+<td style="text-align: right;">3.11 s</td>
+<td style="text-align: right;">0.70 s</td>
+</tr>
+<tr>
+<td>Bonsai packed ternary · MLX-LM</td>
+<td style="text-align: right;">12/12</td>
+<td style="text-align: right;">3.48 s</td>
+<td style="text-align: right;">1.67 s</td>
+</tr>
+<tr>
+<td>Qwen3.6 streamed · TurboQuant</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">5.82 s</td>
+<td style="text-align: right;">2.51 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 IQ2_S · llama.cpp</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">3.67 s</td>
+<td style="text-align: right;">1.20 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 Q2_K_XL · llama.cpp</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">4.34 s</td>
+<td style="text-align: right;">1.35 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 IQ3_XXS · llama.cpp</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">4.26 s</td>
+<td style="text-align: right;">1.27 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 2-bit · MLX-LM</td>
+<td style="text-align: right;">0/6</td>
+<td style="text-align: right;">54.19 s</td>
+<td style="text-align: right;">1.80 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 3-bit · MLX-LM</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">6.70 s</td>
+<td style="text-align: right;">2.51 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 2-bit · oMLX</td>
+<td style="text-align: right;">0/6</td>
+<td style="text-align: right;">16.15 s</td>
+<td style="text-align: right;">8.78 s</td>
+</tr>
+<tr>
+<td>Qwen3.8 MLX 3-bit · oMLX</td>
+<td style="text-align: right;">6/6</td>
+<td style="text-align: right;">21.28 s</td>
+<td style="text-align: right;">9.30 s</td>
+</tr>
+</tbody>
+</table>
+<p>The strongest warning is <strong>the tested ordinary 2-bit Qwen3.8
+MLX path</strong>. Its three JSON requests filled the entire output
+allowance with repetitive or malformed text. Its three recall requests
+answered <code>288</code>. The 2-bit oMLX alias also failed all six
+checks. That is enough to keep these configurations out of an unattended
+workflow, but not enough to assign the cause to quantization alone:
+tokenizer, template, conversion and numerical behavior were not
+independently isolated. The GGUF IQ2_S path passed all six checks. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e4-failures">Failure
+excerpts</a></p>
+<p>Binary Bonsai’s failure is narrower. It returned the correct record
+inside a Markdown code fence. The data were right; the strict output
+contract was not. A deliberately designed parser or
+constrained-generation experiment might handle that differently. Neither
+earns a retrospective pass here.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/02-json_contract-latency.png"
+alt="Individual JSON-response wall times and medians, including unsuccessful answers." />
+<figcaption aria-hidden="true">Individual JSON-response wall times and
+medians, including unsuccessful answers.</figcaption>
+</figure>
+<p><em>Figure 2. The horizontal axis is logarithmic. The 54-second MLX
+2-bit outputs were not slow successes; they exhausted the token budget
+without satisfying the task.</em></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/03-literal_recall-latency.png"
+alt="Individual literal-recall response times, with failures retained." />
+<figcaption aria-hidden="true">Individual literal-recall response times,
+with failures retained.</figcaption>
+</figure>
+<p><em>Figure 3. A quick wrong code is still a wrong code. Latency must
+be interpreted beside the task outcome.</em></p>
+<p>The failures consumed <strong>319.18 of 565.42 recorded
+request-seconds—56.5% of the total</strong>—despite being only 13 of 66
+requests. This is not a projected daily cost saving, but it illustrates
+a useful principle: a compressed model that cannot finish a small task
+can waste more time than a slower model that stops with the right
+answer. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/audit.json">Audit
+totals</a></p>
+<h3 id="decode-speed-is-not-the-same-as-response-latency">Decode speed
+is not the same as response latency</h3>
+<p>The llama.cpp responses contain native timing fields. For the JSON
+task, median decoder rates were <strong>14.95 tokens/s for binary
+Bonsai</strong>, <strong>8.06 for Qwen3.8 IQ2_S</strong>, <strong>7.74
+for Q2_K_XL</strong>, and <strong>7.95 for IQ3_XXS</strong>. These short
+replies are not sustained-throughput tests. IQ2_S also produced a more
+compact JSON serialization—26 tokens rather than 31—so not all of its
+latency advantage came from decoder speed. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Native
+timing evidence</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/04-gguf-decode.png"
+alt="Native llama.cpp decoder rates for short JSON responses." />
+<figcaption aria-hidden="true">Native llama.cpp decoder rates for short
+JSON responses.</figcaption>
+</figure>
+<p><em>Figure 4. The Qwen profiles share a recorded server build; Bonsai
+uses the Prism build. Native token-count conventions are preserved
+rather than recomputed into an artificial common metric.</em></p>
+<p>The streaming Qwen3.6 API records provide complete answers and wall
+times, but no equivalent native decoder counter. Dividing completion
+tokens by the whole request time would mix prompt processing, possible
+loading and generation. I leave that rate unreported rather than
+inventing one.</p>
+<h3 id="caching-helpsbut-does-not-equalize-the-workloads">Caching
+helps—but does not equalize the workloads</h3>
+<p>Repeated GGUF JSON requests reused <strong>68 of 72 prompt
+tokens</strong>. For IQ2_S, prompt-evaluation time fell from about
+<strong>1.98 seconds</strong> on the first occurrence to a median
+<strong>0.44 seconds</strong> on later repeats. That is direct evidence
+of prefix reuse, not an inference from a faster stopwatch reading. It
+does not establish SSD persistence or survival across a server restart.
+<a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e6-cache">Cache
+observations</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/05-prefix-prefill.png"
+alt="First-occurrence and repeated-prefix prompt-evaluation time." />
+<figcaption aria-hidden="true">First-occurrence and repeated-prefix
+prompt-evaluation time.</figcaption>
+</figure>
+<p><em>Figure 5. One first occurrence and two later repeats per
+configuration. This is not a cold-versus-warm machine
+benchmark.</em></p>
+<p>The standalone MLX servers were configured with one retained
+prompt-cache entry and alternated two tasks. Their responses report zero
+prefix hits in these suites. That does not prove that MLX cannot cache;
+nor does a cache hit prove that a model answered correctly.</p>
+<p>oMLX’s passing 3-bit configuration took <strong>21.28 seconds for
+JSON</strong> and <strong>9.30 seconds for recall</strong>, but it
+performed visibly different work. All six responses included
+<code>reasoning_content</code>. Median completion counts rose from
+<strong>39 to 168 tokens</strong> for JSON and <strong>8 to 74</strong>
+for recall, compared with standalone MLX-LM. The effective prompt counts
+differed too. “oMLX is several times slower” would be an unjustified
+engine-level conclusion from these unmatched workloads. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e7-omlx">oMLX
+response analysis</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/06-reasoning-workload.png"
+alt="Completion-token counts for the passing standalone and oMLX three-bit workloads." />
+<figcaption aria-hidden="true">Completion-token counts for the passing
+standalone and oMLX three-bit workloads.</figcaption>
+</figure>
+<p><em>Figure 6. Same user questions, different generated workloads.
+Whole-completion counts are shown because there is no trustworthy
+independent reasoning-token breakdown.</em></p>
+<h3 id="the-memory-evidence-is-usefuland-incomplete">The memory evidence
+is useful—and incomplete</h3>
+<p>Packed ternary Bonsai’s standalone generation produced a coherent
+five-sentence explanation at <strong>16.208 tokens/s</strong>, with
+<strong><code>Peak memory: 6.232 GB</code></strong> printed by the
+runtime. The ordinary 2-bit MLX run printed <strong>11.001 tokens/s and
+8.737 GB</strong>, but its answer was malformed meta-commentary. The
+TurboQuant Qwen3.8 diagnostic produced a coherent answer at
+<strong>2.670 tokens/s</strong>, with saved exit status zero and
+<strong>12.798 GB</strong> in the same capitalized peak field. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e9-cli">Original
+CLI excerpts</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/07-cli-decode.png"
+alt="Three separate CLI-generation speed observations." />
+<figcaption aria-hidden="true">Three separate CLI-generation speed
+observations.</figcaption>
+</figure>
+<p><em>Figure 7. These CLI runs are separate from the HTTP smoke tests.
+A displayed speed does not rescue an unsatisfactory answer.</em></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/08-cli-memory.png"
+alt="The three available runtime-reported peak-memory observations." />
+<figcaption aria-hidden="true">The three available runtime-reported
+peak-memory observations.</figcaption>
+</figure>
+<p><em>Figure 8. Values retain the runtime’s printed labels. They are
+not whole-system RAM consumption, and they do not measure simultaneous
+compiler or browser workloads.</em></p>
+<p>The diagnostic also prints a second value, <strong>11.92 GB</strong>.
+Decimal/binary units plausibly explain the numerical relationship, but
+both original labels say GB, so the audit preserves both rather than
+claiming a verified conversion. No usable memory-pressure or swap time
+series exists in the archive. In particular, the configured 4 GB expert
+cache is not evidence that the complete streaming model used 4 GB.</p>
+<p>These limitations are why my recommendation is practical rather than
+statistical. Packed ternary Bonsai combines successful short contracts
+with the strongest low-footprint CLI evidence in this dataset. That does
+not establish it as the most capable programmer, or prove a whole-system
+memory advantage over every unmeasured alternative.</p>
+<h2 id="reproduce-the-laboratory-from-a-clean-mac">5. Reproduce the
+laboratory from a clean Mac</h2>
+<p>The following is the complete text-model procedure. All commands
+refer to the code bundled with this article; no previous revision or
+separate setup chapter is required. The scripts keep downloads,
+installed environments and output records outside the manuscript itself
+where appropriate.</p>
+<p><strong>Existing laboratory users should keep working environments
+and completed snapshots.</strong> Do not recreate them merely to read
+this edition. The launch and compatibility clients are the working
+implementations from the tested package; this publication adds a
+revision-aware planning front end and clearer test commands.</p>
+<h3 id="prepare-macos-python-and-the-package">Prepare macOS, Python and
+the package</h3>
+<p>Complete macOS setup, install a stable system update appropriate to
+the runtimes, and use a native Apple Silicon Terminal. Back up important
+work. Keep Activity Monitor’s Memory view open. Do not begin by
+disabling swap or altering system-wide GPU limits.</p>
+<p>Install Apple’s command-line tools and wait for the installation
+dialog to finish:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">--install</span></span></code></pre></div>
+<p>Install Homebrew through its official installer, first saving it for
+inspection:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proto</span> <span class="st">&#39;=https&#39;</span> <span class="at">--tlsv1.2</span> <span class="at">-fsSLo</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/Downloads/install-homebrew.sh&quot;</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/Downloads/install-homebrew.sh&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">/bin/bash</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/Downloads/install-homebrew.sh&quot;</span></span></code></pre></div>
+<p>Press <code>q</code> to leave <code>less</code>. Then initialize
+Homebrew in this shell and install the foundation. Follow Homebrew’s
+printed instructions for making <code>shellenv</code> persistent; do not
+append duplicate lines on every run. <a
+href="https://docs.brew.sh/Installation">Homebrew installation</a></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">eval</span> <span class="st">&quot;</span><span class="va">$(</span><span class="ex">/opt/homebrew/bin/brew</span> shellenv<span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install python@3.11 git</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">uname</span> <span class="at">-m</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">xcode-select</span> <span class="at">-p</span></span></code></pre></div>
+<p><code>uname -m</code> should report <code>arm64</code>. Extract the
+companion ZIP and move its
+<strong><code>M4_16GB_Model_Selection</code></strong> folder into
+<code>~/LocalAI</code>. Then:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/LocalAI/M4_16GB_Model_Selection&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> scripts/lab_env.sh <span class="kw">&amp;&amp;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models&quot;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans&quot;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs&quot;</span> outputs .venvs <span class="kw">&amp;&amp;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="at">-m</span> pip install <span class="at">-r</span> config/requirements-lab-tools.txt <span class="kw">&amp;&amp;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="at">-m</span> pip check <span class="kw">&amp;&amp;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv .venvs/core</span></code></pre></div>
+<p><code>PACKAGE</code> is the publication directory; <code>LAB</code>
+is <code>~/LocalAI/qwen-bonsai-lab</code>. Source
+<code>scripts/lab_env.sh</code> from the publication root in
+<strong>each new terminal</strong>. It also enables pasted comments for
+the current zsh session without editing <code>.zshrc</code>. The text
+API helpers use the standard library; the planning environment adds
+Hugging Face Hub.</p>
+<p>Record the machine and disk space:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">system_profiler</span> SPHardwareDataType SPSoftwareDataType <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/machine.txt&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> <span class="at">-n</span> hw.memsize</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> vm.swapusage</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="at">-m</span> pip freeze <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/tools-current.freeze.txt&quot;</span></span></code></pre></div>
+<p>Plan one branch at a time. Installing all representations consumes
+far more storage than their active RAM requirements, particularly when
+importing a second copy into Ollama. The planner checks selected file
+sizes and free-space reserve before downloading; it does not certify
+memory fit.</p>
+<h3 id="how-downloads-and-tests-work">How downloads and tests work</h3>
+<p><code>tools/plan_measured.py</code> selects the exact checkpoint
+revision recorded in the archived launch metadata. It delegates to the
+existing downloader’s <strong>plan</strong> step, which does not load
+weights. Inspect the resulting plan before invoking
+<strong>download</strong>. Where the archive has no revision—resident
+Qwen3.6 and the CLI diagnostic—the script requires
+<code>--allow-unrecorded</code> and explicitly labels the download a new
+experiment. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/config/measured-checkpoints.json">Recorded
+revisions</a></p>
+<p>Eight recorded model profiles have pinned revisions. Do not overwrite
+an existing snapshot with another revision to make a command succeed;
+the downloader refuses that. Existing users with complete matching
+downloads can skip planning/downloading entirely.</p>
+<p>For every HTTP branch, <strong>Terminal A runs one server; Terminal B
+tests that exact server while A remains running</strong>. The new
+convenience command is:</p>
+<pre class="text"><code>bash scripts/test_model.sh BASE_URL EXACT_MODEL_ID RUN_LABEL</code></pre>
+<p>It records discovery, requests a short <code>READY</code> answer, and
+only after that succeeds runs the original JSON/recall contracts three
+times. It saves a new timestamp-independent unique log directory per
+invocation. Six <code>PASS</code> checks mean those two contracts passed
+three times—not that a coding agent is certified. No generated code or
+tool call is executed. The added readiness gate is operational; it is
+not retrospectively counted among the 66 archived smoke records.</p>
+<h3
+id="a.-packed-ternary-bonsai-my-first-choice-for-the-16-gb-constraint">A.
+Packed ternary Bonsai: my first choice for the 16 GB constraint</h3>
+<p>For a <strong>new</strong> ternary environment:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-ternary&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-ternary/bin/python&quot;</span> <span class="at">-m</span> pip install <span class="at">-r</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/config/requirements-lab-mlx.txt&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-ternary/bin/python&quot;</span> <span class="at">-m</span> pip check</span></code></pre></div>
+<p>This preserves the recorded <strong>MLX 0.32.0 / MLX-LM
+0.31.3</strong> top-level combination. It is not a lock of every
+transitive package. Keep the environment isolated from TurboQuant and
+from source-built forks.</p>
+<p>Plan and inspect:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> bonsai-ternary <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/bonsai-ternary.json&quot;</span></span></code></pre></div>
+<p>After reviewing it:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/bonsai-ternary.json&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/bonsai-ternary/ternel_packed_model.py&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/bonsai-ternary/ternel_manifest.json&quot;</span></span></code></pre></div>
+<p><strong>This checkpoint contains executable Python and
+Metal.</strong> Review the downloaded revision and proceed only when you
+trust it. The pinned loader can execute checkpoint code without a
+separate trust dialog; the launcher’s acknowledgment is not a security
+audit. <a
+href="https://huggingface.co/inductiveML/Ternary-Bonsai-27B-mlx-lossless-1.75bpw">Checkpoint-code
+documentation</a></p>
+<p>In Terminal A, after that review:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> bonsai-ternary <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-checkpoint-code</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> bonsai-ternary <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-checkpoint-code</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/ternary-server-new.log&quot;</span></span></code></pre></div>
+<p>After the server starts without a worker failure, Terminal B
+uses:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/LocalAI/M4_16GB_Model_Selection&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> scripts/lab_env.sh <span class="kw">&amp;&amp;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/test_model.sh http://127.0.0.1:8081/v1 <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/bonsai-ternary&quot;</span> bonsai-ternary</span></code></pre></div>
+<p>The public model ID is the <strong>absolute local path</strong>, not
+<code>bonsai-binary</code> or an assumed <code>default_model</code>.
+Stop Terminal A with Ctrl+C only after inspecting the results. The
+launch uses one prompt/decode request, a small prefill step and one
+retained prompt-cache entry. Keep prompts short; those settings are not
+a hard input-length quota.</p>
+<h3
+id="b.-binary-bonsai-the-smallest-reference-with-a-strict-format-caveat">B.
+Binary Bonsai: the smallest reference, with a strict-format caveat</h3>
+<p>Plan and download its separate checkpoint:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> bonsai-binary <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/bonsai-binary.json&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/bonsai-binary.json&quot;</span></span></code></pre></div>
+<p>For a fresh runtime checkout, use the recorded Prism demo
+revision:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--no-checkout</span> https://github.com/PrismML-Eng/Bonsai-demo.git <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo&quot;</span> checkout <span class="at">--detach</span> 74fab33d81d81a535525bd98c7a676b22d4dca46</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo/scripts/download_binaries.sh&quot;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo/scripts/common.sh&quot;</span></span></code></pre></div>
+<p>The downloader removes quarantine attributes within its downloaded
+runtime directory and applies ad-hoc signing. Inspect that behavior
+before running it; do not disable Gatekeeper globally. Use the binary
+downloader, <strong>not</strong> the broader <code>setup.sh</code> that
+can select another Bonsai family. <a
+href="https://raw.githubusercontent.com/PrismML-Eng/Bonsai-demo/74fab33d81d81a535525bd98c7a676b22d4dca46/Bonsai1_README.md">Prism
+runtime procedure</a></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo/scripts/download_binaries.sh&quot;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo/bin/mac/llama-server&quot;</span> <span class="at">--version</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Bonsai-demo/bin/mac/.llama_release&quot;</span></span></code></pre></div>
+<p>Preserve a working existing checkout instead of cloning over it.
+Compare the installed runtime with the recorded Prism build before
+claiming an exact reproduction. Terminal A:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> bonsai-binary <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> bonsai-binary <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/binary-server-new.log&quot;</span></span></code></pre></div>
+<p>Terminal B, after sourcing the environment:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8082/v1 bonsai-binary bonsai-binary</span></code></pre></div>
+<p>The measured result is 5/6 because of one fenced JSON response. Test
+any constrained-output or parsing modification separately rather than
+silently changing the original success criterion.</p>
+<h3 id="c.-qwen3.8-gguf-the-clearest-qwen-comparison">C. Qwen3.8 GGUF:
+the clearest Qwen comparison</h3>
+<p>Install llama.cpp and record the resolved version:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install llama.cpp</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">llama-server</span> <span class="at">--version</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/llama-server-current-version.txt&quot;</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">llama-server</span> <span class="at">--help</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/llama-server-current-help.txt&quot;</span></span></code></pre></div>
+<p>Homebrew is a moving installation channel. The archived measurement
+used <strong>0.6.0, build 11429, commit <code>d81235049</code></strong>.
+A different installed version is a new comparison, even with identical
+weights. A passing flag preflight also does not prove that every
+checkpoint architecture works. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Recorded
+version</a></p>
+<p>For IQ2_S:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen38-iq2s <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-iq2s.json&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-iq2s.json&quot;</span></span></code></pre></div>
+<p>Then Terminal A:</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-iq2s <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-iq2s <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-iq2s-server-new.log&quot;</span></span></code></pre></div>
+<p>Terminal B:</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8083/v1 qwen38-iq2s qwen38-iq2s</span></code></pre></div>
+<p>The launcher preserves the tested 4K context, small 128-token
+prompt-processing batches, one request slot, Flash Attention and
+non-thinking template arguments. It prints the actual command. Inspect
+the GPU-layer placement rather than assuming that a response necessarily
+used the intended Metal path.</p>
+<p>For <strong>Q2_K_XL</strong>, stop IQ2_S, then plan, inspect and
+download its own files:</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen38-q2xl <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-q2xl.json&quot;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-q2xl.json&quot;</span></span></code></pre></div>
+<p>Its launch in Terminal A and test in Terminal B are:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-q2xl <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-q2xl <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-q2xl-server-new.log&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8083/v1 qwen38-q2xl qwen38-q2xl</span></code></pre></div>
+<p>For <strong>IQ3_XXS</strong>, separately plan, inspect and
+download:</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen38-iq3xxs <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-iq3xxs.json&quot;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-iq3xxs.json&quot;</span></span></code></pre></div>
+<p>This tighter branch needs its acknowledgment on <strong>both</strong>
+preflight and launch:</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-iq3xxs <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-tight-memory</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-iq3xxs <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-tight-memory</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-iq3xxs-server-new.log&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8083/v1 qwen38-iq3xxs qwen38-iq3xxs</span></code></pre></div>
+<p>That flag acknowledges the experiment; it does not alter macOS
+limits. A <code>--dry-run</code> merely prints the command and returns
+before that acknowledgment gate. All three profiles share port 8083, but
+their aliases and log names differ. Run them sequentially. All three
+eventually passed the archived short contracts; the earlier IQ3 launch
+refusal was a recovered setup incident, not an out-of-memory
+measurement.</p>
+<h3 id="d.-qwen3.6-streaming-keep-the-working-loader-combination">D.
+Qwen3.6 streaming: keep the working loader combination</h3>
+<p>For a new dedicated text-runtime environment:</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-m</span> pip install <span class="at">-r</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/config/requirements-lab-tq.txt&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-m</span> pip check <span class="kw">&amp;&amp;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-I</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/check_tq_loader_contract.py&quot;</span></span></code></pre></div>
+<p>The requirements retain <strong>TurboQuant 0.28.0 / MLX-LM
+0.31.3</strong>. The checker reads the installed loader-call interface
+without loading a model. Keep a known-working environment unchanged. If
+the checker detects the old <code>trust_remote_code</code> keyword
+mismatch, do not add a trust flag: that does not repair a Python
+signature.</p>
+<p>The narrowly targeted recovery, only for that incompatible text
+environment after saving its <code>pip freeze</code>, is:</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-m</span> pip freeze <span class="at">--all</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/tq-before-conditional-repair.txt&quot;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-m</span> pip install <span class="at">--index-url</span> https://pypi.org/simple <span class="at">--only-binary</span><span class="op">=</span>:all: <span class="at">--no-deps</span> <span class="at">--force-reinstall</span> <span class="at">--require-hashes</span> <span class="at">-r</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/config/requirements-mlx-lm-wheel.txt&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-m</span> pip check <span class="kw">&amp;&amp;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-I</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/check_tq_loader_contract.py&quot;</span></span></code></pre></div>
+<p>Do not run this repair in the separate VLM environment or when the
+text combination is already working. It restores the released wheel, not
+a guessed editable checkout. Stop if package checks fail. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Recorded
+mismatch and successful fingerprints</a></p>
+<p>For streaming, plan/download the recorded <code>qwen36-stream</code>
+revision:</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen36-stream <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen36-stream.json&quot;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen36-stream.json&quot;</span></span></code></pre></div>
+<p>Terminal A:</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen36-stream <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--expert-cache-gb</span> 4 <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen36-stream <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--expert-cache-gb</span> 4 <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen36-stream-server-new.log&quot;</span></span></code></pre></div>
+<p>Check for the <strong>streaming loader</strong>,
+<code>cache_budget=4.0 GB</code>, <code>max_active_experts=0</code>,
+eight-bit KV and the correct checkpoint path. Some loading messages
+appear at the first request. A printed configuration line alone is not
+proof that loading succeeded. Terminal B:</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8080/v1 <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen36-stream&quot;</span> qwen36-stream</span></code></pre></div>
+<p>No extra wired-cap increase is part of this streaming recipe. Its
+measured six passes justify a harder-task trial, not the claim that it
+outperforms resident Qwen3.6: the successful resident run’s performance
+data are missing.</p>
+<h3
+id="e.-resident-asymmetric-qwen3.6-optional-tighter-not-numerically-ranked">E.
+Resident asymmetric Qwen3.6: optional, tighter, not numerically
+ranked</h3>
+<p>This uses the same <strong>text</strong> environment, but a different
+checkpoint. Stop streaming first. Since the archive lacks its successful
+launch revision, use an existing tracked snapshot or explicitly plan a
+new experiment:</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen36-asym <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--allow-unrecorded</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen36-asym.json&quot;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen36-asym.json&quot;</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/turboquant-plan&quot;</span> <span class="at">--model</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen36-asym&quot;</span> <span class="at">--ram-gb</span> 16 <span class="at">--context</span> 8192 <span class="at">--kv-bits</span> 8</span></code></pre></div>
+<p>The planner estimates an 8K scenario; it is not a memory-fit test.
+Check the loader contract and launcher preflight before any system
+adjustment:</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq/bin/python&quot;</span> <span class="at">-I</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/check_tq_loader_contract.py&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen36-asym <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-tight-memory</span> <span class="at">--preflight-only</span></span></code></pre></div>
+<p>The source recipe includes an <strong>optional, temporary wired-cap
+exception</strong> for the tight resident configuration. It is not the
+recommended first installation or a mechanism that adds RAM. Save work,
+stop other heavy workloads and keep the initial value for this session.
+A previous session’s snapshot may not be the current baseline. The
+helper only reads/saves; it cannot reconstruct an original limit after
+it has already been changed. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Source
+procedure</a></p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/wired_memory.sh&quot;</span> save <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span></code></pre></div>
+<p>Only after inspecting the saved/current values and deliberately
+accepting reduced system headroom:</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/wired_memory.sh&quot;</span> saved-value <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="op">&gt;</span>/dev/null <span class="kw">&amp;&amp;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sysctl <span class="at">-w</span> iogpu.wired_limit_mb=13824</span></code></pre></div>
+<p>Do not put that command in a startup file, disable swap, or guess
+another key when this one is unavailable. Readers unwilling to make this
+exception should retain the roomier models or streaming branch. Start
+the resident server in A:</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen36-asym <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-tight-memory</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen36-resident-server-new.log&quot;</span></span></code></pre></div>
+<p>Test in B:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8080/v1 <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen36-asym&quot;</span> qwen36-asym</span></code></pre></div>
+<p>After stopping the server—or after a launch failure—restore the valid
+saved cap <strong>if you changed it</strong>:</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="va">ORIGINAL_WIRED_LIMIT</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/wired_memory.sh&quot;</span> saved-value <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sysctl <span class="at">-w</span> <span class="st">&quot;iogpu.wired_limit_mb=</span><span class="va">$ORIGINAL_WIRED_LIMIT</span><span class="st">&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> <span class="at">-n</span> iogpu.wired_limit_mb</span></code></pre></div>
+<p>The user reported this branch working. Without its successful
+response records and whole-system measurements, it does not receive a
+fabricated place in the numerical ranking.</p>
+<h3
+id="f.-ordinary-qwen3.8-mlx-keep-the-passing-and-failing-paths-distinct">F.
+Ordinary Qwen3.8 MLX: keep the passing and failing paths distinct</h3>
+<p>Create a separate ordinary-MLX environment, not the custom Bonsai or
+TurboQuant environment:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-mlx&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-mlx/bin/python&quot;</span> <span class="at">-m</span> pip install <span class="at">-r</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/config/requirements-lab-mlx.txt&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-mlx/bin/python&quot;</span> <span class="at">-m</span> pip check</span></code></pre></div>
+<p>The <strong>3-bit path passed</strong> the archived contracts.
+Plan/download its recorded revision:</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen38-mlx3 <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-mlx3.json&quot;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-mlx3.json&quot;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen38-mlx3/config.json&quot;</span></span></code></pre></div>
+<p>Inspect the configuration. The ordinary-MLX launcher refuses
+unexpected custom <code>model_file</code> or <code>auto_map</code>
+declarations rather than treating them as ordinary quantized weights.
+Terminal A:</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-mlx3 <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-tight-memory</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-mlx3 <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--accept-tight-memory</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-mlx3-server-new.log&quot;</span></span></code></pre></div>
+<p>Terminal B:</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8084/v1 <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen38-mlx3&quot;</span> qwen38-mlx3</span></code></pre></div>
+<p>To reproduce or diagnose the <strong>failed 2-bit
+configuration</strong>, stop the 3-bit server and prepare its separate
+checkpoint:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen38-mlx2 <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-mlx2.json&quot;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-mlx2.json&quot;</span></span></code></pre></div>
+<p>Launch it without the tight-memory acknowledgment:</p>
+<div class="sourceCode" id="cb45"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-mlx2 <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--preflight-only</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/launch_lab.py&quot;</span> qwen38-mlx2 <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-mlx2-server-new.log&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8084/v1 <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen38-mlx2&quot;</span> qwen38-mlx2</span></code></pre></div>
+<p>This is a diagnostic route, not my recommendation. If the readiness
+question fails, stop there and retain the output; there is no obligation
+to regenerate six failures. The recorded historical verdicts remain
+unchanged.</p>
+<h3 id="g.-omlx-an-optional-managed-server-comparison">G. oMLX: an
+optional managed-server comparison</h3>
+<p>Install the official oMLX macOS application for the chosen release.
+<strong>0.7.0 is the documented starting recipe, not a verified version
+attribution for the archived oMLX timings.</strong> Record the actual
+version and export model settings before testing. Stop any app-managed
+server before starting a foreground process. <a
+href="https://github.com/jundot/omlx/releases/tag/v0.7.0">oMLX
+release</a></p>
+<p>Expose only ordinary MLX models to this experiment. For a fresh
+directory, create a link to one downloaded checkpoint; do not point the
+scanner at every custom weight format:</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/omlx-models&quot;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen38-mlx3&quot;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/omlx-models/qwen38-mlx3&quot;</span></span></code></pre></div>
+<p>If that name already exists, inspect it rather than overwriting it.
+If the installed scanner does not follow the link, select the real
+directory in its interface. Store an API secret outside the source
+tree:</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">umask</span> 077</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.config/local-llm&quot;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="va">KEY_FILE</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.config/local-llm/omlx.key&quot;</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">&quot;</span><span class="va">$KEY_FILE</span><span class="st">&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span> <span class="ex">openssl</span> rand <span class="at">-hex</span> 32 <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$KEY_FILE</span><span class="st">&quot;</span><span class="kw">;</span> <span class="cf">fi</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMLX_API_KEY</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$KEY_FILE</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.omlx/bin:</span><span class="va">$PATH</span><span class="st">&quot;</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="ex">omlx</span> serve <span class="at">--help</span></span></code></pre></div>
+<p>In Terminal A, begin with the documented conservative policy:</p>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">omlx</span> serve <span class="at">--host</span> 127.0.0.1 <span class="at">--port</span> 8000 <span class="dt">\</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model-dir</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/omlx-models&quot;</span> <span class="at">--memory-guard</span> safe <span class="dt">\</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--hot-cache-max-size</span> 1GB <span class="dt">\</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--paged-ssd-cache-dir</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/omlx-prefix-cache&quot;</span> <span class="dt">\</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--paged-ssd-cache-max-size</span> 10GB <span class="at">--max-concurrent-requests</span> 1</span></code></pre></div>
+<p><strong>The safe guard may refuse the 3-bit checkpoint on 16
+GB.</strong> The logs do not include the guard that admitted the
+historical run, so this cannot be described as an exact reproduction of
+that memory policy. Do not disable safeguards just to obtain a graph. A
+refusal means this conservative recipe does not admit the model; use the
+passing standalone path or preserve and separately document an
+already-working configuration. The missing oMLX settings are a real
+reproducibility limit. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0/README.md">Configuration
+controls</a> · <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Measurement
+gaps</a></p>
+<p>If the model is admitted, give it the alias <code>qwen38-mlx3</code>,
+set a 4K context and one request, and disable speculative decoding and
+expert offload for this dense model. For a new non-thinking comparison,
+set <code>enable_thinking=false</code> and
+<code>preserve_thinking=false</code> through the supported template
+settings, then inspect actual responses. That changes the historical
+reasoning workload and must be labelled a new run.</p>
+<p>In Terminal B, load the same key and test:</p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">LOCAL_AI_API_KEY</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.config/local-llm/omlx.key&quot;</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8000/v1 qwen38-mlx3 qwen38-omlx3</span></code></pre></div>
+<p>To investigate the failed two-bit alias, stop/unload the 3-bit model,
+expose the downloaded <code>qwen38-mlx2</code> directory instead and
+assign that exact alias. Its explicit test is:</p>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/test_model.sh&quot;</span> http://127.0.0.1:8000/v1 qwen38-mlx2 qwen38-omlx2</span></code></pre></div>
+<p>Do not combine their records into one “oMLX score.” The original
+single oMLX log contained both models, which is why the analysis groups
+by model ID and endpoint rather than filename alone.</p>
+<h3 id="h.-ollama-import-the-same-iq2_s-file-then-prove-generation">H.
+Ollama: import the same IQ2_S file, then prove generation</h3>
+<p>Stop llama.cpp and all other heavy model servers. Install the native
+Ollama application; <strong>0.35.1</strong> is the version recorded
+during the troubleshooting. This is a fixed experiment reference, not a
+claim that it will always be the preferred release. Start the app once
+to establish the CLI, then quit its server before the foreground
+launch.</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;/Applications/Ollama.app/Contents/Resources:</span><span class="va">$PATH</span><span class="st">&quot;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> <span class="at">--version</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="ex">.venvs/core/bin/python</span> scripts/set_local_only.py</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/start_ollama.sh</span></code></pre></div>
+<p>The script starts one local-only server on <strong>11434</strong>.
+Leave it running in Terminal A. In Terminal B, create the import
+definition:</p>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Qwen38-IQ2S.Modelfile&quot;</span> <span class="op">&lt;&lt;EOF</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="st">FROM </span><span class="va">$LAB</span><span class="st">/models/qwen38-iq2s/Qwen3.8-27B-UD-IQ2_S.gguf</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER num_ctx 4096</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER num_predict 1024</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER temperature 0.7</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER top_p 0.8</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER top_k 20</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER min_p 0</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="st">PARAMETER repeat_penalty 1.0</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> create qwen38-local-iq2s <span class="at">-f</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/Qwen38-IQ2S.Modelfile&quot;</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> show qwen38-local-iq2s:latest <span class="at">--template</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> list</span></code></pre></div>
+<p>Check the imported template and advertised capabilities, but do not
+confuse them with verified performance. The helper’s model lookup is
+exact: use <strong><code>qwen38-local-iq2s:latest</code></strong> when
+that is the installed name. <code>ollama ps</code> shows residency, not
+merely downloads. Loading can happen on the first request; a manual
+<code>ollama run</code> warm-up is not required. <a
+href="https://docs.ollama.com/import">Ollama import</a> · <a
+href="https://docs.ollama.com/api/chat">Chat API</a></p>
+<p>Use the new evidence-preserving probe for one short answer:</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="ex">.venvs/core/bin/python</span> tools/ollama_probe.py <span class="dt">\</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> qwen38-local-iq2s:latest <span class="dt">\</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--prompt</span> <span class="st">&quot;Reply with READY and nothing else.&quot;</span> <span class="at">--output-tokens</span> 64</span></code></pre></div>
+<p>After a complete answer, try the longer fixture:</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">.venvs/core/bin/python</span> tools/ollama_probe.py <span class="dt">\</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> qwen38-local-iq2s:latest <span class="dt">\</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input</span> fixtures/chat-task.txt <span class="at">--ctx</span> 4096 <span class="at">--output-tokens</span> 1024</span></code></pre></div>
+<p>The earlier <strong>512-token</strong> allowance truncated this
+fixture. Increasing it to 1,024 is a proposed diagnostic, not a recorded
+success. The probe saves the raw request, response, final content and
+completion fields <strong>before</strong> deciding whether the response
+completed. Keep the 4K context fixed. If it loops or reaches the limit
+again, inspect the partial output rather than doubling limits
+indefinitely. <code>keep_alive: 0</code> unloads after the response;
+disappearing from the resident list afterward is expected. <a
+href="https://docs.ollama.com/api/chat">Ollama response fields</a></p>
+<p>The Ollama run uses temperature zero in this diagnostic, whereas the
+measured HTTP smoke suites requested 0.7. Do not add its timings to the
+table as though it were the same test. No native-Ollama generation
+performance is claimed until its saved records are available.</p>
+<h3 id="i.-qwen3.8-turboquant-mini-reproduce-only-as-a-diagnostic">I.
+Qwen3.8 TurboQuant “mini”: reproduce only as a diagnostic</h3>
+<p>This is a <strong>CLI-only branch</strong>, not another API listener.
+It produced one satisfactory short answer, but at 2.670 tokens/s with a
+large reported runtime peak. It is not my default for 16 GB coding.</p>
+<p>Use a separate VLM environment. The source procedure pinned
+TurboQuant’s 0.28.0 VLM extra; the recorded diagnostic environment also
+listed MLX-VLM 0.7.6, MLX-LM 0.32.0 and MLX 0.32.3. Do
+<strong>not</strong> copy its newer MLX-LM dependency into the fixed
+TurboQuant text server. The bundled
+<code>config/recorded-vlm.freeze.txt</code> preserves the resolved
+evidence; it is not represented as a portable cross-machine lock. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Environment
+distinction</a></p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm/bin/python&quot;</span> <span class="at">-m</span> pip install <span class="at">-r</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/config/requirements-lab-tq-vlm.txt&quot;</span> <span class="kw">&amp;&amp;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm/bin/python&quot;</span> <span class="at">-m</span> pip check</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm/bin/python&quot;</span> <span class="at">-m</span> turboquant_mlx.generate_vlm <span class="at">--help</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm/bin/python&quot;</span> <span class="at">-m</span> pip freeze <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/vlm-current.freeze.txt&quot;</span></span></code></pre></div>
+<p>Use an existing complete tracked snapshot, or explicitly prepare a
+new diagnostic:</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/plan_measured.py&quot;</span> qwen38-tq-diagnostic <span class="at">--lab</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="at">--allow-unrecorded</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-tq-diagnostic.json&quot;</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/checkpoint_fetch.py&quot;</span> download <span class="at">--plan</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/plans/qwen38-tq-diagnostic.json&quot;</span></span></code></pre></div>
+<p>The archive does not contain this checkpoint’s exact revision, so a
+fresh download is a new diagnostic.</p>
+<p>The historical source recipe proposed a temporary <strong>14 GiB
+wired ceiling</strong>, but the supplied successful local run does not
+document its actual sysctl history. Following that source recipe is
+therefore not proof of reproducing its memory state. Most readers should
+skip the cap experiment. Deliberate investigators must first save and
+verify the original value using the resident procedure above, then may
+apply:</p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/wired_memory.sh&quot;</span> saved-value <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span> <span class="op">&gt;</span>/dev/null <span class="kw">&amp;&amp;</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> sysctl <span class="at">-w</span> iogpu.wired_limit_mb=14336</span></code></pre></div>
+<p>Run once, preserving pipeline failure status:</p>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">set</span> <span class="at">-o</span> pipefail</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm/bin/python&quot;</span> <span class="at">-m</span> turboquant_mlx.generate_vlm <span class="dt">\</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--model</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/qwen38-tq-diagnostic&quot;</span> <span class="dt">\</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prompt</span> <span class="st">&#39;Explain the difference between retry and rollback in five sentences.&#39;</span> <span class="dt">\</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--max-tokens</span> 512 <span class="at">--prefill-step-size</span> 256 <span class="dt">\</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-tq-diagnostic-new.log&quot;</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="va">GENERATION_STATUS</span><span class="op">=</span><span class="va">$?</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">printf</span> <span class="st">&#39;%s\n&#39;</span> <span class="st">&quot;</span><span class="va">$GENERATION_STATUS</span><span class="st">&quot;</span> <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/qwen38-tq-diagnostic-new.exit-code.txt&quot;</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">exit</span> <span class="st">&quot;</span><span class="va">$GENERATION_STATUS</span><span class="st">&quot;</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code></pre></div>
+<p>Restore the saved wired limit immediately after the process exits,
+including on failure, if you changed it. Inspect the final answer and
+status; a nonempty log or exit zero alone is insufficient. There is
+<strong>no</strong> <code>test_model.sh</code> endpoint for this
+command. No automatic retry should turn a killed cold load into an
+apparently successful warm benchmark.</p>
+<h2 id="make-the-winner-earn-a-coding-workload">6. Make the winner earn
+a coding workload</h2>
+<p>The original aim remains coding and agentic work. The recorded tests
+establish a necessary first step, not the destination. Before allowing a
+model to change files, use new JSON records, changed labels, ambiguous
+inputs, distractors and cases that should trigger a request for
+clarification. A model that has passed two fixed questions has not
+demonstrated general tool selection.</p>
+<p>For the selected Bonsai deployment, an optional
+<strong>tool-format-only</strong> test is available:</p>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/compat_lab.py&quot;</span> <span class="dt">\</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--base-url</span> http://127.0.0.1:8081/v1 <span class="at">--timeout</span> 300 smoke <span class="dt">\</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/bonsai-ternary&quot;</span> <span class="at">--repeats</span> 3 <span class="at">--with-tools</span> <span class="dt">\</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/logs/bonsai-ternary-tool-format-new.jsonl&quot;</span></span></code></pre></div>
+<p>This asks for a <code>lookup_order</code> call and validates its
+structure; <strong>it never executes it</strong>. The historical archive
+contains no result for this extension. A passing JSON test does not
+authorize a tool, and a tool-shaped answer does not authorize
+deployment.</p>
+<p>The bundled coding fixture supplies a deliberately faulty
+<code>clamp</code> function, a task and external tests. Copy it to a
+disposable directory, request a proposal and inspect it before applying
+anything:</p>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">&quot;</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> outputs/coding-lab</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> fixtures/coding/<span class="pp">*</span> outputs/coding-lab/</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tools/bin/python&quot;</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/tools/compat_lab.py&quot;</span> <span class="dt">\</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--base-url</span> http://127.0.0.1:8081/v1 <span class="at">--timeout</span> 300 chat <span class="dt">\</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/models/bonsai-ternary&quot;</span> <span class="at">--input</span> fixtures/coding/prompt.txt <span class="dt">\</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-tokens</span> 900 <span class="at">--out</span> outputs/coding-proposal.md</span></code></pre></div>
+<p>After reviewing and manually applying the intended change, run the
+tests outside the model:</p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/outputs/coding-lab&quot;</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> unittest <span class="at">-v</span></span></code></pre></div>
+<p>Do not let it rewrite the acceptance tests. Permit one additional
+repair with the actual failure output, then stop. For a fair comparison,
+repeat from a fresh disposable copy under IQ2_S and use its port
+<strong>8083</strong> and alias
+<strong><code>qwen38-iq2s</code></strong>. Count completed, accepted
+tasks and total elapsed time. Preserve diffs, test output and
+failures.</p>
+<p>When an agent harness is introduced, keep its tools narrowly scoped,
+secrets outside the worktree and a finite retry budget. A green test is
+evidence; it is not a substitute for review or an operating-system
+sandbox. This follows the supplied
+<strong>standalone-before-Kowalski</strong> principle without claiming
+that this package has integrated or validated Kowalski. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Original
+acceptance framing</a></p>
+<p>To verify offline use, finish downloads and warm required assets,
+stop the application, disconnect Wi-Fi and Ethernet, restart and repeat
+the selected tests. The supplied launchers set offline flags where
+appropriate. This demonstrates disconnected operation of that workflow;
+it is not an audit of all network behavior after reconnection.</p>
+<h2 id="the-selection-keep-one-default-not-every-interesting-model">7.
+The selection: keep one default, not every interesting model</h2>
+<p>There is no honest way to turn two repeated short tasks into a
+definitive ranking of coding intelligence. There is, however, enough
+evidence to make a useful deployment decision.</p>
+<p><strong>For my 16 GB default, I would keep packed ternary Bonsai on
+MLX-LM.</strong> It passed all <strong>12 recorded checks</strong>,
+returned the JSON task in a median <strong>3.48 seconds</strong>, and
+supplied a separate coherent CLI sample at <strong>16.208
+tokens/s</strong> with <strong>6.232 GB</strong> reported peak memory.
+That combination gives it the strongest case here when preserving room
+for the rest of the Mac is the priority. Its trade-off is the custom
+loader: the code must be trusted, the working environment should be
+preserved, and a generic GUI cannot be assumed compatible. This is a
+chosen operating point, not proof of broad superiority. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Bonsai
+observations</a> · <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e9-cli">CLI
+evidence</a></p>
+<p><strong>For the Qwen comparison, I would keep Qwen3.8 IQ2_S on
+llama.cpp.</strong> It passed <strong>6/6</strong>, used a smaller
+artifact than the other tested Qwen GGUF choices, and returned recall in
+a median <strong>1.20 seconds</strong>. Q2_K_XL and IQ3_XXS also passed,
+but this dataset demonstrates no additional task-quality benefit from
+their extra storage. A harder coding suite could reverse that decision;
+the present one does not justify spending more memory automatically. Its
+whole-system peak remains unmeasured. <a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Qwen
+GGUF observations</a></p>
+<p>Binary Bonsai remains a useful smallest-footprint reference, but its
+strict-format miss prevents treating it as already interchangeable with
+the selected structured-output path. Streaming Qwen3.6 and standalone
+3-bit Qwen3.8 MLX are worthwhile next-stage candidates; neither has
+demonstrated enough added task value here to displace the default.
+Resident Qwen3.6 needs its successful performance records before
+comparison. The 2-bit ordinary-MLX configurations need diagnosis, not
+another agent integration. oMLX’s 3-bit run needs matched
+thinking/template settings before the server is judged. Native Ollama
+still needs complete recorded responses. The TurboQuant mini diagnostic
+proves one generation, not an attractive daily operating point.</p>
+<p>I would store the two selected checkpoints on disk but <strong>run
+only one at a time</strong>. Before declaring the default comfortable, I
+would test it with the actual editor and compiler open, record memory
+pressure and swap, and expand context gradually. No chart in this
+article substitutes for those absent measurements.</p>
+<p><strong>The best model on a 16 GB Mac is not the largest one that
+starts. It is the smallest dependable configuration that finishes the
+work you actually need—and leaves enough computer behind to verify
+it.</strong></p>
+<hr />
+<h3 id="reproducibility-and-publication-notes">Reproducibility and
+publication notes</h3>
+<p>All numerical comparisons derive from the supplied <strong>5–6
+October 2026 <code>logs.zip</code></strong>, reprocessed in Python. The
+article includes all eight original performance plots and the normalized
+data, provenance and analysis scripts. No new model inference was run
+while preparing this consolidated edition. Recorded measurements,
+user-reported functionality, proposed procedures and missing evidence
+are distinguished throughout.</p>
+<p>The <strong>single companion package</strong> contains this Markdown
+article, a self-contained HTML reading edition with embedded images, the
+PNG/SVG originals, runnable code and fixtures. It does not bundle model
+weights, private keys or the original raw log archive. Normalized
+response records replace local home-directory names with
+<code>$HOME</code>; inspect new data before publishing it. The article’s
+local evidence links work after extraction. When publishing on Medium,
+insert the supplied PNG files at the existing image positions; Markdown
+text alone does not upload image assets.</p>
+<p>To regenerate the numerical tables and figures from the original
+archive, use a separate analysis environment—not a model
+environment:</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venvs/analysis</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="ex">.venvs/analysis/bin/python</span> <span class="at">-m</span> pip install <span class="at">-r</span> analysis/requirements.txt</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="ex">.venvs/analysis/bin/python</span> analysis/analyze_logs.py /path/to/logs.zip <span class="at">--out</span> analysis</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="ex">.venvs/analysis/bin/python</span> analysis/plot_results.py <span class="at">--data</span> analysis <span class="at">--out</span> figures</span></code></pre></div>
+<p>Replace <code>/path/to/logs.zip</code> with the real path. Changed
+data require editorial review of the conclusions; rerunning plotting
+code does not make an old recommendation true of a new experiment.</p>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../jev-and-the-return-of-the-classifier/">Jev and the Return of the Classifier</a><a href="../bigger-models-smaller-macs/">Bigger Models, Smaller Macs</a><a href="../local-llm-inference-on-apple-silicon/">Local LLM Inference on Apple Silicon</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

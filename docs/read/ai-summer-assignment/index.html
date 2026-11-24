@@ -1,0 +1,426 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Disciplined AI workflows for writing and publishing a historical fantasy saga."><title>My Summer Assignment: Use AI Beyond Software Development · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/ai-summer-assignment/"><meta property="og:title" content="My Summer Assignment: Use AI Beyond Software Development"><meta property="og:description" content="Disciplined AI workflows for writing and publishing a historical fantasy saga."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">AI beyond coding</p><h1>My Summer Assignment: Use AI Beyond Software Development</h1><p class="meta">Enrico Papalini · 2026-08-27 · 11 min read</p><p class="lede">Disciplined AI workflows for writing and publishing a historical fantasy saga.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/article/Medium_Article_AI_Summer_Assignment_Enrico_Papalini.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
+id="i-spend-most-of-my-time-exploring-how-ai-changes-software-engineering.-this-summer-i-gave-myself-a-different-assignment-use-the-same-discipline-to-design-write-translate-validate-and-publish-a-seven-book-historical-fantasy-saga.">I
+spend most of my time exploring how AI changes software engineering.
+This summer I gave myself a different assignment: use the same
+discipline to design, write, translate, validate, and publish a
+seven-book historical fantasy saga.</h2>
+<p>For the last two years, most of my serious experiments with
+generative AI have begun in a software repository.</p>
+<p>There is usually a specification, a codebase, a set of tests, a build
+pipeline, and some form of external evidence. The model proposes a
+change. The surrounding engineering system decides whether that change
+deserves to survive.</p>
+<p>This summer I wanted to remove the familiar environment.</p>
+<p>I gave myself a simple assignment:</p>
+<blockquote>
+<p><strong>Use AI to build something complete in a domain far from
+software development, then carry it all the way to
+publication.</strong></p>
+</blockquote>
+<p>The chosen domain was historical fiction.</p>
+<p>The result was <em>The Nine Oaths</em>, a seven-book saga inspired by
+the world of the <em>Orkneyinga Saga</em>. The complete path covered
+series architecture, character development, seven Italian novels,
+English translation, editorial review, continuity repair, typesetting,
+covers, metadata, EPUBs, and KDP publication.</p>
+<p>The elapsed time was ten days.</p>
+<p>That number attracts attention. The process behind it is more
+useful.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/images/article_covers_cycle_1_2.jpg"
+alt="The first six English covers of The Nine Oaths saga." />
+<figcaption aria-hidden="true">The first six English covers of <em>The
+Nine Oaths</em> saga.</figcaption>
+</figure>
+<p><em>Cycle I and Cycle II of</em> The Nine Oaths. <em>The visual
+identity also became part of the publication workflow: final interiors,
+page counts, KDP covers, and metadata all had to converge.</em></p>
+<h2 id="why-leave-software-development">Why leave software
+development?</h2>
+<p>Software engineering gives AI a generous environment.</p>
+<p>A compiler can reject invalid syntax. Tests can reveal regressions.
+Static analysis can identify defects. A version-control system records
+the change. A deployment pipeline creates explicit gates.</p>
+<p>Fiction offers weaker signals.</p>
+<p>A chapter can be grammatically correct and still damage the novel. A
+character can speak convincingly while revealing information they have
+never received. An object can move from one room to another without an
+action. Two versions of the same scene can survive because each reads
+well in isolation. A final volume can answer the plot and betray the
+theme.</p>
+<p>The absence of executable tests made the experiment interesting.</p>
+<p>I wanted to understand whether the engineering principles I use
+around AI could survive in a domain where quality depends on continuity,
+voice, structure, memory, interpretation, and editorial judgment.</p>
+<p>The answer was yes, provided that those principles were translated
+into the new domain.</p>
+<h2 id="the-assignment">The assignment</h2>
+<p>I imposed a complete outcome rather than an open-ended creative
+exercise.</p>
+<p>The project had to produce:</p>
+<ul>
+<li>a coherent seven-book architecture;</li>
+<li>a character and relationship bible;</li>
+<li>a historical frame;</li>
+<li>a finished source-language saga;</li>
+<li>an English edition;</li>
+<li>chapter-level review evidence;</li>
+<li>corrected source masters;</li>
+<li>reader PDFs;</li>
+<li>KDP print interiors;</li>
+<li>covers based on final page counts;</li>
+<li>metadata;</li>
+<li>EPUBs;</li>
+<li>a reproducible guide explaining the workflow.</li>
+</ul>
+<p>The project also needed a stopping point.</p>
+<p>Without one, generative AI can keep producing alternatives forever.
+Another chapter can always be expanded. Another character can always be
+deepened. Another version can always sound slightly better.</p>
+<p>Publication became the terminal condition.</p>
+<h2 id="the-historical-matrix">The historical matrix</h2>
+<p>The original reference was Joseph Anderson’s 1873 edition of <em>The
+Orkneyinga Saga</em>, translated by Jón A. Hjaltalin and Gilbert
+Goudie.</p>
+<p>It supplied more than names and locations.</p>
+<p>It provided Orkney and Caithness, the earldom, assemblies, kinship,
+reputation, martyrdom, ecclesiastical memory, political succession, and
+the relationship between deeds and the stories later told about
+them.</p>
+<p>It also provided a deeper theme.</p>
+<p>The medieval saga reaches us through manuscripts, excerpts,
+incorporation into other works, later compilations, historical
+interpretation, and editorial reconstruction. A topographical detail may
+be strong while a date remains uncertain. A genealogy may preserve
+memory and serve a political claim at the same time.</p>
+<p>That textual history became part of the fictional architecture.</p>
+<p>The novels gradually move from a child asking what happened to adults
+asking who should control the records from which other people make
+decisions.</p>
+<p>The historical source became a matrix, while the fictional canon
+determined what happened inside the novels.</p>
+<p>Leif remained a fictional character with structural echoes of Magnus.
+Sigurd remained distinct from Hákon. The House of Tides, the Custodians,
+the Nine Marks, and the Echoes belonged to the invented world.</p>
+<p>This separation protected both history and fiction.</p>
+<h2 id="the-real-architecture-of-the-work">The real architecture of the
+work</h2>
+<p>The decisive capability came from the workbench around the model.</p>
+<p>GPT-5.6 Sol acted as the principal reasoning and orchestration layer.
+ChatGPT Library held the evolving artifacts. Retrieval brought the
+relevant files back into context. The development environment ran
+deterministic scripts. A different LLM reviewed the writer model’s
+output. I decided which changes became canonical.</p>
+<p>The division of responsibility was clear:</p>
+<pre class="text"><code>The model reasons.
+The tools execute.
+The Library preserves state.
+The author decides.</code></pre>
+<p>This changed the nature of the project.</p>
+<p>The saga did not live inside one long conversation. It lived in
+files:</p>
+<ul>
+<li>canonical TOCs;</li>
+<li>character bibles;</li>
+<li>separate chapter units;</li>
+<li>concatenated masters;</li>
+<li>revision reports;</li>
+<li>translation source locks;</li>
+<li>decision logs;</li>
+<li>correction registers;</li>
+<li>QA reports;</li>
+<li>scripts;</li>
+<li>manifests;</li>
+<li>PDFs;</li>
+<li>cover assets;</li>
+<li>EPUBs.</li>
+</ul>
+<p>A new session could recover the current state by retrieving the
+relevant artifacts.</p>
+<p>The active context remained small enough to reason over
+carefully:</p>
+<pre class="text"><code>current chapter
++ relevant canon
++ previous state
++ character voice rules
++ correction history</code></pre>
+<p>This is the same principle used in reliable AI software workflows.
+State belongs outside the model’s temporary context.</p>
+<h2 id="one-writer-one-reviewer-one-authority">One writer, one reviewer,
+one authority</h2>
+<p>The principal LLM acted as the writer.</p>
+<p>A different LLM acted as the reviewer.</p>
+<p>Both worked from the same stored evidence.</p>
+<p>The reviewer could compare a chapter against the canonical TOC,
+character bible, previous chapter, current knowledge state, and
+requested revision objective. It did not need to trust the writer’s
+summary.</p>
+<p>The author remained the final authority.</p>
+<p>This created a simple loop:</p>
+<pre class="text"><code>write
+→ review
+→ accept or reject findings
+→ revise
+→ validate
+→ promote</code></pre>
+<p>The separation reduced self-confirmation. The writer generated a
+plausible scene. The reviewer tried to break it.</p>
+<p>The reviewer looked for concrete failures:</p>
+<ul>
+<li>repeated scene variants;</li>
+<li>displaced chronology;</li>
+<li>impossible character presence;</li>
+<li>object-custody errors;</li>
+<li>knowledge appearing too early;</li>
+<li>weakened or strengthened certainty;</li>
+<li>voice drift;</li>
+<li>obsolete planning residue.</li>
+</ul>
+<p>Creative disagreement remained possible. The canon and the author
+resolved it.</p>
+<h2 id="different-books-needed-different-revision-passes">Different
+books needed different revision passes</h2>
+<p>A seven-book series does not benefit from one universal editing
+ladder.</p>
+<p>The first book went through a second draft, two clean-draft passes,
+prose revision, structural balance, mount cleanup, and pageflow.</p>
+<p>The second book required a clean/balance pass and a stronger final
+editorial pass because alternative versions of important scenes remained
+in the manuscript.</p>
+<p>Later books followed shorter paths. Some needed expansion, some
+needed final polish, and one needed a second pageflow pass to repair
+continuity and prepare the final cycle.</p>
+<p>The pass name expressed the problem being solved.</p>
+<p>This prevented the workflow from turning into a ritual where every
+book received the same treatment regardless of need.</p>
+<p>The general rule was simple:</p>
+<blockquote>
+<p><strong>Name the defect. Run the pass that addresses it. Keep closed
+dimensions closed.</strong></p>
+</blockquote>
+<h2 id="translation-became-the-strongest-editorial-audit">Translation
+became the strongest editorial audit</h2>
+<p>I expected translation to be a production phase.</p>
+<p>It became one of the most valuable editorial phases.</p>
+<p>Every chapter was processed individually through translation,
+naturalisation, voice revision, source-to-target fidelity review, and a
+monolingual English read.</p>
+<p>That close comparison exposed source-language defects that had
+survived previous revisions.</p>
+<p>Across Books II to VII, the correction registers contain 64 numbered
+confirmed Italian-source corrections. Book I had additional repairs
+recorded through its own decision and correction process.</p>
+<p>The issues included:</p>
+<ul>
+<li>duplicated rescues and funerals;</li>
+<li>departures narrated twice;</li>
+<li>a sealed packet opened twice;</li>
+<li>a character acting while absent;</li>
+<li>an object moving between a bag and a pocket without an action;</li>
+<li>a chest described as empty while contents remained;</li>
+<li>a lesson analyzed before it occurred;</li>
+<li>certainty about Astrid appearing one chapter too early;</li>
+<li>shipments narrated out of order;</li>
+<li>two versions of the same death surviving in one chapter.</li>
+</ul>
+<p>These were source defects discovered through translation.</p>
+<p>The original source locks remained unchanged. Each confirmed problem
+entered a correction register. At the end of the volume, approved
+corrections were written into coordinated Italian units and rebuilt
+masters.</p>
+<p>The sequence was:</p>
+<pre class="text"><code>locked source
+→ translation
+→ source/target comparison
+→ correction register
+→ controlled writeback
+→ corrected source edition</code></pre>
+<p>The English edition improved the Italian edition.</p>
+<p>That may be the most surprising result of the entire assignment.</p>
+<h2 id="fiction-still-benefits-from-deterministic-tools">Fiction still
+benefits from deterministic tools</h2>
+<p>Creative work contains many semantic judgments. Production also
+contains exact questions.</p>
+<p>Scripts handled:</p>
+<ul>
+<li>chapter counts;</li>
+<li>concatenation order;</li>
+<li>duplicate-block scans;</li>
+<li>source reconstruction;</li>
+<li>SHA-256 hashes;</li>
+<li>bilingual heading alignment;</li>
+<li>ZIP contents;</li>
+<li>PDF page sizes;</li>
+<li>embedded fonts;</li>
+<li>hidden attachments;</li>
+<li>KDP preflight;</li>
+<li>spine widths;</li>
+<li>full-cover geometry.</li>
+</ul>
+<p>This exposed another useful principle.</p>
+<p>A language model can judge whether two scenes feel like variants of
+the same event. A script can determine whether two paragraphs are
+identical. A model can evaluate whether a title fits the book. A script
+can check whether that title matches the canon, metadata, interior,
+cover, and KDP listing.</p>
+<p>Creative systems still need exactness.</p>
+<h2 id="the-ten-day-timeline-matters">The ten-day timeline matters</h2>
+<p>One of my favourite images from the complete guide is the dated
+chronology, because it makes the whole experiment tangible. It turns an
+abstract claim about “ten days” into a visible execution trace.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/images/article_timeline_15_25_aug.jpg"
+alt="The 15-25 August execution chronology from the companion guide." />
+<figcaption aria-hidden="true">The 15-25 August execution chronology
+from the companion guide.</figcaption>
+</figure>
+<p><em>The chronology from 15 to 25 August. Once the project state was
+externalized, each stage could start as soon as its dependencies were
+stable.</em></p>
+<p>The timeline also explains why the result looks improbable at first
+glance. The speed did not come from asking one model to improvise seven
+books in a single stream. It came from overlapping compatible stages,
+preserving state in files, and keeping the review and production loops
+short.</p>
+<h2 id="publication-revealed-defects-that-reading-could-not">Publication
+revealed defects that reading could not</h2>
+<p>The KDP phase produced its own failures.</p>
+<p>Several PDFs looked correct and still contained structural elements
+that required a rebuild, including content-credential attachments and
+problematic embedded font objects.</p>
+<p>A title discrepancy also survived across production artifacts: one
+asset used <em>The Martyr of the Isles</em> while the canon and reader
+edition used <em>The Martyr of the Islands</em>.</p>
+<p>These failures were valuable because they occurred after the writing
+was complete.</p>
+<p>They showed that publication has its own definition of
+correctness.</p>
+<p>A valid novel, translation, PDF, and KDP package each represent a
+different state. Each needs its own acceptance evidence.</p>
+<h2 id="what-this-experiment-changed-for-me">What this experiment
+changed for me</h2>
+<p>The assignment began as a way to use AI outside software
+development.</p>
+<p>It ended by reinforcing several ideas from software engineering.</p>
+<h3 id="external-state-is-the-real-memory">External state is the real
+memory</h3>
+<p>The model’s context is temporary. Canon, decisions, corrections, and
+current masters need persistent storage.</p>
+<h3 id="verification-must-fit-the-domain">Verification must fit the
+domain</h3>
+<p>A compiler helps with code. Fiction needs continuity review,
+knowledge tracking, voice checks, and source comparison. Publishing
+needs PDF preflight and geometry.</p>
+<h3 id="independent-review-changes-the-quality-of-the-loop">Independent
+review changes the quality of the loop</h3>
+<p>A writer and reviewer working from the same evidence create a
+stronger process than self-approval.</p>
+<h3 id="translation-can-serve-as-transformation-testing">Translation can
+serve as transformation testing</h3>
+<p>A disciplined change of representation reveals hidden
+inconsistencies. Software engineers already know this pattern from
+compilers, migrations, serialization, and cross-platform builds.
+Literary translation gave it a different form.</p>
+<h3 id="ai-generality-depends-on-workflow-design">AI generality depends
+on workflow design</h3>
+<p>The model can move across domains. Reliable work still depends on
+state, tools, review, gates, and human authority.</p>
+<h2 id="the-summer-assignment-i-would-give-others">The summer assignment
+I would give others</h2>
+<p>Choose a domain outside your professional default.</p>
+<p>Create something complete enough to encounter the final mile.</p>
+<p>A useful assignment has five properties:</p>
+<ol type="1">
+<li><strong>A real artifact.</strong> Produce a book, course, research
+dossier, exhibition, documentary, board game, music project, or another
+finished work.</li>
+<li><strong>A bounded outcome.</strong> Define what completion means
+before generation begins.</li>
+<li><strong>Persistent state.</strong> Keep the evolving truth of the
+project in files.</li>
+<li><strong>Independent review.</strong> Give another model, another
+person, or both the authority to challenge the output.</li>
+<li><strong>A release gate.</strong> Publish, print, present, submit, or
+deliver the result.</li>
+</ol>
+<p>The point is to test AI where your normal tools and habits provide
+less protection.</p>
+<p>You learn more about a system when you remove its familiar
+environment.</p>
+<h2 id="why-i-am-releasing-the-complete-guide">Why I am releasing the
+complete guide</h2>
+<p>I decided to make the full 72-page guide freely downloadable, without
+registration.</p>
+<p>The article presents the experiment. The guide contains the operating
+detail:</p>
+<ul>
+<li>the full workflow;</li>
+<li>the role of the historical source;</li>
+<li>the writer and reviewer structure;</li>
+<li>the translation protocol;</li>
+<li>correction-register logic;</li>
+<li>deterministic checks;</li>
+<li>KDP production steps;</li>
+<li>reusable prompts;</li>
+<li>TikZ architecture diagrams;</li>
+<li>the ten-day chronology;</li>
+<li>adoption checklists.</li>
+</ul>
+<p>A reproducibility claim deserves evidence.</p>
+<p>The guide also works better as a free companion than as a compressed
+appendix inside the article. Readers who want the story can stop here.
+Readers who want to reproduce the method can inspect the complete
+process.</p>
+<blockquote>
+<p><strong><a
+href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/guide/Building_Successful_Book_Series_with_AI.pdf">Download
+the complete 72-page PDF guide</a></strong></p>
+</blockquote>
+<p>The link should point to a stable public file. I would use a direct,
+ungated download from a personal site, GitHub release, or public cloud
+folder.</p>
+<h2 id="if-you-want-to-read-the-saga">If you want to read the saga</h2>
+<p>For readers who are curious about the actual books, the saga is
+already live on Amazon:</p>
+<blockquote>
+<p><strong><a href="https://www.amazon.com/dp/B0HGGTW2LQ">The Nine Oaths
+on Amazon.com</a></strong></p>
+</blockquote>
+<p>And since every long project deserves a final image, here is the
+cover of Book VII, <em>The Last Oath</em>.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/images/article_cover_the_last_oath.jpg"
+alt="Cover of The Last Oath, Book VII of The Nine Oaths." />
+<figcaption aria-hidden="true">Cover of <em>The Last Oath</em>, Book VII
+of <em>The Nine Oaths</em>.</figcaption>
+</figure>
+<p><em>Book VII closes the publication arc and makes the summer
+assignment feel satisfyingly concrete: the books exist, the editions
+exist, and the workflow now has a real published endpoint.</em></p>
+<h2 id="final-perspective">Final perspective</h2>
+<p>The seven books are the visible result.</p>
+<p>The deeper result is a controlled creative system.</p>
+<p>Historical research anchored the world. Canon carried the evolving
+truth of the fiction. Separate units made revision possible. A reviewer
+challenged the writer. Translation reread the source. Correction
+registers preserved provenance. Scripts handled exact checks. Library
+preserved state. KDP publication supplied the terminal condition.</p>
+<p>The assignment changed the domain while preserving the engineering
+discipline.</p>
+<p>That is the practical opportunity I see in generative AI.</p>
+<p>We can use it to accelerate the work we already know.</p>
+<p>We can also use it to enter a different field, build the missing
+controls, and learn which parts of our professional discipline were
+truly general.</p>
+<p>My summer assignment produced seven novels.</p>
+<p>The more durable outcome was a new way to think about AI-assisted
+work:</p>
+<blockquote>
+<p><strong>Externalize the state. Work in units. Review independently.
+Verify with evidence. Let the human decide what becomes
+final.</strong></p>
+</blockquote>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

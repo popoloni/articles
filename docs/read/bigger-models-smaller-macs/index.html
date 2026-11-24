@@ -1,0 +1,841 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Useful local coding systems, quantisation and reusable context."><title>Bigger Models, Smaller Macs · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/bigger-models-smaller-macs/"><meta property="og:title" content="Bigger Models, Smaller Macs"><meta property="og:description" content="Useful local coding systems, quantisation and reusable context."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Bigger Models, Smaller Macs</h1><p class="meta">Enrico Papalini · 2026-09-29 · 23 min read</p><p class="lede">Useful local coding systems, quantisation and reusable context.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
+id="a-practical-guide-to-local-coding-agentsfrom-the-m4-and-m6-mac-mini-to-a-512-gb-mac-studio">A
+practical guide to local coding agents—from the M4 and M6 Mac mini to a
+512 GB Mac Studio</h2>
+<p><em>Enrico Papalini · 28 September 2026</em></p>
+<p>The interesting question is no longer whether a small computer can
+make a large language model produce a sentence. It is whether that
+computer can complete a useful development loop: inspect a repository,
+propose a change, edit a file, run a test, understand the failure, and
+stop when the job is done.</p>
+<p>Those are different achievements. A model that barely loads may leave
+no room for the compiler. An impressive generation benchmark may hide a
+minute of prompt processing before every tool call. A dramatically
+compressed checkpoint may answer ordinary questions but become
+unreliable when asked to reason or emit structured arguments.</p>
+<p>My goal here is therefore not the largest parameter count on a
+screenshot. It is <strong>the largest useful model inside a reliable
+local coding system</strong>. We will move from memory budgeting to
+quantization, expert offloading, reusable context and, finally, a
+working local-server-and-agent setup.</p>
+<p><strong>Evidence snapshot.</strong> Hardware specifications and
+implementation details were checked on 28 September 2026. The
+integrated-server examples target <strong>oMLX v0.7.0rc1</strong>, a
+release candidate. Published measurements below belong to their cited
+projects; this article does not present new Mac benchmarks. Capacity
+estimates and proposed settings are explicitly engineering starting
+points, not tested performance guarantees. <a
+href="https://github.com/jundot/omlx/releases/tag/v0.7.0rc1">[14]</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/01-system.png"
+alt="A local coding system has three separate jobs: fit the model, retain useful context, and verify the work. Author’s schematic." />
+<figcaption aria-hidden="true">A local coding system has three separate
+jobs: fit the model, retain useful context, and verify the work.
+Author’s schematic.</figcaption>
+</figure>
+<h2 id="start-with-the-memory-not-the-chip-name">Start with the memory,
+not the chip name</h2>
+<p>Apple Silicon’s shared CPU/GPU memory is particularly useful for
+local inference. MLX is designed around that unified-memory model,
+avoiding the assumption that every array must be copied between separate
+system RAM and discrete GPU memory. This does <strong>not</strong> make
+all installed memory available exclusively to an LLM: the operating
+system, editor, browser and development tools still need their share. <a
+href="https://github.com/ml-explore/mlx">[6]</a></p>
+<p>The <strong>M4 Mac mini</strong> offers 16, 24 or 32 GB of unified
+memory and 120 GB/s of memory bandwidth. Its M4 Pro sibling reaches 64
+GB and 273 GB/s. The <strong>M6 Mac mini</strong> also tops out at 32
+GB: its 16 GB configurations have 153 GB/s bandwidth, while 24/32 GB
+configurations have 170 GB/s. In the current lineup, the larger-memory
+mini is the <strong>M5 Pro</strong>, not an “M6 Pro”: it reaches 64 GB
+and 307 GB/s. <a href="https://support.apple.com/en-us/121555">[1]</a>
+<a href="https://www.apple.com/mac-mini/specs/">[2]</a></p>
+<p>For this workload, a generation number is not a capacity measurement.
+An M6 mini with 16 GB has less room for weights and context than an
+older M4 Pro with 64 GB. More bandwidth may improve an eligible
+workload, but it cannot store a model that exceeds physical memory
+without some other intervention.</p>
+<p>The <strong>Mac Studio</strong> changes the available capacity much
+more substantially. Apple’s current M5 Max configurations reach 128 GB,
+with 460 or 614 GB/s bandwidth depending on the chip configuration. M5
+Ultra configurations offer 96, 256 or 512 GB and 1.2 TB/s bandwidth. The
+crucial availability footnote: Apple says the <strong>512 GB M5 Ultra
+configuration arrives in late October 2026</strong>, so it is announced
+rather than generally shipping at this article’s cutoff. The earlier M3
+Ultra Studio also supported up to 512 GB. <a
+href="https://www.apple.com/mac-studio/specs/">[3]</a> <a
+href="https://www.apple.com/ie/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/">[4]</a>
+<a
+href="https://www.apple.com/newsroom/2025/03/apple-unveils-new-mac-studio-the-most-powerful-mac-ever/">[5]</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/02-hardware.png"
+alt="Memory ceilings and published bandwidth: the M6 mini improves bandwidth but does not raise the base mini’s 32 GB capacity ceiling. The 512 GB M5 Ultra is announced for late October 2026. Sources: Apple specifications." />
+<figcaption aria-hidden="true">Memory ceilings and published bandwidth:
+the M6 mini improves bandwidth but does not raise the base mini’s 32 GB
+capacity ceiling. The 512 GB M5 Ultra is announced for late October
+2026. Sources: Apple specifications.</figcaption>
+</figure>
+<h3 id="a-useful-starting-point-for-each-size">A useful starting point
+for each size</h3>
+<p>The following are my workload-sizing recommendations, not model-fit
+certifications.</p>
+<p><strong>A 16 GB mini:</strong> begin with a 4–9B-class quantized
+model, one active request and an 8K context ceiling. Preserve enough
+room to run the repository’s tests. A 27B ternary checkpoint can be an
+experiment here, but its attractive weight size is not permission to
+allocate a huge context.</p>
+<p><strong>A 24–32 GB mini:</strong> try a compact 27B ternary model or
+a roughly 30–35B MoE at ordinary low-bit precision. Prefer full
+residency when it leaves development headroom; use modest expert
+offloading when it does not. Treat 16K context as a subsequent test, not
+the initial default.</p>
+<p><strong>A 48–64 GB Pro mini or Studio:</strong> larger dense models
+become plausible, but a 70B-class model at four bits already represents
+about 35 GB of idealized weight payload before overhead. A smaller,
+faster model with more working room may still complete coding tasks
+sooner.</p>
+<p><strong>A 96–128 GB Studio:</strong> evaluate resident 70B/120B-class
+candidates or a much larger supported MoE with partial expert residency.
+Do not simultaneously pin every attractive model. A compiler, a long
+prompt and a second agent can turn a comfortable idle memory reading
+into a failed request.</p>
+<p><strong>A 256–512 GB Ultra Studio:</strong> first ask whether
+ordinary four-bit weights can stay resident. For example, the published
+MLX Qwen3.5-397B-A17B-4bit package is about <strong>224 GB</strong>.
+That is a natural candidate for a 512 GB machine, but an uncomfortably
+tight starting point for 256 GB once the rest of the workload is
+considered. Compatibility and runtime memory still need measurement. <a
+href="https://huggingface.co/mlx-community/Qwen3.5-397B-A17B-4bit">[22]</a></p>
+<p>On a high-memory Studio, the best optimization may be to avoid
+unnecessary offloading and preserve more precision. Large RAM is
+valuable partly because it reduces the number of compromises
+required—not because it removes the need to measure them.</p>
+<h2 id="the-budgets-behind-one-model-download">The budgets behind one
+model download</h2>
+<p>A useful first approximation is:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-01.png"
+alt="Total working memory: resident weights plus active context, workspace, hot cache, and operating system/tools." />
+<figcaption aria-hidden="true">Total working memory: resident weights
+plus active context, workspace, hot cache, and operating
+system/tools.</figcaption>
+</figure>
+<p>Here weights means resident weights; the other terms cover active
+context, temporary workspace, reusable RAM cache, and the operating
+system plus development tools. This is an accounting model, not an
+instruction to sum overlapping counters from Activity Monitor. Shared
+allocations and file-backed pages can appear in several reports. The
+practical objective is headroom at the <strong>peak of a real
+request</strong>, especially during prompt processing.</p>
+<p>For weights alone, the familiar estimate is:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-02.png"
+alt="Approximate weight storage in decimal GB: billions of parameters times bits per weight, divided by eight." />
+<figcaption aria-hidden="true">Approximate weight storage in decimal GB:
+billions of parameters times bits per weight, divided by
+eight.</figcaption>
+</figure>
+<p>Thus 8B at four bits is roughly 4 GB, 70B is 35 GB, and 397B is 198.5
+GB. These are decimal gigabytes of idealized payload. Real packages also
+carry scales, metadata and tensors stored at different precisions.
+Compare the equation with the actual 224 GB checkpoint above rather than
+treating either number as a complete process-memory measurement. One
+GiB, meanwhile, is 1,073,741,824 bytes; do not silently mix GB and
+GiB.</p>
+<p>A mixture-of-experts model introduces another distinction:
+<strong>active parameters govern only part of its per-token computation;
+total parameters still matter for weight storage</strong>. A “35B-A3B”
+name does not mean that the entire model occupies the space of a 3B
+model. Offloading is the separate mechanism that can avoid keeping all
+its experts resident. <a
+href="https://huggingface.co/mlx-community/Qwen3.5-35B-A3B-4bit">[21]</a>
+<a href="https://github.com/JustVugg/colibri">[12]</a></p>
+<h2 id="technique-one-use-fewer-bits-without-losing-the-job">Technique
+one: use fewer bits without losing the job</h2>
+<p>Ordinary weight quantization replaces high-precision values with
+compact codes plus reconstruction information. It is the least
+disruptive place to begin: obtain a checkpoint already converted for the
+chosen runtime, rather than downloading full precision and hoping an
+arbitrary conversion command will preserve quality. MLX-LM and llama.cpp
+both provide quantization workflows, but their file formats and
+supported kernels are not interchangeable. <a
+href="https://github.com/ml-explore/mlx-lm">[34]</a> <a
+href="https://github.com/ggml-org/llama.cpp">[26]</a></p>
+<p>There is no universal “four bits good, two bits bad” rule. The LLaMA3
+quantization study linked in the references makes that concrete. For
+LLaMA3-8B, Table 1 reports WikiText-2 perplexity of <strong>6.1</strong>
+in the original model, <strong>6.5</strong> for grouped four-bit GPTQ,
+<strong>210</strong> for two-bit GPTQ, and <strong>13.6</strong> for
+two-bit DB-LLM. The quantized examples retain 16-bit activations and use
+groups of 128 weights. Lower is better. The lesson is method
+sensitivity, not a verdict on every later model. <a
+href="https://arxiv.org/abs/2404.14047">[7]</a></p>
+<p>For coding, I would compare checkpoints on the same small set of real
+tasks before choosing the most compressed one. Can it preserve a public
+interface? Does it emit valid tool arguments? Can it repair its first
+failed patch? Does it terminate? A slightly larger representation that
+passes these tests can be cheaper in both time and retries.</p>
+<h3 id="ternary-is-a-representation-not-a-universal-switch">Ternary is a
+representation, not a universal switch</h3>
+<p>Ternary weights use three levels, commonly expressed as scaled
+versions of −1, 0 and +1. The theoretical information content is about
+1.585 bits per ternary value, but practical storage includes scales and
+packing overhead.</p>
+<p><strong>PrismML’s Ternary Bonsai 2 27B</strong> is a concrete
+deployable example. Its MLX package is <strong>8.60 GB</strong>,
+including a vision tower; its language weights occupy about <strong>2.25
+bits per weight in the MLX container</strong>. Matching Hadamard/sign
+transformations are required at inference. It is a dense
+hybrid-attention model, not an MoE whose experts can be streamed.
+Ternary model support therefore does not, by itself, demonstrate ternary
+expert offloading. <a
+href="https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-mlx-2bit">[8]</a></p>
+<p><strong>Fucina</strong> attacks a different target: existing large
+MoEs. Its reported 397B artifacts are <strong>84.00 GiB</strong> in a
+single-plane configuration and <strong>88.17 GiB</strong> with
+correction weights. Its method can approximate a weight block with a
+first ternary plane and a second corrective plane. This is a compelling
+capacity result. <a
+href="https://raw.githubusercontent.com/Anjielon/fucina/master/docs/RESULTS.md">[9]</a></p>
+<p>It is not a plug-in Mac recipe. The documented forge requires CUDA or
+ROCm; the GGUF <code>TQ1_0</code> path and optional second-plane loader
+are distinct from an MLX Bonsai checkpoint. I found no documented,
+validated Fucina-to-oMLX deployment path. More importantly, the Fucina
+manuscript records nonterminating reasoning in some GPTQ-calibrated
+variants despite stronger non-thinking results. That is a
+checkpoint-specific warning, not a claim that all ternary models fail.
+<a
+href="https://raw.githubusercontent.com/Anjielon/fucina/master/docs/USAGE.md">[10]</a>
+<a
+href="https://raw.githubusercontent.com/Anjielon/fucina/refs/heads/master/paper/main.tex">[11]</a></p>
+<p><strong>Use supported ternary checkpoints where they pass your tests.
+Do not treat ternary as a checkbox that can safely shrink any
+model.</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/03-techniques.png"
+alt="Four interventions act on different objects. Weight quantization, expert placement, KV quantization and prefix reuse solve different constraints; their headline savings cannot simply be multiplied." />
+<figcaption aria-hidden="true">Four interventions act on different
+objects. Weight quantization, expert placement, KV quantization and
+prefix reuse solve different constraints; their headline savings cannot
+simply be multiplied.</figcaption>
+</figure>
+<h2 id="technique-two-keep-the-experts-on-ssd">Technique two: keep the
+experts on SSD</h2>
+<p>An MoE router selects a subset of experts for each token. Expert
+offloading keeps shared components and some experts in memory, then
+retrieves nonresident experts when selected. The ideal contract is that
+placement changes latency, not which expert is chosen. Colibrì is
+explicitly designed around this memory hierarchy, with supported
+model-specific engines and an experimental Apple Metal backend. <a
+href="https://github.com/JustVugg/colibri">[12]</a> <a
+href="https://raw.githubusercontent.com/JustVugg/colibri/main/docs/metal.md">[13]</a></p>
+<p>This is not ordinary operating-system swap. Deliberate expert
+placement has model-level knowledge about what to fetch. Nor is it a
+free way to run a dense model as an MoE: if nearly every weight is
+needed repeatedly, the opportunity for sparse fetching disappears.</p>
+<p>The basic latency constraint is unavoidable:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-03.png"
+alt="Storage latency bound: uncached expert bytes per token divided by effective storage bandwidth." />
+<figcaption aria-hidden="true">Storage latency bound: uncached expert
+bytes per token divided by effective storage bandwidth.</figcaption>
+</figure>
+<p>As an <strong>illustration, not a benchmark</strong>, fetching 0.5 GB
+of uncached weights per token at an effective 3 GB/s costs at least one
+sixth of a second. Six tokens per second is then an I/O-only ceiling
+before computation, synchronization and attention. Effective random-read
+behavior matters more than the SSD’s advertising headline.</p>
+<p>This leads to a practical order of operations. First reduce needless
+context. Then choose a reasonable weight representation. Offload only
+the amount necessary to preserve headroom. Keep the checkpoint on fast
+storage and reserve additional space for context-cache writes; a “256 GB
+SSD” is not 256 GB of spare model capacity.</p>
+<p>Caching experts also creates benchmark traps. A repeated question can
+exercise a warm subset that is unusually cheap to retrieve. Test a
+changed prompt and another repository, not just the same synthetic
+sentence. Conversely, increasing explicit expert residency can consume
+RAM the operating system would otherwise use as a useful file cache.
+More pinned memory is not automatically faster.</p>
+<h2 id="technique-three-make-context-smallerand-reusable">Technique
+three: make context smaller—and reusable</h2>
+<p>Weights are only one side of the problem. During generation,
+attention uses cached keys and values from previous tokens. For a
+conventional full-attention model with grouped-query attention, a
+simplified estimate is:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-04.png"
+alt="Conventional KV payload: two times layers times tokens times KV heads times head dimension times bytes per element." />
+<figcaption aria-hidden="true">Conventional KV payload: two times layers
+times tokens times KV heads times head dimension times bytes per
+element.</figcaption>
+</figure>
+<p>where the factor two represents keys and values, <em>L</em> is the
+number of relevant layers, <em>T</em> the stored tokens, <em>H_KV</em>
+the KV heads, <em>D</em> the head dimension and <em>s</em> the bytes per
+element. This estimate does not describe recurrent state, MLA or every
+hybrid architecture. KV-specific quantization methods such as KIVI
+address this growing inference state rather than model weights. <a
+href="https://arxiv.org/abs/2402.02750">[25]</a></p>
+<p>Consider an illustrative configuration with 32 full-attention layers,
+eight KV heads, head dimension 128 and two-byte elements. At 32,768
+tokens it uses <strong>4 GiB of KV payload</strong> for one sequence. At
+131,072 tokens it uses 16 GiB. Four independent sequences multiply those
+payloads again unless the runtime actually shares their prefixes.</p>
+<p>Moving eligible KV values from 16 to four bits gives an idealized
+fourfold payload reduction, not a fourfold reduction of the whole
+server. Scales, unquantized state and temporary buffers remain.
+TurboQuant is one family of vector-quantization techniques applicable
+here; its research results should not be read as a universal quality or
+speed guarantee for every local implementation. <a
+href="https://arxiv.org/abs/2504.19874">[24]</a></p>
+<h3 id="prefix-caching-saves-work-rather-than-parameters">Prefix caching
+saves work rather than parameters</h3>
+<p>Suppose each agent request begins with the same system instructions,
+tool definitions and project conventions. Prefix caching retains
+computation for that identical beginning. A subsequent request can
+restore it and process the changed suffix instead. oMLX persists such
+reusable state in RAM and on SSD, including restoration after restart.
+<a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/README.md">[15]</a></p>
+<p>The engineering consequence is simple: put stable material first and
+append changing material later. Avoid a fresh timestamp, random
+identifier or reordered tool schema at the start of every request. Once
+a prefix changes, later identical prose is not automatically an
+interchangeable attention state.</p>
+<p>This is not semantic memory. A summary, a retrieved code snippet and
+a cached prefix are different things. Summarization and retrieval reduce
+input content; KV quantization reduces the representation of retained
+state; prefix reuse avoids recomputing an exact beginning. Persisting
+that state to SSD does not grant unlimited active context.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/04-context.png"
+alt="Stable prefixes can be restored, while changed suffixes need new processing. RAM/SSD prefix storage and active quantized attention state are related but different mechanisms." />
+<figcaption aria-hidden="true">Stable prefixes can be restored, while
+changed suffixes need new processing. RAM/SSD prefix storage and active
+quantized attention state are related but different
+mechanisms.</figcaption>
+</figure>
+<p>For a coding agent, I would keep decisions, acceptance criteria and a
+compact project map outside the growing transcript. Retrieve the files
+relevant to the current task. Feed back concise test failures rather
+than megabytes of logs. Start a fresh bounded task when the conversation
+becomes mostly history. None of this requires silently changing the
+user’s requirements.</p>
+<h2 id="which-software-actually-combines-the-techniques">Which software
+actually combines the techniques?</h2>
+<p><strong>oMLX is my primary integration candidate for this
+guide.</strong> Version 0.7.0rc1 adds Bonsai 2 text/vision support and
+prefix reuse. Its offload documentation includes compatible Qwen3.5/3.6
+MoE layouts and several other families, with eligibility checked against
+the actual checkpoint. These capabilities exist in the same server, but
+not every model can use every capability. <a
+href="https://github.com/jundot/omlx/releases/tag/v0.7.0rc1">[14]</a> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/docs/MoE_Expert_Offload.md">[16]</a></p>
+<p>The cache implementation can serialize TurboQuant state. The
+scheduler, however, excludes MLA and unsupported attention-sink models;
+in hybrid architectures it can leave recurrent or rotating-cache
+components in their native form. Fresh prefill can also require
+full-precision state before conversion. Enable a setting, inspect what
+was actually activated, and measure the peak—not just the
+post-generation cache size. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/cache/paged_ssd_cache.py">[19]</a>
+<a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/scheduler.py">[18]</a></p>
+<p>There are therefore two useful tracks. <strong>Bonsai plus prefix
+reuse</strong> tests a supported compact ternary model. <strong>A
+compatible ordinary low-bit MoE plus expert offloading, prefix reuse and
+eligible KV quantization</strong> tests the large-model serving stack. A
+validated giant ternary MoE using all four remains a separate
+integration problem.</p>
+<p><strong>Colibrì</strong> is worth investigating when the overriding
+requirement is a supported giant model beyond RAM capacity.
+<strong>llama.cpp</strong> is a flexible choice for compatible GGUF
+checkpoints and Metal execution. <strong>Ollama</strong> and <strong>LM
+Studio</strong> remain convenient local entry points; this guide is not
+claiming that every specialized oMLX optimization exists in their
+current packaged backends. Matching the model format and tool interface
+matters more than the application icon. <a
+href="https://raw.githubusercontent.com/JustVugg/colibri/main/docs/metal.md">[13]</a>
+<a href="https://github.com/ggml-org/llama.cpp">[26]</a> <a
+href="https://docs.ollama.com/context-length">[27]</a> <a
+href="https://lmstudio.ai/docs/developer">[28]</a></p>
+<h3 id="what-the-available-measurements-actually-show">What the
+available measurements actually show</h3>
+<p>The oMLX offload project reports a DeepSeek-V4.1-Flash-oQ3e-mtp
+experiment on an <strong>M5 Max with 128 GB</strong>, internal SSD and
+12.5% expert residency. Two short server completions achieved
+<strong>2.7 tokens/s with cold expert slots and 4.1 tokens/s
+afterward</strong>. A standalone benchmark reached 5.6 tokens/s; it was
+not the same server workload. These are neither M4/M6 mini results nor
+proof of the ternary-plus-quantized-KV combination. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/docs/MoE_Expert_Offload.md">[16]</a></p>
+<p>At four tokens per second, a 1,000-token answer takes over four
+minutes before counting other phases. That may be acceptable for an
+occasional difficult review and unacceptable for every edit-test cycle.
+There is no responsible conversion from a vendor’s AI-performance
+multiplier to your coding-agent latency.</p>
+<h3 id="speculation-comes-after-stability">Speculation comes after
+stability</h3>
+<p>Speculative decoding lets a cheaper draft mechanism propose tokens
+that the target model verifies. Correct implementations can preserve the
+target distribution, but draft memory, verification cost and acceptance
+rate determine whether it helps. It is a throughput technique, not a
+substitute for fitting the model. <a
+href="https://arxiv.org/abs/2211.17192">[33]</a></p>
+<p>I would leave DFlash/MTP disabled initially. oMLX has model-specific
+compatibility rules around speculation and expert offloading;
+verification can also increase the set of experts that must be accessed.
+Add speculation only after measuring a stable baseline, and keep it only
+when verified tasks finish sooner. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/model_settings.py">[17]</a></p>
+<h2 id="the-agent-is-the-systemnot-just-the-model">The agent is the
+system—not just the model</h2>
+<p>A useful local coding stack has three boundaries. The
+<strong>inference server</strong> owns weights, scheduling and cache
+state. The <strong>agent harness</strong> assembles prompts, calls tools
+and applies edits. The <strong>verification layer</strong> decides
+whether the result meets the task, using tests and human review rather
+than the model’s self-assessment.</p>
+<p>I recommend a bounded loop: one small objective, explicit acceptance
+criteria, a patch, a test run, and at most a small number of repair
+attempts. A model output is a proposal. A green test is evidence.
+Neither automatically authorizes deployment.</p>
+<p>Local inference does not make shell access safe. Keep work in a
+disposable checkout or worktree, with no production credentials and no
+unrestricted access to the home directory. Review edits and commands.
+For untrusted code, use a separate account, container or VM appropriate
+to the project; interactive permission prompts are not an
+operating-system sandbox.</p>
+<p>A Mac Studio can also serve the model while a mini runs the editor
+and tools. That is ordinary client/server separation, not transparent
+pooling of both machines’ RAM. It can be a simpler design than
+distributed inference. Use an authenticated private connection; keep an
+API capable of reaching tools away from the public internet.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/05-agent-loop.png"
+alt="The model proposes; the harness acts within permissions; verification decides. Stop or ask a human when the retry budget is exhausted." />
+<figcaption aria-hidden="true">The model proposes; the harness acts
+within permissions; verification decides. Stop or ask a human when the
+retry budget is exhausted.</figcaption>
+</figure>
+<h2 id="the-guide-assemble-the-magic-in-eight-steps">The guide: assemble
+the “magic” in eight steps</h2>
+<h3 id="inspect-the-machine-and-reserve-headroom">1. Inspect the machine
+and reserve headroom</h3>
+<p>On the Mac, record the hardware and free storage before downloading
+anything:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">system_profiler</span> SPHardwareDataType SPSoftwareDataType</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> <span class="at">-n</span> hw.memsize</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> vm.swapusage</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">&quot;</span></span></code></pre></div>
+<p>Close unrelated memory-heavy applications for the first test. My
+initial server memory-guard settings are <strong>11 for a 16 GB Mac, 17
+for 24 GB, 24 for 32 GB, 48 for 64 GB, and 96 for 128 GB</strong>. These
+are conservative starting values for <code>--memory-guard-gb</code>, not
+promises that every model below the ceiling will load. Adjust for the
+actual editor, compiler and peak prompt footprint. The server exposes
+configurable memory guards rather than requiring a global macOS
+memory-limit hack. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/settings.py">[36]</a></p>
+<p>For a Studio with 256 or 512 GB, an initial guard around 192 or 384
+respectively leaves substantial working room. Raise it only with
+evidence. Do not disable swap or raise system-wide GPU limits as a
+substitute for understanding the workload.</p>
+<h3 id="install-the-documented-runtime">2. Install the documented
+runtime</h3>
+<p>Download the <strong>official oMLX v0.7.0rc1 DMG</strong> appropriate
+to your macOS release, install it, and follow the welcome screen. Prefer
+its bundled kernels to an unconfigured source build: the project’s
+documentation warns that some model families otherwise fall back to
+slower paths and that building native kernels requires the full Metal
+toolchain. This is still a release candidate, so retain a rollback path.
+<a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/README.md">[15]</a></p>
+<p>The app installs a CLI shim. Make it visible to this shell:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.omlx/bin:</span><span class="va">$PATH</span><span class="st">&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">omlx</span> <span class="at">--help</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">omlx</span> serve <span class="at">--help</span></span></code></pre></div>
+<p>Record the app’s version, operating-system build and model revision
+with your results. On M6, verify successful runtime/kernel
+initialization rather than treating any M5 benchmark as an M6
+measurement.</p>
+<h3 id="download-one-model-not-a-collection">3. Download one model, not
+a collection</h3>
+<p>Use the admin dashboard’s model downloader and select an <strong>MLX
+checkpoint</strong>, not a similarly named GGUF file. For a first pass,
+my choice is <code>mlx-community/Qwen3.5-9B-4bit</code>, whose package
+is about <strong>5.95 GB</strong>. A smaller supported 4B-class
+checkpoint is a fallback for a heavily loaded 16 GB machine. Neither
+recommendation implies guaranteed coding accuracy. <a
+href="https://huggingface.co/mlx-community/Qwen3.5-9B-4bit">[20]</a></p>
+<p>For a 24–32 GB Mac, the next MoE experiment is
+<code>mlx-community/Qwen3.5-35B-A3B-4bit</code>, approximately
+<strong>20.4 GB</strong> on disk. On 24 GB, begin with offloading rather
+than expecting comfortable full residency. On 32 GB, test residency with
+short context before assuming offloading is necessary. <a
+href="https://huggingface.co/mlx-community/Qwen3.5-35B-A3B-4bit">[21]</a></p>
+<p>In <strong>Model Settings</strong>, assign the API alias
+<strong><code>local-coder</code></strong>. Start with an 8,192-token
+maximum context, one active request, no speculative decoding and no
+expert offloading for the dense 9B model. Set the Qwen chat-template
+option <code>enable_thinking</code> to <code>false</code> for the
+initial tool test; evaluate thinking separately later. Qwen documents
+this switch for direct responses. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/model_settings.py">[17]</a>
+<a href="https://huggingface.co/Qwen/Qwen3.5-9B">[23]</a></p>
+<p>This deliberate small-model bootstrap verifies the full system before
+introducing giant-model failure modes.</p>
+<h3 id="start-a-private-memory-bounded-server">4. Start a private,
+memory-bounded server</h3>
+<p>Stop the app-managed server before starting a foreground instance. In
+a terminal, create a local secret outside the repository and launch the
+16 GB profile:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">omlx</span> stop</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">umask</span> 077</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.config/local-llm&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">KEY_FILE</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.config/local-llm/omlx.key&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">&quot;</span><span class="va">$KEY_FILE</span><span class="st">&quot;</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">openssl</span> rand <span class="at">-hex</span> 32 <span class="op">&gt;</span> <span class="st">&quot;</span><span class="va">$KEY_FILE</span><span class="st">&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMLX_API_KEY</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$KEY_FILE</span><span class="st">&quot;</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">omlx</span> serve <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--host</span> 127.0.0.1 <span class="at">--port</span> 8000 <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model-dir</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/Models&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--memory-guard-gb</span> 11 <span class="at">--hot-cache-max-size</span> 1GB <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--paged-ssd-cache-dir</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.omlx/cache&quot;</span> <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--paged-ssd-cache-max-size</span> 10GB <span class="at">--max-concurrent-requests</span> 1</span></code></pre></div>
+<p>Replace the model directory with the directory chosen in the welcome
+screen. Change the guard for your machine, but start with the small hot
+cache. These are documented CLI controls; the numerical budgets are
+proposed settings. The API key protects your local service—it is not a
+paid cloud-provider credential. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/cli.py">[35]</a></p>
+<p>Do not start a second server over the same port. Do not commit the
+key. Treat persistent context caches as sensitive project data; restrict
+access and remove them when their retention is no longer justified. Keep
+the loopback bind unless you are intentionally configuring a secured LAN
+deployment.</p>
+<h3 id="confirm-the-api-before-connecting-an-agent">5. Confirm the API
+before connecting an agent</h3>
+<p>In a second terminal, load the same secret and check the advertised
+alias:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMLX_API_KEY</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">cat</span> <span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/.config/local-llm/omlx.key&quot;</span><span class="va">)</span><span class="st">&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--fail-with-body</span> <span class="at">-sS</span> <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer </span><span class="va">$OMLX_API_KEY</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  http://127.0.0.1:8000/v1/models</span></code></pre></div>
+<p>Then make an ordinary request:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--fail-with-body</span> <span class="at">-sS</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  http://127.0.0.1:8000/v1/chat/completions <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer </span><span class="va">$OMLX_API_KEY</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;model&quot;: &quot;local-coder&quot;,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;messages&quot;: [{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">      &quot;Write a Python add(a, b) function and one assertion.&quot;}],</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;max_tokens&quot;: 256,</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">    &quot;stream&quot;: false</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">  }&#39;</span></span></code></pre></div>
+<p>Check for a completed answer rather than a token-limit truncation. A
+401 is an authentication problem, not a model-quality problem. A missing
+model ID is an alias or discovery problem. Successful chat proves
+connectivity; it does not prove correct tool calling. The server exposes
+both model discovery and chat-completion endpoints. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/cli.py">[35]</a>
+<a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/README.md">[15]</a></p>
+<h3 id="add-memory-optimizations-one-at-a-time">6. Add memory
+optimizations one at a time</h3>
+<p>First repeat a long, identical prompt and inspect cache-hit
+telemetry. Keep the prompt plus reserved output within the server’s
+context limit; an 8K configuration is not an 8K prompt with unlimited
+output. Then change only its suffix. Restart the server and repeat it
+again. A shorter delay alone does not prove an SSD prefix hit: the model
+or expert pages may also have become warm. Confirm the cache path in the
+logs.</p>
+<p>Next enable <strong>four-bit TurboQuant</strong> for eligible cache
+layers. Retest the same task and inspect peak memory. When a model or
+layer is ineligible, keep its native cache rather than forcing a generic
+conversion. The field names are <code>turboquant_kv_enabled</code>,
+<code>turboquant_kv_bits</code> and <code>turboquant_skip_last</code>.
+<a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/model_settings.py">[17]</a>
+<a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/scheduler.py">[18]</a></p>
+<p>Only then test a supported MoE. In the admin interface enable
+<strong>MoE Expert Offload</strong>, beginning with a measured residency
+such as 25%; try 12.5% if more headroom is needed. These fractions apply
+to routed experts, not the whole process. A large shared component can
+still prevent loading.</p>
+<p>For an eligible model, the relevant <strong>per-model
+fields</strong>, not a replacement for the entire settings file, look
+like this:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;max_context_window&quot;</span><span class="fu">:</span> <span class="dv">8192</span><span class="fu">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;moe_expert_offload_enabled&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;moe_expert_offload_resident_fraction&quot;</span><span class="fu">:</span> <span class="fl">0.25</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;turboquant_kv_enabled&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;turboquant_kv_bits&quot;</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;turboquant_skip_last&quot;</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;dflash_enabled&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;mtp_enabled&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;vlm_mtp_enabled&quot;</span><span class="fu">:</span> <span class="kw">false</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>Check that the runtime actually wrapped the expert layers and enabled
+the intended cache path. Leave offloading disabled for the dense 9B and
+Bonsai models. If errors appear after an optimization, revert that
+change before altering another variable. The exact compatibility checks
+belong to the pinned version, not to the marketing label on the
+checkpoint. <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/model_settings.py">[17]</a></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/06-rollout.png"
+alt="A safe escalation path: establish a resident baseline, validate prefix reuse, test eligible KV quantization, and only then introduce expert offloading or a larger model." />
+<figcaption aria-hidden="true">A safe escalation path: establish a
+resident baseline, validate prefix reuse, test eligible KV quantization,
+and only then introduce expert offloading or a larger
+model.</figcaption>
+</figure>
+<h3 id="connect-a-coding-agent-with-no-cloud-model-fallback">7. Connect
+a coding agent with no cloud-model fallback</h3>
+<p>OpenCode is one possible local harness. Install it using its
+documented Homebrew tap, then record the installed version:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install anomalyco/tap/opencode</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span> <span class="at">--version</span></span></code></pre></div>
+<p>Create a <strong>new disposable test repository</strong> before
+trying an important project. Save the following as
+<code>opencode.json</code> there. In an existing project, merge
+deliberately rather than overwriting its configuration. <a
+href="https://opencode.ai/docs/">[32]</a></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;$schema&quot;</span><span class="fu">:</span> <span class="st">&quot;https://opencode.ai/config.json&quot;</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;enabled_providers&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="st">&quot;omlx&quot;</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;model&quot;</span><span class="fu">:</span> <span class="st">&quot;omlx/local-coder&quot;</span><span class="fu">,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;small_model&quot;</span><span class="fu">:</span> <span class="st">&quot;omlx/local-coder&quot;</span><span class="fu">,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;share&quot;</span><span class="fu">:</span> <span class="st">&quot;disabled&quot;</span><span class="fu">,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;autoupdate&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;provider&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;omlx&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;npm&quot;</span><span class="fu">:</span> <span class="st">&quot;@ai-sdk/openai-compatible&quot;</span><span class="fu">,</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Local oMLX&quot;</span><span class="fu">,</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;options&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;baseURL&quot;</span><span class="fu">:</span> <span class="st">&quot;http://127.0.0.1:8000/v1&quot;</span><span class="fu">,</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;apiKey&quot;</span><span class="fu">:</span> <span class="st">&quot;{env:OMLX_API_KEY}&quot;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">},</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&quot;models&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;local-coder&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Local coding model&quot;</span><span class="fu">,</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>          <span class="dt">&quot;limit&quot;</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">&quot;context&quot;</span><span class="fu">:</span> <span class="dv">8192</span><span class="fu">,</span> <span class="dt">&quot;output&quot;</span><span class="fu">:</span> <span class="dv">2048</span><span class="fu">}</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">}</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;permission&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;*&quot;</span><span class="fu">:</span> <span class="st">&quot;ask&quot;</span><span class="fu">,</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;read&quot;</span><span class="fu">:</span> <span class="st">&quot;allow&quot;</span><span class="fu">,</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;glob&quot;</span><span class="fu">:</span> <span class="st">&quot;allow&quot;</span><span class="fu">,</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;grep&quot;</span><span class="fu">:</span> <span class="st">&quot;allow&quot;</span><span class="fu">,</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;edit&quot;</span><span class="fu">:</span> <span class="st">&quot;ask&quot;</span><span class="fu">,</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;bash&quot;</span><span class="fu">:</span> <span class="st">&quot;ask&quot;</span><span class="fu">,</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;webfetch&quot;</span><span class="fu">:</span> <span class="st">&quot;deny&quot;</span><span class="fu">,</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;websearch&quot;</span><span class="fu">:</span> <span class="st">&quot;deny&quot;</span><span class="fu">,</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;external_directory&quot;</span><span class="fu">:</span> <span class="st">&quot;deny&quot;</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<p>The provider explicitly uses the chat-completions-compatible adapter.
+Both the main and auxiliary model point at the local alias; the provider
+allowlist excludes other model providers. The permission settings
+require approval for edits and shell commands. They are not a complete
+sandbox, and an approved shell command can still access the network. <a
+href="https://opencode.ai/docs/providers/">[29]</a> <a
+href="https://opencode.ai/docs/config/">[30]</a> <a
+href="https://opencode.ai/docs/permissions/">[31]</a></p>
+<p>Launch from the test repository, in the shell where
+<code>OMLX_API_KEY</code> is set:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">opencode</span></span></code></pre></div>
+<p>Ask it: <strong>“Create <code>slugify(text)</code> and
+standard-library unit tests. Lowercase ASCII input; replace runs of
+non-alphanumeric characters with one hyphen; strip leading and trailing
+hyphens. Run the tests. Make at most two repair attempts and stop with a
+summary.”</strong></p>
+<p>Approve only relevant file changes and commands. Check the resulting
+diff and test output yourself. This exercises file access, structured
+tool use, editing, execution and stopping behavior—not just chat
+fluency. The repair limit in this prompt is an instruction, not a hard
+execution quota; enforce such limits in the harness or supervision
+process before unattended use.</p>
+<p>Installation and first-run dependencies may require internet access.
+For a genuinely disconnected workflow, prefetch them, disable remote
+connectors and verify a complete run with external networking blocked.
+“Local model endpoint” alone is not an air-gap guarantee.</p>
+<h3 id="measure-successful-work-then-enlarge-the-model">8. Measure
+successful work, then enlarge the model</h3>
+<p>Choose a small repeatable task set: fix a failing unit test, add an
+edge-case check, make a constrained refactor, and diagnose an unfamiliar
+module. Keep the repository revision and acceptance tests fixed. Run a
+baseline, then change one setting or checkpoint at a time.</p>
+<p>Record <strong>time to first usable response, total task time, peak
+memory, swap growth, cache hits, failed tool calls, repair attempts and
+accepted outcomes</strong>. Repeat with cold and warm caches. A long
+prefill can dominate a fast decoder; an extra retry can erase an
+apparent token-speed advantage.</p>
+<p>A useful headline is “eight accepted tasks in an hour, with one
+manual intervention,” provided it is actually measured—not “a 397B model
+loaded.” Report failures as well as successes. The companion package
+includes a blank run-log template and a small protocol smoke test;
+neither contains invented performance data.</p>
+<p>On a mini, stop enlarging the model when the working loop becomes
+frustrating or unstable. On a high-memory Studio, first try keeping a
+stronger model resident, then increase context or concurrency gradually.
+Use a larger model as an occasional second opinion if it is too slow for
+the primary loop. Local autonomy is a system property, not a parameter
+count.</p>
+<h2 id="the-magic-is-mostly-disciplined-placement">The magic is mostly
+disciplined placement</h2>
+<p>There is no single switch that turns 16 GB into 512 GB. There is a
+set of independent decisions: how weights are represented, which experts
+remain resident, how much context is retained, which prefixes are
+reused, and how the agent’s work is verified.</p>
+<p>The M4 and M6 Mac mini are useful starting points precisely because
+they make those decisions visible. The high-memory Mac Studio changes
+what can remain resident, but not the need for bounded tools, reliable
+termination and honest measurements.</p>
+<p><strong>Start with a model that fits. Make it complete a real coding
+task. Add one memory technique at a time. Keep the larger model only
+when it earns its place in the loop.</strong></p>
+<h2 id="sources-and-implementation-notes">Sources and implementation
+notes</h2>
+<p>All sources below were accessed on 28 September 2026. oMLX links are
+pinned to v0.7.0rc1 where available. Model cards and unpinned project
+branches can change; record revisions when reproducing a setup.
+Arithmetic examples are illustrative. Published project measurements are
+not independent replications.</p>
+<p><strong>[1] Apple.</strong> <a
+href="https://support.apple.com/en-us/121555">Mac mini (2024): technical
+specifications</a>.</p>
+<p><strong>[2] Apple.</strong> <a
+href="https://www.apple.com/mac-mini/specs/">Mac mini: current technical
+specifications</a>.</p>
+<p><strong>[3] Apple.</strong> <a
+href="https://www.apple.com/mac-studio/specs/">Mac Studio: current
+technical specifications</a>.</p>
+<p><strong>[4] Apple.</strong> <a
+href="https://www.apple.com/ie/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/">Mac
+Studio with M5 Max and M5 Ultra: announcement and availability</a>.</p>
+<p><strong>[5] Apple.</strong> <a
+href="https://www.apple.com/newsroom/2025/03/apple-unveils-new-mac-studio-the-most-powerful-mac-ever/">Mac
+Studio with M4 Max and M3 Ultra: 2025 announcement</a>.</p>
+<p><strong>[6] Apple ML Research / MLX maintainers.</strong> <a
+href="https://github.com/ml-explore/mlx">MLX: unified-memory array
+framework</a>.</p>
+<p><strong>[7] Huang et al.</strong> <a
+href="https://arxiv.org/abs/2404.14047">An empirical study of LLaMA3
+quantization: from LLMs to MLLMs; arXiv:2404.14047, especially Table
+1</a>.</p>
+<p><strong>[8] PrismML.</strong> <a
+href="https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-mlx-2bit">Ternary
+Bonsai 2 27B: MLX model card and packaging</a>.</p>
+<p><strong>[9] Fucina project.</strong> <a
+href="https://raw.githubusercontent.com/Anjielon/fucina/master/docs/RESULTS.md">Results
+and whole-model file sizes</a>.</p>
+<p><strong>[10] Fucina project.</strong> <a
+href="https://raw.githubusercontent.com/Anjielon/fucina/master/docs/USAGE.md">Usage:
+forge prerequisites and runtime requirements</a>.</p>
+<p><strong>[11] Fucina project.</strong> <a
+href="https://raw.githubusercontent.com/Anjielon/fucina/refs/heads/master/paper/main.tex">Research
+manuscript: main.tex; limitations and reasoning-mode results</a>.</p>
+<p><strong>[12] Colibri project.</strong> <a
+href="https://github.com/JustVugg/colibri">Architecture and
+supported-model roster</a>.</p>
+<p><strong>[13] Colibri project.</strong> <a
+href="https://raw.githubusercontent.com/JustVugg/colibri/main/docs/metal.md">Experimental
+Metal backend</a>.</p>
+<p><strong>[14] oMLX maintainers.</strong> <a
+href="https://github.com/jundot/omlx/releases/tag/v0.7.0rc1">v0.7.0rc1
+release, 24 September 2026</a>.</p>
+<p><strong>[15] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/README.md">v0.7.0rc1:
+installation, APIs and persistent prefix caching</a>.</p>
+<p><strong>[16] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/docs/MoE_Expert_Offload.md">v0.7.0rc1:
+MoE expert offload and measured Mac results</a>.</p>
+<p><strong>[17] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/model_settings.py">v0.7.0rc1:
+per-model settings and compatibility checks</a>.</p>
+<p><strong>[18] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/scheduler.py">v0.7.0rc1:
+scheduler; TurboQuant eligibility and prefill</a>.</p>
+<p><strong>[19] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/cache/paged_ssd_cache.py">v0.7.0rc1:
+quantized cache serialization</a>.</p>
+<p><strong>[20] MLX Community.</strong> <a
+href="https://huggingface.co/mlx-community/Qwen3.5-9B-4bit">Qwen3.5-9B-4bit:
+model card and package size</a>.</p>
+<p><strong>[21] MLX Community.</strong> <a
+href="https://huggingface.co/mlx-community/Qwen3.5-35B-A3B-4bit">Qwen3.5-35B-A3B-4bit:
+model card and package size</a>.</p>
+<p><strong>[22] MLX Community.</strong> <a
+href="https://huggingface.co/mlx-community/Qwen3.5-397B-A17B-4bit">Qwen3.5-397B-A17B-4bit:
+model card and package size</a>.</p>
+<p><strong>[23] Qwen team.</strong> <a
+href="https://huggingface.co/Qwen/Qwen3.5-9B">Qwen3.5-9B: chat template,
+non-thinking mode and agentic use</a>.</p>
+<p><strong>[24] Zandieh et al.</strong> <a
+href="https://arxiv.org/abs/2504.19874">TurboQuant: Online Vector
+Quantization with Near-optimal Distortion Rate;
+arXiv:2504.19874</a>.</p>
+<p><strong>[25] Liu et al.</strong> <a
+href="https://arxiv.org/abs/2402.02750">KIVI: A Tuning-Free Asymmetric
+2bit Quantization for KV Cache; arXiv:2402.02750</a>.</p>
+<p><strong>[26] llama.cpp maintainers.</strong> <a
+href="https://github.com/ggml-org/llama.cpp">llama.cpp: quantization,
+Metal and local serving</a>.</p>
+<p><strong>[27] Ollama.</strong> <a
+href="https://docs.ollama.com/context-length">Context length and memory
+requirements</a>.</p>
+<p><strong>[28] LM Studio.</strong> <a
+href="https://lmstudio.ai/docs/developer">Developer documentation: local
+inference APIs</a>.</p>
+<p><strong>[29] OpenCode.</strong> <a
+href="https://opencode.ai/docs/providers/">Custom OpenAI-compatible
+providers</a>.</p>
+<p><strong>[30] OpenCode.</strong> <a
+href="https://opencode.ai/docs/config/">Configuration: model limits,
+provider allowlist and auxiliary model</a>.</p>
+<p><strong>[31] OpenCode.</strong> <a
+href="https://opencode.ai/docs/permissions/">Permissions and approval
+controls</a>.</p>
+<p><strong>[32] OpenCode.</strong> <a
+href="https://opencode.ai/docs/">Installation and terminal
+workflow</a>.</p>
+<p><strong>[33] Leviathan, Kalman and Matias.</strong> <a
+href="https://arxiv.org/abs/2211.17192">Fast Inference from Transformers
+via Speculative Decoding; arXiv:2211.17192</a>.</p>
+<p><strong>[34] MLX-LM maintainers.</strong> <a
+href="https://github.com/ml-explore/mlx-lm">MLX-LM: local generation,
+quantization and prompt caching</a>.</p>
+<p><strong>[35] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/cli.py">v0.7.0rc1:
+command-line arguments</a>.</p>
+<p><strong>[36] oMLX maintainers.</strong> <a
+href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/settings.py">v0.7.0rc1:
+global memory and security settings</a>.</p>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../local-llm-on-a-16gb-mac-mini/">Which Local LLM Should You Run on a 16 GB Mac mini?</a><a href="../jev-and-the-return-of-the-classifier/">Jev and the Return of the Classifier</a><a href="../local-llm-inference-on-apple-silicon/">Local LLM Inference on Apple Silicon</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

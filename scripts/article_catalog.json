@@ -1,0 +1,107 @@
+[
+  {
+    "date": "2026-05-16",
+    "slug": "evolution-of-spec-driven-development",
+    "topic": "Spec-driven development",
+    "source": "Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/medium.md",
+    "description": "Architectures, methodologies and frameworks for specification-first AI-assisted engineering."
+  },
+  {
+    "date": "2026-05-25",
+    "slug": "economics-of-generative-ai",
+    "topic": "AI economics",
+    "source": "Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/medium.md",
+    "description": "Why inference pricing and growing context change AI economics."
+  },
+  {
+    "date": "2026-07-24",
+    "slug": "economics-of-ai-loops",
+    "topic": "AI economics",
+    "source": "Medium/20260724_TheEconomicsofAILoops/article.md",
+    "description": "From cheap tokens to independently verified outcomes."
+  },
+  {
+    "date": "2026-07-30",
+    "slug": "local-llm-inference-on-apple-silicon",
+    "topic": "Local AI",
+    "source": "Medium/270730_local_llm_mac_guide/local_llm_mac_guide_medium.md",
+    "description": "Mac-native inference architectures, memory, serving and optimisation."
+  },
+  {
+    "date": "2026-08-27",
+    "slug": "ai-summer-assignment",
+    "topic": "AI beyond coding",
+    "source": "Medium/260827_AI_summer_assignement/article/Medium_Article_AI_Summer_Assignment_Enrico_Papalini.md",
+    "description": "Disciplined AI workflows for writing and publishing a historical fantasy saga."
+  },
+  {
+    "date": "2026-09-11",
+    "slug": "artifactory-and-agent-coordination",
+    "topic": "Agentic engineering",
+    "source": "Medium/260911_artifactory-blackboard-medium/article.md",
+    "description": "An accidental blackboard and the boundary between information and authority."
+  },
+  {
+    "date": "2026-09-29",
+    "slug": "bigger-models-smaller-macs",
+    "topic": "Local AI",
+    "source": "Medium/260929_bigger_models_smaller_macs_handwritten/article.md",
+    "description": "Useful local coding systems, quantisation and reusable context."
+  },
+  {
+    "date": "2026-09-30",
+    "slug": "jev-and-the-return-of-the-classifier",
+    "topic": "Local AI",
+    "source": "Medium/260930_jev_complete_illustrated/essay.md",
+    "description": "Reusable decision models and classifiers for agentic workflows."
+  },
+  {
+    "date": "2026-10-11",
+    "slug": "local-llm-on-a-16gb-mac-mini",
+    "topic": "Local AI",
+    "source": "Medium/20261011_M4_16GB_Model_Selection/article.md",
+    "description": "Ten tested configurations for a 16 GB Mac mini."
+  },
+  {
+    "date": "2026-10-16",
+    "slug": "coding-agents-infrastructure-or-lock-in",
+    "topic": "Spec-driven development",
+    "source": "Medium/261016_Enterprise_SDD_Harness/ARTICLE_Medium_with_Figures_v3.md",
+    "description": "OpenCode, Copilot and Claude Code: enterprise harnesses and engineering authority."
+  },
+  {
+    "date": "2026-10-17",
+    "slug": "ai-wrote-the-patch",
+    "topic": "Books & research",
+    "source": "Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md",
+    "description": "The second edition and the evidence behind trustworthy change."
+  },
+  {
+    "date": "2026-10-18",
+    "slug": "knowledge-atlas",
+    "topic": "Books & research",
+    "source": "Medium/261018_Knowledge_Atlas_13_1/Medium_Article_Atlas_13_1.md",
+    "description": "An illustrated tour of research, practices and the Knowledge Atlas."
+  },
+  {
+    "date": "2026-10-28",
+    "slug": "testing-the-sdd-framework",
+    "topic": "Spec-driven development",
+    "source": "Medium/261028_SDD_Testing_Complete_Companion/article.md",
+    "description": "Testing the system that governs agent-produced software."
+  },
+  {
+    "date": "2026-11-23",
+    "slug": "the-agent-wrote-the-fix",
+    "topic": "Books & research",
+    "source": "Medium/261123_non-deterministic-trilogy/article.md",
+    "description": "The evolution of the engineer’s role and the new Non-Deterministic trilogy."
+  },
+  {
+    "date": "2026-11-24",
+    "slug": "reliable-software-with-ai-coding-agents",
+    "topic": "Agentic engineering",
+    "source": "Medium/261124_ESA_Chapter_1_Medium_Article/How_to_Build_Reliable_Software_with_AI_Coding_Agents.md",
+    "description": "Expect, Delegate, Observe, Decide: a practical walkthrough of accountable change."
+  }
+]

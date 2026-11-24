@@ -1,0 +1,840 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="From cheap tokens to independently verified outcomes."><title>The Economics of AI Loops · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/economics-of-ai-loops/"><meta property="og:title" content="The Economics of AI Loops"><meta property="og:description" content="From cheap tokens to independently verified outcomes."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">AI economics</p><h1>The Economics of AI Loops</h1><p class="meta">Enrico Papalini · 2026-07-24 · 22 min read</p><p class="lede">From cheap tokens to independently verified outcomes.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/banner.jpg"
+alt="The Economics of AI Loops banner" />
+<figcaption aria-hidden="true">The Economics of AI Loops
+banner</figcaption>
+</figure>
+<h2 id="why-cheap-tokens-do-not-guarantee-cheap-outcomes">Why Cheap
+Tokens Do Not Guarantee Cheap Outcomes</h2>
+<p><strong>Enrico Papalini</strong><br />
+<em>Version 2.0 — data snapshot: 24 July 2026</em></p>
+<h2 id="abstract">Abstract</h2>
+<p>The first generation of AI economics treated generative AI as a
+software feature: buy a seat, measure token consumption, and compare
+model prices. That framing becomes incomplete when an assistant turns
+into a loop that reads a specification, invokes tools, modifies a
+system, runs checks, interprets failure, retries, and escalates. The
+organization is no longer buying text generation. It is operating a
+probabilistic production process.</p>
+<p>This article proposes a new unit of account: the independently
+verified outcome. It connects context growth, model and infrastructure
+costs, tools, verification, human review, rework, failure exposure,
+retry policy, local-versus-cloud routing, and organizational
+bottlenecks. A reproducible regulated-maintenance case shows why a cheap
+attempt can be expensive, why a frontier model can be cheaper than a
+weak one after review, and why the strongest design is often a cascade
+that starts locally or inexpensively and escalates only when evidence
+justifies it. The central result is simple: tokens are an input;
+verified flow is the product.</p>
+<blockquote>
+<p><strong>Thesis.</strong> The next economic unit of generative AI is
+not the seat, request, or token. It is the verified, deployable,
+economically useful outcome. Falling model prices expand feasible
+demand, but they do not guarantee falling outcome cost because loops
+also consume context, tools, environments, verification, human
+attention, integration capacity, and risk budget.</p>
+</blockquote>
+<h2 id="the-first-ai-economy-was-built-around-the-wrong-unit">The first
+AI economy was built around the wrong unit</h2>
+<p>The first version of this analysis focused on a real transition: AI
+products were moving from flat subscriptions toward metered consumption,
+while agentic software workflows were creating much larger and more
+variable token bills than autocomplete or short chat sessions <a
+href="#reference-1">1</a>. That transition is now visible in commercial
+product design. GitHub moved Copilot to usage-based AI Credits in June
+2026, while preserving a base seat price and included allowance. GitHub
+explicitly noted that a quick question and a multi-hour autonomous
+coding session could previously cost the user the same, leaving the
+platform to absorb the difference <a href="#reference-2">2</a>, <a
+href="#reference-3">3</a>.</p>
+<p>That development validates the token-economics argument, but it also
+reveals its limit. Metering tokens makes consumption visible; it does
+not tell the buyer whether the consumption created value. A model may
+produce a low-cost candidate that fails tests, requires extensive
+review, destabilizes a release, or never reaches production. Conversely,
+a relatively expensive run may be highly profitable when it resolves a
+valuable problem with strong evidence and little rework.</p>
+<p>The unit of account therefore has to move again.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_01.jpg"
+alt="Figure 1. The economic unit evolves from access, to consumption, to a complete production outcome." />
+<figcaption aria-hidden="true">Figure 1. The economic unit evolves from
+access, to consumption, to a complete production outcome.</figcaption>
+</figure>
+<p><em>Figure 1. The economic unit evolves from access, to consumption,
+to a complete production outcome.</em></p>
+<p>The economic chain in Figure 1 contains five distinct objects:</p>
+<ul>
+<li><p><strong>Seat:</strong> The right to use a product during a
+billing period.</p></li>
+<li><p><strong>Token:</strong> A metered unit of model input, cache
+activity, or output.</p></li>
+<li><p><strong>Candidate:</strong> One stochastic attempt to produce a
+result.</p></li>
+<li><p><strong>Verified outcome:</strong> A candidate that passes an
+independent evidence and authority boundary.</p></li>
+<li><p><strong>Business value:</strong> The effect after integration,
+deployment, operation, and customer or organizational use.</p></li>
+</ul>
+<p>A token belongs to the vendor invoice. A verified outcome belongs to
+the production system. Business value belongs to the enterprise.
+Confusing these layers creates predictable errors: maximizing usage,
+celebrating generated output, comparing models by price alone, or
+declaring return on investment before the output has survived
+verification and deployment.</p>
+<h2 id="why-loops-create-a-different-cost-structure">Why loops create a
+different cost structure</h2>
+<p>A conventional software feature has largely fixed development cost
+and near-zero marginal execution cost. A model API reverses part of that
+structure: each execution consumes variable resources. A loop adds
+another change. The execution path is not predetermined. It can branch,
+call tools, read more context, fail, retry, compact its history, switch
+model, or ask a human.</p>
+<p>Recent empirical work on coding agents makes this variance concrete.
+Bai and colleagues studied eight frontier models on agentic coding tasks
+and found that agentic work consumed roughly three orders of magnitude
+more tokens than simpler coding paradigms, that repeated runs of the
+same task could differ by up to 30 times in token use, and that greater
+consumption did not monotonically improve accuracy <a
+href="#reference-4">4</a>. Models also predicted their own future token
+consumption poorly. A budget based on the agent’s estimate is therefore
+not a control system.</p>
+<p>At the same time, the cost of reaching a given capability level has
+fallen dramatically. Stanford’s 2025 AI Index reported a more than
+280-fold reduction in the inference price of systems performing around
+the GPT-3.5 level between late 2022 and late 2024 <a
+href="#reference-5">5</a>. This is the setting for a Jevons-style
+rebound: cheaper units make more use cases economical, total use
+expands, and aggregate expenditure can rise even while unit prices fall
+<a href="#reference-6">6</a>.</p>
+<p>The correct economic question is not whether tokens are becoming
+cheaper. It is whether the complete system is becoming better at
+converting stochastic compute into accepted value.</p>
+<h3 id="context-architecture-is-an-economic-control">Context
+architecture is an economic control</h3>
+<p>Suppose a loop performs <span class="math inline">\(N\)</span> model
+turns. Let <span class="math inline">\(S\)</span> be the static prompt
+and tool-definition context, <span class="math inline">\(T\)</span> the
+average new history added per turn, and <span
+class="math inline">\(\bar{o}\)</span> the average output per turn. If
+the full history is retransmitted every time, cumulative input and
+output are approximately</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_01.jpg"
+alt="Equation 1: Context accumulation under full-history replay" />
+<figcaption aria-hidden="true">Equation 1: Context accumulation under
+full-history replay</figcaption>
+</figure>
+<p><em>Equation 1. Context accumulation under full-history
+replay.</em></p>
+<p>For input and output prices <span class="math inline">\(p_i\)</span>
+and <span class="math inline">\(p_o\)</span>, model cost is</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_02.jpg"
+alt="Equation 2: Model cost" />
+<figcaption aria-hidden="true">Equation 2: Model cost</figcaption>
+</figure>
+<p><em>Equation 2. Model cost.</em></p>
+<p>The quadratic term is not a law of agents. It is a consequence of one
+context architecture. A compacted loop that retains <span
+class="math inline">\(R_c\)</span> tokens per turn has approximately</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_03.jpg"
+alt="Equation 3: Compacted-context input" />
+<figcaption aria-hidden="true">Equation 3: Compacted-context
+input</figcaption>
+</figure>
+<p><em>Equation 3. Compacted-context input.</em></p>
+<p>while a fresh-context loop that reconstructs state from a concise
+external record <span class="math inline">\(R_e\)</span> has</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_04.jpg"
+alt="Equation 4: Fresh-context input" />
+<figcaption aria-hidden="true">Equation 4: Fresh-context
+input</figcaption>
+</figure>
+<p><em>Equation 4. Fresh-context input.</em></p>
+<p>For the article’s 40-turn workload—18,000 static tokens, 3,000 new
+history tokens per turn, and 900 output tokens per turn—full replay
+processes 3.06 million input tokens. Compaction processes 960,000; fresh
+context with external state processes 800,000. At the current
+promotional Claude Sonnet 5 price, the corresponding model costs are
+$6.48, $2.28, and $1.96.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_02.jpg"
+alt="Figure 2. Full replay creates a quadratic component; compaction and fresh state keep the workload approximately linear. Prices are a dated example, not a permanent forecast." />
+<figcaption aria-hidden="true">Figure 2. Full replay creates a quadratic
+component; compaction and fresh state keep the workload approximately
+linear. Prices are a dated example, not a permanent
+forecast.</figcaption>
+</figure>
+<p><em>Figure 2. Full replay creates a quadratic component; compaction
+and fresh state keep the workload approximately linear. Prices are a
+dated example, not a permanent forecast.</em></p>
+<p>This calculation changes the role of memory design. External state,
+stable prompt prefixes, cacheable instructions, retrieval, compaction,
+and checkpoints are not prompt-engineering decoration. They are
+production controls. Yet the cheapest context policy is not
+automatically the best one: removing evidence can reduce the model
+invoice while lowering acceptance and raising rework. Every context
+optimization must therefore be evaluated against outcome quality.</p>
+<h2 id="the-complete-cost-of-a-candidate">The complete cost of a
+candidate</h2>
+<p>A model response is not an outcome. It is a candidate. The candidate
+ledger should include every resource consumed before the organization
+can rationally accept it:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_05.jpg"
+alt="Equation 5: Complete candidate cost" />
+<figcaption aria-hidden="true">Equation 5: Complete candidate
+cost</figcaption>
+</figure>
+<p><em>Equation 5. Complete candidate cost.</em></p>
+<p>The last term is expected loss, not the worst conceivable loss. It
+can include escaped-defect probability, rollback, compliance
+remediation, service interruption, or an irreversible external action.
+The value is necessarily uncertain, but omitting it does not make the
+risk disappear; it silently prices the risk at zero.</p>
+<p>Table 1 gives a current price snapshot for selected cloud routes. The
+same fresh-context 40-turn workload costs from tens of cents to almost
+ten dollars in model fees, depending on the model. These are material
+differences at scale, but they remain small compared with even a few
+minutes of senior review.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/table_01.jpg"
+alt="Table 1. Official API prices per million tokens, snapshotted on 24 July 2026. Sonnet 5’s introductory price runs through 31 August 2026; OpenAI long-context prices can be higher. Cache-write and cache-storage fees differ by provider and are excluded from this compact table. Sources: provider pricing pages 7, 8, 9." />
+<figcaption aria-hidden="true">Table 1. Official API prices per million
+tokens, snapshotted on 24 July 2026. Sonnet 5’s introductory price runs
+through 31 August 2026; OpenAI long-context prices can be higher.
+Cache-write and cache-storage fees differ by provider and are excluded
+from this compact table. Sources: provider pricing pages <a
+href="#reference-7">7</a>, <a href="#reference-8">8</a>, <a
+href="#reference-9">9</a>.</figcaption>
+</figure>
+<p><em>Table 1. Official API prices per million tokens, snapshotted on
+24 July 2026. Sonnet 5’s introductory price runs through 31 August 2026;
+OpenAI long-context prices can be higher. Cache-write and cache-storage
+fees differ by provider and are excluded from this compact table.
+Sources: provider pricing pages <a href="#reference-7">7</a>, <a
+href="#reference-8">8</a>, <a href="#reference-9">9</a>.</em></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_03.jpg"
+alt="Figure 3. Model-only cost for the same fresh-context workload. The route price varies by roughly thirtyfold, but all values remain modest relative to human review and failure exposure." />
+<figcaption aria-hidden="true">Figure 3. Model-only cost for the same
+fresh-context workload. The route price varies by roughly thirtyfold,
+but all values remain modest relative to human review and failure
+exposure.</figcaption>
+</figure>
+<p><em>Figure 3. Model-only cost for the same fresh-context workload.
+The route price varies by roughly thirtyfold, but all values remain
+modest relative to human review and failure exposure.</em></p>
+<p>This is where simple model-price comparisons can reverse. A stronger
+model may cost several dollars more in inference but save twenty minutes
+of review, one failed retry, or a production rollback. When the human
+and risk components dominate, the expensive model may produce the
+cheaper candidate.</p>
+<p>Figure 4 applies a transparent scenario ledger to four routes. The
+acceptance probabilities, review times, and risk allowances are not
+benchmark claims. They are case assumptions intended to show the
+arithmetic that a real pilot must replace with telemetry. The important
+result is structural: the model or local-infrastructure component is the
+thinnest layer in every bar.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_04.jpg"
+alt="Figure 4. Illustrative complete candidate ledgers. The line reports cost per independently accepted outcome. Production values must be estimated by task class rather than copied from this example." />
+<figcaption aria-hidden="true">Figure 4. Illustrative complete candidate
+ledgers. The line reports cost per independently accepted outcome.
+Production values must be estimated by task class rather than copied
+from this example.</figcaption>
+</figure>
+<p><em>Figure 4. Illustrative complete candidate ledgers. The line
+reports cost per independently accepted outcome. Production values must
+be estimated by task class rather than copied from this
+example.</em></p>
+<h2 id="the-central-metric-cost-per-accepted-outcome">The central
+metric: cost per accepted outcome</h2>
+<p>Let <span class="math inline">\(P_a\)</span> be the probability that
+a candidate from a defined route is independently accepted. A route
+includes the model, executor, context policy, tools, verifier, risk
+tier, and reviewer policy. The basic planning metric is</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_06.jpg"
+alt="Equation 6: Cost per accepted outcome" />
+<figcaption aria-hidden="true">Equation 6: Cost per accepted
+outcome</figcaption>
+</figure>
+<p><em>Equation 6. Cost per accepted outcome.</em></p>
+<p>This ratio is a planning heuristic, not a universal identity. It is
+valid only for a sufficiently homogeneous task cohort and a candidate
+ledger that accounts consistently for the work generated by unsuccessful
+candidates. When failures have different costs, retries are resumable,
+or review occurs only after a gate passes, the attempt-level policy
+model below is preferable.</p>
+<p>For an observed homogeneous cohort, the more robust estimator is even
+simpler:</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_07.jpg"
+alt="Equation 7: Observed cohort estimator" />
+<figcaption aria-hidden="true">Equation 7: Observed cohort
+estimator</figcaption>
+</figure>
+<p><em>Equation 7. Observed cohort estimator.</em></p>
+<p>The estimator should be reported with sample size, median, mean, p90,
+acceptance rate, escaped defects, and reviewer time. It should be
+segmented by task class, repository, executor, model, verifier, and risk
+tier. A company-wide average can hide a route that is excellent for
+bounded migrations and dangerous for security-sensitive architectural
+work.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_05.jpg"
+alt="Figure 5. The denominator matters. At low acceptance, even an inexpensive candidate becomes an expensive production route." />
+<figcaption aria-hidden="true">Figure 5. The denominator matters. At low
+acceptance, even an inexpensive candidate becomes an expensive
+production route.</figcaption>
+</figure>
+<p><em>Figure 5. The denominator matters. At low acceptance, even an
+inexpensive candidate becomes an expensive production route.</em></p>
+<h3 id="why-public-benchmarks-are-priors-not-acceptance-rates">Why
+public benchmarks are priors, not acceptance rates</h3>
+<p>The first version of this article divided projected monthly bills by
+public SWE-bench scores. That was a useful intuition but an invalid
+production identity. A public score measures a model together with a
+scaffold, task set, prompt, tool environment, and evaluation protocol.
+It does not measure the organization’s repository, local quantization,
+test quality, security policy, or definition of acceptance.</p>
+<p>The benchmark problem became more explicit in 2026. OpenAI argued
+that SWE-bench Verified had become contaminated and contained test
+problems that rejected functionally correct solutions, recommending
+newer evaluations such as SWE-bench Pro <a href="#reference-10">10</a>.
+This does not make benchmarks useless. It makes their role clearer: they
+are capability priors and screening instruments. After a pilot,
+production telemetry must replace them.</p>
+<p>Equation 6 also has limits. Attempts may be correlated, tasks
+heterogeneous, and failures resumable. A route that fails because of an
+infrastructure timeout is different from one that repeats the same
+incorrect plan. This leads to the next model.</p>
+<h2 id="retries-are-options-not-rituals">Retries are options, not
+rituals</h2>
+<p>Let attempt <span class="math inline">\(k\)</span> have automatic
+incremental cost <span class="math inline">\(a_k\)</span>, conditional
+success probability <span class="math inline">\(p_k\)</span>, and an
+additional success cost <span class="math inline">\(s_k\)</span> for
+final review and residual risk. Let <span
+class="math inline">\(C_H\)</span> be the cost of human escalation after
+the machine route is exhausted. The expected cost of a <span
+class="math inline">\(K\)</span>-stage policy is</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_08.jpg"
+alt="Equation 8: Expected cost of a retry-and-escalation policy" />
+<figcaption aria-hidden="true">Equation 8: Expected cost of a
+retry-and-escalation policy</figcaption>
+</figure>
+<p><em>Equation 8. Expected cost of a retry-and-escalation
+policy.</em></p>
+<p>This formulation separates cheap automatic rejection from expensive
+human review. A failed local attempt can be economical when
+deterministic checks reject it before a human reads it. A local-first
+cascade therefore does not require the local model to outperform a
+frontier model on every task. It needs to solve enough easy tasks
+cheaply and fail safely on the rest.</p>
+<p>FrugalGPT established the broader cost-quality logic of learned model
+cascades: inexpensive models can handle suitable queries first, with
+escalation preserving quality under the right conditions <a
+href="#reference-11">11</a>. Loop Engineering extends this idea by
+placing executable evidence, state recovery, and risk policy between
+stages.</p>
+<p>The regulated-maintenance scenario uses a local attempt, a
+verifier-guided local retry, an Opus escalation, and then human
+completion. The expected cost is $62.53 per completed outcome, compared
+with a human-only baseline of $720.00. Adding a fourth blind retry
+increases expected cost because the retry is expensive and changes the
+success distribution too little.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_06.jpg"
+alt="Figure 6. The value of a retry comes from changed evidence, strategy, model, or task boundary—not from repetition itself." />
+<figcaption aria-hidden="true">Figure 6. The value of a retry comes from
+changed evidence, strategy, model, or task boundary—not from repetition
+itself.</figcaption>
+</figure>
+<p><em>Figure 6. The value of a retry comes from changed evidence,
+strategy, model, or task boundary—not from repetition itself.</em></p>
+<p>The base scenario implies a 91.3% reduction relative to the stated
+human baseline. That number is not a forecast for software development
+in general. It is the result of a narrow case with strong tests, bounded
+tasks, inexpensive automated rejection, and a reduced-cost human
+fallback after the loop has already produced diagnostics. The
+reproducible Monte Carlo sensitivity analysis, using beta posteriors
+around the illustrative pilot counts and uncertainty around costs,
+yields a median of $62.96 and a 10th–90th percentile range of
+$53.96–$75.41.</p>
+<blockquote>
+<p>A retry policy is economically valid only if the next attempt is
+materially different. Repeating the same prompt, context, model, and
+plan after the same failure should be assigned a very low conditional
+success probability. Correlated failure is the enemy of the
+geometric-retry fantasy.</p>
+</blockquote>
+<h2 id="local-cloud-and-hybrid-economics">Local, cloud, and hybrid
+economics</h2>
+<p>Local inference is often described as free because it has no
+per-token API invoice. That is incorrect. It replaces a variable
+provider charge with hardware amortization, electricity, maintenance,
+idle capacity, operational ownership, and a task-specific acceptance
+rate.</p>
+<p>For a local workstation,</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_09.jpg"
+alt="Equation 9: Local fixed cost" />
+<figcaption aria-hidden="true">Equation 9: Local fixed cost</figcaption>
+</figure>
+<p><em>Equation 9. Local fixed cost.</em></p>
+<p>For <span class="math inline">\(V\)</span> candidates per month,
+local infrastructure cost per accepted outcome is approximately</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_10.jpg"
+alt="Equation 10: Local infrastructure cost per accepted outcome" />
+<figcaption aria-hidden="true">Equation 10: Local infrastructure cost
+per accepted outcome</figcaption>
+</figure>
+<p><em>Equation 10. Local infrastructure cost per accepted
+outcome.</em></p>
+<p>The companion telemetry for the author’s Kowalski stack recorded
+4,936 power samples over about 2.95 hours, 0.0245 kWh of measured
+energy, a peak of 54.04 W, 421,025,723 accounted token events, and
+186,646 accepted output tokens <a href="#reference-12">12</a>.
+“Accounted token events” includes replay and cache-accounted activity,
+so it must not be compared directly with unique API-billed tokens. The
+implied run-average power is about 8.3 W because the workload alternated
+bursts and idle periods. In this measurement, electricity is
+economically tiny; amortization and human work matter far more.</p>
+<p>With a $2,500 workstation amortized over 36 months, $15 monthly
+maintenance, the measured energy profile, and the case acceptance
+assumptions, local model/infrastructure cost becomes cheaper than the
+cloud model fee at approximately 68 tasks per month versus Gemini 3.6
+Flash, 56 versus Sonnet 5, and 25 versus Opus 4.8. These are
+infrastructure-only break-even points. They do not prove that the
+complete local route is cheaper after review and rework.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_07.jpg"
+alt="Figure 7. Local capacity has a utilization threshold. The figure adjusts model or infrastructure cost by scenario acceptance but excludes human review, which must be added for a complete decision." />
+<figcaption aria-hidden="true">Figure 7. Local capacity has a
+utilization threshold. The figure adjusts model or infrastructure cost
+by scenario acceptance but excludes human review, which must be added
+for a complete decision.</figcaption>
+</figure>
+<p><em>Figure 7. Local capacity has a utilization threshold. The figure
+adjusts model or infrastructure cost by scenario acceptance but excludes
+human review, which must be added for a complete decision.</em></p>
+<p>The strongest architecture is often hybrid:</p>
+<ol type="1">
+<li><p>route routine, privacy-sensitive, and strongly verifiable work to
+a local or efficient model;</p></li>
+<li><p>use protected deterministic checks to reject failures
+cheaply;</p></li>
+<li><p>escalate on evidence to a stronger cloud model;</p></li>
+<li><p>escalate to a human when the task becomes ambiguous, high-risk,
+or uneconomic.</p></li>
+</ol>
+<p>This architecture treats routing as both a capability control and a
+financial control. It also avoids two opposite mistakes: using the
+weakest model everywhere in the name of thrift, and using the strongest
+model for formatting, retrieval, and deterministic transformations.</p>
+<h2 id="the-organizational-bottleneck-moves-downstream">The
+organizational bottleneck moves downstream</h2>
+<p>Individual task economics do not automatically become enterprise
+throughput. Software delivery is a flow system. Let <span
+class="math inline">\(C_s\)</span>, <span
+class="math inline">\(C_g\)</span>, <span
+class="math inline">\(C_v\)</span>, <span
+class="math inline">\(C_i\)</span>, <span
+class="math inline">\(C_r\)</span>, and <span
+class="math inline">\(C_o\)</span> be sustainable monthly capacity in
+specification, generation, verification, integration, release, and
+operational absorption, all measured in comparable accepted-change
+units. A first approximation is</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_11.jpg"
+alt="Equation 11: Organizational bottleneck capacity" />
+<figcaption aria-hidden="true">Equation 11: Organizational bottleneck
+capacity</figcaption>
+</figure>
+<p><em>Equation 11. Organizational bottleneck capacity.</em></p>
+<p>Loop Engineering directly expands generation capacity. If
+verification remains fixed, generated work becomes work in progress
+rather than value. DORA’s 2024 research found that greater AI adoption
+was associated with lower delivery throughput and stability in the
+observed sample, with larger generated batches offered as a mechanism <a
+href="#reference-13">13</a>. DORA’s 2025 conclusion was broader: AI acts
+as an amplifier of the surrounding socio-technical system, magnifying
+both strengths and weaknesses <a href="#reference-14">14</a>.</p>
+<p>In the case model, monthly capacities before investment are 85 for
+specification, 110 for generation, 52 for verification, 70 for
+integration, 64 for release, and 75 for operations. The system therefore
+produces at most 52 accepted changes per month. Raising verification to
+82 does not produce 82 outcomes; it moves the constraint to release and
+increases sustainable throughput to 64.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_08.jpg"
+alt="Figure 8. The correct investment is in the constraint. More generation after verification reaches capacity creates a queue, not throughput." />
+<figcaption aria-hidden="true">Figure 8. The correct investment is in
+the constraint. More generation after verification reaches capacity
+creates a queue, not throughput.</figcaption>
+</figure>
+<p><em>Figure 8. The correct investment is in the constraint. More
+generation after verification reaches capacity creates a queue, not
+throughput.</em></p>
+<p>Near-full utilization also creates nonlinear queueing delay, so the
+practical target is not to make every stage exactly equal. The
+constrained stage needs headroom for variability, urgent work, and
+failed candidates.</p>
+<h3 id="verification-as-productive-capital">Verification as productive
+capital</h3>
+<p>Verification is often classified as overhead because it adds cost to
+an attempt. That view ignores avoided rework and failure. Let <span
+class="math inline">\(\Delta C_w\)</span> be measured rework reduction,
+<span class="math inline">\(\Delta C_f\)</span> the reduction in
+expected failure cost, and <span class="math inline">\(C_v\)</span> the
+complete verifier cost. Define</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/equation_12.jpg"
+alt="Equation 12: Verification leverage" />
+<figcaption aria-hidden="true">Equation 12: Verification
+leverage</figcaption>
+</figure>
+<p><em>Equation 12. Verification leverage.</em></p>
+<p>In the scenario, a $20,000 quarterly verifier investment avoids
+$28,000 of rework and $52,000 of expected failure cost, producing direct
+leverage of 4.0<span class="math inline">\(\times\)</span>. The
+calculation excludes additional auditability, trust, and learning
+benefits, but it must include verifier maintenance, false positives,
+latency, and defects that still escape.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_09.jpg"
+alt="Figure 9. A verifier is economically accretive when the loss it prevents exceeds its full cost." />
+<figcaption aria-hidden="true">Figure 9. A verifier is economically
+accretive when the loss it prevents exceeds its full cost.</figcaption>
+</figure>
+<p><em>Figure 9. A verifier is economically accretive when the loss it
+prevents exceeds its full cost.</em></p>
+<p>As generation becomes abundant, independent verification becomes
+scarce productive capital. Tests, static analysis, policy engines,
+simulations, differential checks, protected evaluation datasets, and
+independent model review all increase the organization’s ability to use
+cheaper or more autonomous generators safely.</p>
+<h2
+id="individual-productivity-is-a-distribution-not-a-multiplier">Individual
+productivity is a distribution, not a multiplier</h2>
+<p>The economics of an individual contributor cannot be represented by
+one universal percentage. Evidence varies strongly with task,
+experience, codebase familiarity, and verification burden.</p>
+<p>A large customer-support study found an average productivity
+improvement of about 15%, with greater gains among less-experienced
+workers and evidence of knowledge transfer <a
+href="#reference-15">15</a>. Three field experiments involving nearly
+4,900 software developers found a 26.08% increase in completed tasks,
+again with larger gains among less-experienced developers <a
+href="#reference-16">16</a>. The BCG “jagged technological frontier”
+study found substantial gains on tasks inside the model’s practical
+frontier but worse correctness outside it <a
+href="#reference-17">17</a>.</p>
+<p>The opposite result is possible. METR’s early-2025 randomized study
+found that experienced open-source developers working in familiar
+repositories took 19% longer with the available AI tools, despite
+believing that they were faster <a href="#reference-18">18</a>. METR
+subsequently reported newer, more uncertain evidence suggesting that the
+frontier was changing, reinforcing the need to timestamp productivity
+claims rather than turn one study into a permanent law <a
+href="#reference-19">19</a>.</p>
+<p>The correct contributor scorecard should therefore keep several
+dimensions separate:</p>
+<ul>
+<li><p>end-to-end time to independent acceptance, including prompting,
+waiting, review, correction, and integration;</p></li>
+<li><p>defects, maintainability, and evidence strength;</p></li>
+<li><p>learning and transfer of repository knowledge;</p></li>
+<li><p>review burden, interruptions, and cognitive switching;</p></li>
+<li><p>autonomy, compensation, career capital, and sustainable
+workload.</p></li>
+</ul>
+<p>Do not add money, autonomy, learning, burnout, and career mobility
+into one pseudo-precise function. Report organizational economics and
+contributor economics in parallel. An adoption can improve margin while
+degrading the worker outcome; resistance may then be economically
+rational rather than a failure of culture.</p>
+<p>A related risk is apprenticeship. Stanford’s 2026 AI Index reports a
+sharp decline in employment among the youngest US software developers
+while employment among older developers grew, but it does not establish
+that AI alone caused the change <a href="#reference-20">20</a>. The
+strategic concern is still real: if the loop absorbs the bounded tasks
+through which novices learn, an organization may reduce today’s labor
+cost by liquidating tomorrow’s senior capability.</p>
+<h2 id="the-regulated-maintenance-case">The regulated-maintenance
+case</h2>
+<p>The quantitative case is a bounded dependency-upgrade and
+compatibility-repair loop in a regulated financial platform. The task
+class has strong automated tests, protected verification, a human owner
+for final merge, and a human fallback. The case is deliberately narrow
+because economic models become misleading when heterogeneous work is
+averaged together.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/table_02.jpg"
+alt="Table 2. Transparent scenario assumptions. Current provider prices and local measurements are sourced observations; acceptance, review, and risk values are case assumptions to be replaced by pilot telemetry." />
+<figcaption aria-hidden="true">Table 2. Transparent scenario
+assumptions. Current provider prices and local measurements are sourced
+observations; acceptance, review, and risk values are case assumptions
+to be replaced by pilot telemetry.</figcaption>
+</figure>
+<p><em>Table 2. Transparent scenario assumptions. Current provider
+prices and local measurements are sourced observations; acceptance,
+review, and risk values are case assumptions to be replaced by pilot
+telemetry.</em></p>
+<p>The model produces six operational decisions.</p>
+<h5 id="reject-unbounded-replay.">1. Reject unbounded replay.</h5>
+<p>The full-history route costs more than three times the fresh-state
+route at 40 turns and diverges further as the horizon grows. Fresh
+contexts with external state are selected unless measured acceptance
+deteriorates; compaction is retained as a fallback.</p>
+<h5 id="measure-the-complete-candidate.">2. Measure the complete
+candidate.</h5>
+<p>In the standalone route assumptions, complete costs per accepted
+outcome are $96.08 for local Qwen, $74.88 for Gemini 3.6 Flash, $61.75
+for Sonnet 5, and $53.38 for Opus 4.8. The example intentionally shows
+that the frontier model can be the cheapest standalone route after
+review and risk are included.</p>
+<h5 id="prefer-the-cascade-over-the-frontier-default.">3. Prefer the
+cascade over the frontier default.</h5>
+<p>Opus is the best standalone route in the case, but Opus-first is not
+the best policy. Automatic gates allow local attempts to solve easy
+tasks or fail cheaply. The local-local-Opus cascade lowers expected
+completion cost to $62.53.</p>
+<h5 id="stop-before-a-blind-retry.">4. Stop before a blind retry.</h5>
+<p>The fourth attempt repeats expensive work with low conditional
+success. It raises rather than lowers expected cost. The loop stops and
+preserves evidence for the human.</p>
+<h5 id="invest-in-verification-then-release.">5. Invest in verification,
+then release.</h5>
+<p>Verification investment raises the system constraint from 52 to 64
+outcomes per month. Release becomes the next constraint, so the next
+dollar should not buy more generation.</p>
+<h5 id="keep-the-case-falsifiable.">6. Keep the case falsifiable.</h5>
+<p>The route should be paused if acceptance falls, human review becomes
+the constraint, escaped defects exceed the risk allowance, or maker and
+verifier share a specification blind spot. The stop condition is part of
+the economic model, not merely a safety appendix.</p>
+<h2 id="a-closed-economic-control-loop">A closed economic control
+loop</h2>
+<p>A mature organization does not optimize one model call. It operates a
+learning system that connects task selection, routing, evidence,
+production outcomes, and portfolio allocation.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/figure_10.jpg"
+alt="Figure 10. The economic control loop. Outcome telemetry changes task admission, routing, budget, verification, and human authority." />
+<figcaption aria-hidden="true">Figure 10. The economic control loop.
+Outcome telemetry changes task admission, routing, budget, verification,
+and human authority.</figcaption>
+</figure>
+<p><em>Figure 10. The economic control loop. Outcome telemetry changes
+task admission, routing, budget, verification, and human
+authority.</em></p>
+<p>The operating record for each task should link:</p>
+<ul>
+<li><p>task class, value hypothesis, risk tier, and evidence
+contract;</p></li>
+<li><p>model, executor, context policy, cache behavior, tools, and
+environment;</p></li>
+<li><p>every attempt, failure category, checkpoint, and
+escalation;</p></li>
+<li><p>automated gate results, reviewer time, final deployment, and
+escaped defects;</p></li>
+<li><p>complete cost and observed business effect.</p></li>
+</ul>
+<p>This is AI FinOps only in part. Traditional FinOps seeks visibility,
+allocation, and efficient consumption. Loop economics adds stochastic
+acceptance, evidence quality, workflow capacity, and human authority. A
+dashboard that reports tokens without outcomes can create blame but
+cannot create learning.</p>
+<h2 id="management-principles-for-ai-loop-economics">Management
+principles for AI Loop Economics</h2>
+<p>The analysis can be reduced to ten operating rules.</p>
+<ol type="1">
+<li><p><strong>Price the verified outcome, not the
+token.</strong></p></li>
+<li><p><strong>Measure end-to-end accepted completion, not local
+generation speed.</strong></p></li>
+<li><p><strong>Treat context architecture as a production
+control.</strong></p></li>
+<li><p><strong>Use benchmarks as priors and production cohorts as
+evidence.</strong></p></li>
+<li><p><strong>Use the cheapest route that can reliably pass the
+required verifier.</strong></p></li>
+<li><p><strong>Retry only when evidence changes the probability
+distribution.</strong></p></li>
+<li><p><strong>Invest in the bottleneck that follows
+generation.</strong></p></li>
+<li><p><strong>Measure verification as productive
+capital.</strong></p></li>
+<li><p><strong>Keep organizational value and contributor sustainability
+as parallel scorecards.</strong></p></li>
+<li><p><strong>Publish assumptions, source dates, code, and stop
+conditions.</strong></p></li>
+</ol>
+<h2
+id="conclusion-tokens-are-an-input-verified-flow-is-the-product">Conclusion:
+tokens are an input; verified flow is the product</h2>
+<p>The token remains an important unit. It determines part of the
+invoice, explains context-related cost, and enables useful controls such
+as caching, compaction, batching, and routing. But it is no longer a
+sufficient economic object.</p>
+<p>An AI loop is a probabilistic worker embedded in a socio-technical
+production system. It consumes model inference, tools, test
+infrastructure, human attention, organizational capacity, and risk. Its
+outputs become economically meaningful only after evidence,
+authorization, integration, deployment, and use. This is why cheap
+generation can coexist with expensive delivery, why local productivity
+can coexist with slower enterprise flow, and why a stronger model can be
+cheaper after review.</p>
+<p>The durable competitive advantage is not unlimited access to
+intelligence. Model access will continue to commoditize and prices will
+continue to move. The durable asset is an operating system that can
+decompose intent, preserve state, route work, verify independently, stop
+bad trajectories, learn from outcomes, and allocate the resulting
+surplus deliberately.</p>
+<blockquote>
+<p><strong>The invoice ends at tokens. Economics begins with what the
+loop can prove.</strong></p>
+</blockquote>
+<h2 id="appendix-reproducibility-and-interpretation">Appendix:
+Reproducibility and interpretation</h2>
+<p>The companion package contains:</p>
+<ul>
+<li><p><code>data/model_prices_2026-07-24.csv</code>: official price
+snapshot with source URLs and notes;</p></li>
+<li><p><code>data/local_runtime_telemetry_summary.csv</code>:
+author-supplied local measurement summary used by the model;</p></li>
+<li><p><code>data/assumptions.json</code>: all case, local-runtime,
+capacity, and uncertainty assumptions;</p></li>
+<li><p><code>src/ai_economics_model.py</code>: formulas, simulations,
+tables, and figure generation;</p></li>
+<li><p><code>output/*.csv</code> and
+<code>output/results_summary.json</code>: calculated results;</p></li>
+<li><p><code>figures/*.png</code> and <code>figures/*.pdf</code>:
+publication graphics;</p></li>
+<li><p><code>src/generated_values.tex</code>: calculated LaTeX macros
+used by the article;</p></li>
+<li><p>this LaTeX source and compiled PDF.</p></li>
+</ul>
+<p>Three evidence classes are intentionally kept separate:</p>
+<ul>
+<li><p><strong>Sourced observations:</strong> Provider list prices,
+research findings, GitHub billing changes, and local telemetry supplied
+by the author.</p></li>
+<li><p><strong>Scenario assumptions:</strong> Acceptance rates, reviewer
+time, risk allowances, stage costs, and capacity changes in the
+regulated-maintenance case.</p></li>
+<li><p><strong>Calculated results:</strong> Context costs, candidate and
+accepted costs, policy expectations, break-even points, bottleneck
+output, verifier leverage, and uncertainty ranges.</p></li>
+</ul>
+<p>The scenario is designed to be replaced, not believed. A production
+team should preserve the model structure while substituting its own task
+cohorts, complete costs, gate outcomes, review minutes, defect history,
+and operational capacity.</p>
+<h2 id="references">References</h2>
+<p>&lt;a id="reference-1"&gt;&lt;/a&gt; 1. E. Papalini (2026). <em>The
+Economics of Generative AI: From Subsidy Crisis to Agentic Workflow
+Sustainability</em>. <a
+href="https://github.com/popoloni/articles/blob/main/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/medium.md">Source</a></p>
+<p>&lt;a id="reference-2"&gt;&lt;/a&gt; 2. GitHub (2026). <em>GitHub
+Copilot is moving to usage-based billing</em>. <a
+href="https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/">Source</a></p>
+<p>&lt;a id="reference-3"&gt;&lt;/a&gt; 3. GitHub Docs (2026).
+<em>Usage-based billing for organizations and enterprises</em>. <a
+href="https://docs.github.com/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises">Source</a></p>
+<p>&lt;a id="reference-4"&gt;&lt;/a&gt; 4. L. Bai, Z. Huang, X. Wang, J.
+Sun, R. Mihalcea, E. Brynjolfsson, A. Pentland, and J. Pei (2026).
+<em>How Do AI Agents Spend Your Money? Analyzing and Predicting Token
+Consumption in Agentic Coding Tasks</em>. <a
+href="https://arxiv.org/abs/2604.22750">Source</a></p>
+<p>&lt;a id="reference-5"&gt;&lt;/a&gt; 5. Stanford Institute for
+Human-Centered AI (2025). <em>The 2025 AI Index Report</em>. <a
+href="https://hai.stanford.edu/ai-index/2025-ai-index-report">Source</a></p>
+<p>&lt;a id="reference-6"&gt;&lt;/a&gt; 6. W. S. Jevons (1866). <em>The
+Coal Question</em>, second edition. Macmillan.</p>
+<p>&lt;a id="reference-7"&gt;&lt;/a&gt; 7. Anthropic (2026). <em>Claude
+Platform Pricing</em>. <a
+href="https://platform.claude.com/docs/en/about-claude/pricing">Source</a></p>
+<p>&lt;a id="reference-8"&gt;&lt;/a&gt; 8. OpenAI (2026). <em>API
+Pricing</em>. <a
+href="https://developers.openai.com/api/docs/pricing">Source</a></p>
+<p>&lt;a id="reference-9"&gt;&lt;/a&gt; 9. Google (2026). <em>Gemini
+Developer API Pricing</em>. <a
+href="https://ai.google.dev/gemini-api/docs/pricing">Source</a></p>
+<p>&lt;a id="reference-10"&gt;&lt;/a&gt; 10. OpenAI (2026). <em>Why
+SWE-bench Verified no longer measures frontier coding capabilities</em>.
+<a
+href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">Source</a></p>
+<p>&lt;a id="reference-11"&gt;&lt;/a&gt; 11. L. Chen, M. Zaharia, and J.
+Zou (2023). <em>FrugalGPT: How to Use Large Language Models While
+Reducing Cost and Improving Performance</em>. <a
+href="https://arxiv.org/abs/2305.05176">Source</a></p>
+<p>&lt;a id="reference-12"&gt;&lt;/a&gt; 12. E. Papalini (2026).
+<em>Kowalski local-loop power and token telemetry</em>. Author-supplied
+measurement notes reproduced in the companion dataset to this
+article.</p>
+<p>&lt;a id="reference-13"&gt;&lt;/a&gt; 13. DORA / Google Cloud (2024).
+<em>Impact of Generative AI in Software Development</em>. <a
+href="https://dora.dev/ai/gen-ai-report/">Source</a></p>
+<p>&lt;a id="reference-14"&gt;&lt;/a&gt; 14. DORA / Google Cloud (2025).
+<em>State of AI-assisted Software Development</em>. <a
+href="https://dora.dev/dora-report-2025/">Source</a></p>
+<p>&lt;a id="reference-15"&gt;&lt;/a&gt; 15. E. Brynjolfsson, D. Li, and
+L. Raymond (2025). <em>Generative AI at Work</em>. Quarterly Journal of
+Economics, 140(2), 889–942. <a
+href="https://academic.oup.com/qje/article/140/2/889/7990658">Source</a></p>
+<p>&lt;a id="reference-16"&gt;&lt;/a&gt; 16. K. Z. Cui, M. Demirer, S.
+Jaffe, L. Musolff, S. Peng, and T. Salz (2025). <em>The Effects of
+Generative AI on High-Skilled Work: Evidence from Three Field
+Experiments with Software Developers</em>. <a
+href="https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/">Source</a></p>
+<p>&lt;a id="reference-17"&gt;&lt;/a&gt; 17. F. Dell’Acqua et
+al. (2023). <em>Navigating the Jagged Technological Frontier: Field
+Experimental Evidence of the Effects of AI on Knowledge Worker
+Productivity and Quality</em>. <a
+href="https://www.hbs.edu/faculty/Pages/item.aspx?num=64700">Source</a></p>
+<p>&lt;a id="reference-18"&gt;&lt;/a&gt; 18. METR (2025). <em>Measuring
+the Impact of Early-2025 AI on Experienced Open-Source Developer
+Productivity</em>. <a
+href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">Source</a></p>
+<p>&lt;a id="reference-19"&gt;&lt;/a&gt; 19. METR (2026). <em>We are
+Changing our Developer Productivity Experiment Design</em>. <a
+href="https://metr.org/blog/2026-02-24-uplift-update/">Source</a></p>
+<p>&lt;a id="reference-20"&gt;&lt;/a&gt; 20. Stanford Institute for
+Human-Centered AI (2026). <em>The 2026 AI Index Report: Economy</em>. <a
+href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">Source</a></p>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../economics-of-generative-ai/">The Economics of Generative AI: From Subsidy Crisis to Agentic Workflow
+Sustainability</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

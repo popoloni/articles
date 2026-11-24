@@ -1,0 +1,198 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Expect, Delegate, Observe, Decide: a practical walkthrough of accountable change."><title>How to Build Reliable Software with AI Coding Agents · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/reliable-software-with-ai-coding-agents/"><meta property="og:title" content="How to Build Reliable Software with AI Coding Agents"><meta property="og:description" content="Expect, Delegate, Observe, Decide: a practical walkthrough of accountable change."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Agentic engineering</p><h1>How to Build Reliable Software with AI Coding Agents</h1><p class="meta">Enrico Papalini · 2026-11-24 · 7 min read</p><p class="lede">Expect, Delegate, Observe, Decide: a practical walkthrough of accountable change.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article/How_to_Build_Reliable_Software_with_AI_Coding_Agents.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p>A practical lesson from my new book, Engineering Software with
+Agentic AI: define the task, verify the result and decide what to
+accept.</p>
+<p>By Enrico Papalini</p>
+<p>An AI coding agent can produce a patch and a passing test report. You
+still need to establish that the change fixes the intended problem,
+preserves existing behaviour and stays within its approved scope.</p>
+<p>I wrote <em>Engineering Software with Agentic AI: Reliable Change
+with Coding Agents</em> to teach that process. Chapter 1 follows one
+repair from the approved requirement to the final decision. You can
+inspect what the agent changes, how the result is checked and why the
+reviewer accepts it.</p>
+<p>Here is the workflow you will learn: <strong>Expect, Delegate,
+Observe, Decide</strong>. It gives you four practical responsibilities
+to carry into your next agent-assisted change.</p>
+<p>Our example is the book’s Treasury teaching system. Its router sends
+a negative amount, EUR -0.01, into the standard queue because it
+compares the amount with EUR 5,000 before validating it. The task is to
+correct that behaviour. This function selects a queue; payment
+authorisation lies outside its scope.</p>
+<h2 id="define-correct-behaviour-before-the-agent-edits">1. Define
+correct behaviour before the agent edits</h2>
+<p>Start with the approved rule. Under BR-001/v1, an amount must be
+parseable as a decimal, finite and strictly positive. Invalid amounts
+are rejected. Valid amounts below EUR 5,000 enter the standard queue;
+EUR 5,000 and above require human review.</p>
+<p>Turn that rule into concrete examples: <code>-0.01</code> must be
+rejected, <code>4000.00</code> must enter the standard queue, and
+<code>5000.00</code> must require human review. Every result must
+identify the policy version used.</p>
+<p>The EUR 5,000 case already works in the starter. Keeping it correct
+is part of the repair. <strong>Write the expected answers from the
+approved rule before letting the implementation influence
+them.</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article/assets/boundaries.jpg"
+alt="Treasury rule BR-001/v1. Reject invalid, nonfinite and nonpositive amounts. Finite positive amounts below EUR 5,000 enter the standard queue. EUR 5,000 and above require human review. The faulty starter routes minus EUR 0.01 to the standard queue because it compares before validating." />
+<figcaption aria-hidden="true">Treasury rule BR-001/v1. Reject invalid,
+nonfinite and nonpositive amounts. Finite positive amounts below EUR
+5,000 enter the standard queue. EUR 5,000 and above require human
+review. The faulty starter routes minus EUR 0.01 to the standard queue
+because it compares before validating.</figcaption>
+</figure>
+<p>Step 1: establish the expected behaviour. Validate the amount before
+comparing it with the threshold. Hand-drawn adaptation of Figure 1.2 in
+Chapter 1.</p>
+<h2 id="give-the-agent-a-task-with-clear-limits">2. Give the agent a
+task with clear limits</h2>
+<p>Run the checks on the unchanged code first. The seven core cases
+produce three passes, two failures and two errors. The valid amounts
+below, at and above the threshold already work. Negative and zero values
+receive the wrong route; malformed text and <code>NaN</code> raise
+exceptions.</p>
+<p>This baseline tells you what to repair and what to preserve. It also
+prevents you from mistaking existing behaviour for a new capability
+delivered by the agent.</p>
+<p>Now give the agent a bounded task: repair invalid-amount handling in
+the router, preserve the public interface and policy identity, and keep
+the EUR 5,000 boundary. Protect the governing documents and acceptance
+checks. Set a work budget and state when the agent must stop for a
+decision.</p>
+<p>The chapter’s recorded task permits editing one implementation file.
+A note proposing a EUR 10,000 threshold remains an unapproved proposal.
+The policy owner must approve that change before the agent may adopt
+it.</p>
+<p><strong>Be explicit about the outcome, editable scope, protected
+behaviour and stop conditions.</strong> These instructions help keep a
+useful repair from expanding into an unintended policy change.</p>
+<h2 id="the-four-responsibilities-in-one-picture">The four
+responsibilities in one picture</h2>
+<p>In EDOD, <strong>Expect</strong> defines the authorised result;
+<strong>Delegate</strong> bounds the work; <strong>Observe</strong>
+independently checks the actual candidate; and <strong>Decide</strong>
+records what the evidence and authority allow.</p>
+<p>One engineer can perform several responsibilities. They recur as the
+task develops: observing the baseline, for example, helps you bound the
+delegation.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article/assets/edod.jpg"
+alt="Expect, Delegate, Observe, Decide. The rule owner supplies the approved expectation; the engineer delegates a bounded task to the agent; independent checks observe the exact candidate; the accountable reviewer accepts, rejects or asks the responsible owner." />
+<figcaption aria-hidden="true">Expect, Delegate, Observe, Decide. The
+rule owner supplies the approved expectation; the engineer delegates a
+bounded task to the agent; independent checks observe the exact
+candidate; the accountable reviewer accepts, rejects or asks the
+responsible owner.</figcaption>
+</figure>
+<p>The workflow taught in Chapter 1: Expect, Delegate, Observe, Decide.
+Each responsibility contributes to an accountable change. Hand-drawn
+adaptation of Figure 1.1.</p>
+<h2 id="check-the-exact-result-independently">3. Check the exact result
+independently</h2>
+<p>The recorded repair shows the method in action. An AI facilitator
+operates a fresh coding-agent session. The worker reads the contracts
+and starter, reproduces the failures, edits the router and runs the
+checks.</p>
+<p>The patch validates the input type, catches the intended
+decimal-parsing exception, rejects nonfinite or nonpositive values, and
+preserves the threshold comparison.</p>
+<p>This recording uses twelve development test methods, a larger
+selection than the seven-case core. All twelve pass after the repair.
+The worker also tests whether an unexpected programming fault remains
+visible and checks two previously accepted text formats.</p>
+<p>The operator then runs protected checks independently on the retained
+candidate. The resulting decision is specific: retain this v1 repair and
+stop the task.</p>
+<p><strong>Independent verification connects controlled expectations to
+the exact candidate under review.</strong> Retain what was checked,
+which command ran and what it returned. If the patch changes afterward,
+the earlier result does not automatically cover it. If the agent changes
+the expected answers to match its patch, the new agreement needs its own
+review.</p>
+<h2 id="choose-checks-that-can-expose-an-incomplete-repair">Choose
+checks that can expose an incomplete repair</h2>
+<p>To show why those checks matter, the chapter also presents a
+deliberately incomplete alternative. It handles malformed text and
+rejects <code>NaN</code>, zero and negative values. All seven core tests
+pass.</p>
+<p>Yet <code>Infinity</code> still reaches human review because the
+guard never excludes every nonfinite value.</p>
+<p>The approved rule requires a finite amount. The missing check has a
+clear purpose: distinguish the intended implementation from this
+plausible faulty one. Another ordinary positive example would leave that
+defect unchallenged.</p>
+<p>The extended suite adds positive and negative infinity, another
+infinity spelling, signalling <code>NaN</code>, and a non-string caller.
+That last case checks the separate API contract: this function accepts
+strings and raises <code>TypeError</code> for another input type.</p>
+<p>There is a further obligation. A broad exception handler can make all
+twelve methods pass while concealing an unexpected programming fault as
+an invalid customer amount. The recorded worker tests this by injecting
+a <code>RuntimeError</code> at decimal conversion and observing that it
+remains visible.</p>
+<p>The practical lesson is to choose checks that could expose a wrong
+repair, including faults your ordinary examples would miss.</p>
+<p>The book gives you the assignment, actual tool work, patch, checks
+and acceptance decision. You can follow the reasoning and see which
+conclusions the observations support.</p>
+<h2 id="decide-what-you-can-acceptand-what-needs-an-owner">4. Decide
+what you can accept—and what needs an owner</h2>
+<p>Finish with an explicit decision about the identified change:</p>
+<ul>
+<li><p><strong>ACCEPT</strong>: the candidate meets the approved
+contract for the stated scope, with the required evidence and
+authority.</p></li>
+<li><p><strong>REJECT</strong>: an observation contradicts an
+obligation. Name the contradiction and the required correction.</p></li>
+<li><p><strong>ASK</strong>: a consequential expectation or permission
+is missing. Name the owner and the question.</p></li>
+</ul>
+<p>These labels help you choose the next action. A candidate that routes
+infinity into human review should be rejected: it contradicts the
+approved finite-amount rule. The failing check calls for an
+implementation repair.</p>
+<p>Inputs such as <code>1e3</code> and <code>4_000</code> raise a
+different issue. Decimal parsing accepts them, and the current contract
+does not require a narrower grammar. Tightening that grammar needs a
+decision from the input-contract owner.</p>
+<p>Incomplete observation also needs a precise response. If the test
+runner cannot import the router, its behaviour has not been checked.
+Preserve the candidate, restore the check and continue verification.
+Report the state clearly: <em>candidate changed; verification
+incomplete</em>.</p>
+<p><strong>The engineer defines the outcome, directs the work, evaluates
+the observations and owns the acceptance decision.</strong> Delegating
+implementation makes those responsibilities especially important.</p>
+<h2 id="get-the-book-and-put-the-method-into-practice">Get the book and
+put the method into practice</h2>
+<p>This article introduces one repair. My new book, <em>Engineering
+Software with Agentic AI: Reliable Change with Coding Agents</em>,
+develops the method through the wider software lifecycle.</p>
+<p>It is written for developers, technical leads and reviewers who want
+to use coding agents with a clear basis for accepting their work. Across
+<strong>twelve chapters</strong>, you learn to turn a need into a
+verifiable outcome, specify behaviour, prepare context and tools,
+compare designs, delegate, implement, verify and review a release. Later
+chapters address compatibility, diagnosis, learning and the whole cost
+of delivery.</p>
+<p>Then you practise through <strong>eight linked missions</strong>.
+Build and evolve a persistent workshop reservation system, or improve an
+existing Treasury system through bounded provider work, preserved policy
+decisions and recovery. Each assignment carries earlier promises and
+stored state forward.</p>
+<p>Worked chapter decisions, mission solutions, an EDOD field card and
+the <a href="https://github.com/popoloni/esa_ai">companion
+repository</a> help you connect the explanation to practical work.</p>
+<p>If you want to direct coding agents with clearer requirements,
+stronger checks and more defensible decisions, this book gives you a
+structured path to practise those skills.</p>
+<p><strong><a href="https://www.amazon.com/dp/B0HSPH86CG">Buy
+Engineering Software with Agentic AI on Amazon</a></strong> and start
+with Chapter 1. Follow the repair, inspect the evidence, then apply the
+workflow to your next software change.</p>
+<p><em>Adapted by the author from Chapter 1, The first accountable
+change, in Engineering Software with Agentic AI, English review
+edition 5.6.1. Figures are redrawn from Figures 1.1 and 1.2.</em></p>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../artifactory-and-agent-coordination/">The Agents Didn’t Need a Chat Room. They Had Artifactory.</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

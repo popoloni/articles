@@ -1,0 +1,506 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The second edition and the evidence behind trustworthy change."><title>The AI Wrote the Patch. But Who Can Prove It Belongs? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/ai-wrote-the-patch/"><meta property="og:title" content="The AI Wrote the Patch. But Who Can Prove It Belongs?"><meta property="og:description" content="The second edition and the evidence behind trustworthy change."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Books &amp; research</p><h1>The AI Wrote the Patch. But Who Can Prove It Belongs?</h1><p class="meta">Enrico Papalini · 2026-10-17 · 14 min read</p><p class="lede">The second edition and the evidence behind trustworthy change.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>Why Non-Deterministic Software Engineering needed a Second
+Edition — and what the research really tells us about coding agents,
+productivity, and trustworthy software.</em></p>
+<p><strong>By Enrico Papalini · October 2026</strong></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/01_Medium_Article_Banner.png"
+alt="Enrico Papalini holding Non-Deterministic Software Engineering Second Edition. Editorial banner using the book’s original navy, white and orange palette." />
+<figcaption aria-hidden="true">Enrico Papalini holding Non-Deterministic
+Software Engineering Second Edition. Editorial banner using the book’s
+original navy, white and orange palette.</figcaption>
+</figure>
+<p>Imagine a Monday morning maintenance request.</p>
+<p>Your team needs to lower a departmental approval threshold from
+€5,000 to €3,000. An AI coding agent inspects the repository, finds the
+relevant configuration, updates the policy class, generates a few tests,
+and reports success.</p>
+<p>The build is green. The patch looks clean. The whole operation took
+fifteen minutes.</p>
+<p>Then a colleague asks a simple question:</p>
+<p><strong>“What happens if yesterday’s €4,000 request is submitted
+again?”</strong></p>
+<p>That is where the easy part ends.</p>
+<p>A new €4,000 request should follow the new €3,000 threshold and
+require review. But a retry of yesterday’s request, using the same
+idempotency key, must preserve the decision recorded under the previous
+€5,000 policy.</p>
+<p>Two apparently identical requests. Two different correct
+outcomes.</p>
+<p>Changing one constant does not solve that problem. Neither does
+generating more tests if those tests simply repeat the agent’s mistaken
+interpretation.</p>
+<p>Someone must establish the intended behavior, identify the authority
+behind the rule, preserve historical decisions, and demonstrate that the
+implementation respects those obligations.</p>
+<p>This is a <strong>synthetic</strong> example from my new book. The
+service only recommends eligibility or review; it does not authorize
+payments or move funds. I deliberately chose something unremarkable.
+Because the most consequential difficulties in AI-assisted software
+engineering are often hidden inside ordinary maintenance work.</p>
+<p><strong>The model can finish generating code long before the
+organization has finished engineering the change.</strong></p>
+<p>That distinction became the central argument of the Second Edition of
+<em>Non-Deterministic Software Engineering</em>, which I am introducing
+today. And it fundamentally changed how I approached the book.</p>
+<h2 id="the-question-has-changed-since-2025">The Question Has Changed
+Since 2025</h2>
+<p>When I published the first edition in December 2025, the industry was
+still learning how to incorporate probabilistic AI assistants into
+professional development.</p>
+<p>The central question was how to benefit from AI-generated code
+without sacrificing quality, security, or human control.</p>
+<p>That question remains important. But the tools, workflows, and
+research have evolved considerably.</p>
+<p>In the following months, I explored Spec-Driven Development,
+enterprise governance, autonomous coding agents, and Loop Engineering in
+other volumes of the Non-Deterministic series.</p>
+<p>Meanwhile, research on AI-assisted software development started
+producing something particularly interesting: apparently contradictory
+results.</p>
+<p>Some experiments measured substantial productivity improvements.
+Others showed experienced developers slowing down. Coding benchmarks
+improved rapidly, yet questions about maintainability, human
+comprehension, and production readiness remained unresolved.</p>
+<p>The temptation was to pick whichever result confirmed our
+expectations.</p>
+<p>I became more interested in understanding <strong>why these results
+differed</strong>.</p>
+<p>That led to a different starting point for the new edition:</p>
+<blockquote>
+<p>Stop measuring how much code AI produces. Start examining how much
+trustworthy, accepted, and maintainable change the entire engineering
+process delivers.</p>
+</blockquote>
+<p>This is not a rejection of AI acceleration. It is an attempt to
+understand where that acceleration becomes real value — and where it
+merely transfers work to someone else.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/05_Book_Figure_Engineering_Lifecycle.jpg"
+alt="Hand-drawn lifecycle diagram from the book, linking engineering work with human accountability." />
+<figcaption aria-hidden="true">Hand-drawn lifecycle diagram from the
+book, linking engineering work with human accountability.</figcaption>
+</figure>
+<p><em>From the book: engineering work is a lifecycle that includes
+human actors, agents, evidence, decisions and handoffs.</em></p>
+<h2
+id="the-productivity-paradox-how-can-ai-make-developers-both-faster-and-slower">The
+Productivity Paradox: How Can AI Make Developers Both Faster and
+Slower?</h2>
+<p>Consider three studies.</p>
+<p>Cui and colleagues published <a
+href="https://doi.org/10.1287/mnsc.2025.00535"><em>The Effects of
+Generative AI on High-Skilled Work</em></a> in <em>Management
+Science</em>. The researchers examined three randomized field
+experiments involving 4,867 software developers. Across the combined
+experiments, access to an AI coding assistant was associated with a
+<strong>26.08% increase in completed tasks</strong>, with a reported
+standard error of 10.3 percentage points.</p>
+<p>That is meaningful evidence that AI assistance can improve
+development output in certain professional settings.</p>
+<p>Now consider a different result.</p>
+<p>In July 2025, <a
+href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/">METR
+published a randomized study</a> involving 16 experienced open-source
+developers working on 246 tasks in repositories they knew well. Using
+the AI tools available during that study, developers took approximately
+<strong>19% longer</strong> to complete their tasks when AI assistance
+was permitted.</p>
+<p>Even more interesting, the developers believed the tools had
+accelerated them.</p>
+<p>A third experiment, involving <a
+href="https://arxiv.org/abs/2410.12944">96 Google engineers</a>,
+estimated approximately <strong>21% less time</strong> spent on a
+selected enterprise development task with AI assistance, although the
+confidence interval was wide.</p>
+<p>So which result should we believe?</p>
+<p>Potentially all three — <strong>within their respective experimental
+boundaries</strong>.</p>
+<p>The studies observed different populations, tools, tasks, working
+environments, and outcomes. Completed tasks are not the same as elapsed
+task time. Neither is necessarily equivalent to production releases or
+long-term maintenance value.</p>
+<p>And the results are time-dependent. METR itself <a
+href="https://metr.org/blog/2026-02-24-uplift-update/">revisited the
+issue in February 2026</a>, explaining that wider AI adoption and
+participant-selection effects made its newer productivity estimates
+difficult to interpret reliably. An early-2025 result should not become
+a permanent verdict on AI systems released later.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/06_Book_Figure_Perception_vs_Measured_Time.jpg"
+alt="Original figure from the Second Edition showing how developer estimates of AI speed differed from measured task time in an early-2025 study." />
+<figcaption aria-hidden="true">Original figure from the Second Edition
+showing how developer estimates of AI speed differed from measured task
+time in an early-2025 study.</figcaption>
+</figure>
+<p><em>From Chapter 2: forecast acceleration and retrospective
+perception can disagree with the measured task-time effect. These
+percentages come from a particular study, not a prediction for today’s
+models.</em></p>
+<p>This is the first important lesson of the new edition:</p>
+<p><strong>A productivity percentage without its denominator,
+population, tool generation, and evaluation method is barely an
+engineering claim.</strong></p>
+<p>Before adopting an AI tool, a team should decide what improvement it
+actually wants to observe. Faster initial implementation? Less developer
+effort? More accepted changes? Shorter delivery lead time? Fewer
+defects? Lower maintenance cost?</p>
+<p>These are related goals, but they are not interchangeable.</p>
+<h2 id="a-passing-benchmark-is-not-a-merge-decision">A Passing Benchmark
+Is Not a Merge Decision</h2>
+<p>There is another research result that makes this distinction
+particularly concrete.</p>
+<p>In March 2026, METR published <a
+href="https://metr.org/notes/2026-03-10-many-swe-bench-passing-prs-would-not-be-merged-into-main/"><em>Many
+SWE-bench-Passing PRs Would Not Be Merged into Main</em></a>.</p>
+<p>The researchers asked active repository maintainers to review
+AI-generated changes associated with SWE-bench Verified tasks. The
+central observation was that automated benchmark success and maintainer
+acceptance could differ substantially. In their sample, maintainer
+acceptance was approximately <strong>24 percentage points below</strong>
+the automated grader result after the study’s normalization.</p>
+<p>The research has important limitations. The maintainers reviewed
+historical patches without a normal feedback-and-revision cycle, and the
+sample covered only part of the benchmark. It does not prove that agents
+cannot produce mergeable code.</p>
+<p>But it demonstrates why a benchmark result cannot be casually
+translated into a claim about real-world delivery.</p>
+<p>A test suite answers questions about the behavior it checks. A
+maintainer may also need to evaluate integration, architectural
+consistency, repository conventions, future modification costs, or
+behaviors the automated tests never considered.</p>
+<p>And even a mergeable patch is not automatically an operable
+production release.</p>
+<p><strong>Generated does not mean verified. Verified does not mean
+accepted. Accepted does not automatically mean operationally
+successful.</strong></p>
+<p>Each milestone introduces different responsibilities, costs, and
+possible failures.</p>
+<h2 id="what-is-the-real-unit-of-software-engineering-work">What Is the
+Real Unit of Software Engineering Work?</h2>
+<p>My answer in the new edition is an <strong>accepted, operable
+change</strong>.</p>
+<p>Not a prompt. Not a generated function. Not a pull request. Not even
+an isolated green test suite.</p>
+<p>An accepted, operable change is one whose intended behavior is
+understood, whose relevant evidence has been examined, whose acceptance
+has been authorized, and whose operational responsibilities can be
+fulfilled.</p>
+<p>Return to the Treasury example. The agent should not begin by
+replacing €5,000 with €3,000. The team first needs to establish a
+versioned intention:</p>
+<blockquote>
+<p><strong>For a new €4,000 Treasury request under policy version
+2</strong>, the service must require review.</p>
+<p><strong>For a retry previously evaluated under policy version
+1</strong>, using the same idempotency key, the service must return the
+original recorded decision and policy version.</p>
+<p>The service must not silently reinterpret historical decisions using
+the current policy.</p>
+</blockquote>
+<p>This is a much better input for an AI coding assistant. It defines
+both what should change and what must remain unchanged.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/07_Book_Figure_Change_and_Evidence_Trace.jpg"
+alt="Original book figure showing an intention change, affected evidence, policy revision and independent checks." />
+<figcaption aria-hidden="true">Original book figure showing an intention
+change, affected evidence, policy revision and independent
+checks.</figcaption>
+</figure>
+<p><em>From Chapter 4: a late change should update the authorized
+intention and the affected checks, not silently invalidate historical
+evidence.</em></p>
+<p>The next step is to construct <strong>independent
+verification</strong>.</p>
+<p>That word — <em>independent</em> — is essential.</p>
+<p>If the same model invents an interpretation, writes the
+implementation, and generates tests from that interpretation, the tests
+may faithfully confirm the wrong behavior.</p>
+<p>A stronger approach protects the expected results outside the
+generator’s control, ideally using approved examples, historical
+records, contractual invariants, and separate verification
+responsibilities.</p>
+<p>The implementation can then be checked against the authorized
+intention rather than its own explanation of correctness. Finally, the
+evidence must be associated with the exact version of the specification
+and the exact candidate being reviewed. Otherwise, yesterday’s green
+report may be attached to today’s different code.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/08_Book_Figure_Independent_Test_Oracle.jpg"
+alt="Original book diagram: an authorized contract is used independently by the maker and the test oracle before a reviewer decision." />
+<figcaption aria-hidden="true">Original book diagram: an authorized
+contract is used independently by the maker and the test oracle before a
+reviewer decision.</figcaption>
+</figure>
+<p><em>From Chapter 7: the maker produces the candidate; the independent
+oracle checks against an authorized contract; a reviewer decides what
+the evidence supports.</em></p>
+<p>This is where Spec-Driven Development, conventional engineering
+controls, and agent orchestration meet. The important object is no
+longer the generated patch alone. It is the <strong>complete change and
+the evidence supporting its acceptance</strong>.</p>
+<h2 id="three-costs-that-ai-acceleration-can-hide">Three Costs That AI
+Acceleration Can Hide</h2>
+<p>Once code becomes inexpensive to generate, other parts of software
+engineering become more visible.</p>
+<h3 id="review-becomes-the-bottleneck">1. Review becomes the
+bottleneck</h3>
+<p>Imagine a team that can independently verify eight patches per week.
+An AI agent increases candidate production from ten to twenty. The team
+has doubled the number of proposed changes, but its verification
+capacity remains eight. The additional candidates accumulate in a
+queue.</p>
+<p>This is a simple illustrative example, not a measured production
+result. Yet it exposes a fundamental systems problem: optimizing one
+activity does not necessarily improve the throughput of the entire
+process.</p>
+<p>More generation may require better verification tooling, clearer
+acceptance criteria, or risk-based allocation of review effort. It may
+also require generating fewer, better-scoped candidates. The appropriate
+answer depends on where the actual constraint lies.</p>
+<h3 id="more-context-does-not-necessarily-mean-more-understanding">2.
+More context does not necessarily mean more understanding</h3>
+<p>AI agents increasingly depend on persistent memory, retrieval
+systems, repository instructions, and architectural summaries. These
+mechanisms can preserve valuable knowledge across sessions.</p>
+<p>But memory introduces another failure mode: obsolete information can
+remain convincing long after it becomes incorrect.</p>
+<p>Imagine an agent retrieving a beautifully written explanation of the
+old €5,000 policy. The document is relevant. Its wording is clear. Its
+reasoning is internally consistent. It is also no longer authoritative
+for new requests.</p>
+<p>A useful engineering memory therefore needs more than a text summary.
+It needs provenance, ownership, applicable versions, and conditions
+under which the recorded knowledge must be reconsidered.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/09_Book_Figure_Memory_Handoff.jpg"
+alt="Book figure illustrating versioned agent memory and validated worktree context before long-term storage." />
+<figcaption aria-hidden="true">Book figure illustrating versioned agent
+memory and validated worktree context before long-term
+storage.</figcaption>
+</figure>
+<p><em>From Chapter 9: persistent knowledge must carry provenance and
+validation; stale facts should not be silently promoted into
+authority.</em></p>
+<p>And there is a human dimension. If a developer routinely accepts
+generated solutions without reconstructing their rationale, who will
+understand the service six months later?</p>
+<p>The risk is not that every use of AI reduces learning. AI can also
+explain, teach, and accelerate understanding. The question is whether
+the organization preserves the capacity to reason about its systems
+independently when necessary. That capability should be evaluated, not
+assumed.</p>
+<h3 id="cheap-generation-can-produce-expensive-delivery">3. Cheap
+generation can produce expensive delivery</h3>
+<p>The advertised cost of an AI-generated patch usually covers only a
+fraction of the engineering work.</p>
+<p>The total cost may also include clarifying the request, investigating
+the existing system, supervising execution, reviewing the candidate,
+repairing failures, testing integration, handling deployment, and
+maintaining the result.</p>
+<p>A model that produces an acceptable change on the first attempt may
+be economically attractive. A cheaper model that requires repeated
+corrections and extensive review may cost more overall.</p>
+<p>But the reverse can also be true. A lightweight assistant or a
+straightforward deterministic tool may be sufficient for a narrow
+change, making elaborate orchestration unnecessary.</p>
+<p>That is why the book examines <strong>cost per accepted
+change</strong> rather than simply cost per token or generated line. The
+appropriate economic decision must include failure rates, reviewer
+effort, rework, and operational consequences.</p>
+<p>There is no reason to assume that more autonomy is always the better
+investment.</p>
+<h2 id="a-practical-check-before-delegating-your-next-change">A
+Practical Check Before Delegating Your Next Change</h2>
+<p>These ideas can be applied without adopting a new framework or buying
+another tool.</p>
+<p>Before handing a meaningful change to an AI agent, I would ask six
+questions:</p>
+<ol type="1">
+<li><strong>What is the authorized intention?</strong> Identify the
+behavior requested and the person or source entitled to define it.</li>
+<li><strong>What must remain unchanged?</strong> Preserve existing
+invariants, historical commitments, and system boundaries.</li>
+<li><strong>What may the agent actually do?</strong> Define its
+permissions, accessible tools, data, and stopping conditions.</li>
+<li><strong>How will correctness be checked independently?</strong> Use
+expected outcomes grounded outside the candidate implementation wherever
+possible.</li>
+<li><strong>Who accepts the result?</strong> Separate technical success
+from authorization to merge, release, or perform consequential
+actions.</li>
+<li><strong>What will we measure afterward?</strong> Record elapsed
+effort, reviewer time, rework, operational effects, and the cost of
+maintaining the change.</li>
+</ol>
+<p>These are familiar software-engineering questions. AI has not made
+them obsolete. It has increased the importance of answering them
+explicitly before execution accelerates.</p>
+<h2
+id="why-i-built-a-knowledge-atlas-instead-of-just-adding-more-references">Why
+I Built a Knowledge Atlas Instead of Just Adding More References</h2>
+<p>While preparing the Second Edition, I encountered another
+problem.</p>
+<p>Reading a large body of research is difficult. Remembering how its
+findings relate to one another is harder.</p>
+<p>The same study may be relevant to productivity, review, learning, and
+organizational change. Different publications may report on overlapping
+datasets. A practitioner article may suggest an engineering mechanism
+without experimentally validating it.</p>
+<p>A conventional bibliography preserves the references, but makes these
+relationships difficult to explore. I wanted something more useful.</p>
+<p>The result is the online <a
+href="https://popoloni.github.io/"><strong>Knowledge Atlas for AI and
+Software Engineering</strong></a>, a companion to the book.</p>
+<p>The Atlas begins with 193 research works from the <em>Software
+Engineering @ PoliMi</em> annotated bibliography, curated by Alfonso
+Fuggetta, Damian Andrew Tamburri, and Alessandro Margara.</p>
+<p>It also maps practitioner material, including work by Addy Osmani,
+articles from <em>The Pragmatic Engineer</em>, and the multi-author
+<em>Exploring Generative AI</em> series hosted at Martin Fowler’s
+website.</p>
+<p>The October 2026 graph snapshot contains <strong>1,757 nodes and more
+than 12,000 typed relationships</strong>. Those numbers require an
+important qualification: they are not 1,757 independently validated
+studies. Many nodes represent topics, chapters, claims, methodological
+notes, and previous book material.</p>
+<p>The Atlas is an editorial navigation and provenance system,
+<strong>not an automatic machine for proving scientific
+claims</strong>.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/10_Knowledge_Atlas_Interactive_View.png"
+alt="Screenshot of the companion Knowledge Atlas, showing 193 curated works organized by evidence streams and links." />
+<figcaption aria-hidden="true">Screenshot of the companion Knowledge
+Atlas, showing 193 curated works organized by evidence streams and
+links.</figcaption>
+</figure>
+<p><em>The Knowledge Atlas provides a searchable graph and conventional
+source catalogues. Screenshot from the October 2026 site
+snapshot.</em></p>
+<p>Its practical value lies in the questions it helps readers
+investigate.</p>
+<p>Suppose you encounter the productivity results discussed earlier. You
+can find the field-experiment record <strong>W003</strong> and compare
+it with the experienced-maintainer study <strong>W023</strong>. Follow
+their relationships, inspect their summaries and limitations, and open
+the original publications.</p>
+<p>You can explore by topic, book chapter, research stream, or source
+collection. You can also identify when apparently separate publications
+depend on the same underlying work. Counting the same observation twice
+does not make an argument twice as strong.</p>
+<p><strong>A knowledge graph should help you ask better questions, not
+give weak evidence an appearance of certainty.</strong> That principle
+applies equally to the AI systems we build.</p>
+<h2 id="what-is-actually-new-in-the-second-edition">What Is Actually New
+in the Second Edition?</h2>
+<p>The new <em>Non-Deterministic Software Engineering</em> is not simply
+the first edition with updated model names.</p>
+<p>It is a substantially reworked treatment of the engineering
+discipline. Across <strong>thirteen chapters</strong>, a recurring
+synthetic approval-routing service follows the entire lifecycle of a
+change: understanding the request, evaluating productivity claims,
+bounding agent authority, specifying behavior, implementing safely,
+reviewing evidence, preserving knowledge, coordinating teams, and
+assessing economic value.</p>
+<p>Each chapter includes practical engineering examples and exercises.
+The appendices provide worked decision guidance and explain how to
+navigate the Knowledge Atlas.</p>
+<p>The book also addresses questions that have become harder to ignore
+as agents grow more capable: security of agent runtimes, independent
+test oracles, post-merge maintenance, comprehension debt, delayed
+learning, accountable governance, and the economics of autonomous
+work.</p>
+<p>Equally important, it distinguishes established results from proposed
+engineering practices.</p>
+<p>The book does not claim that every catalogued paper has been
+independently replicated, that its synthetic examples constitute field
+validation, or that any one workflow guarantees a productivity gain.</p>
+<p>The objective is to connect evidence, principles, and practical
+decisions without pretending the remaining uncertainty has
+disappeared.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/02_Official_EN_6x9_Cover.png"
+alt="The actual 6×9 English cover of Non-Deterministic Software Engineering, Second Edition." />
+<figcaption aria-hidden="true">The actual 6×9 English cover of
+Non-Deterministic Software Engineering, Second Edition.</figcaption>
+</figure>
+<p><em>Non-Deterministic Software Engineering, Second Edition —
+Engineering Trustworthy Change in the Age of AI and Coding Agents.
+Available in English and Italian.</em></p>
+<p><strong><a href="https://www.amazon.com/dp/B0HN9KQLNG">Explore the
+Second Edition on Amazon</a></strong></p>
+<h3 id="where-it-fits-in-the-non-deterministic-series">Where It Fits in
+the Non-Deterministic Series</h3>
+<p>With this release, I have reorganized the six-volume series around a
+new starting trilogy:</p>
+<p><strong>Book 1 — Non-Deterministic Software Engineering, Second
+Edition</strong> establishes the evidence-informed engineering
+foundations.</p>
+<p><strong>Book 2 — Non-Deterministic Spec-Driven Development,
+Enterprise Edition (Second Edition)</strong> develops the specification,
+framework, and delivery practices.</p>
+<p><strong>Book 3 — Non-Deterministic Loop Engineering</strong> explores
+bounded agentic autonomy and the systems required to govern it.</p>
+<p>The three original volumes — <em>Non-Deterministic Software
+Engineering</em>, <em>Non-Deterministic Spec-Driven Development</em>,
+and <em>Non-Deterministic Autonomous Coding Agents</em> — remain
+available as <strong>legacy volumes</strong>.</p>
+<p>Legacy does not mean obsolete.</p>
+<p><strong>No book supersedes another.</strong> Each contributes its own
+material and perspective. The current trilogy offers a coherent entry
+point; the complete six-book collection offers a richer understanding of
+how the discipline has evolved.</p>
+<p><strong><a href="https://www.amazon.com/dp/B0HN9KQLNG">Discover the
+Non-Deterministic series on Amazon</a></strong></p>
+<p><em>The book and series links above currently use the same Amazon URL
+supplied for this article.</em></p>
+<h2 id="the-engineer-still-owns-the-outcome">The Engineer Still Owns the
+Outcome</h2>
+<p>I began this journey with a simple concern: how can developers
+benefit from increasingly capable AI without losing control of the
+software they build?</p>
+<p>The research, experiments, frameworks, and agentic workflows have
+made that question more interesting, not less.</p>
+<p>Software engineering is not becoming irrelevant because models can
+write code. The production of candidate implementations is becoming less
+expensive. That changes where the difficult work concentrates.</p>
+<p>Understanding existing systems. Defining intent. Resolving ambiguity.
+Designing independent verification. Protecting security boundaries.
+Preserving knowledge. Making accountable decisions.</p>
+<p>These responsibilities are not new. But they are becoming the
+essential structure around increasingly autonomous tools.</p>
+<p>Perhaps the most important lesson of the Second Edition is also the
+simplest:</p>
+<blockquote>
+<p><strong>The agent’s declaration that the task is complete is the
+beginning of the acceptance decision, not the end of
+engineering.</strong></p>
+</blockquote>
+<p>If the code is generated in fifteen minutes, that is an opportunity
+worth exploring.</p>
+<p>If the team cannot explain why the change is correct, who authorized
+it, or how the next engineer will maintain it, the job is not
+finished.</p>
+<p>That is the engineering discipline I wanted to explore in the new
+book. And it is the conversation I hope the Second Edition will
+continue.</p>
+<hr />
+<p><strong>Non-Deterministic Software Engineering — Second
+Edition</strong><br />
+<em>Engineering Trustworthy Change in the Age of AI and Coding
+Agents</em><br />
+Enrico Papalini</p>
+<p><strong><a href="https://www.amazon.com/dp/B0HN9KQLNG">Read about the
+book on Amazon</a></strong> · <strong><a
+href="https://popoloni.github.io/">Explore the companion Knowledge
+Atlas</a></strong></p>
+<p><em>Suggested Medium tags: Software Engineering · Artificial
+Intelligence · AI Agents · Software Development · Generative AI</em></p>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../the-agent-wrote-the-fix/">The Agent Wrote the Fix. Would You Ship It?</a><a href="../knowledge-atlas/">The Map I Built While Writing About AI Coding</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

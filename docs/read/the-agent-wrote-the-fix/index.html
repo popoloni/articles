@@ -1,0 +1,212 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The evolution of the engineer’s role and the new Non-Deterministic trilogy."><title>The Agent Wrote the Fix. Would You Ship It? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/the-agent-wrote-the-fix/"><meta property="og:title" content="The Agent Wrote the Fix. Would You Ship It?"><meta property="og:description" content="The evolution of the engineer’s role and the new Non-Deterministic trilogy."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Books &amp; research</p><h1>The Agent Wrote the Fix. Would You Ship It?</h1><p class="meta">Enrico Papalini · 2026-11-23 · 7 min read</p><p class="lede">The evolution of the engineer’s role and the new Non-Deterministic trilogy.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p>How the engineer’s job changed in the year between
+<em>Non-Deterministic Software Engineering</em> and <em>Engineering
+Software with Agentic AI</em></p>
+<p>By Enrico Papalini</p>
+<p>Two people turn up at a workshop at nine. Each has a confirmation for
+the same machine. You hand the bug to a coding agent. It comes back with
+a patch and a passing test. The workshop coordinator has one question
+for you. Can she trust tomorrow’s bookings?</p>
+<p>A year ago, in the first edition of <em>Non-Deterministic Software
+Engineering</em>, the developer stayed at the keyboard and an assistant
+made suggestions. Two books later, in <em>Non-Deterministic Autonomous
+Coding Agents</em>, an agent could take a task all the way to a pull
+request overnight. Leave an exception out of its instructions and, by
+morning, the patch and every test could agree on the wrong behavior.</p>
+<p>Today, in <em>Engineering Software with Agentic AI</em>, the agent
+writes the entire booking fix. My job is to agree on the rule with the
+coordinator, limit what the agent can change, and devise an independent
+test that could prove the fix wrong. Then I decide whether to send it
+back or ship it.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/esa.jpg"
+alt="Two requests both read the machine as free before either writes. Both then commit overlapping reservations." />
+<figcaption aria-hidden="true">Two requests both read the machine as
+free before either writes. Both then commit overlapping
+reservations.</figcaption>
+</figure>
+<p>In this teaching case, both requests find the machine free. Each
+check was true when it was read, but neither write checked again before
+committing. Redrawn from <em>Engineering Software with Agentic AI</em>,
+fig. 5.2, p. 65.</p>
+<p>With the publication of <em>Engineering Software with Agentic
+AI</em>, I’ve reshuffled the series. Two second editions now lead into
+the new book: <em>Non-Deterministic Software Engineering</em>, Second
+Edition, and <em>Non-Deterministic Spec-Driven Development: Enterprise
+Edition</em>, the second edition of <em>Non-Deterministic Spec-Driven
+Development</em>. Here’s how I’d use the three together on that booking
+bug.</p>
+<h2 id="book-one.-would-you-sign-off-on-this-test">Book one. Would you
+sign off on this test?</h2>
+<p>Suppose an agent submits a fix and a test. The test makes one
+reservation, waits for confirmation, and then tries to book the same
+machine again. The second request fails as expected. I’d keep that test.
+I’d also ask the author to show me what happens when the requests
+overlap. A team can spend a whole code review examining a perfectly good
+answer to the wrong question.</p>
+<p><em>Non-Deterministic Software Engineering</em>, Second Edition,
+follows an AI-assisted change through review and release. One of its
+most useful ideas is an independent test oracle. An oracle is simply how
+you decide what result to expect. If a test calls the same function as
+the implementation to calculate the right answer, a mistake in that
+function can make the two agree beautifully.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/ndse.jpg"
+alt="The authorized contract leads separately to a candidate implementation and an independent test oracle. Both feed the reviewer’s decision." />
+<figcaption aria-hidden="true">The authorized contract leads separately
+to a candidate implementation and an independent test oracle. Both feed
+the reviewer’s decision.</figcaption>
+</figure>
+<p>Follow the two arrows out of the authorized contract. One leads to
+the proposed implementation, the other to an independent way of judging
+it. From <em>Non-Deterministic Software Engineering</em>, Second
+Edition, fig. 7.3, p. 98.</p>
+<p>That distinction also changes how I read a productivity claim. Saving
+an hour on the patch is worth knowing about. So is the afternoon a
+reviewer spends reconstructing a requirement, or the time a coordinator
+spends untangling two confirmations. The book’s companion Knowledge
+Atlas lets readers follow the research and practitioner sources behind
+questions like these. <a href="https://popoloni.github.io/">Explore the
+Knowledge Atlas.</a></p>
+<h2 id="book-two.-can-the-next-booking-start-at-ten">Book two. Can the
+next booking start at ten?</h2>
+<p>“Prevent double bookings” sounds clear until someone asks about the
+edges. If my booking ends at ten, can yours start at ten? Can two
+members use different machines at the same time? In the workshop
+example, the answer to both is yes. Those little examples do more work
+than a page of instructions telling an agent to be careful.</p>
+<p><em>Non-Deterministic Spec-Driven Development: Enterprise
+Edition</em> compares public specification frameworks and shows how to
+carry a decision across a team. A workshop coordinator can settle the
+ten o’clock boundary. A developer can put the example in the
+specification. A reviewer can point back to it when a proposed fix
+accidentally prevents consecutive bookings. The requirement and its test
+stay linked even after the original conversation is gone.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/sdd.jpg"
+alt="A chain connects project rules and business context to the specification, clarifications, plan, API contract, tests, tasks, source code, release checklist, and security packet." />
+<figcaption aria-hidden="true">A chain connects project rules and
+business context to the specification, clarifications, plan, API
+contract, tests, tasks, source code, release checklist, and security
+packet.</figcaption>
+</figure>
+<p>An example from Enterprise Spec-Driven Development. You can trace a
+requirement through clarifications, an API contract and test cases to
+the release checklist. Redrawn from <em>Non-Deterministic Spec-Driven
+Development: Enterprise Edition</em>, Second Edition, fig. 12.4,
+p. 205.</p>
+<p>In the book’s checkout example, a cross-check <em>removes</em> an
+implementation task. No requirement calls for it. The same review
+discovers an acceptance criterion with no test. One less thing to build,
+one more thing worth checking. That’s a good return on the time it takes
+to read a specification.</p>
+<h2 id="book-three.-what-did-the-system-actually-do">Book three. What
+did the system actually do?</h2>
+<p>Every chapter of <em>Engineering Software with Agentic AI</em> runs
+the same cycle: <em>Expect, Delegate, Observe, Decide</em>. Agree on
+what success looks like, give the agent a bounded task, inspect what it
+actually does, and decide whether to continue or intervene. Twelve
+chapters apply that cycle to a single change, from its first request
+through release, recovery and cost. Eight practical missions in two
+systems let you apply it yourself.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/esa-cover.jpg"
+alt="Cover of Engineering Software with Agentic AI: Reliable Change with Coding Agents, by Enrico Papalini, in the Non-Deterministic series. A network of AI agents surrounds a central AI chip on a dark blue background." />
+<figcaption aria-hidden="true">Cover of Engineering Software with
+Agentic AI: Reliable Change with Coding Agents, by Enrico Papalini, in
+the Non-Deterministic series. A network of AI agents surrounds a central
+AI chip on a dark blue background.</figcaption>
+</figure>
+<p><em>Engineering Software with Agentic AI: Reliable Change with Coding
+Agents</em>, the new book in the Non-Deterministic series. <a
+href="https://www.amazon.com/dp/B0HSPH86CG">Available now on
+Amazon.</a></p>
+<p>In the greenfield path, you build up the workshop service from its
+first persistent reservation. In the brownfield path, you inherit a
+Treasury router with decisions already on record. One Treasury mission
+asks you to preserve an earlier decision when the policy changes. The
+threshold falls from 5,000 to 3,000 euros. A fresh request for 4,000
+euros now needs review. Replay yesterday’s request for the same amount
+with its original key, and you should get yesterday’s decision. As the
+engineer directing the agent, you choose what it may change and what
+evidence you’d keep to show a reviewer that both cases still work.</p>
+<p>If you’re new to coding agents, start with the complete repair in
+Chapter 1. Then practice the last step of the cycle on a recorded
+session. Cover the next entry, write the instruction you’d give, then
+uncover it and see what the operator chose.</p>
+<p>In a live mission, you give the instruction yourself. Each of the two
+routes on the map below carries your own changes through four missions.
+In the workshop, once you add cancellation, try replaying the original
+booking request. Can you retrieve the old confirmation and still show
+that the reservation is cancelled? Make your call before you turn to the
+worked answers at the back.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/esa-overview.jpg"
+alt="Book map. Expect, Delegate, Observe, Decide recurs throughout. Chapters 1–3 define the change, 4–6 prepare it, 7–9 implement, verify and release it, and 10–12 cover compatibility, recovery and cost. Part V offers four linked workshop reservation missions or four linked Treasury missions. The appendices contain worked answers, mission solutions and a field card." />
+<figcaption aria-hidden="true">Book map. Expect, Delegate, Observe,
+Decide recurs throughout. Chapters 1–3 define the change, 4–6 prepare
+it, 7–9 implement, verify and release it, and 10–12 cover compatibility,
+recovery and cost. Part V offers four linked workshop reservation
+missions or four linked Treasury missions. The appendices contain worked
+answers, mission solutions and a field card.</figcaption>
+</figure>
+<p>The first four parts follow a change from its initial request through
+release, recovery, and cost. In Part V, choose one of the two
+four-mission routes to put those decisions into practice. Adapted from
+<em>Engineering Software with Agentic AI</em>, “How to use this book,”
+fig. F.1, p. viii.</p>
+<p>Back at the workshop, I’d ask the agent to implement one protected
+operation that checks availability and records the booking before
+confirming it. Then I’d run two competing requests against the same
+store. I’d inspect <em>both replies and the reservations left on
+disk</em>. One confirmation, one conflict, one surviving booking. A pair
+of reassuring messages alone would leave half the experiment undone.</p>
+<p>If both callers get a confirmation, I stop the release. If the
+replies and the saved booking agree with the rule the coordinator
+approved, I can show her the evidence and explain why I’d ship. A year
+ago, I would also have written the fix with an assistant beside me.
+Today the agent can write it all. The signature on the release is still
+mine.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/reading-guide.jpg"
+alt="Reading guide. Software engineering gives the reviewer a reason to trust or challenge evidence. Spec-driven development yields a behavioral contract with examples and an owner. Engineering with agents yields an observed result and a reason to accept, correct, or stop." />
+<figcaption aria-hidden="true">Reading guide. Software engineering gives
+the reviewer a reason to trust or challenge evidence. Spec-driven
+development yields a behavioral contract with examples and an owner.
+Engineering with agents yields an observed result and a reason to
+accept, correct, or stop.</figcaption>
+</figure>
+<p>The new trilogy in reading order. An editorial guide to what each
+book contributes to the next engineering decision.</p>
+<h2 id="where-the-original-three-fit">Where the original three fit</h2>
+<p>The original trilogy now occupies positions four through six. You
+don’t need them to read the new three. I keep them on my desk for
+specific jobs.</p>
+<p><strong>4. Non-Deterministic Software Engineering, First
+Edition.</strong> Where the second edition follows a change through
+review and release, the first stays at the keyboard. I reach for it when
+I want an assistant beside me to read unfamiliar code or guide a
+refactor with tests.</p>
+<p><strong>5. Non-Deterministic Spec-Driven Development, First
+Edition.</strong> Where the Enterprise Edition compares frameworks, this
+is the hands-on GitHub Spec Kit companion. Follow a feature from
+specification through planning and task breakdown into
+implementation.</p>
+<p><strong>6. Non-Deterministic Autonomous Coding Agents.</strong> Use
+it to design a coding loop that runs between human reviews. It covers
+failed tests, stalled retries, and when to hand work back.</p>
+<p>Try the workshop problem with a colleague. Agree on the promise you
+want to make, let the agent write the fix, then run the two requests
+together. Would you put your name on the confirmation now? <a
+href="https://www.amazon.com/dp/B0HSPH86CG">Get <em>Engineering Software
+with Agentic AI</em> on Amazon</a>, <a
+href="https://github.com/popoloni/esa_ai">try the workshop and Treasury
+missions on GitHub</a>, or <a
+href="https://www.amazon.com/dp/B0GHCXPBRM">browse the whole
+Non-Deterministic series</a>.</p>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../knowledge-atlas/">The Map I Built While Writing About AI Coding</a><a href="../ai-wrote-the-patch/">The AI Wrote the Patch. But Who Can Prove It Belongs?</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>
