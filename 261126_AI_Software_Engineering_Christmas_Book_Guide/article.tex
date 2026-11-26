@@ -1,0 +1,362 @@
+\documentclass[11pt]{article}
+\input{layout.tex}
+\title{AI Software Engineering --- The Christmas Book Guide}
+\author{Enrico Papalini}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Which book should you read first? A practical map to the foundations, specifications, hands-on missions and agent systems behind reliable AI-assisted development.
+\end{abstract}
+
+Your coding agent says the job is done. It has changed the files, run the tests and written a confident explanation.
+
+What would make you comfortable accepting its work?
+
+A coding agent is an AI tool that can inspect a project, edit files and run commands or tests as part of an assigned task. That gives it room to do useful work, and gives you decisions to make about its authority and results.
+
+Perhaps you need a clearer requirement. Perhaps the tests miss the failure you actually care about. Perhaps the agent keeps retrying, and you need a way to stop it. Each problem asks for a different kind of engineering knowledge.
+
+I wrote the \emph{Non-Deterministic} books to help you build that knowledge and use it on real decisions. If you are discovering the series today, this article is your map: what each book offers, where to begin, and when to move to another volume.
+
+The name describes a feature of working with AI. Similar requests can produce different implementations, assumptions and mistakes. The goal remains software whose behaviour you can specify, check and take responsibility for. Your development process has to accommodate a contributor whose answers can vary.
+
+The series has evolved from the developer working beside an AI assistant to the engineer directing work that an agent can carry out. As that delegation grows, defining the task, controlling its execution and judging the result become central skills.
+
+\section{The map: three current books, plus a route into agent systems}
+
+The current \emph{Non-Deterministic} trilogy has a natural reading order: \textbf{understand the engineering, make the intent precise, then practise conducting a change}.
+
+A separate Packt book, \emph{Loop Engineering for AI Agents}, extends the map into the execution system around the agent. It complements the trilogy; the original three \emph{Non-Deterministic} volumes occupy positions four through six in the series.
+
+As the \href{https://popoloni.github.io/esa_ai/companion/series/READING_THE_SERIES.html}{companion's reading guide} explains, each of these four books stands on its own. You can follow the broad reading order below, or begin with the question blocking your next piece of work.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/reading-map.jpg}
+\caption{A reading map adapted from the companion's four-volume guide. The numbered books form the current trilogy. The separate Packt volume develops the agent execution system. Choose an entry point by your question, then follow the next unresolved decision.}
+\end{figure}
+
+The sections below use a simple two-layer reading method. First, the square card introduces the book's main question and scope. Then the larger pen-and-crayon figure expands the relationships among its practices and topics. These are editorial learning maps, not chapter-by-chapter contents pages; the linked catalogues give the exact chapters.
+
+\section{1. Understand what makes an AI-assisted change trustworthy}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/B0HN9J7VZG}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/01_ndse2_christmas_guide.jpg}}
+\caption{Start here for the engineering foundations: what must be understood, protected and verified before an AI-assisted change can be accepted. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/B0HN9J7VZG}{View this book on Amazon}. }
+\end{figure}
+
+\noindent\textbf{The question to begin with.} If a coding agent produces a convincing patch, what makes that patch trustworthy?
+
+\noindent\textbf{How to read the banner.} The diagram places trustworthy change at its centre. Follow the links from intent and architecture through security, independent checks, system knowledge and team responsibility. These are the questions to resolve before speed becomes useful.
+
+
+\textbf{\href{https://popoloni.github.io/catalogues/volumes/v06.html}{Non-Deterministic Software Engineering --- Second Edition}}\newline
+\emph{Engineering Trustworthy Change in the Age of AI and Coding Agents}
+
+
+Start here if you want a foundation for judging the advice surrounding AI-assisted development.
+
+An assistant produces code quickly. How much useful work did that save? A test passes. How was its expected answer established? An agent remembers something about your system. Is that information still correct, and should it influence the next change?
+
+This book develops the engineering judgment behind those questions. It connects research and practice across software quality, architecture, security, independent verification, review, system knowledge, developer learning, team governance and economics.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-ndse2.jpg}
+\caption{The foundation volume connects six groups of engineering concerns around trustworthy change. This editorial coverage map draws on the \href{https://popoloni.github.io/catalogues/volumes/v06.html}{second edition's chapter catalogue}; the groups are reading themes, not a replacement table of contents.}
+\end{figure}
+
+One especially useful idea is the \emph{test oracle}: the basis for deciding what an answer should be. If the implementation and its test inherit the same mistaken assumption, their agreement can be reassuring and unhelpful. Understanding where expected behaviour comes from changes how you review both the code and the evidence.
+
+Read this volume to decide what evidence you need before trusting an AI-assisted change, and to understand why that evidence matters. Then use its \href{https://popoloni.github.io/}{Knowledge Atlas} to follow the research and practitioner sources behind a topic you want to investigate.
+
+\textbf{Best starting point for:} developers building their foundations, reviewers, architects and engineering leaders evaluating AI adoption.
+
+\href{https://www.amazon.com/dp/B0HN9J7VZG}{Buy Non-Deterministic Software Engineering, Second Edition, on Amazon.}
+
+\clearpage
+\section{2. Give your team a specification it can implement and check}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/B0GZZDFMYF}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/02_ndsdd2_christmas_guide.jpg}}
+\caption{Start here for executable intent: a shared requirement, explicit acceptance examples, coordinated work and accountable gates. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/B0GZZDFMYF}{View this book on Amazon}.}
+\end{figure}
+
+\noindent\textbf{The question to begin with.} When a team asks an agent to build a feature, how do you ensure everyone means the same thing?
+
+\noindent\textbf{How to read the banner.} Read the upper route from business need to specification to coordinated delivery. The supporting boxes underneath stand for framework choices, handoffs and operating guidance. The point is to make ambiguity and acceptance criteria visible before the work begins.
+
+
+\textbf{\href{https://popoloni.github.io/catalogues/volumes/v03.html}{Non-Deterministic Spec-Driven Development: Enterprise Edition --- Second Edition}}\newline
+\emph{From Public Frameworks to Enterprise Practice}
+
+
+Start here when your team can generate code faster than it can agree on what the code should do.
+
+Consider a request such as ``Let customers cancel an order.'' When does cancellation become unavailable? What happens if the customer repeats the request? Which existing behaviours must survive? Who has authority to settle the ambiguous cases?
+
+Those questions are the beginning of a specification. A useful specification makes intent durable, resolves consequential ambiguity and gives implementation and verification a shared reference.
+
+This volume examines public specification-driven development frameworks and develops enterprise practices around clarification, consistency checks, traceability, delivery gates, coordinated work and evidence. A gate is a checkpoint used to decide whether work may advance. The book's patterns, playbooks and templates help you carry a requirement through a delivery process that several people and agents can follow.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-ndsdd2.jpg}
+\caption{The Enterprise Edition connects business intent, explicit specifications and delivery evidence with the frameworks, roles and working references that support them. Coverage adapted from its \href{https://popoloni.github.io/catalogues/volumes/v03.html}{chapter catalogue}.}
+\end{figure}
+
+It also asks how much process a task deserves. Chapter 16 examines when a specification process costs more than the failures it prevents. That question matters when you are choosing a lightweight practice for one change or a broader method for a team.
+
+Use this book when the next obstacle is agreeing on the work and preserving that agreement through implementation.
+
+\textbf{Best starting point for:} tech leads, architects and teams adopting specification-driven development or improving an existing delivery process.
+
+\href{https://www.amazon.com/dp/B0GZZDFMYF}{Buy Non-Deterministic Spec-Driven Development: Enterprise Edition on Amazon.}
+
+\section{3. Practise directing an agent and deciding whether to accept its work}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/B0HSPH86CG}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/03_agentic_ai_christmas_guide.jpg}}
+\caption{Start here for hands-on agentic engineering: Expect, Delegate, Observe and Decide, then choose the workshop or Treasury practice path. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/B0HSPH86CG}{View this book on Amazon}.}
+\end{figure}
+
+\noindent\textbf{The question to begin with.} Your agent says the work is finished. Which decision is still yours?
+
+\noindent\textbf{How to read the banner.} Follow the circle: Expect establishes authorised behaviour; Delegate bounds the agent's task; Observe gathers evidence; Decide accepts, corrects or refers the result. The two routes at the bottom turn these responsibilities into eight linked missions.
+
+
+\textbf{\href{https://popoloni.github.io/catalogues/volumes/v07.html}{Engineering Software with Agentic AI}}\newline
+\emph{Reliable Change with Coding Agents}
+
+
+Start here if you have a coding task in front of you and want to learn how to conduct it with an agent.
+
+This is the practical route through the current trilogy. Twelve chapters and eight missions develop the decisions involved in taking an AI-assisted change from its initial request through checking, integration, release and recovery.
+
+
+The recurring workflow is \textbf{Expect, Delegate, Observe, Decide}:
+
+\begin{itemize}
+\item \textbf{Expect:} establish the authorised behaviour and what would count as success.
+\item \textbf{Delegate:} give the agent a bounded task with clear scope and limits.
+\item \textbf{Observe:} inspect the actual result and independently check the exact version of the proposed change.
+\item \textbf{Decide:} record whether the evidence supports acceptance, requires correction or calls for an owner's decision.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-agentic-ai.jpg}
+\caption{Expect, Delegate, Observe, Decide connects the practical book's engineering responsibilities. The workshop and Treasury routes each contain four missions. This coverage map summarises the \href{https://popoloni.github.io/catalogues/volumes/v07.html}{twelve chapters and eight missions}; its thematic grouping is not a chapter sequence.}
+\end{figure}
+
+The practical companion includes work orders, recorded sessions and independent checks. The proposed version under review is called the \emph{candidate}. You can study a complete repair in Chapter 1, then choose a practice route: develop a workshop booking service, or work on an existing Treasury routing application.
+
+The two routes let you explore different responsibilities. Building a new capability requires a precise promise about behaviour. Changing an existing system also requires attention to the decisions, data and contracts already in place.
+
+Read with a notebook beside you. Before looking at the next step in a recorded session, write down what you would ask the agent to do, what you would check and what would make you stop. Then compare your decision with the record.
+
+\textbf{Best starting point for:} engineers who want to move from reading about agents to practising accountable delegation.
+
+\href{https://www.amazon.com/dp/B0HSPH86CG}{Buy Engineering Software with Agentic AI on Amazon.}
+
+\clearpage
+\section{The companion route: build the system that controls the agent}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/1808766415}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/04_loop_engineering_christmas_guide.jpg}}
+\caption{Start here for the execution harness: persistent state, bounded attempts, a separate checker and an accountable human owner. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/1808766415}{View this book on Amazon}.}
+\end{figure}
+
+\noindent\textbf{The question to begin with.} What prevents a persistent coding agent from retrying forever or acting outside its authority?
+
+\noindent\textbf{How to read the banner.} The human owner and approved contract sit above the execution path. The controller manages state, tools and attempts; the worker proposes changes; an independent check tests what happened. Budget and escalation rules decide whether another attempt is justified.
+
+
+\textbf{\href{https://popoloni.github.io/catalogues/volumes/v05.html}{Loop Engineering for AI Agents}}\newline
+\emph{Design Reliable Agentic AI Systems Beyond the Prompt}
+
+
+Suppose you can already conduct one useful agent-assisted change. Now you want a system that can manage repeated attempts, preserve state, enforce a budget and request help when progress stops.
+
+That is the problem addressed by this separate Packt volume.
+
+The \emph{execution harness} is the software around the model that controls how work runs. It determines which tools are available, what state survives between attempts, what counts as progress, how retries work and when execution must end.
+
+\emph{Loop Engineering for AI Agents} develops those controls through controllers, persistent state, resource limits, stopping rules and practical runtime recipes. It also addresses the separation between the worker proposing a result and the checking process used to evaluate it.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-loop-engineering.jpg}
+\caption{The Packt companion develops the execution system around the agent: a controller, worker, independent checking, retained state and human authority. Its \href{https://popoloni.github.io/catalogues/volumes/v05.html}{coverage} also includes organisational responsibilities, economics and choosing an adequate loop.}
+\end{figure}
+
+\begin{samepage}
+The relationship with \emph{Engineering Software with Agentic AI} is especially useful. One teaches you to conduct and judge a software change. The other develops the machinery that supports repeated, controlled execution. Read them together when you are turning an individual workflow into a reusable agent system.
+
+\textbf{Best starting point for:} platform engineers, senior developers and architects building agent infrastructure or autonomous workflows.
+
+\href{https://www.amazon.com/dp/1808766415}{Buy Loop Engineering for AI Agents on Amazon.}
+
+\end{samepage}
+
+\section{See the four books working on one change}
+
+Return to our order-cancellation example. This is an illustration for this article, separate from the books' teaching applications.
+
+The business owner agrees that an unshipped order may be cancelled and that repeating an accepted cancellation must preserve the recorded outcome.
+
+\emph{Non-Deterministic Software Engineering} helps you examine the authority behind that rule, the risks of changing the system and the independence of the checks you will use.
+
+\emph{Non-Deterministic Spec-Driven Development: Enterprise Edition} helps you turn the agreement into explicit cases, connect them to implementation work and keep the acceptance criteria visible through the delivery process.
+
+\emph{Engineering Software with Agentic AI} helps you prepare the work order, delegate a bounded change, inspect the candidate and make the acceptance decision.
+
+\emph{Loop Engineering for AI Agents} helps you design the surrounding controller: permitted tools, retained state, retry limits, budgets and escalation when the task cannot proceed safely within its authority.
+
+The books meet at the same change, but each develops a different responsibility. You move between them as the questions become more specific.
+
+\section{Choose your reading route}
+
+\subsection{If you want a broad foundation}
+
+Follow the current trilogy in order: \emph{Non-Deterministic Software Engineering}, Second Edition; \emph{Non-Deterministic Spec-Driven Development: Enterprise Edition}, Second Edition; then \emph{Engineering Software with Agentic AI}. You move from engineering principles to explicit intent to practical execution and acceptance. Add \emph{Loop Engineering for AI Agents} when you need to design the runtime.
+
+\subsection{If you want to work with an agent now}
+
+Begin with \emph{Engineering Software with Agentic AI}, Chapter 1, and a companion mission. When a decision exposes a gap, follow it: unclear requirements lead to the specification book; uncertainty about evidence leads to the software engineering foundation; execution controls lead to the loop book.
+
+\subsection{If you are improving a team's delivery process}
+
+Begin with \emph{Non-Deterministic Spec-Driven Development: Enterprise Edition}. Pair its specification and gate practices with the candidate checks in \emph{Engineering Software with Agentic AI}. Use \emph{Non-Deterministic Software Engineering} to examine governance, capability development and the economics of the process you introduce.
+
+\subsection{If you are building an agent platform}
+
+Begin with \emph{Loop Engineering for AI Agents}. Then use \emph{Engineering Software with Agentic AI} to connect runtime controls to the actual work being delegated and the evidence required to accept it. Return to the foundation volume for security, independent checking and review.
+
+\begin{samepage}
+\subsection{If you lead a team and need to judge adoption}
+
+Start with the governance, learning and economics discussions in \emph{Non-Deterministic Software Engineering}. Pair them with Chapter 12 of \emph{Engineering Software with Agentic AI}, which examines learning and the whole cost of adoption. Use Chapter 16 of the specification book to question how much process your situation warrants.
+
+\end{samepage}
+
+\clearpage
+\section{Where the original three volumes fit}
+
+The earlier books remain useful for particular interests and for understanding how the series developed. They are optional branches from the current reading map. The three cards below show the earlier approaches in context: AI collaboration, specification-first workflows, and autonomous coding between human reviews. They provide useful history and focused practical material without replacing the current trilogy.
+
+\subsection{4. Non-Deterministic Software Engineering --- original edition}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/B0G7LPJBTH}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/05_ndse_original_christmas_guide.jpg}}
+\caption{The original workbench: a human developer collaborating with an AI assistant while retaining responsibility for the code and its effects. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/B0G7LPJBTH}{View this book on Amazon}.}
+\end{figure}
+
+\noindent\textbf{The question to begin with.} How can an engineer work productively with an AI assistant without handing over professional judgment?
+
+\noindent\textbf{How to read the banner.} The engineer and assistant share a workbench. Around them are the practical supports: project context, reusable patterns, tool choices, team collaboration, security and adoption. This is the assistant-centred starting point from which the later books evolved.
+
+
+
+The starting point of the series, focused on working with AI assistants while retaining quality, security and control. Choose it for the earlier perspective on everyday collaboration, understanding code and professional development workflows.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-ndse-original.jpg}
+\caption{The original volume puts the engineer and AI assistant inside a broader professional workflow: context, patterns, quality, teamwork, security and adoption. Coverage adapted from the \href{https://popoloni.github.io/catalogues/volumes/v01.html}{original edition's chapter catalogue}.}
+\end{figure}
+
+\href{https://www.amazon.com/dp/B0G7LPJBTH}{Buy the original edition on Amazon.}
+
+\clearpage
+\subsection{5. Non-Deterministic Spec-Driven Development --- original edition}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/B0GHFBNC5Z}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/06_ndsdd_original_christmas_guide.jpg}}
+\caption{The original specification-first workflow: specify, plan, break down tasks and implement with concrete tools and examples. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/B0GHFBNC5Z}{View this book on Amazon}.}
+\end{figure}
+
+\noindent\textbf{The question to begin with.} How do you turn a specification into tasks that can actually be implemented?
+
+\noindent\textbf{How to read the banner.} The four numbered boxes follow the original practical sequence: specify, plan, divide into tasks and implement. The supporting tools, templates and playbooks make the steps repeatable. The focus here is the hands-on Spec Kit-centred workflow.
+
+
+
+The original practical companion, with a stronger focus on GitHub Spec Kit and moving from specification through planning and tasks into implementation. Choose it when that specific workflow is your interest.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-ndsdd-original.jpg}
+\caption{The original specification companion follows a practical route from specification to implementation, supported by a toolkit, templates, examples and playbooks. Coverage adapted from its \href{https://popoloni.github.io/catalogues/volumes/v02.html}{chapter catalogue} and the series guide.}
+\end{figure}
+
+\href{https://www.amazon.com/dp/B0GHFBNC5Z}{Buy the original edition on Amazon.}
+
+\clearpage
+\subsection{6. Non-Deterministic Autonomous Coding Agents}
+
+\begin{figure}[H]
+\centering
+\href{https://www.amazon.com/dp/B0GMCFLH2C}{\includegraphics[width=0.73\linewidth,height=5.0in,keepaspectratio]{assets/banners/07_autonomous_agents_christmas_guide.jpg}}
+\caption{The early autonomous-agent pattern: small tasks, guarded iterations, retained context, quality gates and a human checkpoint. The square card is an editorial reading aid; the larger figure below explains the coverage in greater detail. \href{https://www.amazon.com/dp/B0GMCFLH2C}{View this book on Amazon}.}
+\end{figure}
+
+\noindent\textbf{The question to begin with.} What does an autonomous coding loop need between two human review points?
+
+\noindent\textbf{How to read the banner.} The work is decomposed into small tasks; a worker codes and debugs; quality gates challenge the result. The lower path carries useful memory between attempts and hands blocked or risky work back to a person. Autonomy remains bounded.
+
+
+
+The earlier exploration of agents carrying coding tasks between human reviews, including failed tests, repeated attempts and the point at which work should return to a person. Choose it to explore that stage in the series' development.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{assets/coverage-autonomous-agents.jpg}
+\caption{The autonomous-agents volume covers repeated coding work, task decomposition, memory, quality gates, scheduling and safety. The loop remains connected to human review. Coverage adapted from the \href{https://popoloni.github.io/catalogues/volumes/v04.html}{book's chapter catalogue}.}
+\end{figure}
+
+\href{https://www.amazon.com/dp/B0GMCFLH2C}{Buy Non-Deterministic Autonomous Coding Agents on Amazon.}
+
+For a new reader looking for the current general treatment, my recommended entry points are the three books in the new trilogy.
+
+\clearpage
+\section{How to get more from whichever book you choose}
+
+Bring a small change from your own work to your reading: a bug, a feature or a maintenance task. Write down the behaviour you want, the evidence you would trust and the decisions that still need an owner. Each chapter can then help you improve something concrete.
+
+As you practise, distinguish what the agent has stored from what you can now explain or do yourself. An improved memory record and a learned engineering skill are different outcomes.
+
+Keep three distinctions clear as you move between books. The authorised requirement defines the behaviour. A work order organises delegation and acceptance. Runtime controls enforce what the agent can actually do. Writing a restriction into a document still leaves the enforcement work to be done.
+
+Likewise, a framework gate passing or an agent reporting success is one observation in a larger acceptance decision. Keep the independent checks and the accountable owner's judgment visible.
+
+Use the companion that matches your edition, especially for executable examples and installation recipes. The books' teaching applications have their own contracts; carry the rule and its expected answers together when you study an example.
+
+You can explore the \href{https://popoloni.github.io/esa_ai/companion/series/READING_THE_SERIES.html}{public reading guide}, follow sources through the \href{https://popoloni.github.io/}{Knowledge Atlas}, and inspect the \href{https://popoloni.github.io/esa_ai/}{Engineering Software with Agentic AI practical companion} as you choose your route.
+
+\section{Choose the question. Choose the book. Try a change.}
+
+If you are new to the field and want the broadest starting point, \href{https://www.amazon.com/dp/B0HN9J7VZG}{begin with Non-Deterministic Software Engineering, Second Edition}.
+
+If you want a practical assignment to work through now, \href{https://www.amazon.com/dp/B0HSPH86CG}{begin with Engineering Software with Agentic AI} and its first complete repair.
+
+If your biggest obstacle is turning business intent into clear, traceable work, \href{https://www.amazon.com/dp/B0GZZDFMYF}{choose Non-Deterministic Spec-Driven Development: Enterprise Edition}. If you are building the system that runs the agent, \href{https://www.amazon.com/dp/1808766415}{choose Loop Engineering for AI Agents}.
+
+You can also \href{https://www.amazon.com/dp/B0GHCXPBRM}{browse the Non-Deterministic series on Amazon}.
+
+Open the book with one real engineering question in mind. Work through a decision, try the relevant practice and keep the evidence. When the next question appears, you will know where to turn.
+
+\end{document}
