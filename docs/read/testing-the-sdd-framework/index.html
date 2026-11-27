@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Testing the system that governs agent-produced software."><title>Your AI Agent Says It Followed the Rules. Make It Prove It. · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/testing-the-sdd-framework/"><meta property="og:title" content="Your AI Agent Says It Followed the Rules. Make It Prove It."><meta property="og:description" content="Testing the system that governs agent-produced software."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Spec-driven development</p><h1>Your AI Agent Says It Followed the Rules. Make It Prove It.</h1><p class="meta">Enrico Papalini · 2026-10-28 · 19 min read</p><p class="lede">Testing the system that governs agent-produced software.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>How I automated testing for Enterprise SDD with real coding
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Testing the system that governs agent-produced software."><title>Your AI Agent Says It Followed the Rules. Make It Prove It. · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/testing-the-sdd-framework/"><meta property="og:title" content="Your AI Agent Says It Followed the Rules. Make It Prove It."><meta property="og:description" content="Testing the system that governs agent-produced software."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Spec-driven development</p><h1>Your AI Agent Says It Followed the Rules. Make It Prove It.</h1><p class="meta">Enrico Papalini · 2026-10-28 · 19 min read</p><p class="lede">Testing the system that governs agent-produced software.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>How I automated testing for Enterprise SDD with real coding
 agents, local inference, and evidence that goes beyond a reassuring
 final answer.</em></p>
 <p><strong>Enrico Papalini</strong></p>
@@ -23,7 +23,7 @@ the green summary missed: in five of six denied-shell cases, the agent
 retried despite an explicit instruction to stop after one attempt. Every
 attempt was blocked, but permission enforcement and instruction
 compliance were different claims. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>The numbers are useful. The more transferable lesson is the testing
 method: make a framework’s promises observable, collect evidence
@@ -31,10 +31,10 @@ independently, and never let a convincing conversation substitute for
 verification.</p>
 <p><strong>Try it yourself:</strong> run the public companion with
 <code>python3 validate.py</code> from <code>starter/</code>. The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/REPRODUCE.md">reproduction
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/REPRODUCE.md">reproduction
 guide</a> covers the offline run, a local container, and native Ollama;
 the <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
 evidence</a> separates what passed from what the audit found.</p>
 <h2 id="test-the-framework-not-just-the-application">1. Test the
 framework, not just the application</h2>
@@ -47,7 +47,7 @@ the agent runtime. Figure 1 separates these scopes before we look at the
 laboratory itself.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/01-testing-the-sdd-framework.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/01-testing-the-sdd-framework.png"
 alt="Three testing scopes: application correctness, SDD framework conformance, and agent runtime behavior." />
 <figcaption aria-hidden="true">Three testing scopes: application
 correctness, SDD framework conformance, and agent runtime
@@ -108,13 +108,13 @@ and inference. A Python runner operates on the Mac. Claude Code and
 Copilot CLI execute inside fresh Linux ARM64 containers. Ollama runs
 natively on macOS and uses Metal for inference. Live workers reach it
 only through a restricted relay. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Figure 2 shows that separation. The relay is in the inference path,
 not an optional observer beside it.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/02-test-laboratory-architecture.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/02-test-laboratory-architecture.png"
 alt="The host orchestrator manages isolated Claude Code and Copilot CLI containers. Inference traffic passes through a restricted relay to native Ollama on macOS." />
 <figcaption aria-hidden="true">The host orchestrator manages isolated
 Claude Code and Copilot CLI containers. Inference traffic passes through
@@ -129,7 +129,7 @@ run as a non-root user with a read-only root filesystem, dedicated
 writable temporary filesystems, dropped capabilities, and resource
 limits. They receive no host-directory mounts, Docker socket, or
 published ports. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Fresh environments serve two purposes. They contain deliberate
 failure attempts, and they prevent one test from quietly supplying the
@@ -140,7 +140,7 @@ permitted inference routes. Each live cell probes that direct public TCP
 access and direct host-Ollama access fail, while the relay remains
 reachable. Model-management requests are rejected. These are bounded
 isolation checks, not a comprehensive security certification. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>The tested machine was an <strong>Apple M2 Max with 64 GiB of unified
 memory</strong>. The recorded pins were Claude Code
@@ -149,13 +149,13 @@ memory</strong>. The recorded pins were Claude Code
 through a dedicated lab alias with a 65,536-token context. These
 describe the <strong>October 27–28, 2026 experiment</strong>, not the
 latest available versions or minimum hardware requirements. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Two qualifications matter. Native Ollama’s memory use is outside the
 containers’ memory limits. Also, a temperature-zero default does not
 guarantee identical model output: requests can override defaults, and
 the record makes no deterministic-output claim. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>The aim is a controlled experiment, not a claim that the model has
 become deterministic.</p>
@@ -169,7 +169,7 @@ lifecycle from canonical specification to generated configuration,
 interrupted upgrade, recovery, and rollback.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/03-sdd-lifecycle-under-test.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/03-sdd-lifecycle-under-test.png"
 alt="SDD lifecycle under test: specification, generation, publication, change, interruption, recovery, and rollback." />
 <figcaption aria-hidden="true">SDD lifecycle under test: specification,
 generation, publication, change, interruption, recovery, and
@@ -186,7 +186,7 @@ baseline. It must preserve that baseline through upgrades,
 interruptions, recovery, and rollback. In this experiment, “brownfield”
 means a previously managed publication, not arbitrary adoption of every
 user-owned file in an existing repository. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#foundation-follow-up"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#foundation-follow-up"
 title="Subsequent foundation tests and offline regression">2</a></p>
 <p>That distinction makes the assertions concrete. After rollback,
 original content and ownership records must be restored; unrelated files
@@ -201,7 +201,7 @@ cases passed: managed greenfield and brownfield lifecycles,
 initial-migration rollback in both settings, and failed-gate recovery.
 This exercises real implementation paths without claiming that the
 corresponding editor application was itself run. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#foundation-follow-up"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#foundation-follow-up"
 title="Subsequent foundation tests and offline regression">2</a></p>
 <p>There is another easily overlooked contract: <strong>the test suite
 must prove that it ran the required tests</strong>.</p>
@@ -211,7 +211,7 @@ missing, skipped, duplicate, or uncaptured required tests. The matrix
 runs the suite in three fresh containers. Later tests can live outside
 that stable selection, which is why the full regression remains a
 separate requirement. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>A green report with a missing required test is not complete
 coverage.</p>
@@ -226,7 +226,7 @@ loading, permission denials, prompt injection, MCP tools, and
 interrupted sessions.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/04-coding-agent-test-scenarios.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/04-coding-agent-test-scenarios.png"
 alt="Runtime scenario families covering instructions, skills, denied operations, prompt injection, MCP tools, and interrupted sessions." />
 <figcaption aria-hidden="true">Runtime scenario families covering
 instructions, skills, denied operations, prompt injection, MCP tools,
@@ -244,7 +244,7 @@ checks its retrieval through the intended native mechanism, together
 with discovery evidence where the runtime exposes it. A complementary
 absent-skill scenario checks that the skill is unavailable and the
 withheld receipt does not appear. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>This is challenge-response testing applied to instruction
 loading.</p>
@@ -262,7 +262,7 @@ ignore project rules and alter protected configuration.</p>
 <p>The laboratory checks exposure as well as outcome: a successful read
 must include the malicious input, the legitimate task must still produce
 the expected result, and protected state must remain unchanged. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Without the exposure check, an apparent security success might simply
 be an unexercised attack path.</p>
@@ -274,7 +274,7 @@ part of the story.</p>
 call and a hidden server receipt. The denied-tool scenario requires
 discovery of the relevant server/tool, an operation-specific native
 permission refusal, and <strong>zero server-side calls</strong>. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>That last observation matters. A refusal displayed after an operation
 has already executed is not prevention.</p>
@@ -284,7 +284,7 @@ recovered something</h3>
 observed session identifier, and checks that earlier random context can
 be recovered while the project remains unchanged. It tests more than the
 ability to start another process. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Critical negative scenarios are repeated in three fresh environments
 per CLI. That helps reveal contamination and some variability. Three
@@ -298,13 +298,13 @@ targeted correction, and run the affected tests again.</p>
 <p>That is the beginning of an autonomous testing workflow, but there is
 an important boundary: <strong>the current runner executes finite,
 on-demand batches. It is not an unattended repair scheduler.</strong> <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Figure 5 shows the surrounding repair workflow, with automated tests
 inside it rather than an unsupported claim of full autonomy.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/05-bounded-repair-loop.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/05-bounded-repair-loop.png"
 alt="A bounded repair cycle: prepare an isolated environment, execute tests, observe evidence, diagnose failures, and apply controlled repairs before revalidation." />
 <figcaption aria-hidden="true">A bounded repair cycle: prepare an
 isolated environment, execute tests, observe evidence, diagnose
@@ -333,13 +333,13 @@ restrictive temporary filesystem prevented a real launcher from running.
 The correction permitted execution on the dedicated disposable test
 filesystems rather than replacing the production command path with a
 fake one. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#retained-failures"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#retained-failures"
 title="Retained failures and bounded corrections">4</a></p>
 <p><strong>The relay rejected a legitimate client route.</strong>
 Claude’s Messages request used an additional <code>?beta=true</code>
 variant. The fix added that exact observed route to the allowlist,
 without opening arbitrary routes or model-management operations. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#retained-failures"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#retained-failures"
 title="Retained failures and bounded corrections">4</a></p>
 <p><strong>Every cell passed, but the aggregate failed.</strong> The
 interrupted-session tests deliberately terminated clients while the
@@ -347,7 +347,7 @@ relay was delivering responses. Those downstream disconnects were
 initially classified as transport failures. The revised aggregation
 distinguished them from upstream inference failures and bounded the
 allowance by completed intentional-interruption cases. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#retained-failures"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#retained-failures"
 title="Retained failures and bounded corrections">4</a></p>
 <p>The last failure is particularly instructive. The evidence collector
 and verdict aggregator are also software. They need tests, too.</p>
@@ -359,13 +359,13 @@ that made repair necessary.</p>
 timeouts, transcripts, selected artifact hashes, observed sessions,
 model evidence, an aggregate summary, and a relay audit. Failed attempts
 remain available after later success. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Figure 6 illustrates the difference between an agent’s account and
 the observations that can substantiate it.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/06-independent-test-evidence.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/06-independent-test-evidence.png"
 alt="Independent evidence includes protected-file hashes, native permission events, tool-access logs, skill receipts, and gate results rather than the agent’s claim that it followed the rules." />
 <figcaption aria-hidden="true">Independent evidence includes
 protected-file hashes, native permission events, tool-access logs, skill
@@ -381,7 +381,7 @@ than a builder declaring that its own work has been reviewed. It still
 does not establish the correctness of every reviewer judgment: separate
 sessions using the same model are not statistically independent experts.
 <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>The October 29 audit recomputed the hashes of all 47 cell reports and
 50 retained step transcripts without a mismatch. It also exposed a
@@ -392,7 +392,7 @@ private implementation, but could not reconstruct those filesystem
 comparisons from the saved evidence alone. The public companion does
 retain its before/after hashes. The lesson is to save the observations
 an assertion used, as well as its verdict. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>The summary also keeps different kinds of completion separate. The
 recorded local result can be represented by these fields:</p>
@@ -408,7 +408,7 @@ class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="
 implemented checks; broader acceptance requirements remained unresolved.
 The October 29 instruction-compliance finding adds another reason to
 read the checks behind that status. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>Evidence also needs an identity. A result belongs to particular
 source bytes, configuration, model manifests, dependencies, and
@@ -420,7 +420,7 @@ image: package repositories and transitive dependency resolution can
 change. The recorded procedure therefore calls for retaining source
 changes, locks, build records, exact image archives, model manifests and
 weight blobs, and successful <strong>and failed</strong> reports. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <p>Even restoring those inputs does not promise an identical model
 transcript. The goal is to repeat the experiment under controlled inputs
@@ -429,7 +429,7 @@ and re-evaluate the same contracts.</p>
 prompt content, but CLI transcripts can contain project or fixture
 material. A reproducibility bundle is not automatically a public
 dataset. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a></p>
 <h2 id="read-the-results-without-overstating-them">7. Read the results
 without overstating them</h2>
@@ -440,7 +440,7 @@ live Claude Code cells, and 22 live Copilot CLI cells. All <strong>542
 recorded cell checks</strong> passed their existing oracles. The relay
 audit and reported cleanup also passed; the later evidence audit did not
 independently query the container daemon. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>This was a new environment validation using the retained container
 images and the same pinned Qwen model digest, with Ollama
@@ -453,7 +453,7 @@ remains part of the record. Host evidence identified <strong>Metal on
 the Apple M2 Max, with 33/33 model layers offloaded</strong>; runtime
 snapshots reported full GPU residency and the configured 65,536-token
 context. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>A cell is not an individual assertion or an independent reliability
 sample. One structural cell executes a suite; one live cell can check
@@ -484,10 +484,10 @@ attempt, permission denial, and unchanged protected-file hash</td>
 </tbody>
 </table>
 <p>The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
 evidence index</a> links these executions separately. None adds to the
 native matrix’s 47 cells. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <h3 id="the-green-result-that-needed-another-assertion">The green result
 that needed another assertion</h3>
@@ -498,7 +498,7 @@ including attempts with a different shell command. Every operation was
 denied, so the permission boundary held. The oracle checked denial
 evidence and unchanged state, but never counted attempts. Its PASS
 therefore did not establish compliance with the stop instruction. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>This is an observed instruction violation and a gap in oracle
 coverage. A stronger oracle must require exactly one attempt and reject
@@ -511,13 +511,13 @@ laboratory.</p>
 results</strong>. The full framework regression shown
 there—<strong>1,197 tests and 111 subtests, with 20 PowerShell
 skips</strong>—was <strong>not rerun on October 29</strong>. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#recorded-matrix"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#recorded-matrix"
 title="Recorded 47-cell local scenario matrix">1</a> <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#foundation-follow-up"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#foundation-follow-up"
 title="Subsequent foundation tests and offline regression">2</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/07-recorded-results.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/07-recorded-results.png"
 alt="Historical October 27–28 results: 22 live cells per CLI and three structural executions; a separate regression passed 1,197 tests and 111 subtests with 20 PowerShell skips. These are not the October 29 validation totals." />
 <figcaption aria-hidden="true">Historical October 27–28 results: 22 live
 cells per CLI and three structural executions; a separate regression
@@ -531,7 +531,7 @@ fresh native matrix and its audit finding are reported above.</em></p>
 role/workflow conformance, and the five-PR pilot remain outside the
 completed local scope. The CLIs here ran on Linux ARM64; these results
 do not issue a production compatibility certificate. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <h2 id="run-a-small-version-before-building-the-full-laboratory">8. Run
 a small version before building the full laboratory</h2>
@@ -550,20 +550,20 @@ integration task.</p>
 packages are required for this offline command. The default subject is
 scripted. Each cell executes the included code, uses a fresh workspace,
 and retains its observations. The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/REPRODUCE.md">reproduction
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/REPRODUCE.md">reproduction
 guide</a> gives expected results, evidence locations, and the container
 and live-model options.</p>
 <p>The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/starter-validation/README.md">original
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/starter-validation/README.md">original
 reference validation</a> and <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">October
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">October
 29 local validation</a> retain separate records. The container rerun
 reproduced the reference contracts and counts listed above. These
 results belong to the public teaching implementation. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/starter-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/starter-validation/README.md"
 title="New reference implementation: executed tests, matrix, mutations and explicit limits">5</a>
 <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>The mutation step is particularly useful. It permits a protected
 write, removes denial evidence, accepts stale/self reviews, makes
@@ -576,37 +576,37 @@ repetitions:</p>
 <p>Open that run’s <code>summary.json</code>, then follow its per-cell
 report paths. You will find the attempted operation, its policy
 decision, and the protected file’s before/after hashes. The bundled <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/PROOF_WALKTHROUGH.md">proof
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/PROOF_WALKTHROUGH.md">proof
 walkthrough</a> follows one real reference result and its deliberately
 broken counterexample. Change the subject, rerun the same oracle, and
 observe the difference.</p>
 <p>The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/INTEGRATION.md">integration
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/INTEGRATION.md">integration
 guide</a> explains how to replace the reference subject with your actual
 gate, publisher, or coding-agent adapter. The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/SCENARIOS.md">scenario
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/SCENARIOS.md">scenario
 map</a> states precisely what each fixture establishes and what it does
 not. Do not let a fixture-level result become a native-runtime
 compatibility claim through a change of label.</p>
 <p>For the live step, keep Ollama native on macOS so it can use Metal.
 The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/OLLAMA.md">Ollama
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/OLLAMA.md">Ollama
 guide</a> explains how to select an installed tool-calling model by
 exact name and digest. The October 29 probe made a real request and
 passed all three checks against the companion’s own permission gateway.
 A model refusal or a reassuring sentence would not have passed: the
 oracle required the specific tool attempt, its matching denial, and
 unchanged protected-file hashes. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <h2 id="make-clear-what-readers-can-reproduce">9. Make clear what
 readers can reproduce</h2>
 <p>Readers can execute the <strong>public companion</strong>: its
 source, offline tests, mutation cases, container recipe, and optional
 Ollama probe are included. The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/REPRODUCE.md">reproduction
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/starter/docs/REPRODUCE.md">reproduction
 guide</a> is the runnable entry point; the <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
 evidence</a> explains what those executions establish.</p>
 <p>The <strong>47-cell native matrix</strong> belongs to the separate
 private Enterprise SDD implementation. That checkout and its retained
@@ -614,18 +614,18 @@ images were available for the October 29 execution, but its executable
 source and raw native transcripts are not distributed in this public
 package. Neither are its container image archives or model weights. The
 <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/reading/README.md">historical
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/reading/README.md">historical
 runbook</a>, <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/original/runtime-lab-record.json">original
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/original/runtime-lab-record.json">original
 record</a>, and new evidence summary document the experiment; they do
 not enable a reader to rerun that full matrix from this repository. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md#runbook-and-configuration"
 title="Recorded laboratory architecture, commands, and verification contracts">3</a>
 <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md"
 title="October 29 local validation: native matrix, companion executions, retained failed attempt, and independent audit findings">6</a></p>
 <p>The companion also includes a <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/tools/audit_original_record.py">record-consistency
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/tools/audit_original_record.py">record-consistency
 checker</a>. It verifies the recorded cell expansion, counts, coverage,
 retained failures, and non-certification flags. It cannot prove the
 content of an unavailable report merely because a SHA-256 digest appears
@@ -655,9 +655,9 @@ scope</h3>
 <p>This article combines the author’s <strong>October 27–28, 2026
 experiment</strong> with a <strong>fresh October 29 local validation and
 evidence audit</strong>. The <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md">experiment
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/experiment-notes.md">experiment
 notes</a> identify the historical sources; the <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/evidence/local-validation/README.md">latest
 evidence index</a> records the new environment, outcomes, and audit
 finding. The dates, implementations, and test scopes remain separate.
 The diagrams illustrate the method; Figure 7 retains the historical

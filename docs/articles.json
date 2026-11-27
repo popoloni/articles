@@ -1,15 +1,28 @@
 [
   {
+    "date": "2026-11-27",
+    "slug": "three-loop-architecture-for-ai-agents",
+    "topic": "Agentic engineering",
+    "source": "Medium/261127_three_loop_engineering/article.md",
+    "description": "Execution, progress control and evaluated learning for AI agents, with a runnable three-loop reference implementation.",
+    "title": "Beyond the Loop: The Three-Loop Architecture for AI Agents",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/figures/01_architecture.png",
+    "minutes": 21,
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering",
+    "url": "read/three-loop-architecture-for-ai-agents/"
+  },
+  {
     "date": "2026-11-24",
     "slug": "reliable-software-with-ai-coding-agents",
     "topic": "Agentic engineering",
     "source": "Medium/261124_ESA_Chapter_1_Medium_Article/How_to_Build_Reliable_Software_with_AI_Coding_Agents.md",
     "description": "Expect, Delegate, Observe, Decide: a practical walkthrough of accountable change.",
     "title": "How to Build Reliable Software with AI Coding Agents",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article/assets/boundaries.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261124_ESA_Chapter_1_Medium_Article/assets/boundaries.jpg",
     "minutes": 7,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article/How_to_Build_Reliable_Software_with_AI_Coding_Agents.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261124_ESA_Chapter_1_Medium_Article",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261124_ESA_Chapter_1_Medium_Article/How_to_Build_Reliable_Software_with_AI_Coding_Agents.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261124_ESA_Chapter_1_Medium_Article",
     "url": "read/reliable-software-with-ai-coding-agents/"
   },
   {
@@ -19,10 +32,10 @@
     "source": "Medium/261123_non-deterministic-trilogy/article.md",
     "description": "The evolution of the engineer’s role and the new Non-Deterministic trilogy.",
     "title": "The Agent Wrote the Fix. Would You Ship It?",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/assets/esa.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261123_non-deterministic-trilogy/assets/esa.jpg",
     "minutes": 7,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy/article.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261123_non-deterministic-trilogy",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261123_non-deterministic-trilogy/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261123_non-deterministic-trilogy",
     "url": "read/the-agent-wrote-the-fix/"
   },
   {
@@ -32,10 +45,10 @@
     "source": "Medium/261028_SDD_Testing_Complete_Companion/article.md",
     "description": "Testing the system that governs agent-produced software.",
     "title": "Your AI Agent Says It Followed the Rules. Make It Prove It.",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/figures/01-testing-the-sdd-framework.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/figures/01-testing-the-sdd-framework.png",
     "minutes": 19,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion/article.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261028_SDD_Testing_Complete_Companion",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261028_SDD_Testing_Complete_Companion",
     "url": "read/testing-the-sdd-framework/"
   },
   {
@@ -45,10 +58,10 @@
     "source": "Medium/261018_Knowledge_Atlas_13_1/Medium_Article_Atlas_13_1.md",
     "description": "An illustrated tour of research, practices and the Knowledge Atlas.",
     "title": "The Map I Built While Writing About AI Coding",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261018_Knowledge_Atlas_13_1/screenshots/01_atlas_research_start.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261018_Knowledge_Atlas_13_1/screenshots/01_atlas_research_start.jpg",
     "minutes": 9,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261018_Knowledge_Atlas_13_1/Medium_Article_Atlas_13_1.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261018_Knowledge_Atlas_13_1",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261018_Knowledge_Atlas_13_1/Medium_Article_Atlas_13_1.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261018_Knowledge_Atlas_13_1",
     "url": "read/knowledge-atlas/"
   },
   {
@@ -58,10 +71,10 @@
     "source": "Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md",
     "description": "The second edition and the evidence behind trustworthy change.",
     "title": "The AI Wrote the Patch. But Who Can Prove It Belongs?",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/01_Medium_Article_Banner.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/01_Medium_Article_Banner.png",
     "minutes": 14,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article",
     "url": "read/ai-wrote-the-patch/"
   },
   {
@@ -71,10 +84,10 @@
     "source": "Medium/261016_Enterprise_SDD_Harness/ARTICLE_Medium_with_Figures_v3.md",
     "description": "OpenCode, Copilot and Claude Code: enterprise harnesses and engineering authority.",
     "title": "Coding Agents Are Becoming Infrastructure—or Vendor Lock-In? OpenCode\n2.0, GitHub Copilot, Claude Code, and the Next Enterprise SDD",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_01_Three_Shifts_in_Coding_Agents.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_01_Three_Shifts_in_Coding_Agents.png",
     "minutes": 22,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/ARTICLE_Medium_with_Figures_v3.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/ARTICLE_Medium_with_Figures_v3.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness",
     "url": "read/coding-agents-infrastructure-or-lock-in/"
   },
   {
@@ -84,10 +97,10 @@
     "source": "Medium/20261011_M4_16GB_Model_Selection/article.md",
     "description": "Ten tested configurations for a 16 GB Mac mini.",
     "title": "Which Local LLM Should You Run on a 16 GB Mac mini?",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/01-contract-outcomes.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/01-contract-outcomes.png",
     "minutes": 33,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/article.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection",
     "url": "read/local-llm-on-a-16gb-mac-mini/"
   },
   {
@@ -97,10 +110,10 @@
     "source": "Medium/260930_jev_complete_illustrated/essay.md",
     "description": "Reusable decision models and classifiers for agentic workflows.",
     "title": "Jev and the Return of the Classifier",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260930_jev_complete_illustrated/figures/01-question-types.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260930_jev_complete_illustrated/figures/01-question-types.png",
     "minutes": 36,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260930_jev_complete_illustrated/essay.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260930_jev_complete_illustrated",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260930_jev_complete_illustrated/essay.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260930_jev_complete_illustrated",
     "url": "read/jev-and-the-return-of-the-classifier/"
   },
   {
@@ -110,10 +123,10 @@
     "source": "Medium/260929_bigger_models_smaller_macs_handwritten/article.md",
     "description": "Useful local coding systems, quantisation and reusable context.",
     "title": "Bigger Models, Smaller Macs",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/01-system.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/01-system.png",
     "minutes": 23,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/article.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten",
     "url": "read/bigger-models-smaller-macs/"
   },
   {
@@ -123,10 +136,10 @@
     "source": "Medium/260911_artifactory-blackboard-medium/article.md",
     "description": "An accidental blackboard and the boundary between information and authority.",
     "title": "The Agents Didn’t Need a Chat Room. They Had Artifactory.",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/images/01-blackboard.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/images/01-blackboard.png",
     "minutes": 15,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/article.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium",
     "url": "read/artifactory-and-agent-coordination/"
   },
   {
@@ -136,10 +149,10 @@
     "source": "Medium/260827_AI_summer_assignement/article/Medium_Article_AI_Summer_Assignment_Enrico_Papalini.md",
     "description": "Disciplined AI workflows for writing and publishing a historical fantasy saga.",
     "title": "My Summer Assignment: Use AI Beyond Software Development",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/images/article_covers_cycle_1_2.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260827_AI_summer_assignement/images/article_covers_cycle_1_2.jpg",
     "minutes": 11,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement/article/Medium_Article_AI_Summer_Assignment_Enrico_Papalini.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260827_AI_summer_assignement",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260827_AI_summer_assignement/article/Medium_Article_AI_Summer_Assignment_Enrico_Papalini.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260827_AI_summer_assignement",
     "url": "read/ai-summer-assignment/"
   },
   {
@@ -149,10 +162,10 @@
     "source": "Medium/270730_local_llm_mac_guide/local_llm_mac_guide_medium.md",
     "description": "Mac-native inference architectures, memory, serving and optimisation.",
     "title": "Local LLM Inference on Apple Silicon",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig01_apple_silicon_overview.png",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig01_apple_silicon_overview.png",
     "minutes": 29,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/local_llm_mac_guide_medium.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/local_llm_mac_guide_medium.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide",
     "url": "read/local-llm-inference-on-apple-silicon/"
   },
   {
@@ -162,10 +175,10 @@
     "source": "Medium/20260724_TheEconomicsofAILoops/article.md",
     "description": "From cheap tokens to independently verified outcomes.",
     "title": "The Economics of AI Loops",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/assets/banner.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260724_TheEconomicsofAILoops/assets/banner.jpg",
     "minutes": 22,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops/article.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260724_TheEconomicsofAILoops",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260724_TheEconomicsofAILoops/article.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260724_TheEconomicsofAILoops",
     "url": "read/economics-of-ai-loops/"
   },
   {
@@ -175,10 +188,10 @@
     "source": "Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/medium.md",
     "description": "Why inference pricing and growing context change AI economics.",
     "title": "The Economics of Generative AI: From Subsidy Crisis to Agentic Workflow\nSustainability",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/assets/fig_001.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/assets/fig_001.jpg",
     "minutes": 30,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/medium.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability/medium.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260525_TheEconomicsofGenerativeAIFromSubsidyCrisistoAgenticWorkflowSustainability",
     "url": "read/economics-of-generative-ai/"
   },
   {
@@ -188,10 +201,10 @@
     "source": "Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/medium.md",
     "description": "Architectures, methodologies and frameworks for specification-first AI-assisted engineering.",
     "title": "The Evolution of Spec-Driven Development:",
-    "image": "https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/assets/fig_001.jpg",
+    "image": "https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/assets/fig_001.jpg",
     "minutes": 35,
-    "source_url": "https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/medium.md",
-    "folder_url": "https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20260516_TheEvolutionofSpec-DrivenDevelopment",
+    "source_url": "https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260516_TheEvolutionofSpec-DrivenDevelopment/medium.md",
+    "folder_url": "https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20260516_TheEvolutionofSpec-DrivenDevelopment",
     "url": "read/evolution-of-spec-driven-development/"
   }
 ]

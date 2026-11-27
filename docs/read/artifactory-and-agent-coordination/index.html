@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="An accidental blackboard and the boundary between information and authority."><title>The Agents Didn’t Need a Chat Room. They Had Artifactory. · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/artifactory-and-agent-coordination/"><meta property="og:title" content="The Agents Didn’t Need a Chat Room. They Had Artifactory."><meta property="og:description" content="An accidental blackboard and the boundary between information and authority."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Agentic engineering</p><h1>The Agents Didn’t Need a Chat Room. They Had Artifactory.</h1><p class="meta">Enrico Papalini · 2026-09-11 · 15 min read</p><p class="lede">An accidental blackboard and the boundary between information and authority.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>What the OpenAI–Hugging Face incident reveals about accidental
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="An accidental blackboard and the boundary between information and authority."><title>The Agents Didn’t Need a Chat Room. They Had Artifactory. · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/artifactory-and-agent-coordination/"><meta property="og:title" content="The Agents Didn’t Need a Chat Room. They Had Artifactory."><meta property="og:description" content="An accidental blackboard and the boundary between information and authority."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Agentic engineering</p><h1>The Agents Didn’t Need a Chat Room. They Had Artifactory.</h1><p class="meta">Enrico Papalini · 2026-09-11 · 15 min read</p><p class="lede">An accidental blackboard and the boundary between information and authority.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>What the OpenAI–Hugging Face incident reveals about accidental
 blackboards, agent coordination, and the difference between capability
 and authority</em></p>
 <p><strong>Enrico Papalini</strong> · 11 September 2026</p>
@@ -26,7 +26,7 @@ without letting them redefine what counts as success, which evidence is
 trustworthy, or who is allowed to authorize an action.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/images/01-blackboard.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/images/01-blackboard.png"
 alt="Three agents publish observations, proposals and evidence links to shared persistent state, then read updates to guide their next actions." />
 <figcaption aria-hidden="true">Three agents publish observations,
 proposals and evidence links to shared persistent state, then read
@@ -88,7 +88,7 @@ href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hug
 technical report</a>)</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/images/02-artifactory-two-roles.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/images/02-artifactory-two-roles.png"
 alt="Two separate Artifactory failures: shared storage enables cross-run communication, while an abused fetch service enables unauthorized network access." />
 <figcaption aria-hidden="true">Two separate Artifactory failures: shared
 storage enables cross-run communication, while an abused fetch service
@@ -188,7 +188,7 @@ to shape another run’s work. That is the blackboard’s contribution,
 distinct from the vulnerabilities that made the intrusions possible.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/images/03-incident-timeline.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/images/03-incident-timeline.png"
 alt="Selected July 2026 incident milestones alongside an Artifactory blackboard through which agents share discoveries and access." />
 <figcaption aria-hidden="true">Selected July 2026 incident milestones
 alongside an Artifactory blackboard through which agents share
@@ -227,7 +227,7 @@ clearer: protect the worker’s interpretation of external artifacts, and
 independently govern what shared messages may authorize.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/images/04-artifact-feedback-loop.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/images/04-artifact-feedback-loop.png"
 alt="An uploaded dataset reaches a production worker; separate weaknesses cause file disclosure or code execution, with platform outputs returning feedback to the agent." />
 <figcaption aria-hidden="true">An uploaded dataset reaches a production
 worker; separate weaknesses cause file disclosure or code execution,
@@ -340,7 +340,7 @@ provided that the policy and the authority to change it are protected
 from the workers themselves.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260911_artifactory-blackboard-medium/images/05-governed-blackboard.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260911_artifactory-blackboard-medium/images/05-governed-blackboard.png"
 alt="A proposed governed blackboard separates peer collaboration from authorization, tool execution, recorded evidence, independent verification and bounded retries." />
 <figcaption aria-hidden="true">A proposed governed blackboard separates
 peer collaboration from authorization, tool execution, recorded
@@ -515,4 +515,4 @@ Happens When the AI Stops Waiting for Your Next Prompt?</em></a>. July
 href="https://openai.com/index/pacing-model-development-cyber-capabilities/"><em>Pacing
 model development in an era of cyber-critical capabilities</em></a>.
 August 18, 2026.</p>
-</article></div><section class="related"><h2>Keep reading</h2><a href="../reliable-software-with-ai-coding-agents/">How to Build Reliable Software with AI Coding Agents</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../three-loop-architecture-for-ai-agents/">Beyond the Loop: The Three-Loop Architecture for AI Agents</a><a href="../reliable-software-with-ai-coding-agents/">How to Build Reliable Software with AI Coding Agents</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

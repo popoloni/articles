@@ -1,10 +1,10 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The second edition and the evidence behind trustworthy change."><title>The AI Wrote the Patch. But Who Can Prove It Belongs? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/ai-wrote-the-patch/"><meta property="og:title" content="The AI Wrote the Patch. But Who Can Prove It Belongs?"><meta property="og:description" content="The second edition and the evidence behind trustworthy change."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Books &amp; research</p><h1>The AI Wrote the Patch. But Who Can Prove It Belongs?</h1><p class="meta">Enrico Papalini · 2026-10-17 · 14 min read</p><p class="lede">The second edition and the evidence behind trustworthy change.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>Why Non-Deterministic Software Engineering needed a Second
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="The second edition and the evidence behind trustworthy change."><title>The AI Wrote the Patch. But Who Can Prove It Belongs? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/ai-wrote-the-patch/"><meta property="og:title" content="The AI Wrote the Patch. But Who Can Prove It Belongs?"><meta property="og:description" content="The second edition and the evidence behind trustworthy change."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Books &amp; research</p><h1>The AI Wrote the Patch. But Who Can Prove It Belongs?</h1><p class="meta">Enrico Papalini · 2026-10-17 · 14 min read</p><p class="lede">The second edition and the evidence behind trustworthy change.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/ARTICLE_MEDIUM_EN.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>Why Non-Deterministic Software Engineering needed a Second
 Edition — and what the research really tells us about coding agents,
 productivity, and trustworthy software.</em></p>
 <p><strong>By Enrico Papalini · October 2026</strong></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/01_Medium_Article_Banner.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/01_Medium_Article_Banner.png"
 alt="Enrico Papalini holding Non-Deterministic Software Engineering Second Edition. Editorial banner using the book’s original navy, white and orange palette." />
 <figcaption aria-hidden="true">Enrico Papalini holding Non-Deterministic
 Software Engineering Second Edition. Editorial banner using the book’s
@@ -77,7 +77,7 @@ understand where that acceleration becomes real value — and where it
 merely transfers work to someone else.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/05_Book_Figure_Engineering_Lifecycle.jpg"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/05_Book_Figure_Engineering_Lifecycle.jpg"
 alt="Hand-drawn lifecycle diagram from the book, linking engineering work with human accountability." />
 <figcaption aria-hidden="true">Hand-drawn lifecycle diagram from the
 book, linking engineering work with human accountability.</figcaption>
@@ -129,7 +129,7 @@ difficult to interpret reliably. An early-2025 result should not become
 a permanent verdict on AI systems released later.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/06_Book_Figure_Perception_vs_Measured_Time.jpg"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/06_Book_Figure_Perception_vs_Measured_Time.jpg"
 alt="Original figure from the Second Edition showing how developer estimates of AI speed differed from measured task time in an early-2025 study." />
 <figcaption aria-hidden="true">Original figure from the Second Edition
 showing how developer estimates of AI speed differed from measured task
@@ -204,7 +204,7 @@ the current policy.</p>
 both what should change and what must remain unchanged.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/07_Book_Figure_Change_and_Evidence_Trace.jpg"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/07_Book_Figure_Change_and_Evidence_Trace.jpg"
 alt="Original book figure showing an intention change, affected evidence, policy revision and independent checks." />
 <figcaption aria-hidden="true">Original book figure showing an intention
 change, affected evidence, policy revision and independent
@@ -230,7 +230,7 @@ and the exact candidate being reviewed. Otherwise, yesterday’s green
 report may be attached to today’s different code.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/08_Book_Figure_Independent_Test_Oracle.jpg"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/08_Book_Figure_Independent_Test_Oracle.jpg"
 alt="Original book diagram: an authorized contract is used independently by the maker and the test oracle before a reviewer decision." />
 <figcaption aria-hidden="true">Original book diagram: an authorized
 contract is used independently by the maker and the test oracle before a
@@ -278,7 +278,7 @@ It needs provenance, ownership, applicable versions, and conditions
 under which the recorded knowledge must be reconsidered.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/09_Book_Figure_Memory_Handoff.jpg"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/09_Book_Figure_Memory_Handoff.jpg"
 alt="Book figure illustrating versioned agent memory and validated worktree context before long-term storage." />
 <figcaption aria-hidden="true">Book figure illustrating versioned agent
 memory and validated worktree context before long-term
@@ -374,7 +374,7 @@ notes, and previous book material.</p>
 claims</strong>.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/10_Knowledge_Atlas_Interactive_View.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/10_Knowledge_Atlas_Interactive_View.png"
 alt="Screenshot of the companion Knowledge Atlas, showing 193 curated works organized by evidence streams and links." />
 <figcaption aria-hidden="true">Screenshot of the companion Knowledge
 Atlas, showing 193 curated works organized by evidence streams and
@@ -426,7 +426,7 @@ decisions without pretending the remaining uncertainty has
 disappeared.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261017_NDSE2_Launch_article/images/02_Official_EN_6x9_Cover.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261017_NDSE2_Launch_article/images/02_Official_EN_6x9_Cover.png"
 alt="The actual 6×9 English cover of Non-Deterministic Software Engineering, Second Edition." />
 <figcaption aria-hidden="true">The actual 6×9 English cover of
 Non-Deterministic Software Engineering, Second Edition.</figcaption>

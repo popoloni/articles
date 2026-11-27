@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Useful local coding systems, quantisation and reusable context."><title>Bigger Models, Smaller Macs · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/bigger-models-smaller-macs/"><meta property="og:title" content="Bigger Models, Smaller Macs"><meta property="og:description" content="Useful local coding systems, quantisation and reusable context."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Bigger Models, Smaller Macs</h1><p class="meta">Enrico Papalini · 2026-09-29 · 23 min read</p><p class="lede">Useful local coding systems, quantisation and reusable context.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Useful local coding systems, quantisation and reusable context."><title>Bigger Models, Smaller Macs · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/bigger-models-smaller-macs/"><meta property="og:title" content="Bigger Models, Smaller Macs"><meta property="og:description" content="Useful local coding systems, quantisation and reusable context."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Bigger Models, Smaller Macs</h1><p class="meta">Enrico Papalini · 2026-09-29 · 23 min read</p><p class="lede">Useful local coding systems, quantisation and reusable context.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
 id="a-practical-guide-to-local-coding-agentsfrom-the-m4-and-m6-mac-mini-to-a-512-gb-mac-studio">A
 practical guide to local coding agents—from the M4 and M6 Mac mini to a
 512 GB Mac Studio</h2>
@@ -28,7 +28,7 @@ points, not tested performance guarantees. <a
 href="https://github.com/jundot/omlx/releases/tag/v0.7.0rc1">[14]</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/01-system.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/01-system.png"
 alt="A local coding system has three separate jobs: fit the model, retain useful context, and verify the work. Author’s schematic." />
 <figcaption aria-hidden="true">A local coding system has three separate
 jobs: fit the model, retain useful context, and verify the work.
@@ -70,7 +70,7 @@ href="https://www.apple.com/ie/newsroom/2026/08/apple-introduces-new-mac-studio-
 href="https://www.apple.com/newsroom/2025/03/apple-unveils-new-mac-studio-the-most-powerful-mac-ever/">[5]</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/02-hardware.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/02-hardware.png"
 alt="Memory ceilings and published bandwidth: the M6 mini improves bandwidth but does not raise the base mini’s 32 GB capacity ceiling. The 512 GB M5 Ultra is announced for late October 2026. Sources: Apple specifications." />
 <figcaption aria-hidden="true">Memory ceilings and published bandwidth:
 the M6 mini improves bandwidth but does not raise the base mini’s 32 GB
@@ -117,7 +117,7 @@ model download</h2>
 <p>A useful first approximation is:</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-01.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-01.png"
 alt="Total working memory: resident weights plus active context, workspace, hot cache, and operating system/tools." />
 <figcaption aria-hidden="true">Total working memory: resident weights
 plus active context, workspace, hot cache, and operating
@@ -133,7 +133,7 @@ request</strong>, especially during prompt processing.</p>
 <p>For weights alone, the familiar estimate is:</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-02.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-02.png"
 alt="Approximate weight storage in decimal GB: billions of parameters times bits per weight, divided by eight." />
 <figcaption aria-hidden="true">Approximate weight storage in decimal GB:
 billions of parameters times bits per weight, divided by
@@ -217,7 +217,7 @@ Do not treat ternary as a checkbox that can safely shrink any
 model.</strong></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/03-techniques.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/03-techniques.png"
 alt="Four interventions act on different objects. Weight quantization, expert placement, KV quantization and prefix reuse solve different constraints; their headline savings cannot simply be multiplied." />
 <figcaption aria-hidden="true">Four interventions act on different
 objects. Weight quantization, expert placement, KV quantization and
@@ -241,7 +241,7 @@ needed repeatedly, the opportunity for sparse fetching disappears.</p>
 <p>The basic latency constraint is unavoidable:</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-03.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-03.png"
 alt="Storage latency bound: uncached expert bytes per token divided by effective storage bandwidth." />
 <figcaption aria-hidden="true">Storage latency bound: uncached expert
 bytes per token divided by effective storage bandwidth.</figcaption>
@@ -270,7 +270,7 @@ conventional full-attention model with grouped-query attention, a
 simplified estimate is:</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-04.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/equation-04.png"
 alt="Conventional KV payload: two times layers times tokens times KV heads times head dimension times bytes per element." />
 <figcaption aria-hidden="true">Conventional KV payload: two times layers
 times tokens times KV heads times head dimension times bytes per
@@ -316,7 +316,7 @@ state; prefix reuse avoids recomputing an exact beginning. Persisting
 that state to SSD does not grant unlimited active context.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/04-context.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/04-context.png"
 alt="Stable prefixes can be restored, while changed suffixes need new processing. RAM/SSD prefix storage and active quantized attention state are related but different mechanisms." />
 <figcaption aria-hidden="true">Stable prefixes can be restored, while
 changed suffixes need new processing. RAM/SSD prefix storage and active
@@ -421,7 +421,7 @@ distributed inference. Use an authenticated private connection; keep an
 API capable of reaching tools away from the public internet.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/05-agent-loop.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/05-agent-loop.png"
 alt="The model proposes; the harness acts within permissions; verification decides. Stop or ask a human when the retry budget is exhausted." />
 <figcaption aria-hidden="true">The model proposes; the harness acts
 within permissions; verification decides. Stop or ask a human when the
@@ -604,7 +604,7 @@ checkpoint. <a
 href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0rc1/omlx/model_settings.py">[17]</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/260929_bigger_models_smaller_macs_handwritten/figures/06-rollout.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/260929_bigger_models_smaller_macs_handwritten/figures/06-rollout.png"
 alt="A safe escalation path: establish a resident baseline, validate prefix reuse, test eligible KV quantization, and only then introduce expert offloading or a larger model." />
 <figcaption aria-hidden="true">A safe escalation path: establish a
 resident baseline, validate prefix reuse, test eligible KV quantization,

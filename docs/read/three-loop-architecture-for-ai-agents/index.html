@@ -1,0 +1,727 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Execution, progress control and evaluated learning for AI agents, with a runnable three-loop reference implementation."><title>Beyond the Loop: The Three-Loop Architecture for AI Agents · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/three-loop-architecture-for-ai-agents/"><meta property="og:title" content="Beyond the Loop: The Three-Loop Architecture for AI Agents"><meta property="og:description" content="Execution, progress control and evaluated learning for AI agents, with a runnable three-loop reference implementation."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Agentic engineering</p><h1>Beyond the Loop: The Three-Loop Architecture for AI Agents</h1><p class="meta">Enrico Papalini · 2026-11-27 · 21 min read</p><p class="lede">Execution, progress control and evaluated learning for AI agents, with a runnable three-loop reference implementation.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
+id="how-to-engineer-systems-that-execute-measure-progress-and-improve-their-own-engineering-methodology">How
+to engineer systems that execute, measure progress, and improve their
+own engineering methodology</h2>
+<p><strong>Enrico Papalini</strong> · November 2026</p>
+<p>Imagine going to sleep while an AI agent fixes your software. You
+wake up to a pull request, a green test suite, and a bill that makes you
+wonder whether you should have stayed awake.</p>
+<p>The next night, the same agent encounters the same category of
+problem. It burns through the same reasoning steps, hits the same
+obstacle, and eventually finds the same solution. The code is different.
+The expensive journey is almost identical.</p>
+<p>The system has delivered software. It has not learned how to deliver
+software.</p>
+<p>This is where I believe the next important architectural shift in
+agentic engineering lies. We should stop thinking of an autonomous loop
+as a worker that tries until it succeeds. We should start thinking of a
+system that can improve the conditions under which its workers
+operate.</p>
+<p>In my previous article, <a
+href="https://medium.com/%40enrico.papalini/loop-engineering-is-spec-driven-development-in-motion-695a57150f34">Loop
+Engineering Is Spec-Driven Development in Motion</a>, I argued that the
+engineer increasingly designs the conditions in which an agent reasons
+rather than personally steering each step. That article discussed
+specifications, persistent state, independent verification, budgets and
+escalation as the foundations of reliable autonomy.</p>
+<p>A recent LinkedIn discussion with <a
+href="https://www.linkedin.com/in/sam-iso/">Sam Iso</a> provided a
+useful extension. His illustrative folder structure separated a
+coding-loop template from a progress-loop template. We discussed the
+importance of detecting repeated failures before they consume the entire
+budget. The image suggested two distinct responsibilities; it did not
+establish how the underlying templates were implemented. That
+distinction led me to a question: what if the system could also improve
+the methodology that governs its future loops?</p>
+<p>My proposal is a three-loop architecture. The first loop changes the
+software. The second changes the strategy by which the software is
+changed. The third changes the methodology by which strategies are
+selected and governed.</p>
+<blockquote>
+<p>The real objective is not to engineer agents that never fail, but to
+engineer systems that extract value from failure without endlessly
+paying for it.</p>
+</blockquote>
+<h2 id="the-first-loop-from-prompting-to-execution">1. The first loop:
+from prompting to execution</h2>
+<p>The simplest coding loop is almost embarrassingly small. Geoffrey
+Huntley popularized it as the <a
+href="https://ghuntley.com/ralph/">Ralph technique</a>: feed the same
+prompt to a coding agent, over and over. Here it is with a stop
+condition:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="ex">not_done</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span> PROMPT.md <span class="kw">|</span> <span class="ex">claude</span> <span class="at">-p</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p><code>not_done</code> is left for you to implement, and nothing in
+this fragment establishes that the completion condition is trustworthy.
+The model call also conceals an entire runtime: context construction,
+reasoning, tool invocation, session state and possibly internal agentic
+loops.</p>
+<p>The important distinction is not the number of shell statements. It
+is the authority assigned to each component.</p>
+<p>An execution loop receives a bounded task, proposes a change, applies
+it within an authorized workspace and produces an artifact for
+verification. It should not be allowed to redefine the requirement,
+alter its own acceptance tests, silently increase the budget or decide
+that a plausible explanation is equivalent to a correct result.</p>
+<p>The specification is the contract. The implementation agent is a
+worker. The acceptance mechanism is an independent source of
+evidence.</p>
+<p>In practical systems, the executor may be Claude Code, Codex, a local
+model, or a specialized agent. The harness provides access to tools,
+isolation, context and runtime controls. Its internal loops may already
+be sophisticated. None of that eliminates the need to decide what
+evidence is sufficient, what actions are authorized, and what happens
+when an attempt fails.</p>
+<p>I call the layer that changes the software <strong>L1: the Execution
+Loop</strong>. In the companion implementation, L1 exposes one bounded
+attempt; L2 drives repeated invocations. This makes the two
+responsibilities explicit instead of hiding an unbounded retry loop
+inside an ostensibly bounded call.</p>
+<h2 id="three-loops-three-objects-of-change">2. Three loops, three
+objects of change</h2>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/figures/01_architecture.png"
+alt="Figure 1. Three-loop architecture: execution changes artifacts, progress changes strategy, learning changes versioned policy." />
+<figcaption aria-hidden="true">Figure 1. Three-loop architecture:
+execution changes artifacts, progress changes strategy, learning changes
+versioned policy.</figcaption>
+</figure>
+<p><em>Figure 1 — The proposed architecture. The specification remains
+human-owned; learning produces a candidate policy, not an unrestricted
+ability to change the system.</em></p>
+<p>The architecture is not a stack of three language models. It is a
+hierarchy of feedback responsibilities, with potentially different
+frequencies, evidence requirements and authorities.</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it changes</th>
+<th>Typical cadence</th>
+<th>Evidence it needs</th>
+<th>What it cannot authorize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 — Execution</td>
+<td>A software artifact</td>
+<td>One bounded attempt or tool sequence</td>
+<td>Patch, build, tests, diff</td>
+<td>Changing its own acceptance contract</td>
+</tr>
+<tr>
+<td>L2 — Progress</td>
+<td>The strategy for this task</td>
+<td>Between attempts</td>
+<td>Verification results, stagnation, diagnostic probes, remaining
+resources</td>
+<td>Relaxing hard controls or granting new privileges</td>
+</tr>
+<tr>
+<td>L3 — Learning</td>
+<td>The reusable engineering methodology</td>
+<td>Across episodes</td>
+<td>Recurring patterns, validated hypotheses, paired evaluation,
+regression checks</td>
+<td>Promoting its own policy or overriding human-owned constraints</td>
+</tr>
+</tbody>
+</table>
+<p>An episode is the complete lifecycle of one bounded task, from its
+initial specification and pinned policy to acceptance or escalation. L3
+learns across episodes, not simply across the messages in one
+conversation.</p>
+<p>This distinction is critical. Memory allows us to remember that an
+attempt failed. Progress control allows us to respond to the failure.
+Learning allows us to change how future tasks are handled, once there is
+evidence that the change is beneficial.</p>
+<p>There is no requirement that the three levels use the same model, or
+that all three use models at all. The reference system deliberately
+keeps its controller and learning gate deterministic. Reasoning can be
+probabilistic; permission and acceptance do not need to be.</p>
+<h2 id="l2-progress-is-not-activity">3. L2: Progress is not
+activity</h2>
+<p>The most primitive progress controller counts retries. It says: if
+the agent fails, try again, up to five times. This is a useful resource
+boundary, but it says almost nothing about whether a system is moving in
+the right direction.</p>
+<p>Suppose four tests describe a task. The first attempt passes two. The
+second passes the same two and fails the same two with identical
+observed results. The third also passes two, but produces a different
+failure. Does that constitute progress? Not necessarily. It may
+represent new information, a regression, or noise.</p>
+<p>A production progress controller needs a vector of observations
+rather than a single percentage. I would start with four dimensions:</p>
+<ul>
+<li><strong>Outcome progress:</strong> are more required properties
+satisfied without regressing previously satisfied properties?</li>
+<li><strong>Evidence progress:</strong> has an independently
+reproducible observation supported or falsified a useful
+hypothesis?</li>
+<li><strong>Resource consumption:</strong> how much time, money,
+execution capacity and human attention have been spent, including the
+cost of verification?</li>
+<li><strong>Risk:</strong> did the attempted change remain within its
+authorized scope and preserve the required invariants?</li>
+</ul>
+<p>A single number may help rank actions; it must never override a hard
+acceptance or security condition. Passing more tests cannot compensate
+for violating a non-negotiable constraint. And a novel error is not
+automatically new knowledge.</p>
+<p>In the reference system, outcome progress is the count of passing
+cases. A failure fingerprint is a hash of failed test identifiers and
+their observed results. Repeated identical fingerprints detect one
+specific form of stagnation; a plateau in the best observed score
+detects another. Both are deliberately modest heuristics. In larger
+repositories I would normalize unstable error text, distinguish
+infrastructure failures from product failures, and track per-property
+regressions as well as counts.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/figures/02_progress.png"
+alt="Figure 2. Bounded progress loop with evidence-driven strategy change and escalation." />
+<figcaption aria-hidden="true">Figure 2. Bounded progress loop with
+evidence-driven strategy change and escalation.</figcaption>
+</figure>
+<p><em>Figure 2 — A repeated failure is a decision point. A supported
+diagnostic hypothesis can justify an authorized alternative; otherwise,
+the controller stops or escalates.</em></p>
+<p>The interesting decision is what happens at the circuit breaker. We
+do not need to choose only between continuing and abandoning the task.
+We can authorize a short, bounded diagnostic probe, ask whether its
+result supports a different strategy, and proceed only if a legitimate
+alternative and a remaining budget exist.</p>
+<p>A probe is not an invitation to keep exploring indefinitely. It has
+its own defined scope. In the reference case there is one fixed,
+two-check diagnostic probe when a specific failure pattern is detected.
+The strategy can switch only once. No probe may rewrite the acceptance
+suite, enlarge the attempt budget or declare a failed change
+accepted.</p>
+<p>An agent that disproves a hypothesis can create value even when it
+produces no shippable artifact. An agent that reports a hundred new
+errors has not necessarily created any value at all.</p>
+<h2 id="a-real-example-the-half-cent-that-refuses-to-converge">4. A real
+example: the half-cent that refuses to converge</h2>
+<p>I wanted a laboratory small enough that readers could audit every
+line, rather than a large agentic framework that obscures the
+architecture behind infrastructure. Consider a fictional financial
+application with several components that convert decimal amounts into
+integer cents. The explicit contract is: round a half-cent tie away from
+zero. For example:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th style="text-align: right;">Required integer cents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1.125</code></td>
+<td style="text-align: right;">113</td>
+</tr>
+<tr>
+<td><code>-1.125</code></td>
+<td style="text-align: right;">-113</td>
+</tr>
+<tr>
+<td><code>2.01</code></td>
+<td style="text-align: right;">201</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>A tempting implementation uses binary floating point and Python’s
+<code>round</code>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transform(value: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(<span class="bu">float</span>(value) <span class="op">*</span> <span class="dv">100</span>)</span></code></pre></div>
+<p>This is wrong for the specified tie rule. <code>1.125</code> is
+exactly representable in binary, so <code>float("1.125") * 100</code> is
+exactly <code>112.5</code>, and Python’s <code>round</code> sends exact
+ties to the even integer: <code>112</code>. The fixtures use such ties
+on purpose, so the failure comes from the rounding rule, not from
+representation error. Representation error is a second, separate trap:
+<code>1.005 * 100</code> evaluates to <code>100.49999999999999</code>,
+and one held-out amount, <code>123456789012345.01</code>, becomes a cent
+value above 2⁵³, beyond which a float cannot represent every
+integer.</p>
+<p>A candidate that follows the contract uses decimal arithmetic:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> decimal <span class="im">import</span> Decimal, ROUND_HALF_UP, localcontext</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> transform(value: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> localcontext() <span class="im">as</span> ctx:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        ctx.prec <span class="op">=</span> <span class="bu">max</span>(<span class="dv">28</span>, <span class="bu">len</span>(value) <span class="op">+</span> <span class="dv">4</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">int</span>((Decimal(value) <span class="op">*</span> <span class="dv">100</span>).quantize(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            Decimal(<span class="st">&quot;1&quot;</span>), rounding<span class="op">=</span>ROUND_HALF_UP))</span></code></pre></div>
+<p>This is byte for byte the catalogue source the verifier executes.
+Raising the context precision keeps the multiplication exact for long
+inputs, which Python’s default of 28 significant digits would otherwise
+round or reject. The contract deliberately covers ordinary finite
+decimal strings, not exponents, invalid inputs, currency-specific
+rounding or real payment processing: this is a teaching example, not
+financial production software.</p>
+<p>The initial methodology, <code>v1</code>, intentionally prefers a
+cheap-looking but inappropriate float-based route. In scripted replay,
+the executor repeats the same patch twice. The L2 controller sees the
+same failure fingerprint twice and runs a trusted diagnostic probe on
+<code>1.125</code>. The probe shows that the float patch violates the
+contract on that input while a patch from the decimal route satisfies
+it, so the hypothesis is supported and the controller switches to the
+decimal route. The third attempt passes the full task suite.</p>
+<p>The failure was useful. It provided a concrete witness: the original
+route does not satisfy the required tie behavior for this input. But it
+would be a mistake to ask the next component to discover this problem
+all over again.</p>
+<h2 id="l3-memory-is-not-learning">5. L3: Memory is not learning</h2>
+<p>A common approach to agent memory is to append a sentence to a
+Markdown file: “Remember to use Decimal for money.” This may be helpful,
+but it is an instruction, not an evaluated improvement to the
+engineering process. The system does not know whether the instruction
+will help future tasks, whether its scope is too broad, or whether
+another instruction will conflict with it.</p>
+<p>My definition of operational learning is stricter:</p>
+<blockquote>
+<p>Operational learning is a durable, evidence-backed change to the
+policy governing future actions, evaluated against an independent
+contract before it is adopted.</p>
+</blockquote>
+<p>The policy can choose a task route, select a diagnostic procedure,
+change the ordering of tools, insert a specialized verification stage or
+improve the conditions for escalation. It cannot silently rewrite the
+specification, remove a required test, increase its own permissions or
+promote itself to production.</p>
+<p>The key is to treat policy changes like software changes. They have
+versions, authorship, a reason, evidence, a validation plan, a decision
+and a rollback path.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/figures/03_learning.png"
+alt="Figure 3. Learning loop: training evidence, frozen candidate, paired evaluation, authorization, promotion and rollback." />
+<figcaption aria-hidden="true">Figure 3. Learning loop: training
+evidence, frozen candidate, paired evaluation, authorization, promotion
+and rollback.</figcaption>
+</figure>
+<p><em>Figure 3 — The methodology is a controlled artifact. Learning
+proposes; independent evaluation informs; authorized governance
+promotes.</em></p>
+<p>The reference implementation learns a deliberately narrow rule, and
+it reads only training episodes. If at least two distinct training tasks
+of one family were accepted after a supported diagnosis switched them to
+the same route, and no episode of that family contradicts it, the
+learner proposes making that route the family’s default. The new route
+is read from the evidence rather than written into a pre-built
+candidate. Everything else stays as it was: the text-normalization
+route, all resource limits and all acceptance criteria.</p>
+<p>The change is visible as a policy diff:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode diff"><code class="sourceCode diff"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="st">- &quot;version&quot;: &quot;v1&quot;,</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st">- &quot;money_start&quot;: &quot;float_first&quot;,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">+ &quot;version&quot;: &quot;v2&quot;,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">+ &quot;money_start&quot;: &quot;decimal_exact&quot;,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  &quot;text_start&quot;: &quot;normalize&quot;,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  &quot;max_attempts&quot;: 4,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  &quot;repeat_limit&quot;: 2,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  &quot;plateau_limit&quot;: 2</span></code></pre></div>
+<p>The learner is a deterministic rule in this lab, not an LLM. A more
+general system could use an LLM to propose hypotheses or policy diffs,
+but proposals would still need validation against a bounded schema and a
+separate gate. I would prefer to start with a small explicit policy
+language over an unrestricted self-modifying agent.</p>
+<p>Crucially, the data used to propose a policy is not the same data
+used to judge it. The candidate is frozen after inspecting training
+episodes. Both policies run against the same held-out cases, including a
+text-normalization control where nothing should change. In this
+educational repository the fixtures are public and the developer knows
+them; the separation is in the program’s data flow, not a claim of blind
+independent scientific evaluation.</p>
+<h2 id="from-theory-to-source-code">6. From theory to source code</h2>
+<p>The companion repository is intentionally dependency-free for the
+runnable Python system (tested on Python 3.10 to 3.14). It contains the
+entire runnable experiment, acceptance fixtures, policy, retained
+evidence, negative tests, optional live adapter, and editable diagram
+sources. No API key is needed to reproduce the published numbers.</p>
+<pre class="text"><code>three_loop_engineering/
+  article.md
+  README.md
+  three_loop/
+    agents.py          # scripted and optional Claude adapters
+    execution.py       # L1: one bounded attempt
+    verifier.py        # trusted acceptance and diagnostic controller
+    worker.py          # separate verifier process
+    progress.py        # L2: resource and strategy supervisor
+    learning.py        # L3: candidate and evaluation gate
+    audit.py           # hash-chained local trace
+    model.py           # task, policy and evidence contracts
+    catalog.py         # trusted patch candidates
+    cli.py             # experiment, authorization, rollback
+  specs/tasks.json
+  policies/baseline.json
+  tests/test_three_loop.py
+  reproduce_results.sh
+  figures/
+  results/</code></pre>
+<p>The implementation is split along authority boundaries rather than
+along model providers. The executor applies only an allowed patch
+identifier; the verifier runs acceptance checks in a separate process
+over the actual source file; the supervisor reserves an attempt before
+calling the agent. This controlled lab executes only predefined
+catalogue code, not arbitrary LLM-generated code. A separate process is
+not an operating-system sandbox, and it would be unsafe to replace the
+trusted catalogue with unrestricted source generation without genuine
+isolation.</p>
+<p>L2’s core behavior is visible in the following excerpt from
+<code>progress.py</code> (simplified for the article):</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, policy.max_attempts <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reserve before the agent call, including failures.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    proposal, verdict <span class="op">=</span> execute_attempt(...)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> verdict.accepted:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ACCEPTED</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> repeated_failure <span class="kw">or</span> plateau:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> authorized_probe_supports_alternative():</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            route <span class="op">=</span> alternative_route</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ESCALATED</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> ESCALATED</span></code></pre></div>
+<p>The real code also handles model and verifier errors, records every
+attempt with its evidence, checks patch scope and remaining budget,
+allows at most one strategy switch per episode, and writes an explicit
+stop reason.</p>
+<p>The L3 gate is intentionally harder to satisfy than a vague claim of
+improvement. It checks that the only policy change is one route field
+plus the version; that the paired evaluation contains at least two
+target tasks and one control task; that every task is accepted under
+both policies; that no task needs more attempts; that the control’s
+attempt count is unchanged; and that total attempts decrease. A local
+operator must then approve the digest of that exact evaluation before
+the active policy pointer changes. The approval is single-use: after a
+rollback, the same digest cannot re-promote the candidate. That takes a
+fresh evaluation.</p>
+<p>The audit log hashes each record together with its predecessor.
+Source files, proposals, diagnostic reports and acceptance evidence are
+retained, and promotion revalidates the held-out reports and evidence
+hashes. A new episode refuses to start if the active policy pointer
+disagrees with the governance log. All of this exposes accidental or
+uncoordinated tampering; it is not an authenticated audit system,
+because a privileged local writer could rewrite the whole history.</p>
+<h2 id="what-actually-happened-when-i-ran-it">7. What actually happened
+when I ran it</h2>
+<p>The first experiment uses a scripted executor, not a language model.
+It is an intentionally controlled replay: both methodologies use the
+same deterministic worker and identical acceptance suites. Only the
+default route is changed. That isolates the mechanics of the learning
+loop from model variability.</p>
+<p>From the package root:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> unittest discover <span class="at">-s</span> tests <span class="at">-v</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> three_loop demo <span class="at">--out</span> runs/experiment-01</span></code></pre></div>
+<p>The demo performs the training episodes, proposes <code>v2</code>,
+runs both policies on the three held-out tasks, and writes the
+evaluation report. The initially active policy remains <code>v1</code>.
+The actual replay produced these results:</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 28%" />
+<col style="width: 28%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>Held-out task</th>
+<th style="text-align: right;">Baseline attempts</th>
+<th style="text-align: right;">Candidate attempts</th>
+<th>Baseline / candidate result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoice conversion</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td>Accepted / Accepted</td>
+</tr>
+<tr>
+<td>Text labels (control)</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>Accepted / Accepted</td>
+</tr>
+<tr>
+<td>Refund conversion</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td>Accepted / Accepted</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>7</strong></td>
+<td style="text-align: right;"><strong>3</strong></td>
+<td><strong>3/3 accepted under each policy</strong></td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/figures/04_replay.png"
+alt="Figure 4. Actual controlled replay: seven baseline attempts versus three candidate attempts." />
+<figcaption aria-hidden="true">Figure 4. Actual controlled replay: seven
+baseline attempts versus three candidate attempts.</figcaption>
+</figure>
+<p><em>Figure 4 — Measured attempts, not estimated token consumption.
+The candidate maintained the same acceptance outcome on these three
+fixtures.</em></p>
+<p>The candidate requires four fewer executor invocations: approximately
+57% fewer attempts in this small evaluation. The verifier tells the same
+story. The baseline started eleven verifier processes (seven acceptance
+checks, plus two diagnostic probes of two checks each); the candidate
+started three.</p>
+<p>These numbers follow from the design. The scripted worker always
+tries the first patch of its route, so the outcome was predictable
+before the run. What the experiment tests is the machinery around it:
+that the diagnosis is recorded, that the candidate is derived from
+training evidence alone and frozen before evaluation, that the gate and
+the provenance checks pass, and that the negative tests (tampered
+evidence, a relaxed budget, a failed task, a reused approval, an
+unrecorded policy pointer) are rejected. It is not evidence that Claude
+is 57% cheaper, that arbitrary tasks converge faster, or that the
+methodology generalizes.</p>
+<p>Learning was not free either. The paired evaluation alone consumed
+ten attempts to produce its evidence. At two attempts saved per
+subsequent money task, it pays for itself after about five such tasks,
+in this toy accounting and before counting human review. A real economic
+claim would need the full bill: training, evaluation, verification and
+governance.</p>
+<p>To inspect and authorize the result, review
+<code>runs/experiment-01/evaluation.json</code> and the retained
+evidence first. Then use the <code>approval_digest</code> printed by the
+demo:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> three_loop promote <span class="at">--run</span> runs/experiment-01 <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--approve</span> YOUR_EVALUATION_DIGEST</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> three_loop run-active <span class="at">--run</span> runs/experiment-01 <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--task</span> holdout_invoice <span class="at">--out</span> runs/next-episode</span></code></pre></div>
+<p>A later episode now begins with the decimal route. The previous
+version remains available. To reverse the promotion, the operator
+supplies the original <code>baseline_sha</code>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> three_loop rollback <span class="at">--run</span> runs/experiment-01 <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--approve</span> YOUR_BASELINE_SHA</span></code></pre></div>
+<p>Replace the placeholders with the digests from your run; they are
+content bindings, not authentication tokens. The README has a copy-paste
+version.</p>
+<p>The package also includes an optional live adapter for the Claude
+Messages API. The model receives the task contract, limited feedback and
+the pre-authorized candidates for the current route, and replies with a
+patch identifier. It has no shell, no file access and no authority over
+acceptance, so its choice is the only nondeterministic element. The
+adapter is tested against mocked responses, including a full mocked
+episode; no paid API run is part of the reported results. To try it,
+export an API key and choose a model available to your account:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> three_loop live <span class="at">--model</span> YOUR_MODEL_ID <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--task</span> train_fees <span class="at">--max-calls</span> 3 <span class="at">--max-output-tokens</span> 256 <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> runs/live-01</span></code></pre></div>
+<p>The controller caps the number of calls and the output tokens
+requested per call, and records the token usage the API reports. That is
+not a monetary ceiling: input tokens and failed requests cost money too,
+so production spend limits belong outside the worker.</p>
+<h2 id="is-any-of-this-actually-new">8. Is any of this actually
+new?</h2>
+<p>No single ingredient is new. Feedback control predates software
+agents by decades. Chris Argyris’s discussion of <a
+href="https://hbr.org/1977/09/double-loop-learning-in-organizations">double-loop
+learning</a> makes a distinction between correcting errors within
+existing assumptions and questioning the assumptions themselves.
+Autonomic computing, articulated by <a
+href="https://doi.org/10.1109/MC.2003.1160055">Kephart and Chess in
+2003</a>, is another clear antecedent. Its MAPE-K family of
+architectures separates monitoring, analysis, planning, execution and
+shared knowledge. Continuous delivery and controlled experimentation
+offer mature practices for evaluating and promoting a change.</p>
+<p>Recent writing on agent loops already nests them. Plaban Nayak’s <a
+href="https://levelup.gitconnected.com/loop-engineering-building-self-improving-ai-agents-with-four-nested-loops-c0f4a1437d4f">four-loop
+design</a>, for example, ends with a hill-climbing loop that rewrites
+the agent’s system prompt and keeps a change only if it beats the
+current best on the training split. That is a form of L3. The difference
+I am arguing for is where the authority sits: the candidate is judged on
+held-out tasks it was not derived from, next to a control; it can change
+only a bounded policy vocabulary; and a human promotes it, with a
+rollback path.</p>
+<p>The three-loop model is a proposed synthesis for non-deterministic
+software engineering, not a claim to have invented feedback, learning or
+change control. The novelty I am interested in is the explicit
+allocation of authority around probabilistic reasoning: the software
+changes under a contract, the strategy adapts under a policy, and the
+policy evolves under a separate validation and authorization
+process.</p>
+<p>A model upgrade may improve all three levels. But it is not a
+prerequisite for improving the system. The same model can become a more
+effective worker when the surrounding methodology becomes better.
+Conversely, a more capable model can still waste its budget in an
+incoherent loop.</p>
+<h2
+id="beyond-the-demonstration-making-the-architecture-enterprise-ready">9.
+Beyond the demonstration: making the architecture enterprise-ready</h2>
+<p>The reference implementation is a small, single-process controller
+with a separate verifier subprocess. Its learner can change exactly one
+kind of thing, a family’s default route, and only one diagnostic exists
+to justify such a change, so in practice it learns the single transition
+from <code>v1</code> to <code>v2</code>. It is not an unattended
+production platform, and it does not learn arbitrary policies forever.
+Its value is that every boundary is inspectable and every claimed result
+can be reproduced.</p>
+<p>A production architecture would add a number of capabilities. The
+most important are not new prompts; they are controls:</p>
+<ul>
+<li>An isolated and least-privileged execution runtime, with network
+restrictions, resource limits, separate workspaces, immutable acceptance
+suites and no production credentials in workers.</li>
+<li>A trusted evidence pipeline with signed artifacts, independently
+protected logs and independent verifier authorization; a separate
+process or a differently named subagent does not by itself establish
+organizational independence.</li>
+<li>A versioned specification and policy registry, durable event
+storage, idempotent state transitions, concurrency control, crash
+recovery and authenticated promotion or rollback.</li>
+<li>An evaluation portfolio with genuinely unseen tasks, adversarial
+tests, negative controls, repeated runs where nondeterminism matters,
+and protected holdouts that are refreshed after use. Optimizing against
+a known evaluation set is another form of overfitting.</li>
+<li>Full cost accounting: agent and verifier calls, input and output
+tokens, diagnostic experiments, compute, human review, maintenance and
+the value of avoided failures. A learning system must justify its own
+overhead.</li>
+<li>Shadow or canary promotion, monitoring by task family and risk
+class, a rollback trigger for observed regressions, and explicit policy
+ownership. Approval of one change must not become permission for
+arbitrary future changes.</li>
+</ul>
+<p>These controls are consistent with the broader need to evaluate and
+manage generative AI risks, as discussed by <a
+href="https://doi.org/10.6028/NIST.AI.600-1">NIST’s Generative AI
+Profile</a>. They are not a claim of compliance with that framework.
+Every organization’s risk tolerance and regulatory obligations are
+different.</p>
+<p>A genuinely adaptive learning loop also needs a stopping condition.
+When the next experiment is unlikely to create more value than it costs,
+further optimization should be deferred. A system that continuously
+rewrites its own methodology without demonstrating value has simply
+moved the original uncontrolled loop one level higher.</p>
+<h2 id="the-unit-of-engineering-changes-again">10. The unit of
+engineering changes again</h2>
+<p>When a developer moves from prompting to supervising an agent, the
+unit of work changes from a prompt to a loop. When a team moves from
+supervising loops to evaluating how those loops learn, the unit of
+engineering expands again: it becomes a governed methodology that can
+improve through experience.</p>
+<p>The first loop produces a change. The second produces an
+evidence-backed decision. The third produces a better way of making
+decisions.</p>
+<p>The three loops do not remove the human engineer from the
+architecture. They clarify where engineering judgment belongs. Humans
+own the objectives, the safety boundaries, the standards of proof and
+the authority to adopt a change to the process. Models and deterministic
+components contribute within that structure.</p>
+<p>The most valuable artifact of an agentic engineering system may not
+always be the code it produces today. It may be the validated knowledge
+that prevents tomorrow’s agents from paying to rediscover the same
+mistake.</p>
+<p><strong>Don’t just build loops that deliver software. Build loops
+that improve the way software is delivered.</strong></p>
+<hr />
+<h2 id="go-deeper-loop-engineering-for-ai-agents">Go deeper: <em>Loop
+Engineering for AI Agents</em></h2>
+<p>The three loops stand on ground I cover in full in my book, <a
+href="https://www.packtpub.com/en-it/product/loop-engineering-for-ai-agents-9781808766404"><strong>Loop
+Engineering for AI Agents</strong></a>, published by Packt. This article
+adds a third level of governance. The book is where the loops underneath
+it are designed, built, costed and chosen, one chapter at a time:</p>
+<ul>
+<li><strong>Foundations and critical assessment:</strong> contracts that
+turn an objective into bounded, verifiable work, and governance
+templates for deciding when a loop deserves trust.</li>
+<li><strong>The organization becomes a loop:</strong> who owns which
+decision once loops do the work.</li>
+<li><strong>The economics of loop engineering:</strong> economic models
+and a worked case for the question this article could only sketch with
+attempt counts: when does autonomy pay for itself?</li>
+<li><strong>The Ralph loop:</strong> the controller behind the one-line
+loop in section 1, taken seriously, with working listings.</li>
+<li><strong>Building a full local AI loop:</strong> control policies and
+local models, assembled into a complete stack.</li>
+<li><strong>Choosing the right loop:</strong> mechanisms matched to use
+cases, so you build the loop your problem needs rather than the one in
+fashion.</li>
+</ul>
+<p>Every chapter has companion material (listings, templates and
+figures) in the book’s <a
+href="https://github.com/popoloni/loopeng4aiagents">GitHub
+repository</a>.</p>
+<p>If this article made you want to build loops rather than just read
+about them, start there.</p>
+<p><strong>→ <a
+href="https://www.packtpub.com/en-it/product/loop-engineering-for-ai-agents-9781808766404">Get
+<em>Loop Engineering for AI Agents</em> from Packt</a></strong></p>
+<h3 id="run-this-articles-companion">Run this article’s companion</h3>
+<p>The complete companion is available in <a
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261127_three_loop_engineering/README.md">the
+runnable companion guide</a>. Run the offline experiment, inspect the
+evidence, try an invalid promotion and compare the active policies. The
+live adapter is optional. The package also includes the figure sources
+so you can adapt the architecture to your own stack. For the argument
+that led here, see my previous article, <a
+href="https://medium.com/%40enrico.papalini/loop-engineering-is-spec-driven-development-in-motion-695a57150f34">Loop
+Engineering Is Spec-Driven Development in Motion</a>.</p>
+<h3 id="references">References</h3>
+<ul>
+<li>Papalini, E. (2026). <em>Loop Engineering Is Spec-Driven Development
+in Motion.</em> <a
+href="https://medium.com/%40enrico.papalini/loop-engineering-is-spec-driven-development-in-motion-695a57150f34">Medium</a>.</li>
+<li>Papalini, E. <em>Loop Engineering for AI Agents.</em> Packt. <a
+href="https://www.packtpub.com/en-it/product/loop-engineering-for-ai-agents-9781808766404">Book</a>
+· <a href="https://github.com/popoloni/loopeng4aiagents">Companion
+repository</a>.</li>
+<li>Huntley, G. (2025). <em>Ralph Wiggum as a “software engineer”.</em>
+<a href="https://ghuntley.com/ralph/">ghuntley.com</a>.</li>
+<li>Nayak, P. <em>Loop Engineering: Building Self-Improving AI Agents
+with Four Nested Loops.</em> <a
+href="https://levelup.gitconnected.com/loop-engineering-building-self-improving-ai-agents-with-four-nested-loops-c0f4a1437d4f">Level
+Up Coding</a>.</li>
+<li>Argyris, C. (1977). <em>Double Loop Learning in Organizations.</em>
+<a
+href="https://hbr.org/1977/09/double-loop-learning-in-organizations">Harvard
+Business Review</a>.</li>
+<li>Kephart, J. O., &amp; Chess, D. M. (2003). <em>The Vision of
+Autonomic Computing.</em> Computer, 36(1), 41–50. <a
+href="https://doi.org/10.1109/MC.2003.1160055">DOI:
+10.1109/MC.2003.1160055</a>.</li>
+<li>IEEE Technology Navigator. <a
+href="https://technav.ieee.org/topic/autonomic-systems/">Autonomic
+Systems — MAPE-K control loop</a>.</li>
+<li>Autio, C., Schwartz, R., Dunietz, J., et al. (2024). <em>Artificial
+Intelligence Risk Management Framework: Generative Artificial
+Intelligence Profile.</em> NIST AI 600-1. <a
+href="https://doi.org/10.6028/NIST.AI.600-1">DOI:
+10.6028/NIST.AI.600-1</a>.</li>
+<li>Anthropic. <a
+href="https://platform.claude.com/docs/en/api/messages/create">Messages
+API reference</a> (for the optional adapter).</li>
+</ul>
+</article></div><section class="related"><h2>Keep reading</h2><a href="../reliable-software-with-ai-coding-agents/">How to Build Reliable Software with AI Coding Agents</a><a href="../artifactory-and-agent-coordination/">The Agents Didn’t Need a Chat Room. They Had Artifactory.</a><a href="../../">Browse all articles →</a></section></div></main><footer>Independent writing by Enrico Papalini · <a href="../../feed.xml">RSS</a> · <a href="https://popoloni.github.io/about.html">About</a></footer></body></html>

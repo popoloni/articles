@@ -1,9 +1,9 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Mac-native inference architectures, memory, serving and optimisation."><title>Local LLM Inference on Apple Silicon · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/local-llm-inference-on-apple-silicon/"><meta property="og:title" content="Local LLM Inference on Apple Silicon"><meta property="og:description" content="Mac-native inference architectures, memory, serving and optimisation."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Local LLM Inference on Apple Silicon</h1><p class="meta">Enrico Papalini · 2026-07-30 · 29 min read</p><p class="lede">Mac-native inference architectures, memory, serving and optimisation.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/local_llm_mac_guide_medium.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>A practical architecture and optimization guide</em></p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Mac-native inference architectures, memory, serving and optimisation."><title>Local LLM Inference on Apple Silicon · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/local-llm-inference-on-apple-silicon/"><meta property="og:title" content="Local LLM Inference on Apple Silicon"><meta property="og:description" content="Mac-native inference architectures, memory, serving and optimisation."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Local LLM Inference on Apple Silicon</h1><p class="meta">Enrico Papalini · 2026-07-30 · 29 min read</p><p class="lede">Mac-native inference architectures, memory, serving and optimisation.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/local_llm_mac_guide_medium.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>A practical architecture and optimization guide</em></p>
 <p>Ollama, llama.cpp/Metal, oMLX, MLX-LM, MLX Swift LM, and Apple’s
 native Foundation Models integration.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig01_apple_silicon_overview.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig01_apple_silicon_overview.png"
 alt="Apple Silicon overview" />
 <figcaption aria-hidden="true">Apple Silicon overview</figcaption>
 </figure>
@@ -52,7 +52,7 @@ generates output tokens. These phases exercise the machine
 differently.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig02_prefill_decode.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig02_prefill_decode.png"
 alt="Prefill and decode have different optimization targets." />
 <figcaption aria-hidden="true">Prefill and decode have different
 optimization targets.</figcaption>
@@ -62,14 +62,14 @@ targets.</em></p>
 <p>A useful latency decomposition is</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/formula_01.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/formula_01.png"
 alt="Formula 1" />
 <figcaption aria-hidden="true">Formula 1</figcaption>
 </figure>
 <p>and for N_o output tokens,</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/formula_02.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/formula_02.png"
 alt="Formula 2" />
 <figcaption aria-hidden="true">Formula 2</figcaption>
 </figure>
@@ -88,7 +88,7 @@ use, and model coexistence pressure.</li>
 </ul>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig09_four_metrics_summary.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig09_four_metrics_summary.png"
 alt="A compact reminder of the optimization dashboard: TTFT, TPOT, throughput, and spend should be read together, with memory pressure tracked alongside them on Apple Silicon." />
 <figcaption aria-hidden="true">A compact reminder of the optimization
 dashboard: TTFT, TPOT, throughput, and spend should be read together,
@@ -108,7 +108,7 @@ macOS, and every foreground application compete for the same finite
 pool.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig03_unified_memory_pool.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig03_unified_memory_pool.png"
 alt="On a Mac, model selection, context length, concurrency, and other applications all consume the same memory budget." />
 <figcaption aria-hidden="true">On a Mac, model selection, context
 length, concurrency, and other applications all consume the same memory
@@ -119,7 +119,7 @@ and other applications all consume the same memory budget.</em></p>
 <p>A conservative capacity model is</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/formula_03.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/formula_03.png"
 alt="Formula 3" />
 <figcaption aria-hidden="true">Formula 3</figcaption>
 </figure>
@@ -127,7 +127,7 @@ alt="Formula 3" />
 is</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/formula_04.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/formula_04.png"
 alt="Formula 4" />
 <figcaption aria-hidden="true">Formula 4</figcaption>
 </figure>
@@ -157,14 +157,14 @@ all requests. The important relationship is not “largest batch is
 fastest,” but a constrained optimization:</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/formula_05.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/formula_05.png"
 alt="Formula 5" />
 <figcaption aria-hidden="true">Formula 5</figcaption>
 </figure>
 <h2 id="the-mac-inference-stack">The Mac inference stack</h2>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig04_mac_inference_stack.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig04_mac_inference_stack.png"
 alt="Mac inference choices differ at the operational layer, model format, scheduler, and application boundary, while sharing the same physical machine." />
 <figcaption aria-hidden="true">Mac inference choices differ at the
 operational layer, model format, scheduler, and application boundary,
@@ -177,7 +177,7 @@ same physical machine.</em></p>
 for</h2>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/table_01.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/table_01.png"
 alt="The engines solve different product and serving problems." />
 <figcaption aria-hidden="true">The engines solve different product and
 serving problems.</figcaption>
@@ -192,7 +192,7 @@ selected engine path, model architecture, API layer, or current
 release.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/table_02.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/table_02.png"
 alt="Implementation status as a practical guide, not a compatibility guarantee. Verify the selected model and pinned release." />
 <figcaption aria-hidden="true">Implementation status as a practical
 guide, not a compatibility guarantee. Verify the selected model and
@@ -275,7 +275,7 @@ token counts, including prompt evaluation and generation metrics [10].
 Derive:</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/formula_06.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/formula_06.png"
 alt="Formula 6" />
 <figcaption aria-hidden="true">Formula 6</figcaption>
 </figure>
@@ -419,7 +419,7 @@ versions without recording the exact build [2].</p>
 </blockquote>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig05_omlx_hot_cold_cache.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig05_omlx_hot_cold_cache.png"
 alt="oMLX uses a block-oriented hot/cold cache rather than recomputing every stable prefix." />
 <figcaption aria-hidden="true">oMLX uses a block-oriented hot/cold cache
 rather than recomputing every stable prefix.</figcaption>
@@ -508,7 +508,7 @@ matched, or concurrent traffic would benefit more from continuous
 batching.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/table_03.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/table_03.png"
 alt="DFlash and TurboQuant solve different bottlenecks and should be evaluated separately." />
 <figcaption aria-hidden="true">DFlash and TurboQuant solve different
 bottlenecks and should be evaluated separately.</figcaption>
@@ -859,7 +859,7 @@ application requires a specific downloaded model, model-family control,
 GGUF compatibility, or server-style concurrency.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig06_native_app_choice.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig06_native_app_choice.png"
 alt="Native API choice depends on the application boundary and model-control requirement." />
 <figcaption aria-hidden="true">Native API choice depends on the
 application boundary and model-control requirement.</figcaption>
@@ -869,7 +869,7 @@ model-control requirement.</em></p>
 <h2 id="selecting-the-engine">Selecting the engine</h2>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig07_engine_selection.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig07_engine_selection.png"
 alt="Choose an engine from the workload, not from an isolated tokens-per-second screenshot." />
 <figcaption aria-hidden="true">Choose an engine from the workload, not
 from an isolated tokens-per-second screenshot.</figcaption>
@@ -883,7 +883,7 @@ macOS version, and foreground applications can move the boundary
 substantially.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/table_04.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/table_04.png"
 alt="Safe initial profiles. Validate every row on the actual model and Mac." />
 <figcaption aria-hidden="true">Safe initial profiles. Validate every row
 on the actual model and Mac.</figcaption>
@@ -960,7 +960,7 @@ aggregate throughput.</li>
 <h2 id="minimum-test-matrix">Minimum test matrix</h2>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/table_05.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/table_05.png"
 alt="A benchmark matrix that can identify the actual bottleneck." />
 <figcaption aria-hidden="true">A benchmark matrix that can identify the
 actual bottleneck.</figcaption>
@@ -1005,7 +1005,7 @@ power/thermal sampling; run it only when you understand the required
 privileges and sampler availability on the machine.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig08_benchmark_loop.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig08_benchmark_loop.png"
 alt="The benchmark loop isolates one optimization at a time." />
 <figcaption aria-hidden="true">The benchmark loop isolates one
 optimization at a time.</figcaption>
@@ -1019,7 +1019,7 @@ symptom, test the smallest plausible lever first, and change only one
 variable at a time.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/fig10_symptom_first_move.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/fig10_symptom_first_move.png"
 alt="A handwritten quick-reference plate that complements the detailed symptom table below." />
 <figcaption aria-hidden="true">A handwritten quick-reference plate that
 complements the detailed symptom table below.</figcaption>
@@ -1028,7 +1028,7 @@ complements the detailed symptom table below.</figcaption>
 detailed symptom table below.</em></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/270730_local_llm_mac_guide/media/table_06.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/270730_local_llm_mac_guide/media/table_06.png"
 alt="Symptom-driven optimization avoids random flag stacking." />
 <figcaption aria-hidden="true">Symptom-driven optimization avoids random
 flag stacking.</figcaption>

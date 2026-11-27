@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="OpenCode, Copilot and Claude Code: enterprise harnesses and engineering authority."><title>Coding Agents Are Becoming Infrastructure—or Vendor Lock-In? OpenCode
 2.0, GitHub Copilot, Claude Code, and the Next Enterprise SDD · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/coding-agents-infrastructure-or-lock-in/"><meta property="og:title" content="Coding Agents Are Becoming Infrastructure—or Vendor Lock-In? OpenCode
 2.0, GitHub Copilot, Claude Code, and the Next Enterprise SDD"><meta property="og:description" content="OpenCode, Copilot and Claude Code: enterprise harnesses and engineering authority."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Spec-driven development</p><h1>Coding Agents Are Becoming Infrastructure—or Vendor Lock-In? OpenCode
-2.0, GitHub Copilot, Claude Code, and the Next Enterprise SDD</h1><p class="meta">Enrico Papalini · 2026-10-16 · 22 min read</p><p class="lede">OpenCode, Copilot and Claude Code: enterprise harnesses and engineering authority.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/ARTICLE_Medium_with_Figures_v3.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>As November 2026 approaches, coding agents are changing in ways
+2.0, GitHub Copilot, Claude Code, and the Next Enterprise SDD</h1><p class="meta">Enrico Papalini · 2026-10-16 · 22 min read</p><p class="lede">OpenCode, Copilot and Claude Code: enterprise harnesses and engineering authority.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/ARTICLE_Medium_with_Figures_v3.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><p><em>As November 2026 approaches, coding agents are changing in ways
 that go far beyond model benchmarks. Three different architectures show
 why the next generation of software engineering frameworks must separate
 execution from engineering authority—and why “modern harness” may be
@@ -39,7 +39,7 @@ permission models, telemetry, and workflow conventions, the more
 expensive it can become to leave.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_01_Three_Shifts_in_Coding_Agents.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_01_Three_Shifts_in_Coding_Agents.png"
 alt="Three contemporary coding-agent designs compared: OpenCode as a background service, GitHub Copilot Agent Host, and Claude Code with skills and specialist subagents." />
 <figcaption aria-hidden="true">Three contemporary coding-agent designs
 compared: OpenCode as a background service, GitHub Copilot Agent Host,
@@ -89,7 +89,7 @@ href="https://dev.opencode.ai/v2/docs/migrate-v1/">official v1-to-v2
 migration guidance</a> makes this distinction clear.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_02_OpenCode_2_Background_Service.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_02_OpenCode_2_Background_Service.png"
 alt="OpenCode 2.0: terminal, web, and desktop clients connect to the background agent service, which accesses tools and models; security controls belong at the service boundary." />
 <figcaption aria-hidden="true">OpenCode 2.0: terminal, web, and desktop
 clients connect to the background agent service, which accesses tools
@@ -194,7 +194,7 @@ harnesses through adapters, without making their tools and behavior
 identical.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_03_GitHub_Copilot_Agent_Host.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_03_GitHub_Copilot_Agent_Host.png"
 alt="GitHub Copilot architecture: clients communicate with an Agent Host through AHP, while the Copilot harness executes agent loops with models, tools and repository customizations." />
 <figcaption aria-hidden="true">GitHub Copilot architecture: clients
 communicate with an Agent Host through AHP, while the Copilot harness
@@ -254,7 +254,7 @@ identical prompt. It is a way of separating responsibilities, context
 and permissions.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_04_Claude_Code_Composable_Agents.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_04_Claude_Code_Composable_Agents.png"
 alt="Claude Code: a main agent orchestrates specialist architecture, testing and security subagents, loading project rules and skills and using tools and lifecycle hooks." />
 <figcaption aria-hidden="true">Claude Code: a main agent orchestrates
 specialist architecture, testing and security subagents, loading project
@@ -412,7 +412,7 @@ extension assets included, the broader repository held 92 prompt
 templates.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_05_Enterprise_SDD_Current_Architecture.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_05_Enterprise_SDD_Current_Architecture.png"
 alt="Enterprise SDD current architecture as reviewed October 2026: SDD core, Copilot customizations, generator, multi-provider adapters, modules, and limitations." />
 <figcaption aria-hidden="true">Enterprise SDD current architecture as
 reviewed October 2026: SDD core, Copilot customizations, generator,
@@ -476,7 +476,7 @@ continue to use authoritative SDD artifacts, scripts, and CI. A change
 of assistant must not change whether a quality gate passes or fails.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/figures/Figure_06_Enterprise_SDD_Planned_Architecture.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/figures/Figure_06_Enterprise_SDD_Planned_Architecture.png"
 alt="Proposed Enterprise SDD architecture for November 2026: canonical engineering core, provider-specific generated Copilot and Claude adapters, and independent verification." />
 <figcaption aria-hidden="true">Proposed Enterprise SDD architecture for
 November 2026: canonical engineering core, provider-specific generated
@@ -691,7 +691,7 @@ framework</a>, connecting the methodology with its practical,
 open-source implementation.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/261016_Enterprise_SDD_Harness/assets/NDSDD_Enterprise_Edition_Cover.jpg"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/261016_Enterprise_SDD_Harness/assets/NDSDD_Enterprise_Edition_Cover.jpg"
 alt="Cover of Non-Deterministic Spec-Driven Development: Enterprise Edition, Second Edition" />
 <figcaption aria-hidden="true">Cover of Non-Deterministic Spec-Driven
 Development: Enterprise Edition, Second Edition</figcaption>

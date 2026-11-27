@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ten tested configurations for a 16 GB Mac mini."><title>Which Local LLM Should You Run on a 16 GB Mac mini? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/local-llm-on-a-16gb-mac-mini/"><meta property="og:title" content="Which Local LLM Should You Run on a 16 GB Mac mini?"><meta property="og:description" content="Ten tested configurations for a 16 GB Mac mini."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Which Local LLM Should You Run on a 16 GB Mac mini?</h1><p class="meta">Enrico Papalini · 2026-10-11 · 33 min read</p><p class="lede">Ten tested configurations for a 16 GB Mac mini.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Ten tested configurations for a 16 GB Mac mini."><title>Which Local LLM Should You Run on a 16 GB Mac mini? · Enrico Papalini</title><link rel="canonical" href="https://popoloni.github.io/articles/read/local-llm-on-a-16gb-mac-mini/"><meta property="og:title" content="Which Local LLM Should You Run on a 16 GB Mac mini?"><meta property="og:description" content="Ten tested configurations for a 16 GB Mac mini."><link rel="stylesheet" href="../../assets/articles.css"><link rel="alternate" type="application/rss+xml" href="../../feed.xml"><script defer src="../../assets/articles.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a class="brand" href="../../"><b>EP<span>.</span></b><span>Enrico Papalini<small>Writing on software &amp; AI</small></span></a><div><a href="../../">Articles</a><a href="https://popoloni.github.io/">Knowledge Atlas</a><a href="https://popoloni.github.io/catalogues/volumes.html">Books</a><a href="https://github.com/popoloni/articles">GitHub</a><a href="https://medium.com/@enrico.papalini">Medium</a></div></nav></header><main id="main"><div class="reader"><a href="../../">← All articles</a><div class="article-head"><p class="eyebrow">Local AI</p><h1>Which Local LLM Should You Run on a 16 GB Mac mini?</h1><p class="meta">Enrico Papalini · 2026-10-11 · 33 min read</p><p class="lede">Ten tested configurations for a 16 GB Mac mini.</p><p class="sources"><a href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/article.md">Original Markdown ↗</a> · <a href="https://github.com/popoloni/articles/tree/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection">Article files &amp; companion ↗</a></p></div><div class="reading-layout"><aside id="toc" hidden><details open><summary>On this page</summary><nav id="toc-links"></nav></details></aside><article class="prose" id="article-body"><h2
 id="bonsai-quantized-qwen3.6-and-qwen3.8-the-models-the-servers-the-installation-stepsand-what-ten-tested-configurations-actually-taught-us">Bonsai,
 quantized Qwen3.6 and Qwen3.8: the models, the servers, the installation
 steps—and what ten tested configurations actually taught us</h2>
@@ -28,7 +28,7 @@ alternative is Qwen3.8 IQ2_S through llama.cpp/Metal.</strong> Those are
 deployment choices for the next stage, not claims that either has won a
 repository-coding benchmark. The reasoning—and the qualifications—matter
 as much as the names. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e1-scope">Results
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e1-scope">Results
 and measurement scope</a></p>
 <h2 id="the-constraint-is-the-working-set-not-the-download">1. The
 constraint is the working set, not the download</h2>
@@ -57,7 +57,7 @@ generator:</strong> an HTTP endpoint can remain alive after its
 generation worker dies. <strong>A generated answer is not a passed
 task:</strong> it may be truncated, incorrectly formatted or simply
 wrong. All three distinctions appeared during this laboratory. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Recorded
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Recorded
 setup incidents and gaps</a></p>
 <p>The operating policy is therefore one heavy model, one active request
 and short prompts first. A nominal 4K context is an initial setting, not
@@ -77,7 +77,7 @@ GB</strong>. The laboratory uses the PrismML-distributed llama.cpp
 runtime; it does not let a generic installer silently select a different
 Bonsai generation. This is a particular compressed model, not a switch
 that converts every downloaded model to one bit. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Original
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Original
 standalone procedure</a> · <a
 href="https://raw.githubusercontent.com/PrismML-Eng/Bonsai-demo/74fab33d81d81a535525bd98c7a676b22d4dca46/Bonsai1_README.md">Bonsai
 1 runtime guide</a></p>
@@ -122,7 +122,7 @@ supplied run. The whole checkpoint lives on storage, while the runtime
 uses a <strong>4 GB expert-cache budget</strong>. That budget is not
 total model RAM. Shared components, active state and other allocations
 remain. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/checkpoint-provenance.csv">Checkpoint
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/checkpoint-provenance.csv">Checkpoint
 provenance</a> · <a
 href="https://huggingface.co/manjunathshiva/Qwen3.6-35B-A3B-tq3-g32">Streaming
 checkpoint</a></p>
@@ -243,7 +243,7 @@ three Qwen3.8 runs identify build
 Prism build <strong><code>b10743-adfffbe41</code></strong>. The choice
 of binary, its kernels and its chat-template handling belong in the
 result. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Recorded
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Recorded
 runtime evidence</a></p>
 <p><strong>MLX-LM</strong> serves ordinary MLX checkpoints and the
 custom packed Bonsai loader. The successful standalone records identify
@@ -252,7 +252,7 @@ exposes the local API, but its command-line options differ from its
 generation command. In particular, the pinned server’s
 <code>--max-tokens</code> is an output default, not a hard input-context
 ceiling. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Runtime
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Runtime
 fingerprints</a> · <a
 href="https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.31.3/mlx_lm/server.py">Pinned
 server implementation</a></p>
@@ -263,7 +263,7 @@ text-server combination in the logs is <strong>TurboQuant 0.28.0, MLX-LM
 newer server passed <code>trust_remote_code</code> to a wrapper that did
 not accept it. The HTTP listener still came up. This is why model
 discovery alone is not readiness. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Loader
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Loader
 incident and recovered environment</a></p>
 <p><strong>oMLX</strong> adds model management, scheduling and tiered
 prefix caching around MLX inference. The original installation procedure
@@ -275,7 +275,7 @@ cache</strong> also does not establish support for arbitrary TurboQuant
 <strong>weight checkpoints</strong>. <a
 href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0/README.md">oMLX
 installation documentation</a> · <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e7-omlx">oMLX
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e7-omlx">oMLX
 evidence limits</a></p>
 <p><strong>Ollama</strong> is a convenient local model manager and API
 server. It can import a supported GGUF through a Modelfile. The
@@ -285,7 +285,7 @@ uploaded archive lacks the native-Ollama response files. There is
 therefore no Ollama speed row in this comparison. Its absence is missing
 evidence, not a zero score. <a
 href="https://docs.ollama.com/import">Ollama import</a> · <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Missing
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Missing
 native records</a></p>
 <h2 id="what-was-actually-measured">4. What was actually measured</h2>
 <p>The archive contains <strong>64 files, 66 smoke-test responses, one
@@ -295,7 +295,7 @@ and eleven six-request suites: packed ternary Bonsai has two suites. The
 reported machine is the base M4 mini with 16 GB; runtime fingerprints
 identify macOS 26.5.1 and Apple-GPU paths, but the archive does not
 independently inventory physical RAM. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e1-scope">Archive
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e1-scope">Archive
 audit</a></p>
 <p>Every smoke request asks one of two fixed questions. The first
 requires exactly three JSON fields, including a numeric amount. The
@@ -310,7 +310,7 @@ Truncated output fails. Repetition creates more observations, not more
 distinct problems. There are <strong>no tool-format cases, repository
 edits, executed tests, long-context trials or multimodal
 benchmarks</strong> in this upload. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e3-method">Method
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e3-method">Method
 and complete response ledger</a></p>
 <p>Recomputing the verdicts from the saved answers reproduces all
 recorded results: <strong>53 passed, 13 failed</strong>, with five
@@ -318,7 +318,7 @@ truncations. That is an audit of this small workload, not an estimate of
 general model accuracy.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/01-contract-outcomes.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/01-contract-outcomes.png"
 alt="Recorded passes, completed contract failures and output-budget truncations across ten model/runtime configurations." />
 <figcaption aria-hidden="true">Recorded passes, completed contract
 failures and output-budget truncations across ten model/runtime
@@ -333,7 +333,7 @@ comparison that matters first: correct answers and elapsed time</h3>
 <p>The table includes failed attempts in its latency medians. Each task
 has three observations per configuration, except packed ternary Bonsai,
 which has six. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Recomputed
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Recomputed
 profile summary</a></p>
 <table>
 <thead>
@@ -415,7 +415,7 @@ checks. That is enough to keep these configurations out of an unattended
 workflow, but not enough to assign the cause to quantization alone:
 tokenizer, template, conversion and numerical behavior were not
 independently isolated. The GGUF IQ2_S path passed all six checks. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e4-failures">Failure
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e4-failures">Failure
 excerpts</a></p>
 <p>Binary Bonsai’s failure is narrower. It returned the correct record
 inside a Markdown code fence. The data were right; the strict output
@@ -424,7 +424,7 @@ constrained-generation experiment might handle that differently. Neither
 earns a retrospective pass here.</p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/02-json_contract-latency.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/02-json_contract-latency.png"
 alt="Individual JSON-response wall times and medians, including unsuccessful answers." />
 <figcaption aria-hidden="true">Individual JSON-response wall times and
 medians, including unsuccessful answers.</figcaption>
@@ -434,7 +434,7 @@ medians, including unsuccessful answers.</figcaption>
 without satisfying the task.</em></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/03-literal_recall-latency.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/03-literal_recall-latency.png"
 alt="Individual literal-recall response times, with failures retained." />
 <figcaption aria-hidden="true">Individual literal-recall response times,
 with failures retained.</figcaption>
@@ -447,7 +447,7 @@ requests. This is not a projected daily cost saving, but it illustrates
 a useful principle: a compressed model that cannot finish a small task
 can waste more time than a slower model that stops with the right
 answer. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/audit.json">Audit
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/audit.json">Audit
 totals</a></p>
 <h3 id="decode-speed-is-not-the-same-as-response-latency">Decode speed
 is not the same as response latency</h3>
@@ -458,11 +458,11 @@ for Q2_K_XL</strong>, and <strong>7.95 for IQ3_XXS</strong>. These short
 replies are not sustained-throughput tests. IQ2_S also produced a more
 compact JSON serialization—26 tokens rather than 31—so not all of its
 latency advantage came from decoder speed. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Native
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Native
 timing evidence</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/04-gguf-decode.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/04-gguf-decode.png"
 alt="Native llama.cpp decoder rates for short JSON responses." />
 <figcaption aria-hidden="true">Native llama.cpp decoder rates for short
 JSON responses.</figcaption>
@@ -484,11 +484,11 @@ tokens</strong>. For IQ2_S, prompt-evaluation time fell from about
 of prefix reuse, not an inference from a faster stopwatch reading. It
 does not establish SSD persistence or survival across a server restart.
 <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e6-cache">Cache
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e6-cache">Cache
 observations</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/05-prefix-prefill.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/05-prefix-prefill.png"
 alt="First-occurrence and repeated-prefix prompt-evaluation time." />
 <figcaption aria-hidden="true">First-occurrence and repeated-prefix
 prompt-evaluation time.</figcaption>
@@ -508,11 +508,11 @@ performed visibly different work. All six responses included
 for recall, compared with standalone MLX-LM. The effective prompt counts
 differed too. “oMLX is several times slower” would be an unjustified
 engine-level conclusion from these unmatched workloads. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e7-omlx">oMLX
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e7-omlx">oMLX
 response analysis</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/06-reasoning-workload.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/06-reasoning-workload.png"
 alt="Completion-token counts for the passing standalone and oMLX three-bit workloads." />
 <figcaption aria-hidden="true">Completion-token counts for the passing
 standalone and oMLX three-bit workloads.</figcaption>
@@ -530,11 +530,11 @@ runtime. The ordinary 2-bit MLX run printed <strong>11.001 tokens/s and
 TurboQuant Qwen3.8 diagnostic produced a coherent answer at
 <strong>2.670 tokens/s</strong>, with saved exit status zero and
 <strong>12.798 GB</strong> in the same capitalized peak field. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e9-cli">Original
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e9-cli">Original
 CLI excerpts</a></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/07-cli-decode.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/07-cli-decode.png"
 alt="Three separate CLI-generation speed observations." />
 <figcaption aria-hidden="true">Three separate CLI-generation speed
 observations.</figcaption>
@@ -543,7 +543,7 @@ observations.</figcaption>
 A displayed speed does not rescue an unsatisfactory answer.</em></p>
 <figure>
 <img
-src="https://raw.githubusercontent.com/popoloni/articles/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/figures/08-cli-memory.png"
+src="https://raw.githubusercontent.com/popoloni/articles/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/figures/08-cli-memory.png"
 alt="The three available runtime-reported peak-memory observations." />
 <figcaption aria-hidden="true">The three available runtime-reported
 peak-memory observations.</figcaption>
@@ -640,7 +640,7 @@ weights. Inspect the resulting plan before invoking
 Qwen3.6 and the CLI diagnostic—the script requires
 <code>--allow-unrecorded</code> and explicitly labels the download a new
 experiment. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/config/measured-checkpoints.json">Recorded
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/config/measured-checkpoints.json">Recorded
 revisions</a></p>
 <p>Eight recorded model profiles have pinned revisions. Do not overwrite
 an existing snapshot with another revision to make a command succeed;
@@ -751,7 +751,7 @@ used <strong>0.6.0, build 11429, commit <code>d81235049</code></strong>.
 A different installed version is a new comparison, even with identical
 weights. A passing flag preflight also does not prove that every
 checkpoint architecture works. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Recorded
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e5-timings">Recorded
 version</a></p>
 <p>For IQ2_S:</p>
 <div class="sourceCode" id="cb19"><pre
@@ -826,7 +826,7 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb29-1"><a href=
 <p>Do not run this repair in the separate VLM environment or when the
 text combination is already working. It restores the released wheel, not
 a guessed editable checkout. Stop if package checks fail. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Recorded
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Recorded
 mismatch and successful fingerprints</a></p>
 <p>For streaming, plan/download the recorded <code>qwen36-stream</code>
 revision:</p>
@@ -875,7 +875,7 @@ stop other heavy workloads and keep the initial value for this session.
 A previous session’s snapshot may not be the current baseline. The
 helper only reads/saves; it cannot reconstruct an original limit after
 it has already been changed. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Source
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Source
 procedure</a></p>
 <div class="sourceCode" id="cb35"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> <span class="st">&quot;</span><span class="va">$PACKAGE</span><span class="st">/scripts/wired_memory.sh&quot;</span> save <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">&quot;</span></span></code></pre></div>
@@ -989,7 +989,7 @@ already-working configuration. The missing oMLX settings are a real
 reproducibility limit. <a
 href="https://raw.githubusercontent.com/jundot/omlx/v0.7.0/README.md">Configuration
 controls</a> · <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Measurement
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Measurement
 gaps</a></p>
 <p>If the model is admitted, give it the alias <code>qwen38-mlx3</code>,
 set a 4K context and one request, and disable speculative decoding and
@@ -1083,7 +1083,7 @@ listed MLX-VLM 0.7.6, MLX-LM 0.32.0 and MLX 0.32.3. Do
 TurboQuant text server. The bundled
 <code>config/recorded-vlm.freeze.txt</code> preserves the resolved
 evidence; it is not represented as a portable cross-machine lock. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Environment
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e8-gaps">Environment
 distinction</a></p>
 <div class="sourceCode" id="cb56"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;</span><span class="va">$PY</span><span class="st">&quot;</span> <span class="at">-m</span> venv <span class="st">&quot;</span><span class="va">$LAB</span><span class="st">/venv-tq-vlm&quot;</span> <span class="kw">&amp;&amp;</span></span>
@@ -1178,7 +1178,7 @@ evidence; it is not a substitute for review or an operating-system
 sandbox. This follows the supplied
 <strong>standalone-before-Kowalski</strong> principle without claiming
 that this package has integrated or validated Kowalski. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Original
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/sources/GUIDA_Mac_Mini_M4_16GB.md">Original
 acceptance framing</a></p>
 <p>To verify offline use, finish downloads and warm required assets,
 stop the application, disconnect Wi-Fi and Ethernet, restart and repeat
@@ -1200,9 +1200,9 @@ for the rest of the Mac is the priority. Its trade-off is the custom
 loader: the code must be trusted, the working environment should be
 preserved, and a generic GUI cannot be assumed compatible. This is a
 chosen operating point, not proof of broad superiority. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Bonsai
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Bonsai
 observations</a> · <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e9-cli">CLI
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/evidence.md#e9-cli">CLI
 evidence</a></p>
 <p><strong>For the Qwen comparison, I would keep Qwen3.8 IQ2_S on
 llama.cpp.</strong> It passed <strong>6/6</strong>, used a smaller
@@ -1212,7 +1212,7 @@ but this dataset demonstrates no additional task-quality benefit from
 their extra storage. A harder coding suite could reverse that decision;
 the present one does not justify spending more memory automatically. Its
 whole-system peak remains unmeasured. <a
-href="https://github.com/popoloni/articles/blob/ca116f61fba9c1afcf3dfc430d79ce1ea3ec7eae/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Qwen
+href="https://github.com/popoloni/articles/blob/1bd72e8794f75c82858552eeb08c38b3ebc7ad8b/Medium/20261011_M4_16GB_Model_Selection/analysis/profile-summary.csv">Qwen
 GGUF observations</a></p>
 <p>Binary Bonsai remains a useful smallest-footprint reference, but its
 strict-format miss prevents treating it as already interchangeable with
