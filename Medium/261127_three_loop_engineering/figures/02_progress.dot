@@ -1,0 +1,28 @@
+digraph Progress {
+  graph [bgcolor="white", rankdir=TB, pad=.25, nodesep=.38, ranksep=.34, fontname="DejaVu Sans", labelloc=t, label="PROGRESS IS NOT THE SAME AS ACTIVITY", fontsize=21, fontcolor="#153653"];
+  node [shape=box, style="rounded,filled", fillcolor="#EAF3F9", color="#397CA5", fontcolor="#153653", fontname="DejaVu Sans", fontsize=12, margin=".18,.12"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#536D7E", arrowsize=.75];
+  start [label="Reserve a bounded attempt"];
+  run [label="Execute one patch + verify"];
+  pass [shape=diamond,label="All required\nchecks pass?"];
+  done [label="ACCEPT\nRetain evidence",fillcolor="#E5F3E9",color="#44865E"];
+  budget [shape=diamond,label="Remaining\nattempts?"];
+  stall [shape=diamond,label="Repeated failure\nor score plateau?"];
+  probe [label="Run a bounded diagnostic probe\nTest a specific hypothesis",fillcolor="#FFF0DB",color="#C47B2E"];
+  supported [shape=diamond,label="Supported hypothesis\n+ allowed alternative?",fillcolor="#FFF0DB",color="#C47B2E"];
+  change [label="Switch strategy\nRecord diagnostic evidence",fillcolor="#F0E8F8",color="#8054A6"];
+  stop [label="ESCALATE\nRetain last safe state",fillcolor="#F9E7E6",color="#AD5650"];
+  start -> run -> pass;
+  pass -> done [label="yes"];
+  pass -> budget [label="no"];
+  budget -> stop [label="no"];
+  budget -> stall [label="yes"];
+  stall -> start [label="no: continue",constraint=false];
+  stall -> probe [label="yes"];
+  probe -> supported;
+  supported -> change [label="yes"];
+  supported -> stop [label="no"];
+  change -> start [label="bounded retry",constraint=false,color="#8054A6"];
+  {rank=same; done; budget;}
+  {rank=same; stop; supported;}
+}

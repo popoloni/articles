@@ -1,0 +1,6 @@
+{
+  "input_tokens": null,
+  "output_tokens": null,
+  "patch_id": "decimal_half_up",
+  "rationale": "Deterministic replay of route decimal_exact"
+}

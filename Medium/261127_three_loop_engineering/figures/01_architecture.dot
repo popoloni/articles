@@ -1,0 +1,39 @@
+digraph Architecture {
+  graph [bgcolor="white", rankdir=TB, fontname="DejaVu Sans", pad="0.28", nodesep="0.40", ranksep="0.40", labelloc=t, label="THREE-LOOP ENGINEERING\nThree different objects of change", fontsize=22, fontcolor="#153653"];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=13, margin="0.20,0.12", color="#53738A", fillcolor="#F3F7FA", fontcolor="#153653"];
+  edge [fontname="DejaVu Sans", fontsize=10, color="#526B7B", fontcolor="#354D5D", arrowsize=.7];
+  spec [label="HUMAN-OWNED SPECIFICATION\nIntent · constraints · acceptance contract", fillcolor="#EAF0F5", penwidth=1.8];
+  subgraph cluster_l3 {
+    label="L3  LEARNING LOOP — changes the methodology"; color="#7952A3"; fontcolor="#593C7B"; style="rounded,filled"; fillcolor="#F6F0FC"; penwidth=2; fontsize=15; fontname="DejaVu Sans Bold";
+    history [label="Episode evidence\nAcross completed tasks", fillcolor="#F0E6FA", color="#7952A3"];
+    hypothesis [label="Propose a policy change\nFrom validated hypotheses", fillcolor="#F0E6FA", color="#7952A3"];
+    gate [label="Paired evaluation\nQuality · resources · controls", fillcolor="#F0E6FA", color="#7952A3"];
+    approval [label="Human authorization\nVersion · promote · rollback", fillcolor="#F0E6FA", color="#7952A3"];
+    {rank=same; history; hypothesis;}
+    {rank=same; gate; approval;}
+    history -> hypothesis -> gate -> approval;
+  }
+  policy [label="VERSIONED ACTIVE POLICY\nRoutes · retry limits · escalation rules", fillcolor="#E9E2F4", color="#7952A3", penwidth=1.7];
+  subgraph cluster_l2 {
+    label="L2  PROGRESS LOOP — changes the execution strategy"; color="#277AB5"; fontcolor="#165B8A"; style="rounded,filled"; fillcolor="#EDF7FE"; penwidth=2; fontsize=15; fontname="DejaVu Sans Bold";
+    choose [label="Select bounded work\nReserve attempt budget", fillcolor="#DCEFFA", color="#277AB5"];
+    subgraph cluster_l1 {
+      label="L1  EXECUTION LOOP — changes the software"; color="#CF7D23"; fontcolor="#9A5213"; style="rounded,filled"; fillcolor="#FFF4E5"; penwidth=2; fontsize=14; fontname="DejaVu Sans Bold";
+      propose [label="Agent proposes a patch", fillcolor="#FFE9CB", color="#CF7D23"];
+      apply [label="Authorize and apply\nIn bounded workspace", fillcolor="#FFE9CB", color="#CF7D23"];
+      verify [label="Independent checks\nReturn evidence, not claims", fillcolor="#E6F2E9", color="#43845B"];
+      {rank=same; propose; apply; verify;}
+      propose -> apply;
+      apply -> verify;
+    }
+    decide [label="Measure progress\nAccept · retry · switch · escalate", fillcolor="#DCEFFA", color="#277AB5"];
+    choose -> propose; verify -> decide;
+    decide -> choose [label="retry / adapt", color="#277AB5", constraint=false];
+  }
+  result [label="ACCEPTED CHANGE OR ESCALATION\nArtifacts + evidence + outcome", fillcolor="#E6F2E9", color="#43845B", penwidth=1.7];
+  spec -> choose [label="fixed contract", minlen=2];
+  approval -> policy [label="only if authorized", color="#7952A3"];
+  policy -> choose [label="pinned per episode"];
+  decide -> result [label="terminal outcome"];
+  result -> history [label="durable episodes", color="#7952A3", constraint=false];
+}

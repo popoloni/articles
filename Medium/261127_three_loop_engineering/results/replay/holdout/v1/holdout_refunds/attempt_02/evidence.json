@@ -1,0 +1,53 @@
+{
+  "rows": [
+    {
+      "actual": 312,
+      "expected": 313,
+      "id": "holdout_refunds_1",
+      "passed": false,
+      "tag": "half_up_tie",
+      "value": "3.125"
+    },
+    {
+      "actual": -312,
+      "expected": -313,
+      "id": "holdout_refunds_2",
+      "passed": false,
+      "tag": "half_up_tie",
+      "value": "-3.125"
+    },
+    {
+      "actual": 1,
+      "expected": 1,
+      "id": "holdout_refunds_3",
+      "passed": true,
+      "tag": "ordinary",
+      "value": "0.009"
+    },
+    {
+      "actual": 9999,
+      "expected": 9999,
+      "id": "holdout_refunds_4",
+      "passed": true,
+      "tag": "ordinary",
+      "value": "99.99"
+    }
+  ],
+  "summary": {
+    "accepted": false,
+    "failed": [
+      {
+        "id": "holdout_refunds_1",
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "holdout_refunds_2",
+        "tag": "half_up_tie"
+      }
+    ],
+    "fingerprint": "4751ecfd48217c37f9027c48354e3da48ea7fcb0e9341337dbd321e532eb47ed",
+    "passed": 2,
+    "source_sha": "d94d1e63c7fb9a84548cb4dffd986f8865f53b2b04f000dc278fbdb9ef1bd561",
+    "total": 4
+  }
+}

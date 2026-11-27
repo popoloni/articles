@@ -1,0 +1,162 @@
+[
+  {
+    "id": "train_fees",
+    "split": "train",
+    "family": "money",
+    "contract": "Convert a finite decimal string in ordinary decimal notation to integer cents; round half-cent ties away from zero (ROUND_HALF_UP).",
+    "cases": [
+      {
+        "id": "train_fees_1",
+        "value": "1.125",
+        "expected": 113,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "train_fees_2",
+        "value": "-1.125",
+        "expected": -113,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "train_fees_3",
+        "value": "2.01",
+        "expected": 201,
+        "tag": "ordinary"
+      },
+      {
+        "id": "train_fees_4",
+        "value": "0",
+        "expected": 0,
+        "tag": "ordinary"
+      }
+    ]
+  },
+  {
+    "id": "train_tax",
+    "split": "train",
+    "family": "money",
+    "contract": "Convert a finite decimal string in ordinary decimal notation to integer cents; round half-cent ties away from zero (ROUND_HALF_UP).",
+    "cases": [
+      {
+        "id": "train_tax_1",
+        "value": "2.625",
+        "expected": 263,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "train_tax_2",
+        "value": "-2.625",
+        "expected": -263,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "train_tax_3",
+        "value": "9.99",
+        "expected": 999,
+        "tag": "ordinary"
+      },
+      {
+        "id": "train_tax_4",
+        "value": "0.01",
+        "expected": 1,
+        "tag": "ordinary"
+      }
+    ]
+  },
+  {
+    "id": "holdout_refunds",
+    "split": "holdout",
+    "family": "money",
+    "contract": "Convert a finite decimal string in ordinary decimal notation to integer cents; round half-cent ties away from zero (ROUND_HALF_UP).",
+    "cases": [
+      {
+        "id": "holdout_refunds_1",
+        "value": "3.125",
+        "expected": 313,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "holdout_refunds_2",
+        "value": "-3.125",
+        "expected": -313,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "holdout_refunds_3",
+        "value": "0.009",
+        "expected": 1,
+        "tag": "ordinary"
+      },
+      {
+        "id": "holdout_refunds_4",
+        "value": "99.99",
+        "expected": 9999,
+        "tag": "ordinary"
+      }
+    ]
+  },
+  {
+    "id": "holdout_invoice",
+    "split": "holdout",
+    "family": "money",
+    "contract": "Convert a finite decimal string in ordinary decimal notation to integer cents; round half-cent ties away from zero (ROUND_HALF_UP).",
+    "cases": [
+      {
+        "id": "holdout_invoice_1",
+        "value": "10.625",
+        "expected": 1063,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "holdout_invoice_2",
+        "value": "-10.625",
+        "expected": -1063,
+        "tag": "half_up_tie"
+      },
+      {
+        "id": "holdout_invoice_3",
+        "value": "123456789012345.01",
+        "expected": 12345678901234501,
+        "tag": "ordinary"
+      },
+      {
+        "id": "holdout_invoice_4",
+        "value": "0.001",
+        "expected": 0,
+        "tag": "ordinary"
+      }
+    ]
+  },
+  {
+    "id": "holdout_labels",
+    "split": "holdout",
+    "family": "text",
+    "contract": "Strip surrounding whitespace and lowercase the resulting string.",
+    "cases": [
+      {
+        "id": "holdout_labels_1",
+        "value": " ABC ",
+        "expected": "abc",
+        "tag": "normalization"
+      },
+      {
+        "id": "holdout_labels_2",
+        "value": "\tXyZ\n",
+        "expected": "xyz",
+        "tag": "normalization"
+      },
+      {
+        "id": "holdout_labels_3",
+        "value": "already",
+        "expected": "already",
+        "tag": "normalization"
+      },
+      {
+        "id": "holdout_labels_4",
+        "value": "  ",
+        "expected": "",
+        "tag": "normalization"
+      }
+    ]
+  }
+]

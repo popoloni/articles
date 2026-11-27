@@ -1,0 +1,6 @@
+{
+  "input_tokens": null,
+  "output_tokens": null,
+  "patch_id": "strip_lower",
+  "rationale": "Deterministic replay of route normalize"
+}

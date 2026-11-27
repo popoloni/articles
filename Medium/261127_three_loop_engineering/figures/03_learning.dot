@@ -1,0 +1,22 @@
+digraph Learning {
+  graph [bgcolor="white", rankdir=TB, pad=.28, nodesep=.38, ranksep=.34, fontname="DejaVu Sans", labelloc=t, label="LEARNING IS A CHANGE-CONTROL PROCESS", fontsize=22, fontcolor="#153653"];
+  node [shape=box,style="rounded,filled",fillcolor="#F1E9F8",color="#8054A6",fontcolor="#153653",fontname="DejaVu Sans",fontsize=12,margin=".16,.11"];
+  edge [fontname="DejaVu Sans",fontsize=10,color="#6B5786",arrowsize=.75];
+  train [label="TRAINING EPISODES\nRecurring failure\nValidated witness"];
+  candidate [label="CANDIDATE POLICY\nOne route change, derived from training\nFrozen before evaluation"];
+  base [label="Baseline v1\nSame held-out tasks",fillcolor="#E7F1F8",color="#397CA5"];
+  variant [label="Candidate v2\nSame held-out tasks",fillcolor="#E7F1F8",color="#397CA5"];
+  gate [shape=diamond,label="Quality + cost proxy\n+ no regression\n+ invariant controls?"];
+  reject [label="REJECT\nKeep v1",fillcolor="#F9E7E6",color="#AD5650"];
+  approve [label="OPERATOR APPROVAL\nSingle-use, bound to the evaluation digest"];
+  active [label="ACTIVE v2\nMonitor future episodes\nRollback to v1",fillcolor="#E5F3E9",color="#44865E"];
+  train -> candidate;
+  candidate -> variant;
+  candidate -> base [label="frozen comparator"];
+  {rank=same; base; variant;}
+  base -> gate; variant -> gate;
+  gate -> reject [label="fail"];
+  gate -> approve [label="pass"];
+  approve -> active [label="authorized"];
+  active -> train [label="new evidence / next cycle",constraint=false];
+}

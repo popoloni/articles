@@ -1,0 +1,30 @@
+{
+  "accepted_source": "attempt_01/implementation.py",
+  "agent": "scripted",
+  "attempts": 1,
+  "family": "money",
+  "history": [
+    {
+      "accepted": true,
+      "attempt": 1,
+      "failed": [],
+      "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "improved": true,
+      "input_tokens": null,
+      "output_tokens": null,
+      "passed": 4,
+      "patch": "decimal_half_up",
+      "plateau": 0,
+      "repeat_count": 1,
+      "route": "decimal_exact",
+      "source_sha": "59e3d7faf9ae5e71da05b894ac64f0785d64a3ff57dcec1104656f447470af9e",
+      "total": 4
+    }
+  ],
+  "policy_sha": "90ebf1276c452e9c1543ed5d838352357511f4302977afb0b135e8be712ac5c0",
+  "probes": [],
+  "reason": "all_acceptance_checks_passed",
+  "split": "holdout",
+  "status": "accepted",
+  "task": "holdout_refunds"
+}

@@ -1,0 +1,23 @@
+test_approval_is_single_use (test_three_loop.ThreeLoopTests.test_approval_is_single_use) ... ok
+test_budget_is_reserved_before_agent_call (test_three_loop.ThreeLoopTests.test_budget_is_reserved_before_agent_call) ... ok
+test_decimal_matches_contract (test_three_loop.ThreeLoopTests.test_decimal_matches_contract) ... ok
+test_demo_promote_rollback_and_reject_bad_approval (test_three_loop.ThreeLoopTests.test_demo_promote_rollback_and_reject_bad_approval) ... ok
+test_gate_rejects_failure_and_budget_relaxation (test_three_loop.ThreeLoopTests.test_gate_rejects_failure_and_budget_relaxation) ... ok
+test_hash_chain_tampering (test_three_loop.ThreeLoopTests.test_hash_chain_tampering) ... ok
+test_holdout_not_allowed_in_learning (test_three_loop.ThreeLoopTests.test_holdout_not_allowed_in_learning) ... ok
+test_invalid_patch_fails_closed (test_three_loop.ThreeLoopTests.test_invalid_patch_fails_closed) ... ok
+test_learning_derives_route_from_training_evidence (test_three_loop.ThreeLoopTests.test_learning_derives_route_from_training_evidence) ... ok
+test_learning_insufficient_evidence (test_three_loop.ThreeLoopTests.test_learning_insufficient_evidence) ... ok
+test_live_episode_with_mocked_transport (test_three_loop.ThreeLoopTests.test_live_episode_with_mocked_transport) ... ok
+test_model_adapter_headers_fences_and_stop_reason (test_three_loop.ThreeLoopTests.test_model_adapter_headers_fences_and_stop_reason) ... ok
+test_model_adapter_restricts_output_and_records_tokens (test_three_loop.ThreeLoopTests.test_model_adapter_restricts_output_and_records_tokens) ... ok
+test_modified_source_denied (test_three_loop.ThreeLoopTests.test_modified_source_denied) ... ok
+test_promotion_rejects_modified_evidence (test_three_loop.ThreeLoopTests.test_promotion_rejects_modified_evidence) ... ok
+test_repeated_failure_changes_strategy (test_three_loop.ThreeLoopTests.test_repeated_failure_changes_strategy) ... ok
+test_run_active_rejects_pointer_not_in_governance (test_three_loop.ThreeLoopTests.test_run_active_rejects_pointer_not_in_governance) ... ok
+test_verifier_failure_fails_closed (test_three_loop.ThreeLoopTests.test_verifier_failure_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 3.578s
+
+OK

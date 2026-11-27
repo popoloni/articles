@@ -1,0 +1,30 @@
+{
+  "task": "holdout_invoice",
+  "split": "holdout",
+  "family": "money",
+  "policy_sha": "90ebf1276c452e9c1543ed5d838352357511f4302977afb0b135e8be712ac5c0",
+  "agent": "scripted",
+  "status": "accepted",
+  "reason": "all_acceptance_checks_passed",
+  "attempts": 1,
+  "history": [
+    {
+      "attempt": 1,
+      "route": "decimal_exact",
+      "patch": "decimal_half_up",
+      "input_tokens": null,
+      "output_tokens": null,
+      "improved": true,
+      "repeat_count": 1,
+      "plateau": 0,
+      "passed": 4,
+      "total": 4,
+      "accepted": true,
+      "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "source_sha": "59e3d7faf9ae5e71da05b894ac64f0785d64a3ff57dcec1104656f447470af9e",
+      "failed": []
+    }
+  ],
+  "probes": [],
+  "accepted_source": "attempt_01/implementation.py"
+}

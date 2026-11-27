@@ -1,0 +1,53 @@
+{
+  "alternative": "decimal_exact",
+  "hypothesis": "HALF_UP_TIE_MISMATCH",
+  "reports": {
+    "decimal_half_up": {
+      "rows": [
+        {
+          "actual": 113,
+          "expected": 113,
+          "id": "probe_tie",
+          "passed": true,
+          "tag": "half_up_tie",
+          "value": "1.125"
+        }
+      ],
+      "summary": {
+        "accepted": true,
+        "failed": [],
+        "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "passed": 1,
+        "source_sha": "59e3d7faf9ae5e71da05b894ac64f0785d64a3ff57dcec1104656f447470af9e",
+        "total": 1
+      }
+    },
+    "float_round": {
+      "rows": [
+        {
+          "actual": 112,
+          "expected": 113,
+          "id": "probe_tie",
+          "passed": false,
+          "tag": "half_up_tie",
+          "value": "1.125"
+        }
+      ],
+      "summary": {
+        "accepted": false,
+        "failed": [
+          {
+            "id": "probe_tie",
+            "tag": "half_up_tie"
+          }
+        ],
+        "fingerprint": "e688b7291b53efa8323c279e44234f7bae41e146b3a9e9c9f5ac45e609afd89a",
+        "passed": 0,
+        "source_sha": "d94d1e63c7fb9a84548cb4dffd986f8865f53b2b04f000dc278fbdb9ef1bd561",
+        "total": 1
+      }
+    }
+  },
+  "route_under_test": "float_first",
+  "supported": true
+}

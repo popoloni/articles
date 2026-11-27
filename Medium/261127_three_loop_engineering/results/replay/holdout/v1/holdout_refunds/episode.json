@@ -1,0 +1,88 @@
+{
+  "accepted_source": "attempt_03/implementation.py",
+  "agent": "scripted",
+  "attempts": 3,
+  "family": "money",
+  "history": [
+    {
+      "accepted": false,
+      "attempt": 1,
+      "failed": [
+        {
+          "id": "holdout_refunds_1",
+          "tag": "half_up_tie"
+        },
+        {
+          "id": "holdout_refunds_2",
+          "tag": "half_up_tie"
+        }
+      ],
+      "fingerprint": "4751ecfd48217c37f9027c48354e3da48ea7fcb0e9341337dbd321e532eb47ed",
+      "improved": true,
+      "input_tokens": null,
+      "output_tokens": null,
+      "passed": 2,
+      "patch": "float_round",
+      "plateau": 0,
+      "repeat_count": 1,
+      "route": "float_first",
+      "source_sha": "d94d1e63c7fb9a84548cb4dffd986f8865f53b2b04f000dc278fbdb9ef1bd561",
+      "total": 4
+    },
+    {
+      "accepted": false,
+      "attempt": 2,
+      "failed": [
+        {
+          "id": "holdout_refunds_1",
+          "tag": "half_up_tie"
+        },
+        {
+          "id": "holdout_refunds_2",
+          "tag": "half_up_tie"
+        }
+      ],
+      "fingerprint": "4751ecfd48217c37f9027c48354e3da48ea7fcb0e9341337dbd321e532eb47ed",
+      "improved": false,
+      "input_tokens": null,
+      "output_tokens": null,
+      "passed": 2,
+      "patch": "float_round",
+      "plateau": 1,
+      "repeat_count": 2,
+      "route": "float_first",
+      "source_sha": "d94d1e63c7fb9a84548cb4dffd986f8865f53b2b04f000dc278fbdb9ef1bd561",
+      "total": 4
+    },
+    {
+      "accepted": true,
+      "attempt": 3,
+      "failed": [],
+      "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "improved": true,
+      "input_tokens": null,
+      "output_tokens": null,
+      "passed": 4,
+      "patch": "decimal_half_up",
+      "plateau": 0,
+      "repeat_count": 1,
+      "route": "decimal_exact",
+      "source_sha": "59e3d7faf9ae5e71da05b894ac64f0785d64a3ff57dcec1104656f447470af9e",
+      "total": 4
+    }
+  ],
+  "policy_sha": "9e8f975f1212076e42960a419017fa2d30b3a22ceedb3b08dede03894a2e3e7a",
+  "probes": [
+    {
+      "alternative": "decimal_exact",
+      "attempt": 2,
+      "hypothesis": "HALF_UP_TIE_MISMATCH",
+      "probe_sha": "4d78d0d09b5e63dfbb8b6aa8602169dc0e0ef83d37e3915ba947b426c5152a36",
+      "supported": true
+    }
+  ],
+  "reason": "all_acceptance_checks_passed",
+  "split": "holdout",
+  "status": "accepted",
+  "task": "holdout_refunds"
+}

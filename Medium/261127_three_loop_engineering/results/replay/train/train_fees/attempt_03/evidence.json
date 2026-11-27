@@ -1,0 +1,44 @@
+{
+  "rows": [
+    {
+      "actual": 113,
+      "expected": 113,
+      "id": "train_fees_1",
+      "passed": true,
+      "tag": "half_up_tie",
+      "value": "1.125"
+    },
+    {
+      "actual": -113,
+      "expected": -113,
+      "id": "train_fees_2",
+      "passed": true,
+      "tag": "half_up_tie",
+      "value": "-1.125"
+    },
+    {
+      "actual": 201,
+      "expected": 201,
+      "id": "train_fees_3",
+      "passed": true,
+      "tag": "ordinary",
+      "value": "2.01"
+    },
+    {
+      "actual": 0,
+      "expected": 0,
+      "id": "train_fees_4",
+      "passed": true,
+      "tag": "ordinary",
+      "value": "0"
+    }
+  ],
+  "summary": {
+    "accepted": true,
+    "failed": [],
+    "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "passed": 4,
+    "source_sha": "59e3d7faf9ae5e71da05b894ac64f0785d64a3ff57dcec1104656f447470af9e",
+    "total": 4
+  }
+}

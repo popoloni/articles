@@ -1,0 +1,8 @@
+{
+  "max_attempts": 4,
+  "money_start": "float_first",
+  "plateau_limit": 2,
+  "repeat_limit": 2,
+  "text_start": "normalize",
+  "version": "v1"
+}

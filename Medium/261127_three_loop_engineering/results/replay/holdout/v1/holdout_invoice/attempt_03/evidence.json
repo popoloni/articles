@@ -1,0 +1,44 @@
+{
+  "rows": [
+    {
+      "actual": 1063,
+      "expected": 1063,
+      "id": "holdout_invoice_1",
+      "passed": true,
+      "tag": "half_up_tie",
+      "value": "10.625"
+    },
+    {
+      "actual": -1063,
+      "expected": -1063,
+      "id": "holdout_invoice_2",
+      "passed": true,
+      "tag": "half_up_tie",
+      "value": "-10.625"
+    },
+    {
+      "actual": 12345678901234501,
+      "expected": 12345678901234501,
+      "id": "holdout_invoice_3",
+      "passed": true,
+      "tag": "ordinary",
+      "value": "123456789012345.01"
+    },
+    {
+      "actual": 0,
+      "expected": 0,
+      "id": "holdout_invoice_4",
+      "passed": true,
+      "tag": "ordinary",
+      "value": "0.001"
+    }
+  ],
+  "summary": {
+    "accepted": true,
+    "failed": [],
+    "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "passed": 4,
+    "source_sha": "59e3d7faf9ae5e71da05b894ac64f0785d64a3ff57dcec1104656f447470af9e",
+    "total": 4
+  }
+}

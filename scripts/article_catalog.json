@@ -103,5 +103,12 @@
     "topic": "Agentic engineering",
     "source": "Medium/261124_ESA_Chapter_1_Medium_Article/How_to_Build_Reliable_Software_with_AI_Coding_Agents.md",
     "description": "Expect, Delegate, Observe, Decide: a practical walkthrough of accountable change."
+  },
+  {
+    "date": "2026-11-27",
+    "slug": "three-loop-architecture-for-ai-agents",
+    "topic": "Agentic engineering",
+    "source": "Medium/261127_three_loop_engineering/article.md",
+    "description": "Execution, progress control and evaluated learning for AI agents, with a runnable three-loop reference implementation."
   }
 ]

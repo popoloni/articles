@@ -1,0 +1,56 @@
+{
+  "baseline_sha": "9e8f975f1212076e42960a419017fa2d30b3a22ceedb3b08dede03894a2e3e7a",
+  "candidate_sha": "90ebf1276c452e9c1543ed5d838352357511f4302977afb0b135e8be712ac5c0",
+  "dataset_sha": "37dcf14136715a98acc6990cd4648934d9c4251b88772ca1ae5c1fb1840cef43",
+  "policy_change": {
+    "money_start": [
+      "float_first",
+      "decimal_exact"
+    ],
+    "version": [
+      "v1",
+      "v2"
+    ]
+  },
+  "pairs": [
+    {
+      "task": "holdout_invoice",
+      "family": "money",
+      "baseline_status": "accepted",
+      "candidate_status": "accepted",
+      "baseline_attempts": 3,
+      "candidate_attempts": 1
+    },
+    {
+      "task": "holdout_labels",
+      "family": "text",
+      "baseline_status": "accepted",
+      "candidate_status": "accepted",
+      "baseline_attempts": 1,
+      "candidate_attempts": 1
+    },
+    {
+      "task": "holdout_refunds",
+      "family": "money",
+      "baseline_status": "accepted",
+      "candidate_status": "accepted",
+      "baseline_attempts": 3,
+      "candidate_attempts": 1
+    }
+  ],
+  "baseline_attempts": 7,
+  "candidate_attempts": 3,
+  "checks": {
+    "only_authorized_policy_change": true,
+    "target_and_control_present": true,
+    "all_baseline_and_candidate_accepted": true,
+    "no_per_task_attempt_regression": true,
+    "control_unchanged": true,
+    "strict_total_attempt_improvement": true
+  },
+  "recommended": true,
+  "baseline_reports_sha": "954f038f2e1fc6c420ad6ea9d6f11807dc8c857480f1c6e10dda474a7c4add1f",
+  "candidate_reports_sha": "7658c9f3cf13ae47eb357fdff51d2cd7226191bdcfc3b268a12fcdcd69e2968f",
+  "approval_digest": "f6d7abfff85375311166b7a897e44230fc5275ccc382f53ae3622571504ca469",
+  "active_policy": "v1"
+}
